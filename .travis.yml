@@ -5,7 +5,6 @@ android:
     - build-tools-28.0.3
     - android-28
     - sys-img-x86_64-google_apis-28
-    - tools
 before_script:
   - echo no | avdmanager create avd --force -n test --package 'system-images;android-28;google_apis;x86_64' -c 100M
   - emulator -avd test -no-audio -no-window &
