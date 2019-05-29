@@ -5,7 +5,7 @@ android:
     - build-tools-28.0.3
     - android-21
     - android-28
-    - sys-img-x86_64-android-21
+    - sys-img-x86_64-google_apis-21
 before_script:
   - echo no | android create avd --force -n test -t android-21 --abi x86_64 -c 100M
   - emulator -avd test -no-audio -no-window &
