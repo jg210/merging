@@ -11,3 +11,8 @@
 /build
 /captures
 .externalNativeBuild
+
+# emacs
+*~
+.#*
+\#*#
