@@ -1,4 +1,7 @@
-* Can CircleCI test on older android emulators?
+* Save apk as artifact on CircleCI.
+
+* Test app on Firebase.
+  - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
 
 * Configure android lint
   - tune priorities.
