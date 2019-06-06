@@ -1,1 +1,1 @@
-[![Build Status](https://travis-ci.com/jg210/merging.svg?branch=master)](https://travis-ci.com/jg210/merging)
+[![CircleCI](https://circleci.com/gh/jg210/merging.svg?style=svg)](https://circleci.com/gh/jg210/merging)
