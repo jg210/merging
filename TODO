@@ -1,0 +1,7 @@
+* Can CircleCI test on older android emulators?
+
+* Configure android lint
+  - tune priorities.
+  - make CircleCI fail.
+
+* Spotbugs.
