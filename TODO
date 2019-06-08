@@ -2,11 +2,15 @@
 
 * Store photo in private directory.
 
-* Delete photo files on exit.
+* Allow taking of multiple photos.
+
+* Show merged photo.
 
 * Landscape/portrait support.
 
-* Allow taking of multiple photos.
+* Long press to remove photo.
+
+* Confirmation before removing photo.
 
 * Handle app rejected permissions.
 
