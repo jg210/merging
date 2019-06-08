@@ -1,3 +1,8 @@
+* Replace launcher icons.
+  - Rubin's vase.
+
+* Change app title.
+
 * Save apk as artifact on CircleCI.
 
 * Test app on Firebase.
@@ -8,3 +13,9 @@
   - make CircleCI fail.
 
 * Spotbugs.
+
+* Publish to store.
+
+* Firebase analytics.
+
+* Crash reporting tool.
