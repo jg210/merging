@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import java.util.*
 
 class AddImageFragment : ScreenFragment() {
 
+    private val TAG = "AddImageFragment"
     private val REQUEST_TAKE_PHOTO = 1
     private val PICTURES: String = Environment.DIRECTORY_PICTURES
     var currentPhotoPath: String? = null // TODO remove
@@ -65,11 +67,15 @@ class AddImageFragment : ScreenFragment() {
         }
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
-//            setImage()
-//        }
-//    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
+            addImage()
+        }
+    }
+
+    private fun addImage() {
+        Log.i(TAG, "adding image")
+    }
 
 }
