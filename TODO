@@ -1,7 +1,3 @@
-* Clean up photo-taking code.
-
-* Store photo in private directory.
-
 * Allow taking of multiple photos.
 
 * Show merged photo.
