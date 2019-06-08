@@ -1,7 +1,23 @@
+* Clean up photo-taking code.
+
+* Store photo in private directory.
+
+* Delete photo files on exit.
+
+* Landscape/portrait support.
+
+* Allow taking of multiple photos.
+
+* Handle app rejected permissions.
+
 * Replace launcher icons.
   - Rubin's vase.
 
 * Change app title.
+
+* If possible, stop camera app asking for location permission.
+
+* What happens if Camera app isn't given location permission?
 
 * Save apk as artifact on CircleCI.
 
