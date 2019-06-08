@@ -19,52 +19,51 @@ import java.util.*
 
 class AddImageFragment : ScreenFragment() {
 
+    private val REQUEST_TAKE_PHOTO = 1
+    private val PICTURES: String = Environment.DIRECTORY_PICTURES
+    var currentPhotoPath: String? = null // TODO remove
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.add_image_screen, container, false)
-        //addImageScreen.setOnClickListener { takePhoto }
-        return view
+        return inflater.inflate(R.layout.add_image_screen, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        addImageScreen.setOnClickListener { takePhoto() }
+    }
 
+    private fun takePhoto() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.resolveActivity(requireActivity().packageManager)?.also {
+            val photoFile: File? = try {
+                createImageFile()
+            } catch (ex: IOException) {
+                null
+            }
+            photoFile?.also {
+                val photoURI: Uri = FileProvider.getUriForFile(
+                    requireContext(),
+                    "uk.me.jeremygreen.merging.fileprovider",
+                    it
+                )
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                startActivityForResult(intent, REQUEST_TAKE_PHOTO)
+            }
+        }
+    }
 
-//    private val REQUEST_TAKE_PHOTO = 1
-//    private val PICTURES: String = Environment.DIRECTORY_PICTURES
-//    var currentPhotoPath: String? = null
-
-
-//    private fun takePhoto() {
-//        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        intent.resolveActivity(packageManager)?.also {
-//            val photoFile: File? = try {
-//                createImageFile()
-//            } catch (ex: IOException) {
-//                null
-//            }
-//            photoFile?.also {
-//                val photoURI: Uri = FileProvider.getUriForFile(
-//                    this,
-//                    "uk.me.jeremygreen.merging.fileprovider",
-//                    it
-//                )
-//                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-//                startActivityForResult(intent, REQUEST_TAKE_PHOTO)
-//            }
-//        }
-//    }
-
-//    @Throws(IOException::class)
-//    private fun createImageFile(): File {
-//        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-//        val storageDir: File? = getExternalFilesDir(PICTURES)
-//        return File.createTempFile(
-//            "JPEG_${timeStamp}_",
-//            ".jpg",
-//            storageDir
-//        ).apply {
-//            // Save a file: path for use with ACTION_VIEW intents
-//            currentPhotoPath = absolutePath
-//        }
-//    }
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File? = requireActivity().getExternalFilesDir(PICTURES)
+        return File.createTempFile(
+            "JPEG_${timeStamp}_",
+            ".jpg",
+            storageDir
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+        }
+    }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        super.onActivityResult(requestCode, resultCode, data)
