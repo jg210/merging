@@ -1,10 +1,19 @@
 * Allow taking of multiple photos.
+  - https://developer.android.com/training/animation/screen-slide
+    - ViewPager and Fragments.
+    - FragmentTransaction
+
+* String resource for +
+
+* Better way of sizing the +.
 
 * Show merged photo.
 
 * Landscape/portrait support.
 
 * Long press to remove photo.
+  - https://developer.android.com/reference/androidx/viewpager/widget/PagerAdapter.html#notifyDataSetChanged()
+  - make sure new filenames account for any holes in sequence.
 
 * Confirmation before removing photo.
 
