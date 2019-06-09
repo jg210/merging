@@ -23,14 +23,15 @@ class MainActivity : FragmentActivity() {
         setContentView(R.layout.content_main)
         val pagerAdapter = ScreenPagerAdapter(supportFragmentManager, photoManager)
         pager.adapter = pagerAdapter
+        photoManager.addChangeListener(pagerAdapter)
     }
 
     private inner class ScreenPagerAdapter(
         fragmentManager: FragmentManager,
         val photoManager: PhotoManager
-    ) : FragmentStatePagerAdapter(fragmentManager) {
+    ) : FragmentStatePagerAdapter(fragmentManager),
+        PhotoManager.ChangeListener {
 
-        // TODO Update property when set of photos changes.
         var photos: List<File>  by Delegates.observable(photoManager.photos) { _, old, new ->
             if (old != new) {
                 // This must be called whenever getCount() will return a new value.
@@ -38,10 +39,17 @@ class MainActivity : FragmentActivity() {
             }
         }
 
+        // From PhotoManager.ChangeListener
+        override fun onPhotosChange(files: List<File>) {
+            photos = files
+        }
+
+        // From PageAdapter
         override fun getCount(): Int {
             return photos.size + 1;
         }
 
+        // From PageAdapter
         override fun getItem(position: Int): Fragment {
             if (position < photos.size) {
                 return ImageFragment(photos[position])

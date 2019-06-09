@@ -3,15 +3,11 @@ package uk.me.jeremygreen.merging
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.core.content.FileProvider
-import androidx.fragment.app.Fragment
 import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
 class PhotoManager(
     val context: Context,
@@ -19,16 +15,21 @@ class PhotoManager(
 
     private val TAG = "PhotoManager"
     private val EXTENSION = ".jpg"
-    private var currentPhotoFile: File? = null
     val photos: List<File>
         get() {
             return photosDir.listFiles().sorted().filter { file ->
                 file.name.endsWith(EXTENSION)
             }
         }
+    private val changeListeners: MutableList<PhotoManager.ChangeListener> = mutableListOf()
+    private var currentPhotoFile: File? = null
 
     init {
         photosDir.mkdirs()
+    }
+
+    fun addChangeListener(listener: PhotoManager.ChangeListener) {
+        changeListeners.add(listener)
     }
 
     fun createTakePhotoIntent(): Intent? {
@@ -71,6 +72,14 @@ class PhotoManager(
         }
         Log.i(TAG, "adding image: ${currentPhotoFile}")
         currentPhotoFile = null
+        val currentPhotos = photos
+        changeListeners.forEach { listener ->
+            listener.onPhotosChange(currentPhotos)
+        }
+    }
+
+    interface ChangeListener {
+        fun onPhotosChange(files: List<File>)
     }
 
 }
