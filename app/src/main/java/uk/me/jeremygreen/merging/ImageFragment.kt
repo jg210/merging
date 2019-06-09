@@ -1,5 +1,7 @@
 package uk.me.jeremygreen.merging
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,7 +41,7 @@ class ImageFragment : ScreenFragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
         imageView.setOnLongClickListener {
-            photoManager.removeImage(file)
+            handleLongClick()
             false // not consumed
         }
         // Can't load image until know its size, so postpone until after layout.
@@ -60,6 +62,28 @@ class ImageFragment : ScreenFragment() {
                 imageView.setImageBitmap(bitmap)
             }
         })
+    }
+
+    fun handleLongClick() {
+        AlertDialog.Builder(requireContext()).apply {
+            setMessage(R.string.confirm_delete_photo)
+            setPositiveButton(R.string.ok, DialogInterface.OnClickListener(function = ::handleRemoveImage))
+            setNegativeButton(R.string.cancel, DialogInterface.OnClickListener(function = ::handleRemoveImageCancel))
+            show()
+        }
+    }
+
+    fun handleRemoveImage(
+        @Suppress("UNUSED_PARAMETER") dialog: DialogInterface,
+        @Suppress("UNUSED_PARAMETER") which: Int
+    ) {
+        photoManager.removeImage(file)
+    }
+
+    fun handleRemoveImageCancel(
+        @Suppress("UNUSED_PARAMETER") dialog: DialogInterface,
+        @Suppress("UNUSED_PARAMETER") which: Int) {
+        // Empty
     }
 
 }
