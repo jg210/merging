@@ -18,12 +18,10 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddImageFragment : ScreenFragment() {
+class AddImageFragment(val photoManager: PhotoManager) : ScreenFragment() {
 
     private val TAG = "AddImageFragment"
     private val REQUEST_TAKE_PHOTO = 1
-    private val PICTURES: String = Environment.DIRECTORY_PICTURES
-    var currentPhotoPath: String? = null // TODO remove
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.add_image_screen, container, false)
@@ -34,48 +32,15 @@ class AddImageFragment : ScreenFragment() {
     }
 
     private fun takePhoto() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        intent.resolveActivity(requireActivity().packageManager)?.also {
-            val photoFile: File? = try {
-                createImageFile()
-            } catch (ex: IOException) {
-                null
-            }
-            photoFile?.also {
-                val photoURI: Uri = FileProvider.getUriForFile(
-                    requireContext(),
-                    "uk.me.jeremygreen.merging.fileprovider",
-                    it
-                )
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                startActivityForResult(intent, REQUEST_TAKE_PHOTO)
-            }
-        }
-    }
-
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File? = requireActivity().getExternalFilesDir(PICTURES)
-        return File.createTempFile(
-            "JPEG_${timeStamp}_",
-            ".jpg",
-            storageDir
-        ).apply {
-            // Save a file: path for use with ACTION_VIEW intents
-            currentPhotoPath = absolutePath
-        }
+        val intent = photoManager.createTakePhotoIntent()
+        startActivityForResult(intent, REQUEST_TAKE_PHOTO)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
-            addImage()
+            photoManager.addImage()
         }
-    }
-
-    private fun addImage() {
-        Log.i(TAG, "adding image")
     }
 
 }

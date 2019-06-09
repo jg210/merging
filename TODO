@@ -17,6 +17,8 @@
 
 * Confirmation before removing photo.
 
+* Persistent PageSlider state.
+
 * Handle app rejected permissions.
 
 * Replace launcher icons.
