@@ -23,17 +23,24 @@ class AddImageFragment(val photoManager: PhotoManager) : ScreenFragment() {
     private val TAG = "AddImageFragment"
     private val REQUEST_TAKE_PHOTO = 1
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.add_image_screen, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        addImageScreen.setOnClickListener { takePhoto() }
+        addImageScreen.setOnClickListener { handleTakePhoto() }
     }
 
-    private fun takePhoto() {
+    private fun handleTakePhoto() {
         val intent = photoManager.createTakePhotoIntent()
-        startActivityForResult(intent, REQUEST_TAKE_PHOTO)
+        if (intent == null) {
+            Log.w(TAG, "No camera application available.")
+        } else {
+            startActivityForResult(intent, REQUEST_TAKE_PHOTO)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

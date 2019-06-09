@@ -1,6 +1,7 @@
 package uk.me.jeremygreen.merging
 
 import android.os.Bundle
+import android.os.Environment
 import android.os.PersistableBundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -18,7 +19,8 @@ class MainActivity : FragmentActivity() {
         setContentView(R.layout.content_main)
         val pagerAdapter = ScreenPagerAdapter(supportFragmentManager)
         pager.adapter = pagerAdapter
-        photoManager = PhotoManager(this);
+        val photosDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        photoManager = PhotoManager(this, photosDir);
     }
 
     private inner class ScreenPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {

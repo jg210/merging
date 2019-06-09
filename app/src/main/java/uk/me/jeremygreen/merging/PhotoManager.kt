@@ -13,12 +13,13 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PhotoManager(val context: Context) {
+class PhotoManager(
+    val context: Context,
+    val photosDir: File) {
 
     private val TAG = "PhotoManager"
-    private val PICTURES: String = Environment.DIRECTORY_PICTURES
-    var currentPhotoFile: File? = null
-
+    private var currentPhotoFile: File? = null
+    
     fun createTakePhotoIntent(): Intent? {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val cameraActivity = intent.resolveActivity(context.packageManager)
@@ -42,11 +43,10 @@ class PhotoManager(val context: Context) {
     @Throws(IOException::class)
     private fun createImageFile(): File {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File = context.getExternalFilesDir(PICTURES)
         val file = File.createTempFile(
             "JPEG_${timeStamp}_",
             ".jpg",
-            storageDir
+            photosDir
         )
         currentPhotoFile = file
         return file
