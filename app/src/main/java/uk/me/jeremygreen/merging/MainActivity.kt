@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 
 import kotlinx.android.synthetic.main.content_main.*
+import java.io.File
 
 class MainActivity : FragmentActivity() {
 
@@ -19,7 +20,7 @@ class MainActivity : FragmentActivity() {
         setContentView(R.layout.content_main)
         val pagerAdapter = ScreenPagerAdapter(supportFragmentManager)
         pager.adapter = pagerAdapter
-        val photosDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val photosDir = File(filesDir, "photos")
         photoManager = PhotoManager(this, photosDir);
     }
 

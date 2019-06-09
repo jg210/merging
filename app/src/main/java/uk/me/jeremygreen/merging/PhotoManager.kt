@@ -19,7 +19,11 @@ class PhotoManager(
 
     private val TAG = "PhotoManager"
     private var currentPhotoFile: File? = null
-    
+
+    init {
+        photosDir.mkdirs()
+    }
+
     fun createTakePhotoIntent(): Intent? {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val cameraActivity = intent.resolveActivity(context.packageManager)
