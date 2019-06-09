@@ -20,11 +20,11 @@ class PhotoManager(
     private val TAG = "PhotoManager"
     private val EXTENSION = ".jpg"
     private var currentPhotoFile: File? = null
-    val photoCount: Int
+    val photos: List<File>
         get() {
-            var count = 0
-            eachPhoto { count++ }
-            return count
+            return photosDir.listFiles().sorted().filter { file ->
+                file.name.endsWith(EXTENSION)
+            }
         }
 
     init {
@@ -51,19 +51,10 @@ class PhotoManager(
         return intent
     }
 
-    private inline fun eachPhoto(crossinline callback: (File) -> Unit) {
-        photosDir.listFiles().sorted().forEach { file ->
-            if (file.toString().endsWith(EXTENSION)) {
-                callback(file)
-            }
-            true // keep iterating
-        }
-    }
-
     @Throws(IOException::class)
     private fun createImageFile(): File {
         var nextIndex = 0
-        eachPhoto { file ->
+        photos.forEach { file ->
             val index = Integer.parseInt(file.nameWithoutExtension)
             if (index >= nextIndex) {
                 nextIndex = index + 1

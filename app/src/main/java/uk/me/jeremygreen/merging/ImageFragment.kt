@@ -5,35 +5,38 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.image_screen.*
+import java.io.File
 
-class ImageFragment(val position: Int) : ScreenFragment() {
+class ImageFragment(val file: File) : ScreenFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.image_screen, container, false)
     }
 
-//    private fun setImage() {
-//        val targetW: Int = imageView.width
-//        val targetH: Int = imageView.height
-//        val bmOptions = BitmapFactory.Options().apply {
-//            // Get the dimensions of the bitmap
-//            inJustDecodeBounds = true
-//            BitmapFactory.decodeFile(currentPhotoPath, this)
-//            val photoW: Int = outWidth
-//            val photoH: Int = outHeight
-//
-//            // Determine how much to scale down the image
-//            val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
-//
-//            // Decode the image file into a Bitmap sized to fill the View
-//            inJustDecodeBounds = false
-//            inSampleSize = scaleFactor
-//            inPurgeable = true
-//        }
-//        BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
-//            imageView.setImageBitmap(bitmap)
-//        }
-//    }
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        imageView.addOnLayoutChangeListener(View.OnLayoutChangeListener() {
+                _, _, _, _, _, _, _, _, _ ->
+            val targetW: Int = imageView.width
+            val targetH: Int = imageView.height
+            val bmOptions = BitmapFactory.Options().apply {
+                inJustDecodeBounds = true // Decode, just getting bounds.
+                BitmapFactory.decodeFile(file.path, this)
+                val photoW: Int = outWidth
+                val photoH: Int = outHeight
+                val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
+                inJustDecodeBounds = false  // Decode again, fully.
+                inSampleSize = scaleFactor
+            }
+            BitmapFactory.decodeFile(file.path, bmOptions)?.also { bitmap ->
+                imageView.setImageBitmap(bitmap)
+            }
+        })
+    }
 
 }
