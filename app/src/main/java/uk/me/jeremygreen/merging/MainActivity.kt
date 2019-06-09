@@ -2,6 +2,7 @@ package uk.me.jeremygreen.merging
 
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -44,18 +45,26 @@ class MainActivity : FragmentActivity() {
             photos = files
         }
 
-        // From PageAdapter
+        // From PagerAdapter
         override fun getCount(): Int {
             return photos.size + 1;
         }
 
-        // From PageAdapter
+        // From PagerAdapter
         override fun getItem(position: Int): Fragment {
             if (position < photos.size) {
-                return ImageFragment(photos[position])
+                return ImageFragment(photoManager, photos[position])
             } else {
                 return AddImageFragment(photoManager)
             }
+        }
+
+        // From PagerAdapter
+        override fun getItemPosition(`object`: Any): Int {
+            // Need to return POSITION_NONE in general, otherwise deleted photos aren't removed from the ViewPager.
+            // TODO for efficiency, only return POSITION_NONE if necessary.
+            // ...https://stackoverflow.com/questions/10849552/update-viewpager-dynamically/10852046#10852046
+            return FragmentStatePagerAdapter.POSITION_NONE
         }
 
     } // ScreenPagerAdapter

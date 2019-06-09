@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.core.content.FileProvider
 import java.io.File
 import java.io.IOException
+import java.lang.IllegalArgumentException
 
 class PhotoManager(
     val context: Context,
@@ -72,10 +73,28 @@ class PhotoManager(
         }
         Log.i(TAG, "adding image: ${currentPhotoFile}")
         currentPhotoFile = null
+        notifiyListeners()
+    }
+
+    private fun notifiyListeners() {
         val currentPhotos = photos
         changeListeners.forEach { listener ->
             listener.onPhotosChange(currentPhotos)
         }
+    }
+
+    fun removeImage(file: File) {
+        if (file.parentFile.canonicalFile != photosDir.canonicalFile) {
+            throw IllegalArgumentException(file.path)
+        }
+        if (!file.delete()) {
+            if (file.exists()) {
+                throw IOException("failed to delete: ${file.path}")
+            } else {
+                throw IOException("already absent: ${file.path}")
+            }
+        }
+        notifiyListeners()
     }
 
     interface ChangeListener {

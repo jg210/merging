@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.image_screen.*
 import java.io.File
 
-class ImageFragment(val file: File) : ScreenFragment() {
+class ImageFragment(
+    val photoManager: PhotoManager,
+    val file: File
+) : ScreenFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,8 +21,15 @@ class ImageFragment(val file: File) : ScreenFragment() {
         return inflater.inflate(R.layout.image_screen, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
+        imageView.setOnLongClickListener {
+            photoManager.removeImage(file)
+            false // not consumed
+        }
         imageView.addOnLayoutChangeListener(View.OnLayoutChangeListener() {
                 _, _, _, _, _, _, _, _, _ ->
             val targetW: Int = imageView.width

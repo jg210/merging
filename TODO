@@ -1,8 +1,3 @@
-* Allow taking of multiple photos.
-  - https://developer.android.com/training/animation/screen-slide
-    - ViewPager and Fragments.
-    - FragmentTransaction
-
 * String resource for +
 
 * Better way of sizing the +.
@@ -10,10 +5,6 @@
 * Show merged photo.
 
 * Landscape/portrait support.
-
-* Long press to remove photo.
-  - https://developer.android.com/reference/androidx/viewpager/widget/PagerAdapter.html#notifyDataSetChanged()
-  - make sure new filenames account for any holes in sequence.
 
 * Confirmation before removing photo.
 
@@ -27,6 +18,8 @@
   - Rubin's vase.
 
 * Change app title.
+
+* Toggleable overlay showing debug info.
 
 * If possible, stop camera app asking for location permission.
 
@@ -50,3 +43,5 @@
 * Crash reporting tool.
 
 * Use fresco for decoding images?
+
+* Only return POSITION_NONE in PagerAdapter if position has changed/gone.
