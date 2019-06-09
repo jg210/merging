@@ -1,12 +1,15 @@
 * Only return POSITION_NONE in PagerAdapter if position has changed/gone.
 
+* Landscape/portrait support.
+  - crashes on rotation.
+
+* Photos are shown rotated on real device.
+
 * String resource for +
 
 * Better way of sizing the +.
 
 * Show merged photo.
-
-* Landscape/portrait support.
 
 * Confirmation before removing photo.
 
