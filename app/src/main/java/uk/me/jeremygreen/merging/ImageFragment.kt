@@ -30,6 +30,7 @@ class ImageFragment(
             photoManager.removeImage(file)
             false // not consumed
         }
+        // Can't load image until know its size, so postpone until after layout.
         imageView.addOnLayoutChangeListener(View.OnLayoutChangeListener() {
                 _, _, _, _, _, _, _, _, _ ->
             val targetW: Int = imageView.width
