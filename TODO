@@ -1,14 +1,6 @@
-* crashes on rotation on device (but not in emulator).
-  - calling a missing no-args Fragment constructor
-    => can't pass parameters into Fragment constructors
-    - required to distinguish images
-      - pass File via String in Fragments' arguments Bundles
-        - https://stackoverflow.com/questions/5425568/how-to-use-setarguments-and-getarguments-methods-in-fragments
-    - required for PhotoManager
-      - https://developer.android.com/training/basics/fragments/communicating
-
 * Only return POSITION_NONE in PagerAdapter if position has changed/gone.
   - performance is poor otherwise.
+  - and/or use fresco?
 
 * Photos are shown rotated on real device.
 
@@ -55,5 +47,3 @@
 * Firebase analytics.
 
 * Crash reporting tool.
-
-* Use fresco for decoding images?
