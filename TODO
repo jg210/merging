@@ -2,6 +2,8 @@
 
 * Landscape/portrait support.
   - crashes on rotation.
+    - calling a missing no-args constructor
+      => can't pass parameters into Fragment constructors
 
 * Photos are shown rotated on real device.
 

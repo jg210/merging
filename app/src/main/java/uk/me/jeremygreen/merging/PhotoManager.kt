@@ -12,7 +12,7 @@ import java.lang.IllegalArgumentException
 
 class PhotoManager(
     val context: Context,
-    val photosDir: File) {
+    val photosDir: File = File(context.filesDir, "photos")) {
 
     private val TAG = "PhotoManager"
     private val EXTENSION = ".jpg"

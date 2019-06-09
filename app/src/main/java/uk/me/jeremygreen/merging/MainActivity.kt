@@ -18,8 +18,7 @@ class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val photosDir = File(filesDir, "photos")
-        val photoManager = PhotoManager(this, photosDir);
+        val photoManager = PhotoManager(this);
         Log.i(TAG, "photo-manager photo count: ${photoManager.photos.size}")
         setContentView(R.layout.content_main)
         val pagerAdapter = ScreenPagerAdapter(supportFragmentManager, photoManager)
