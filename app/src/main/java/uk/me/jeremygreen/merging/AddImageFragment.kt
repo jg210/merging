@@ -2,23 +2,14 @@ package uk.me.jeremygreen.merging
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.FileProvider
 import kotlinx.android.synthetic.main.add_image_screen.*
-import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
-class AddImageFragment(val photoManager: PhotoManager) : ScreenFragment() {
+class AddImageFragment : ScreenFragment() {
 
     private val TAG = "AddImageFragment"
     private val REQUEST_TAKE_PHOTO = 1

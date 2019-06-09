@@ -8,16 +8,28 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.image_screen.*
 import java.io.File
 
-class ImageFragment(
-    val photoManager: PhotoManager,
-    val file: File
-) : ScreenFragment() {
+class ImageFragment : ScreenFragment() {
+
+    companion object {
+        fun newInstance(file: File): ImageFragment {
+            return ImageFragment().apply {
+                arguments = Bundle().apply {
+                    putString(BUNDLE_KEY__IMAGE_FILE, file.path)
+                }
+            }
+        }
+    }
+
+    val BUNDLE_KEY__IMAGE_FILE = "imageFile"
+    lateinit var file: File
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val bundle = arguments
+        file= File(bundle!!.getString(BUNDLE_KEY__IMAGE_FILE))
         return inflater.inflate(R.layout.image_screen, container, false)
     }
 

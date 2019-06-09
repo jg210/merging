@@ -1,8 +1,6 @@
 package uk.me.jeremygreen.merging
 
 import android.os.Bundle
-import android.util.Log
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -16,14 +14,21 @@ class MainActivity : FragmentActivity() {
 
     private val TAG = "MainActivity"
 
+    private val photoManager: PhotoManager by lazy { PhotoManager(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val photoManager = PhotoManager(this);
-        Log.i(TAG, "photo-manager photo count: ${photoManager.photos.size}")
         setContentView(R.layout.content_main)
         val pagerAdapter = ScreenPagerAdapter(supportFragmentManager, photoManager)
         pager.adapter = pagerAdapter
         photoManager.addChangeListener(pagerAdapter)
+    }
+
+    override fun onAttachFragment(fragment: Fragment?) {
+        super.onAttachFragment(fragment)
+        if (fragment is ScreenFragment) {
+            fragment.photoManager = photoManager
+        }
     }
 
     private inner class ScreenPagerAdapter(
@@ -52,9 +57,9 @@ class MainActivity : FragmentActivity() {
         // From PagerAdapter
         override fun getItem(position: Int): Fragment {
             if (position < photos.size) {
-                return ImageFragment(photoManager, photos[position])
+                return ImageFragment.newInstance(photos[position])
             } else {
-                return AddImageFragment(photoManager)
+                return AddImageFragment()
             }
         }
 

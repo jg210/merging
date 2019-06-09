@@ -4,4 +4,6 @@ import androidx.fragment.app.Fragment
 
 abstract class ScreenFragment : Fragment() {
 
+    lateinit var photoManager: PhotoManager
+
 }

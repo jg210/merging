@@ -11,8 +11,9 @@ import java.io.IOException
 import java.lang.IllegalArgumentException
 
 class PhotoManager(
-    val context: Context,
-    val photosDir: File = File(context.filesDir, "photos")) {
+    private val context: Context,
+    private val photosDir: File = File(context.filesDir, "photos")
+) {
 
     private val TAG = "PhotoManager"
     private val EXTENSION = ".jpg"
