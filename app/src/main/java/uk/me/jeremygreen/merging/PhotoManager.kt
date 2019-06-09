@@ -30,7 +30,7 @@ class PhotoManager(
         if (cameraActivity == null) {
             return null
         }
-        val photoFile: File = try {
+        val photoFile = try {
             createImageFile()
         } catch (ex: IOException) {
             return null
@@ -46,14 +46,16 @@ class PhotoManager(
 
     @Throws(IOException::class)
     private fun createImageFile(): File {
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val file = File.createTempFile(
-            "JPEG_${timeStamp}_",
-            ".jpg",
-            photosDir
-        )
-        currentPhotoFile = file
-        return file
+        var nextIndex = 0
+        photosDir.listFiles().forEach { file ->
+            val index = Integer.parseInt(file.nameWithoutExtension)
+            if (index >= nextIndex) {
+                nextIndex = index + 1
+            }
+        }
+        val photoFile = File(photosDir, "${nextIndex}.jpg")
+        currentPhotoFile = photoFile
+        return photoFile
     }
 
     fun addImage() {

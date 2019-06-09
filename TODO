@@ -19,6 +19,8 @@
 
 * Persistent PageSlider state.
 
+* If wipe AVD data and deny location permission, then camera app doesn't send photo back to app.
+
 * Handle app rejected permissions.
 
 * Replace launcher icons.
