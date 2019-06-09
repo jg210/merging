@@ -1,5 +1,5 @@
-* Only return POSITION_NONE in PagerAdapter if position has changed/gone.
-  - performance is poor otherwise.
+* Poor swiping performance.
+  - only return POSITION_NONE in PagerAdapter if position has changed/gone.
   - and/or use fresco?
 
 * Photos are shown rotated on real device.
@@ -8,8 +8,6 @@
 
 * Show merged photo.
 
-* Persistent PageSlider state.
-
 * If wipe AVD data and deny location permission, then camera app doesn't send photo back to app.
 
 * Handle app rejected permissions.
@@ -17,7 +15,7 @@
 * Replace launcher icons.
   - Rubin's vase.
 
-* Change app title.
+* Better app_name.
 
 * Toggleable overlay showing debug info.
 
@@ -41,3 +39,5 @@
 * Firebase analytics.
 
 * Crash reporting tool.
+
+* Persistent PageSlider state.
