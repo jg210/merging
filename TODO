@@ -1,3 +1,5 @@
+* Only return POSITION_NONE in PagerAdapter if position has changed/gone.
+
 * String resource for +
 
 * Better way of sizing the +.
@@ -43,5 +45,3 @@
 * Crash reporting tool.
 
 * Use fresco for decoding images?
-
-* Only return POSITION_NONE in PagerAdapter if position has changed/gone.
