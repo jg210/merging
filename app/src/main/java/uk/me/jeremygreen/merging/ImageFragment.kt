@@ -29,7 +29,7 @@ class ImageFragment : ScreenFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val bundle = arguments
-        file= File(bundle!!.getString(BUNDLE_KEY__IMAGE_FILE))
+        file = File(bundle!!.getString(BUNDLE_KEY__IMAGE_FILE))
         return inflater.inflate(R.layout.image_screen, container, false)
     }
 
