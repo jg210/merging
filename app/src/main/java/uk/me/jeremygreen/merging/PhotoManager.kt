@@ -19,9 +19,10 @@ class PhotoManager(
     private val EXTENSION = ".jpg"
     val photos: List<File>
         get() {
-            return photosDir.listFiles().sorted().filter { file ->
-                file.name.endsWith(EXTENSION)
-            }
+            return photosDir.
+                listFiles().
+                filter { file -> file.name.endsWith(EXTENSION) }.
+                sortedBy { file -> Integer.parseInt(file.nameWithoutExtension) }
         }
     private val changeListeners: MutableList<PhotoManager.ChangeListener> = mutableListOf()
     private var currentPhotoFile: File? = null
@@ -56,12 +57,11 @@ class PhotoManager(
 
     @Throws(IOException::class)
     private fun createImageFile(): File {
-        var nextIndex = 0
-        photos.forEach { file ->
-            val index = Integer.parseInt(file.nameWithoutExtension)
-            if (index >= nextIndex) {
-                nextIndex = index + 1
-            }
+        val lastFile = photos.lastOrNull()
+        val nextIndex = if (lastFile == null) {
+            0
+        } else {
+            Integer.parseInt(lastFile.nameWithoutExtension) + 1
         }
         val photoFile = File(photosDir, "${nextIndex}.jpg")
         currentPhotoFile = photoFile
