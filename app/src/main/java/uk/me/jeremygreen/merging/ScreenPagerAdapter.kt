@@ -16,7 +16,7 @@ class ScreenPagerAdapter(
 ) : FragmentStatePagerAdapter(fragmentManager),
     PhotoManager.ChangeListener {
 
-    private val TAG = "ScreenPagerActivity"
+    private val TAG = "ScreenPagerAdapter"
     private val fragments: MutableSet<Fragment> = mutableSetOf()
 
     var photos: List<File>  by Delegates.observable(photoManager.photos) { _, old, new ->
