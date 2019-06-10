@@ -72,12 +72,21 @@ class ScreenPagerAdapter(
         return position
     }
 
+    // From PagerAdapter
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val item = super.instantiateItem(container, position)
         Log.v(TAG, "instantiateItem(${position}) = ${item}")
         return item
     }
 
+    // From PagerAdapter
+    override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
+        super.destroyItem(container, position, obj)
+        Log.v(TAG, "destroyItem(${position}, ${obj})")
+        fragments.remove(obj)
+    }
+
+    // From PagerAdapter
     override fun isViewFromObject(view: View, obj: Any): Boolean {
         val result = super.isViewFromObject(view, obj)
         Log.v(TAG, "isViewFromObject(${view},${obj}) = ${result}")
