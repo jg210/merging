@@ -16,6 +16,8 @@
 
 * Show merged photo.
 
+* Better unit tests.
+
 * If wipe AVD data and deny location permission, then camera app doesn't send photo back to app.
 
 * Handle app rejected permissions.
