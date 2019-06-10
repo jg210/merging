@@ -43,7 +43,7 @@ class MainActivity : FragmentActivity() {
 
         var photos: List<File>  by Delegates.observable(photoManager.photos) { _, old, new ->
             if (old != new) {
-                Log.d(TAG, "notfifyDataSetChanged()")
+                Log.v(TAG, "notfifyDataSetChanged()")
                 // Could leave Fragments that haven't moved in the MutableSet, but
                 // it's easier to just remove them all, so that all the Fragments
                 // are recreated.
@@ -57,20 +57,20 @@ class MainActivity : FragmentActivity() {
 
         // From PhotoManager.ChangeListener
         override fun onPhotosChange(files: List<File>) {
-            Log.d(TAG, "onPhotosChange(${files.size} photos)")
+            Log.v(TAG, "onPhotosChange(${files.size} photos)")
             photos = files
         }
 
         // From PagerAdapter
         override fun getCount(): Int {
             val count = photos.size + 1
-            Log.d(TAG, "getCount() = ${count}")
+            Log.v(TAG, "getCount() = ${count}")
             return count;
         }
 
         // From PagerAdapter
         override fun getItem(position: Int): Fragment {
-            Log.d(TAG, "getItem(${position})")
+            Log.v(TAG, "getItem(${position})")
             val fragment: Fragment
             if (position < photos.size) {
                 fragment = ImageFragment.newInstance(photos[position])
@@ -92,19 +92,19 @@ class MainActivity : FragmentActivity() {
             } else {
                 position = FragmentStatePagerAdapter.POSITION_NONE
             }
-            Log.d(TAG, "getItemPosition(${obj}) = ${position}")
+            Log.v(TAG, "getItemPosition(${obj}) = ${position}")
             return position
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val item = super.instantiateItem(container, position)
-            Log.d(TAG, "instantiateItem(${position}) = ${item}")
+            Log.v(TAG, "instantiateItem(${position}) = ${item}")
             return item
         }
 
         override fun isViewFromObject(view: View, obj: Any): Boolean {
             val result = super.isViewFromObject(view, obj)
-            Log.d(TAG, "isViewFromObject(${view},${obj}) = ${result}")
+            Log.v(TAG, "isViewFromObject(${view},${obj}) = ${result}")
             return result
         }
 
