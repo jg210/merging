@@ -6,6 +6,16 @@
 
 * Full landscape/portrait support.
 
+* MLKit?
+  - configure to start download of model at install time
+  - wait for model to download when necessary
+    - after first need model
+  - will need INTERNET permission for model download
+  - use appropriately-sized images
+  - would need something else for image processing.
+
+* opencv?
+
 * Show merged photo.
 
 * If wipe AVD data and deny location permission, then camera app doesn't send photo back to app.
