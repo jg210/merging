@@ -16,8 +16,6 @@ import kotlin.properties.Delegates
 
 class MainActivity : FragmentActivity() {
 
-    private val TAG = "MainActivity"
-
     private val photoManager: PhotoManager by lazy { PhotoManager(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +33,14 @@ class MainActivity : FragmentActivity() {
         }
     }
 
-    private inner class ScreenPagerAdapter(
+    inner class ScreenPagerAdapter(
         fragmentManager: FragmentManager,
         val photoManager: PhotoManager
     ) : FragmentStatePagerAdapter(fragmentManager),
         PhotoManager.ChangeListener {
+
+        private val TAG = "ScreenPagerActivity"
+        private val fragments: MutableSet<Fragment> = mutableSetOf()
 
         var photos: List<File>  by Delegates.observable(photoManager.photos) { _, old, new ->
             if (old != new) {
@@ -52,8 +53,6 @@ class MainActivity : FragmentActivity() {
                 notifyDataSetChanged()
             }
         }
-
-        private val fragments: MutableSet<Fragment> = mutableSetOf()
 
         // From PhotoManager.ChangeListener
         override fun onPhotosChange(files: List<File>) {
