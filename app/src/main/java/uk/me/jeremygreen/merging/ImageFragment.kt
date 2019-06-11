@@ -45,12 +45,8 @@ class ImageFragment : ScreenFragment() {
             handleLongClick()
             false // not consumed
         }
-        // Can't load image until know its size, so postpone until after layout.
-        imageDraweeView.addOnLayoutChangeListener(View.OnLayoutChangeListener() {
-                _, _, _, _, _, _, _, _, _ ->
-            val uri = Uri.fromFile(file)
-            imageDraweeView.setImageURI(uri, null)
-        })
+        val uri = Uri.fromFile(file)
+        imageDraweeView.setImageURI(uri, null)
     }
 
     fun handleLongClick() {
