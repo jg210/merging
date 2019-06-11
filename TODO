@@ -58,3 +58,5 @@
 
 * Persistent ViewPager state.
   - persists across rotations etc., but not full restarts.
+
+* image not photo in source code.
