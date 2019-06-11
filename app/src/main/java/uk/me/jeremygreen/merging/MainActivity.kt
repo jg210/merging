@@ -15,6 +15,7 @@ class MainActivity : FragmentActivity() {
         setContentView(R.layout.content_main)
         val pagerAdapter = ScreenPagerAdapter(supportFragmentManager, photoManager)
         pager.adapter = pagerAdapter
+        pager.offscreenPageLimit = 2
         photoManager.addChangeListener(pagerAdapter)
     }
 
