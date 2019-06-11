@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/imageScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/imageView"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
+    <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/imageDraweeView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@color/imagePlaceholder"
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

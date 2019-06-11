@@ -3,6 +3,7 @@ package uk.me.jeremygreen.merging
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,27 +41,15 @@ class ImageFragment : ScreenFragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        imageView.setOnLongClickListener {
+        imageDraweeView.setOnLongClickListener {
             handleLongClick()
             false // not consumed
         }
         // Can't load image until know its size, so postpone until after layout.
-        imageView.addOnLayoutChangeListener(View.OnLayoutChangeListener() {
+        imageDraweeView.addOnLayoutChangeListener(View.OnLayoutChangeListener() {
                 _, _, _, _, _, _, _, _, _ ->
-            val targetW: Int = imageView.width
-            val targetH: Int = imageView.height
-            val bmOptions = BitmapFactory.Options().apply {
-                inJustDecodeBounds = true // Decode, just getting bounds.
-                BitmapFactory.decodeFile(file.path, this)
-                val photoW: Int = outWidth
-                val photoH: Int = outHeight
-                val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
-                inJustDecodeBounds = false  // Decode again, fully.
-                inSampleSize = scaleFactor
-            }
-            BitmapFactory.decodeFile(file.path, bmOptions)?.also { bitmap ->
-                imageView.setImageBitmap(bitmap)
-            }
+            val uri = Uri.fromFile(file)
+            imageDraweeView.setImageURI(uri, null)
         })
     }
 
