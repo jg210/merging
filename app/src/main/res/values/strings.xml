@@ -1,7 +1,7 @@
 <resources>
-    <string name="add_photo">+</string>
-    <string name="app_name">merging</string>
+    <string name="addImage">+</string>
+    <string name="appName">merging</string>
     <string name="cancel">Cancel</string>
-    <string name="confirm_delete_photo">Delete the photo?</string>
+    <string name="confirmDeleteImage">Delete the photo?</string>
     <string name="ok">OK</string>
 </resources>

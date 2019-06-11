@@ -12,14 +12,14 @@ import kotlin.properties.Delegates
 
 class ScreenPagerAdapter(
     fragmentManager: FragmentManager,
-    val photoManager: PhotoManager
+    val imageManager: ImageManager
 ) : FragmentStatePagerAdapter(fragmentManager),
-    PhotoManager.ChangeListener {
+    ImageManager.ChangeListener {
 
     private val TAG = "ScreenPagerAdapter"
     private val fragments: MutableSet<Fragment> = mutableSetOf()
 
-    var photos: List<File>  by Delegates.observable(photoManager.photos) { _, old, new ->
+    var images: List<File>  by Delegates.observable(imageManager.images) { _, old, new ->
         if (old != new) {
             Log.v(TAG, "notfifyDataSetChanged()")
             // Could leave Fragments that haven't moved in the MutableSet, but
@@ -31,15 +31,15 @@ class ScreenPagerAdapter(
         }
     }
 
-    // From PhotoManager.ChangeListener
-    override fun onPhotosChange(files: List<File>) {
-        Log.v(TAG, "onPhotosChange(${files.size} photos)")
-        photos = files
+    // From ImageManager.ChangeListener
+    override fun onImagesChange(files: List<File>) {
+        Log.v(TAG, "onImagesChange(${files.size} images)")
+        images = files
     }
 
     // From PagerAdapter
     override fun getCount(): Int {
-        val count = photos.size + 1
+        val count = images.size + 1
         Log.v(TAG, "getCount() = ${count}")
         return count;
     }
@@ -48,8 +48,8 @@ class ScreenPagerAdapter(
     override fun getItem(position: Int): Fragment {
         Log.v(TAG, "getItem(${position})")
         val fragment: Fragment
-        if (position < photos.size) {
-            fragment = ImageFragment.newInstance(photos[position])
+        if (position < images.size) {
+            fragment = ImageFragment.newInstance(images[position])
         } else {
             fragment = AddImageFragment()
         }
@@ -61,7 +61,7 @@ class ScreenPagerAdapter(
 
     // From PagerAdapter
     override fun getItemPosition(obj: Any): Int {
-        // Need to return POSITION_NONE in general, otherwise deleted photos aren't removed from the ViewPager.
+        // Need to return POSITION_NONE in general, otherwise deleted images aren't removed from the ViewPager.
         val position: Int
         if (obj is Fragment && fragments.contains(obj)) {
             position = FragmentStatePagerAdapter.POSITION_UNCHANGED

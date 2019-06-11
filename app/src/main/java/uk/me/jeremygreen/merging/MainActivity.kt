@@ -8,21 +8,21 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : FragmentActivity() {
 
-    private val photoManager: PhotoManager by lazy { PhotoManager(this) }
+    private val imageManager: ImageManager by lazy { ImageManager(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_main)
-        val pagerAdapter = ScreenPagerAdapter(supportFragmentManager, photoManager)
+        val pagerAdapter = ScreenPagerAdapter(supportFragmentManager, imageManager)
         pager.adapter = pagerAdapter
         pager.offscreenPageLimit = 2
-        photoManager.addChangeListener(pagerAdapter)
+        imageManager.addChangeListener(pagerAdapter)
     }
 
     override fun onAttachFragment(fragment: Fragment?) {
         super.onAttachFragment(fragment)
         if (fragment is ScreenFragment) {
-            fragment.photoManager = photoManager
+            fragment.imageManager = imageManager
         }
     }
 

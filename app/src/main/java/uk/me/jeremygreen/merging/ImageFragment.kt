@@ -2,7 +2,6 @@ package uk.me.jeremygreen.merging
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -51,7 +50,7 @@ class ImageFragment : ScreenFragment() {
 
     fun handleLongClick() {
         AlertDialog.Builder(requireContext()).apply {
-            setMessage(R.string.confirm_delete_photo)
+            setMessage(R.string.confirmDeleteImage)
             setPositiveButton(R.string.ok, DialogInterface.OnClickListener(function = ::handleRemoveImage))
             setNegativeButton(R.string.cancel, DialogInterface.OnClickListener(function = ::handleRemoveImageCancel))
             show()
@@ -62,7 +61,7 @@ class ImageFragment : ScreenFragment() {
         @Suppress("UNUSED_PARAMETER") dialog: DialogInterface,
         @Suppress("UNUSED_PARAMETER") which: Int
     ) {
-        photoManager.removeImage(file)
+        imageManager.removeImage(file)
     }
 
     fun handleRemoveImageCancel(

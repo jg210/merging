@@ -3,7 +3,7 @@
   - wait for model to download when necessary
     - after first need model
   - will need INTERNET permission for model download
-  - use appropriately-sized images
+  - use appropriately-sized images for feature recognition
   - would need something else for image processing.
 
 * opencv?
@@ -54,5 +54,3 @@
 
 * Persistent ViewPager state.
   - persists across rotations etc., but not full restarts.
-
-* image not photo in source code.

@@ -10,28 +10,28 @@ import java.io.File
 import java.io.IOException
 import java.lang.IllegalArgumentException
 
-class PhotoManager(
+class ImageManager(
     private val context: Context,
-    private val photosDir: File = File(context.filesDir, "photos")
+    private val imagesDir: File = File(context.filesDir, "photos")
 ) {
 
-    private val TAG = "PhotoManager"
+    private val TAG = "ImageManager"
     private val EXTENSION = ".jpg"
-    val photos: List<File>
+    val images: List<File>
         get() {
-            return photosDir.
+            return imagesDir.
                 listFiles().
                 filter { file -> file.name.endsWith(EXTENSION) }.
                 sortedBy { file -> Integer.parseInt(file.nameWithoutExtension) }
         }
-    private val changeListeners: MutableList<PhotoManager.ChangeListener> = mutableListOf()
-    private var currentPhotoFile: File? = null
+    private val changeListeners: MutableList<ImageManager.ChangeListener> = mutableListOf()
+    private var currentImageFile: File? = null
 
     init {
-        photosDir.mkdirs()
+        imagesDir.mkdirs()
     }
 
-    fun addChangeListener(listener: PhotoManager.ChangeListener) {
+    fun addChangeListener(listener: ImageManager.ChangeListener) {
         changeListeners.add(listener)
     }
 
@@ -41,51 +41,51 @@ class PhotoManager(
         if (cameraActivity == null) {
             return null
         }
-        val photoFile = try {
+        val imageFile = try {
             createImageFile()
         } catch (ex: IOException) {
             return null
         }
-        val photoURI: Uri = FileProvider.getUriForFile(
+        val imageUri: Uri = FileProvider.getUriForFile(
             context,
             "uk.me.jeremygreen.merging.fileprovider",
-            photoFile
+            imageFile
         )
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
         return intent
     }
 
     @Throws(IOException::class)
     private fun createImageFile(): File {
-        val lastFile = photos.lastOrNull()
+        val lastFile = images.lastOrNull()
         val nextIndex = if (lastFile == null) {
             0
         } else {
             Integer.parseInt(lastFile.nameWithoutExtension) + 1
         }
-        val photoFile = File(photosDir, "${nextIndex}.jpg")
-        currentPhotoFile = photoFile
-        return photoFile
+        val imageFile = File(imagesDir, "${nextIndex}.jpg")
+        currentImageFile = imageFile
+        return imageFile
     }
 
     fun addImage() {
-        if (currentPhotoFile == null) {
+        if (currentImageFile == null) {
             throw IllegalStateException("addImage() called unexpectedly")
         }
-        Log.i(TAG, "adding image: ${currentPhotoFile}")
-        currentPhotoFile = null
+        Log.i(TAG, "adding image: ${currentImageFile}")
+        currentImageFile = null
         notifiyListeners()
     }
 
     private fun notifiyListeners() {
-        val currentPhotos = photos
+        val currentImages = images
         changeListeners.forEach { listener ->
-            listener.onPhotosChange(currentPhotos)
+            listener.onImagesChange(currentImages)
         }
     }
 
     fun removeImage(file: File) {
-        if (file.parentFile.canonicalFile != photosDir.canonicalFile) {
+        if (file.parentFile.canonicalFile != imagesDir.canonicalFile) {
             throw IllegalArgumentException(file.path)
         }
         if (!file.delete()) {
@@ -99,7 +99,7 @@ class PhotoManager(
     }
 
     interface ChangeListener {
-        fun onPhotosChange(files: List<File>)
+        fun onImagesChange(files: List<File>)
     }
 
 }
