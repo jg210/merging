@@ -14,7 +14,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textSize="200dp"
+            android:textSize="@dimen/add_photo_text_size"
             android:text="@string/add_photo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
