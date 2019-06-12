@@ -1,5 +1,3 @@
-* ContentProvider path used with camera Intent is not persisted if rotate device while taking photo.
-
 * MLKit?
   - configure to start download of model at install time
   - wait for model to download when necessary

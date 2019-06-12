@@ -25,7 +25,6 @@ class ImageManager(
                 sortedBy { file -> Integer.parseInt(file.nameWithoutExtension) }
         }
     private val changeListeners: MutableList<ImageManager.ChangeListener> = mutableListOf()
-    private var currentImageFile: File? = null
 
     init {
         imagesDir.mkdirs()
@@ -63,17 +62,12 @@ class ImageManager(
         } else {
             Integer.parseInt(lastFile.nameWithoutExtension) + 1
         }
-        val imageFile = File(imagesDir, "${nextIndex}.jpg")
-        currentImageFile = imageFile
-        return imageFile
+        return imageFile(nextIndex)
     }
 
+    private fun imageFile(index: Int) = File(imagesDir, "${index}.jpg")
+
     fun addImage() {
-        if (currentImageFile == null) {
-            throw IllegalStateException("addImage() called unexpectedly")
-        }
-        Log.i(TAG, "adding image: ${currentImageFile}")
-        currentImageFile = null
         notifiyListeners()
     }
 
