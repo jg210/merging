@@ -40,6 +40,12 @@
 
 * Spotbugs.
 
+* Show licence texts.
+  - extra ViewPager screen would be simplest
+  - https://github.com/hierynomus/license-gradle-plugin
+  - https://github.com/cookpad/license-tools-plugin
+  - https://plugins.gradle.org/search?term=license
+
 * Publish to store.
 
 * Firebase analytics.
