@@ -19,7 +19,7 @@ class ScreenPagerAdapter(
     private val TAG = "ScreenPagerAdapter"
     private val fragments: MutableSet<Fragment> = mutableSetOf()
 
-    var images: List<File>  by Delegates.observable(imageManager.images) { _, old, new ->
+    var images: List<Image> by Delegates.observable(imageManager.images) { _, old, new ->
         if (old != new) {
             Log.v(TAG, "notfifyDataSetChanged()")
             // Could leave Fragments that haven't moved in the MutableSet, but
@@ -32,9 +32,9 @@ class ScreenPagerAdapter(
     }
 
     // From ImageManager.ChangeListener
-    override fun onImagesChange(files: List<File>) {
-        Log.v(TAG, "onImagesChange(${files.size} images)")
-        images = files
+    override fun onImagesChange(images: List<Image>) {
+        Log.v(TAG, "onImagesChange(${images.size} images)")
+        this.images = images
     }
 
     // From PagerAdapter
@@ -49,7 +49,7 @@ class ScreenPagerAdapter(
         Log.v(TAG, "getItem(${position})")
         val fragment: Fragment
         if (position < images.size) {
-            fragment = ImageFragment.newInstance(images[position])
+            fragment = ImageFragment.newInstance(images[position].id)
         } else {
             fragment = AddImageFragment()
         }

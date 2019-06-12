@@ -1,11 +1,6 @@
 package uk.me.jeremygreen.merging
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.provider.MediaStore
-import android.util.Log
-import androidx.core.content.FileProvider
 import java.io.File
 import java.io.IOException
 import java.lang.IllegalArgumentException
@@ -16,84 +11,66 @@ class ImageManager(
 ) {
 
     private val TAG = "ImageManager"
-    private val EXTENSION = ".jpg"
-    val images: List<File>
+    val images: List<Image>
         get() {
             return imagesDir.
                 listFiles().
-                filter { file -> file.name.endsWith(EXTENSION) }.
-                sortedBy { file -> Integer.parseInt(file.nameWithoutExtension) }
+                filter { file -> file.name.endsWith(Image.EXTENSION) }.
+                map { file -> Integer.parseInt(file.nameWithoutExtension) }.
+                sorted().
+                map { id -> Image(imagesDir, id) }
         }
+
     private val changeListeners: MutableList<ImageManager.ChangeListener> = mutableListOf()
 
     init {
         imagesDir.mkdirs()
     }
 
+    fun imageForId(id: Int): Image {
+        val image = Image(imagesDir, id)
+        if (!image.exists()) {
+            throw java.lang.AssertionError("image doesn't exist: ${image}")
+        }
+        return image
+    }
+
     fun addChangeListener(listener: ImageManager.ChangeListener) {
         changeListeners.add(listener)
     }
 
-    fun createTakePhotoIntent(): Intent? {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val cameraActivity = intent.resolveActivity(context.packageManager)
-        if (cameraActivity == null) {
-            return null
-        }
-        val imageFile = try {
-            createImageFile()
-        } catch (ex: IOException) {
-            return null
-        }
-        val imageUri: Uri = FileProvider.getUriForFile(
-            context,
-            "uk.me.jeremygreen.merging.fileprovider",
-            imageFile
-        )
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-        return intent
-    }
-
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-        val lastFile = images.lastOrNull()
-        val nextIndex = if (lastFile == null) {
-            0
+    fun nextImage(): Image {
+        val lastImage = images.lastOrNull()
+        return if (lastImage == null) {
+            Image(imagesDir,0)
         } else {
-            Integer.parseInt(lastFile.nameWithoutExtension) + 1
+            lastImage.nextImage()
         }
-        return imageFile(nextIndex)
     }
 
-    private fun imageFile(index: Int) = File(imagesDir, "${index}.jpg")
-
-    fun addImage() {
-        notifiyListeners()
-    }
-
-    private fun notifiyListeners() {
+    fun notifiyListeners() {
         val currentImages = images
         changeListeners.forEach { listener ->
             listener.onImagesChange(currentImages)
         }
     }
 
-    fun removeImage(file: File) {
-        if (file.parentFile.canonicalFile != imagesDir.canonicalFile) {
-            throw IllegalArgumentException(file.path)
+    fun remove(image: Image) {
+        if (image.file.parentFile.canonicalFile != imagesDir.canonicalFile) {
+            throw AssertionError(image.file.path)
         }
-        if (!file.delete()) {
-            if (file.exists()) {
-                throw IOException("failed to delete: ${file.path}")
+        if (!image.file.delete()) {
+            if (image.file.exists()) {
+                throw IOException("failed to delete: ${image.file.path}")
             } else {
-                throw IOException("already absent: ${file.path}")
+                throw IOException("already absent: ${image.file.path}")
             }
         }
         notifiyListeners()
     }
 
     interface ChangeListener {
-        fun onImagesChange(files: List<File>)
+        fun onImagesChange(images: List<Image>)
     }
 
 }

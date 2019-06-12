@@ -13,17 +13,17 @@ import java.io.File
 class ImageFragment : ScreenFragment() {
 
     companion object {
-        fun newInstance(file: File): ImageFragment {
+        fun newInstance(imageId: Int): ImageFragment {
             return ImageFragment().apply {
                 arguments = Bundle().apply {
-                    putString(BUNDLE_KEY__IMAGE_FILE, file.path)
+                    putInt(BUNDLE_KEY__IMAGE_ID, imageId)
                 }
             }
         }
     }
 
-    val BUNDLE_KEY__IMAGE_FILE = "imageFile"
-    lateinit var file: File
+    val BUNDLE_KEY__IMAGE_ID = "imageId"
+    lateinit var image: Image
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +31,8 @@ class ImageFragment : ScreenFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val bundle = arguments
-        file = File(bundle!!.getString(BUNDLE_KEY__IMAGE_FILE))
+        val imageId: Int = bundle!!.getInt(BUNDLE_KEY__IMAGE_ID)
+        image = imageManager.imageForId(imageId)
         return inflater.inflate(R.layout.image_screen, container, false)
     }
 
@@ -44,7 +45,7 @@ class ImageFragment : ScreenFragment() {
             handleLongClick()
             false // not consumed
         }
-        val uri = Uri.fromFile(file)
+        val uri = Uri.fromFile(image.file)
         imageDraweeView.setImageURI(uri, null)
     }
 
@@ -61,7 +62,7 @@ class ImageFragment : ScreenFragment() {
         @Suppress("UNUSED_PARAMETER") dialog: DialogInterface,
         @Suppress("UNUSED_PARAMETER") which: Int
     ) {
-        imageManager.removeImage(file)
+        imageManager.remove(image)
     }
 
     fun handleRemoveImageCancel(

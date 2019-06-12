@@ -26,7 +26,8 @@ class AddImageFragment : ScreenFragment() {
     }
 
     private fun handleTakePhoto() {
-        val intent = imageManager.createTakePhotoIntent()
+        val context = requireContext()
+        val intent = imageManager.nextImage().createTakePhotoIntent(context)
         if (intent == null) {
             Log.w(TAG, "No camera application available.")
         } else {
@@ -37,7 +38,7 @@ class AddImageFragment : ScreenFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
-            imageManager.addImage()
+            imageManager.notifiyListeners()
         }
     }
 
