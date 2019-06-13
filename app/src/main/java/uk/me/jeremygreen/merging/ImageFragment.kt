@@ -13,10 +13,10 @@ import java.io.File
 class ImageFragment : ScreenFragment() {
 
     companion object {
-        fun newInstance(imageId: Int): ImageFragment {
+        fun newInstance(imageId: Long): ImageFragment {
             return ImageFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(BUNDLE_KEY__IMAGE_ID, imageId)
+                    putLong(BUNDLE_KEY__IMAGE_ID, imageId)
                 }
             }
         }
@@ -31,7 +31,7 @@ class ImageFragment : ScreenFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val bundle = arguments
-        val imageId: Int = bundle!!.getInt(BUNDLE_KEY__IMAGE_ID)
+        val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
         image = imageManager.imageForId(imageId)
         return inflater.inflate(R.layout.image_screen, container, false)
     }

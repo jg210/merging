@@ -16,7 +16,7 @@ class ImageManager(
             return imagesDir.
                 listFiles().
                 filter { file -> file.name.endsWith(Image.EXTENSION) }.
-                map { file -> Integer.parseInt(file.nameWithoutExtension) }.
+                map { file -> file.nameWithoutExtension.toLong() }.
                 sorted().
                 map { id -> Image(imagesDir, id) }
         }
@@ -27,7 +27,7 @@ class ImageManager(
         imagesDir.mkdirs()
     }
 
-    fun imageForId(id: Int): Image {
+    fun imageForId(id: Long): Image {
         val image = Image(imagesDir, id)
         if (!image.exists()) {
             throw java.lang.AssertionError("image doesn't exist: ${image}")

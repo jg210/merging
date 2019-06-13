@@ -13,13 +13,13 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_main)
-        val pagerAdapter = ScreenPagerAdapter(supportFragmentManager, imageManager)
+        val pagerAdapter = FSAdapterImpl(this, imageManager)
         pager.adapter = pagerAdapter
         pager.offscreenPageLimit = 2
         imageManager.addChangeListener(pagerAdapter)
     }
 
-    override fun onAttachFragment(fragment: Fragment?) {
+    override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
         if (fragment is ScreenFragment) {
             fragment.imageManager = imageManager

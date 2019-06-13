@@ -13,7 +13,7 @@ class Image(
      * The id is used to persist the image to storage. Images can be deleted, so there can be
      * gaps in the ids. It is generally not the same as the position of the image within the UI.
      */
-    val id: Int
+    val id: Long
 ) {
 
     companion object {
