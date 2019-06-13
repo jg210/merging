@@ -1,3 +1,15 @@
+* Fragment recycling in ViewPager is causing flaky UI when delete images.
+  - not always reproducible
+  - files seem to be managed correctly
+  - wrong images shown sometimes until restart
+  - can ViewPager be replaced?
+    - RecyclerView + PageSnapHelper + LinearLayoutManager
+      - https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html
+      - https://developer.android.com/reference/android/support/v7/widget/PagerSnapHelper
+      - https://proandroiddev.com/looks-like-a-viewpager-sounds-like-a-viewpager-its-a-recyclerview-505cdf129b58
+      - RecyclerView is much more general purpose than ViewPager, but PageSnapHelper should make
+        it relatively easy to use it as ViewPager replacement.
+
 * MLKit?
   - configure to start download of model at install time
   - wait for model to download when necessary
