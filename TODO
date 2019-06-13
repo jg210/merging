@@ -6,9 +6,18 @@
     - RecyclerView + PageSnapHelper + LinearLayoutManager
       - https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html
       - https://developer.android.com/reference/android/support/v7/widget/PagerSnapHelper
+      - https://developer.android.com/reference/android/support/v7/util/DiffUtil
       - https://proandroiddev.com/looks-like-a-viewpager-sounds-like-a-viewpager-its-a-recyclerview-505cdf129b58
       - RecyclerView is much more general purpose than ViewPager, but PageSnapHelper should make
         it relatively easy to use it as ViewPager replacement.
+     - ViewPager2
+       - https://developer.android.com/reference/androidx/viewpager2/widget/ViewPager2
+       - not stable yet
+         - https://developer.android.com/jetpack/androidx/releases/viewpager2
+       - can use it with Fragments
+         - https://developer.android.com/reference/androidx/viewpager2/adapter/FragmentStateAdapter
+       - https://medium.com/google-developer-experts/exploring-the-view-pager-2-86dbce06ff71
+       - based on RecyclerView
 
 * MLKit?
   - configure to start download of model at install time
