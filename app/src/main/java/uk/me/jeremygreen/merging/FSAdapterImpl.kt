@@ -21,28 +21,27 @@ class FSAdapterImpl(
     ImageManager.ChangeListener {
 
     private val TAG = "FSAdapterImpl"
-
     private val ID__ADD_IMAGE = -2L; // -1 is taken by RecyclerView.NO_ID
 
     private val imageIds: MutableMap<Long, Image> = linkedMapOf()
-    var images: List<Image> = listOf()
-        set(value) {
-            imageIds.clear()
-            val changed = field != value
-            field = value
-            if (changed) {
-                Log.v(TAG, "images changed.")
-                notifyDataSetChanged()
-            }
-        }
-        get() {
-            return field
-        }
+    private var images: List<Image> = listOf()
+
+    init {
+        onImagesChange(imageManager.images)
+    }
 
     // From ImageManager.ChangeListener
     override fun onImagesChange(images: List<Image>) {
         Log.v(TAG, "onImagesChange(${images.size} images)")
+        imageIds.clear()
+        val changed = this.images != images
+        images.forEach { image -> imageIds[image.id] = image }
         this.images = images
+        if (changed) {
+            Log.v(TAG, "images changed.")
+            // TODO Use DiffUtil
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemId(position: Int): Long {
