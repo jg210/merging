@@ -1,3 +1,11 @@
+* Recycled Image ids break PagerView2.
+  - if delete image and then take new on, ImageFragment for old image is reused
+    - since id is same?
+  - compose image filenames of id and then uuid?
+    - id for ordering
+    - uuid so can add a proper equals() to Image.
+    - ...and then implement DiffUtil.Callback using ==.
+
 * MLKit?
   - configure to start download of model at install time
   - wait for model to download when necessary
