@@ -34,14 +34,27 @@ class FSAdapterImpl(
     override fun onImagesChange(images: List<Image>) {
         Log.v(TAG, "onImagesChange(${images.size} images)")
         imageIds.clear()
-        val changed = this.images != images
+        val changes = changes(this.images, images)
         images.forEach { image -> imageIds[image.id] = image }
         this.images = images
-        if (changed) {
-            Log.v(TAG, "images changed.")
-            // TODO Use DiffUtil
-            notifyDataSetChanged()
-        }
+        changes.dispatchUpdatesTo(this)
+    }
+
+    private fun changes(old: List<Image>, new: List<Image>): DiffUtil.DiffResult {
+        return DiffUtil.calculateDiff(object: DiffUtil.Callback() {
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return old[oldItemPosition] === new[newItemPosition]
+            }
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return old[oldItemPosition].id == new[newItemPosition].id
+            }
+            override fun getNewListSize(): Int {
+                return new.size
+            }
+            override fun getOldListSize(): Int {
+                return old.size
+            }
+        })
     }
 
     override fun getItemId(position: Int): Long {
