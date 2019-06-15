@@ -1,75 +1,28 @@
 package uk.me.jeremygreen.merging
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
 import java.io.File
 import java.io.IOException
 
-class ImageDao(
-    private val context: Context,
-    private val imagesDir: File = File(context.filesDir, "photos")
-) {
+@Dao
+interface ImageDao {
 
-    private val TAG = "ImageDao"
-    val images: List<Image>
-        get() {
-            return imagesDir.
-                listFiles().
-                filter { file -> file.name.endsWith(Image.EXTENSION) }.
-                map { file -> file.nameWithoutExtension.toLong() }.
-                sorted().
-                map { id -> Image(imagesDir, id) }
-        }
+    @Query("SELECT * from images ORDER BY id ASC")
+    fun getImages(): LiveData<List<Image>>
 
-    private val changeListeners: MutableList<ImageDao.ChangeListener> = mutableListOf()
+    @Query("SELECT * from images WHERE id = :id")
+    fun findById(id: Long): Image
 
-    init {
-        imagesDir.mkdirs()
-    }
+    @Delete
+    fun delete(image: Image)
 
-    fun imageForId(id: Long): Image {
-        val image = Image(imagesDir, id)
-        if (!image.exists()) {
-            throw java.lang.AssertionError("image doesn't exist: ${image}")
-        }
-        return image
-    }
-
-    fun addChangeListener(listener: ImageDao.ChangeListener) {
-        changeListeners.add(listener)
-    }
-
-    fun nextImage(): Image {
-        val lastImage = images.lastOrNull()
-        return if (lastImage == null) {
-            Image(imagesDir,0)
-        } else {
-            lastImage.nextImage()
-        }
-    }
-
-    fun notifiyListeners() {
-        val currentImages = images
-        changeListeners.forEach { listener ->
-            listener.onImagesChange(currentImages)
-        }
-    }
-
-    fun remove(image: Image) {
-        if (image.file.parentFile.canonicalFile != imagesDir.canonicalFile) {
-            throw AssertionError(image.file.path)
-        }
-        if (!image.file.delete()) {
-            if (image.file.exists()) {
-                throw IOException("failed to delete: ${image.file.path}")
-            } else {
-                throw IOException("already absent: ${image.file.path}")
-            }
-        }
-        notifiyListeners()
-    }
-
-    interface ChangeListener {
-        fun onImagesChange(images: List<Image>)
-    }
+    @Insert
+    fun add(image:Image)
 
 }
+

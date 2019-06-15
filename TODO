@@ -1,3 +1,12 @@
+* Use android architecture components
+  - add ImageDao
+  - add AppDatabase
+  - add ImageViewModel
+  - observe ImageViewModel where required
+  -
+
+* Does ImageViewModel need to connect up with fragment / activity lifecycle?
+
 * Recycled Image ids break PagerView2.
   - if delete image and then take new on, ImageFragment for old image is reused
     - since id is same?
@@ -8,7 +17,8 @@
 
 * Don't delete image until it's gone from the UI.
   - otherwise, rely on no redraws and fresco cachess when shouldn't
-  => need to persist list of images separately from the files
+  => - need to persist list of images separately from the files
+     - need to garbage collect files
 
 * MLKit?
   - configure to start download of model at install time

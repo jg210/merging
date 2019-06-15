@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class PagerAdapterImpl(
-    fragmentActivity: FragmentActivity,
-    val imageDao: ImageDao
-) : FragmentStateAdapter(fragmentActivity),
-    ImageDao.ChangeListener {
+    fragmentActivity: FragmentActivity
+) : FragmentStateAdapter(fragmentActivity) {
 
     private val TAG = "PagerAdapterImpl"
     private val ID__ADD_IMAGE = -2L; // -1 is taken by RecyclerView.NO_ID
@@ -19,12 +17,7 @@ class PagerAdapterImpl(
     private val imageIds: MutableMap<Long, Image> = mutableMapOf()
     private var images: List<Image> = listOf()
 
-    init {
-        onImagesChange(imageDao.images)
-    }
-
-    // From ImageDao.ChangeListener
-    override fun onImagesChange(images: List<Image>) {
+    fun setImages(images: List<Image>) {
         Log.v(TAG, "onImagesChange(${images.size} images)")
         imageIds.clear()
         val changes = changes(this.images, images)
