@@ -1,5 +1,3 @@
-* Should findById be suspend function?
-
 * Does ImageViewModel need to connect up with fragment / activity lifecycle?
 
 * Need to garbage collect files after delete them and UI has finished updating.

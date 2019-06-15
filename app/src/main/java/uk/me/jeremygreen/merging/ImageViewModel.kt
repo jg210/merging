@@ -16,7 +16,7 @@ class ImageViewModel(application: Application) : AndroidViewModel(application) {
 
     val images = appDatabase.imageDao().getImages()
 
-    fun findById(id: Long): Image {
+    suspend fun findById(id: Long): Image {
         return appDatabase.imageDao().findById(id)
     }
 
