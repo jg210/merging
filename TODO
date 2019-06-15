@@ -1,12 +1,15 @@
-* MLKit?
+* Are coroutines properly scoped w.r.t. the Activity/Fragments?
+  - can implement CoroutineScope and call its clear() from appropriate event
+    - which event?
+    - need to set coroutineContext property too, but to what?
+
+* MLKit
   - configure to start download of model at install time
   - wait for model to download when necessary
     - after first need model
   - will need INTERNET permission for model download
   - use appropriately-sized images for feature recognition
   - would need something else for image processing.
-
-* opencv?
 
 * Full landscape/portrait support.
 
@@ -16,12 +19,21 @@
 
 * If wipe AVD data and deny location permission, then camera app doesn't send photo back to app.
 
+* Garbage collect files after delete them and UI has finished updating.
+  - when ViewPager2 stops using them
+    - https://developer.android.com/reference/android/support/v7/widget/RecyclerView.RecyclerListener.html?
+  - on startup, in case app shuts down or crashes before can delete files
+    - add database index for file column so can query if it is used
+
 * Handle app rejected permissions.
 
 * Replace launcher icons.
   - Rubin's vase.
 
 * Better app_name.
+
+* Image-deletion dialogue dismissed if rotate device.
+  - use androidx DialogFragment?
 
 * Toggleable overlay showing debug info.
 

@@ -5,52 +5,26 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
 import java.io.File
 
-class Image(
-    private val imagesDir: File,
+@Entity(tableName = "images")
+data class Image(
     /**
-     * The id is used to persist the image to storage. Images can be deleted, so there can be
-     * gaps in the ids. It is generally not the same as the position of the image within the UI.
+     * This database table stores id -> file mappings. It's not possible to
+     * just use the set of stored files since the UI can still get updates
+     * after deciding to delete the image but before it has been removed
+     * from the screen.
+     *
+     * Use autoGenerate=true since rely on ordering by primary key
+     * to time order the photos. Could use UTC timestamp instead,
+     * but can't rely on it being correct).
      */
-    val id: Int
-) {
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
 
-    companion object {
-        val EXTENSION = ".jpg"
-    }
+    val file: String
 
-    val file: File = File(imagesDir, "${id}${EXTENSION}")
-
-    /**
-     * It is only useful to call this for the highest-id Image when want to
-     * store a new image.
-     */
-    fun nextImage(): Image {
-        return Image(imagesDir, id + 1)
-    }
-
-    fun createTakePhotoIntent(context: Context): Intent? {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val cameraActivity = intent.resolveActivity(context.packageManager)
-        if (cameraActivity == null) {
-            return null
-        }
-        val imageUri: Uri = FileProvider.getUriForFile(
-            context,
-            "uk.me.jeremygreen.merging.fileprovider",
-            file
-        )
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-        return intent
-    }
-
-    fun exists() : Boolean {
-        return file.exists()
-    }
-
-    override fun toString(): String {
-        return file.path
-    }
-
-}
+) {}
