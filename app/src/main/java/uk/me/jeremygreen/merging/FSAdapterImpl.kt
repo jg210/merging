@@ -23,7 +23,7 @@ class FSAdapterImpl(
     private val TAG = "FSAdapterImpl"
     private val ID__ADD_IMAGE = -2L; // -1 is taken by RecyclerView.NO_ID
 
-    private val imageIds: MutableMap<Long, Image> = linkedMapOf()
+    private val imageIds: MutableMap<Long, Image> = mutableMapOf()
     private var images: List<Image> = listOf()
 
     init {
@@ -76,7 +76,7 @@ class FSAdapterImpl(
 
     // From FragmentStateAdapter
     override fun getItemCount(): Int {
-        val count = imageIds.size + 1
+        val count = images.size + 1
         Log.v(TAG, "getItemCount() = ${count}")
         return count;
     }
