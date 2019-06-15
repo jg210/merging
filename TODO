@@ -1,5 +1,3 @@
-* Set of images isn't updated after add or delete an image unless restart app.
-
 * AddImageFragment's file field isn't persisted, so crashes when rotate.
 
 * Should findById be suspend function?

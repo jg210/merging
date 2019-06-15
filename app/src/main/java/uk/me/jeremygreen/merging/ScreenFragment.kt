@@ -17,7 +17,8 @@ abstract class ScreenFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         imagesDir.mkdirs()
-        imageViewModel = ViewModelProviders.of(this).get(ImageViewModel::class.java)
+        val activity = requireActivity()
+        imageViewModel = ViewModelProviders.of(activity).get(ImageViewModel::class.java)
     }
 
 }
