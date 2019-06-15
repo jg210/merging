@@ -23,7 +23,18 @@ class AddImageFragment : ScreenFragment() {
 
     private val TAG = "AddImageFragment"
     private val REQUEST_TAKE_PHOTO = 1
+    private val BUNDLE_KEY__FILE = "file"
     private var file: File? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            val fileString = savedInstanceState.getString(BUNDLE_KEY__FILE)
+            if (fileString != null) {
+                file = File(fileString)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +45,14 @@ class AddImageFragment : ScreenFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         addImageScreen.setOnClickListener { handleTakePhoto() }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val file = this.file
+        if (file != null) {
+            outState.putString(BUNDLE_KEY__FILE, file.path)
+        }
     }
 
     private fun handleTakePhoto() {
