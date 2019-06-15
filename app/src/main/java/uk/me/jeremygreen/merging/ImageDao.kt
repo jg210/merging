@@ -19,7 +19,7 @@ interface ImageDao {
     fun findById(id: Long): Image
 
     @Delete
-    fun delete(image: Image)
+    suspend fun delete(image: Image)
 
     @Insert
     suspend fun add(image:Image)

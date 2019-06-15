@@ -56,7 +56,9 @@ class ImageFragment : ScreenFragment() {
             setMessage(R.string.confirmDeleteImage)
             setPositiveButton(R.string.ok, DialogInterface.OnClickListener(function = { _: DialogInterface, _: Int ->
                 imageDraweeView.setOnLongClickListener { false }
-                imageViewModel.delete(image)
+                GlobalScope.launch(Dispatchers.IO) {
+                    imageViewModel.delete(image)
+                }
             }))
             setNegativeButton(R.string.cancel, DialogInterface.OnClickListener(function = ::handleRemoveImageCancel))
             show()

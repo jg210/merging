@@ -1,4 +1,6 @@
-* findById can't be called on main thread.
+* Set of images isn't updated after delete an image unless restart app.
+
+* Should findById be suspend function?
 
 * Does ImageViewModel need to connect up with fragment / activity lifecycle?
 

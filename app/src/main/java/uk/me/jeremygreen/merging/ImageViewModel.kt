@@ -20,7 +20,7 @@ class ImageViewModel(application: Application) : AndroidViewModel(application) {
         return appDatabase.imageDao().findById(id)
     }
 
-    fun delete(image: Image) {
+    suspend fun delete(image: Image) {
         appDatabase.imageDao().delete(image)
     }
 
