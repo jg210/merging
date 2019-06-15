@@ -12,6 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import kotlinx.android.synthetic.main.add_image_screen.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
 import java.lang.AssertionError
 import java.util.*
@@ -68,7 +71,9 @@ class AddImageFragment : ScreenFragment() {
             if (file == null) {
                 throw AssertionError()
             }
-            imageViewModel.addImage(file.path)
+            GlobalScope.launch(Dispatchers.IO) {
+                imageViewModel.addImage(file.path)
+            }
         }
     }
 

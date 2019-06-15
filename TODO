@@ -1,9 +1,4 @@
-* Use android architecture components
-  - add ImageDao
-  - add AppDatabase
-  - add ImageViewModel
-  - observe ImageViewModel where required
-  -
+* findById can't be called on main thread.
 
 * Does ImageViewModel need to connect up with fragment / activity lifecycle?
 

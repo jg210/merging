@@ -22,7 +22,7 @@ interface ImageDao {
     fun delete(image: Image)
 
     @Insert
-    fun add(image:Image)
+    suspend fun add(image:Image)
 
 }
 

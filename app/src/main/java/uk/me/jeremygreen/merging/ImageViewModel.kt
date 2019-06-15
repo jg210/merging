@@ -24,7 +24,7 @@ class ImageViewModel(application: Application) : AndroidViewModel(application) {
         appDatabase.imageDao().delete(image)
     }
 
-    fun addImage(file: String) {
+    suspend fun addImage(file: String) {
         appDatabase.imageDao().add(Image(0, file))
     }
 
