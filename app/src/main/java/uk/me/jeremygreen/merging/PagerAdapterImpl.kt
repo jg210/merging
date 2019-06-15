@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import java.lang.IllegalStateException
 
 class PagerAdapterImpl(
     fragmentActivity: FragmentActivity
@@ -21,7 +22,14 @@ class PagerAdapterImpl(
         Log.v(TAG, "onImagesChange(${images.size} images)")
         imageIds.clear()
         val changes = changes(this.images, images)
-        images.forEach { image -> imageIds[image.id] = image }
+        images.forEach {image ->
+            val id = image.id
+            when (id) {
+                ID__ADD_IMAGE, RecyclerView.NO_ID ->
+                    throw IllegalStateException("collides with non-image id: ${id}")
+            }
+            imageIds[id] = image
+        }
         this.images = images
         changes.dispatchUpdatesTo(this)
     }
