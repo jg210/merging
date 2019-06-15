@@ -3,14 +3,13 @@ package uk.me.jeremygreen.merging
 import android.content.Context
 import java.io.File
 import java.io.IOException
-import java.lang.IllegalArgumentException
 
-class ImageManager(
+class ImageDao(
     private val context: Context,
     private val imagesDir: File = File(context.filesDir, "photos")
 ) {
 
-    private val TAG = "ImageManager"
+    private val TAG = "ImageDao"
     val images: List<Image>
         get() {
             return imagesDir.
@@ -21,7 +20,7 @@ class ImageManager(
                 map { id -> Image(imagesDir, id) }
         }
 
-    private val changeListeners: MutableList<ImageManager.ChangeListener> = mutableListOf()
+    private val changeListeners: MutableList<ImageDao.ChangeListener> = mutableListOf()
 
     init {
         imagesDir.mkdirs()
@@ -35,7 +34,7 @@ class ImageManager(
         return image
     }
 
-    fun addChangeListener(listener: ImageManager.ChangeListener) {
+    fun addChangeListener(listener: ImageDao.ChangeListener) {
         changeListeners.add(listener)
     }
 

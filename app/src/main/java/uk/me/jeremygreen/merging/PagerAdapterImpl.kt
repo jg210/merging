@@ -1,24 +1,17 @@
 package uk.me.jeremygreen.merging
 
 import android.util.Log
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import java.io.File
-import java.lang.AssertionError
-import kotlin.properties.Delegates
 
 class PagerAdapterImpl(
     fragmentActivity: FragmentActivity,
-    val imageManager: ImageManager
+    val imageDao: ImageDao
 ) : FragmentStateAdapter(fragmentActivity),
-    ImageManager.ChangeListener {
+    ImageDao.ChangeListener {
 
     private val TAG = "PagerAdapterImpl"
     private val ID__ADD_IMAGE = -2L; // -1 is taken by RecyclerView.NO_ID
@@ -27,10 +20,10 @@ class PagerAdapterImpl(
     private var images: List<Image> = listOf()
 
     init {
-        onImagesChange(imageManager.images)
+        onImagesChange(imageDao.images)
     }
 
-    // From ImageManager.ChangeListener
+    // From ImageDao.ChangeListener
     override fun onImagesChange(images: List<Image>) {
         Log.v(TAG, "onImagesChange(${images.size} images)")
         imageIds.clear()

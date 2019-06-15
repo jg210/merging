@@ -4,6 +4,6 @@ import androidx.fragment.app.Fragment
 
 abstract class ScreenFragment : Fragment() {
 
-    lateinit var imageManager: ImageManager
+    lateinit var imageDao: ImageDao
 
 }

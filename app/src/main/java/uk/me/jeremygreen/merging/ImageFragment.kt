@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.image_screen.*
-import java.io.File
 
 class ImageFragment : ScreenFragment() {
 
@@ -32,7 +31,7 @@ class ImageFragment : ScreenFragment() {
     ): View? {
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
-        image = imageManager.imageForId(imageId)
+        image = imageDao.imageForId(imageId)
         return inflater.inflate(R.layout.image_screen, container, false)
     }
 
@@ -63,7 +62,7 @@ class ImageFragment : ScreenFragment() {
         @Suppress("UNUSED_PARAMETER") which: Int
     ) {
         imageDraweeView.setOnLongClickListener { false }
-        imageManager.remove(image)
+        imageDao.remove(image)
     }
 
     fun handleRemoveImageCancel(
