@@ -14,13 +14,13 @@ import java.io.File
 import java.lang.AssertionError
 import kotlin.properties.Delegates
 
-class FSAdapterImpl(
+class PagerAdapterImpl(
     fragmentActivity: FragmentActivity,
     val imageManager: ImageManager
 ) : FragmentStateAdapter(fragmentActivity),
     ImageManager.ChangeListener {
 
-    private val TAG = "FSAdapterImpl"
+    private val TAG = "PagerAdapterImpl"
     private val ID__ADD_IMAGE = -2L; // -1 is taken by RecyclerView.NO_ID
 
     private val imageIds: MutableMap<Long, Image> = mutableMapOf()
