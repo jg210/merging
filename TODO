@@ -1,21 +1,12 @@
-* Set of images isn't updated after delete an image unless restart app.
+* Set of images isn't updated after add or delete an image unless restart app.
+
+* AddImageFragment's file field isn't persisted, so crashes when rotate.
 
 * Should findById be suspend function?
 
 * Does ImageViewModel need to connect up with fragment / activity lifecycle?
 
-* Recycled Image ids break PagerView2.
-  - if delete image and then take new on, ImageFragment for old image is reused
-    - since id is same?
-  - compose image filenames of id and then uuid?
-    - id for ordering
-    - uuid so can add a proper equals() to Image.
-    - ...and then implement DiffUtil.Callback using ==.
-
-* Don't delete image until it's gone from the UI.
-  - otherwise, rely on no redraws and fresco cachess when shouldn't
-  => - need to persist list of images separately from the files
-     - need to garbage collect files
+* Need to garbage collect files after delete them and UI has finished updating.
 
 * MLKit?
   - configure to start download of model at install time
