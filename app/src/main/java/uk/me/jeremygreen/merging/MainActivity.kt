@@ -11,15 +11,13 @@ import java.io.File
 
 class MainActivity : FragmentActivity() {
 
-    lateinit var imageViewModel: ImageViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_main)
-        imageViewModel = ViewModelProviders.of(this).get(ImageViewModel::class.java)
         val pagerAdapter = PagerAdapterImpl(this)
         pager.adapter = pagerAdapter
         pager.offscreenPageLimit = 2
+        val imageViewModel = ViewModelProviders.of(this).get(ImageViewModel::class.java)
         imageViewModel.allImages().observe(this, Observer { images ->
             pagerAdapter.setImages(images)
         })
