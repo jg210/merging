@@ -31,6 +31,9 @@
 
 * Better app_name.
 
+* Image-deletion dialogue dismissed if rotate device.
+  - use androidx DialogFragment?
+
 * Toggleable overlay showing debug info.
 
 * If possible, stop camera app asking for location permission.
