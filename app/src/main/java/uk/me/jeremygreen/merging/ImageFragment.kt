@@ -39,7 +39,7 @@ class ImageFragment : ScreenFragment() {
         val view = inflater.inflate(R.layout.image_screen, container, false)
         GlobalScope.launch(Dispatchers.IO) {
             val image = imageViewModel.findById(imageId)
-            launch(Dispatchers.Main) {
+            withContext(Dispatchers.Main) {
                 val uri = Uri.fromFile(File(image.file))
                 imageDraweeView.setImageURI(uri, null)
                 imageDraweeView.setOnLongClickListener {
