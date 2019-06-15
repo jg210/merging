@@ -1,6 +1,10 @@
 * Does ImageViewModel need to connect up with fragment / activity lifecycle?
 
 * Need to garbage collect files after delete them and UI has finished updating.
+  - when ViewPager2 stops using them
+    - https://developer.android.com/reference/android/support/v7/widget/RecyclerView.RecyclerListener.html?
+  - on startup, in case app shuts down or crashes before can delete files
+    - add database index for file column so can query if it is used
 
 * MLKit?
   - configure to start download of model at install time
