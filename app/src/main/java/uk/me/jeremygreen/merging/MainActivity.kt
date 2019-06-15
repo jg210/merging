@@ -20,7 +20,7 @@ class MainActivity : FragmentActivity() {
         val pagerAdapter = PagerAdapterImpl(this)
         pager.adapter = pagerAdapter
         pager.offscreenPageLimit = 2
-        imageViewModel.images.observe(this, Observer { images ->
+        imageViewModel.allImages().observe(this, Observer { images ->
             pagerAdapter.setImages(images)
         })
     }

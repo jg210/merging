@@ -2,6 +2,7 @@ package uk.me.jeremygreen.merging
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.room.Room
 import java.io.File
 
@@ -14,7 +15,9 @@ class ImageViewModel(application: Application) : AndroidViewModel(application) {
             "app").build()
     }
 
-    val images = appDatabase.imageDao().getImages()
+    fun allImages(): LiveData<List<Image>> {
+        return appDatabase.imageDao().getImages()
+    }
 
     suspend fun findById(id: Long): Image {
         return appDatabase.imageDao().findById(id)
