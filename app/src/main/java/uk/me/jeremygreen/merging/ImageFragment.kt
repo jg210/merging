@@ -27,7 +27,7 @@ class ImageFragment : ScreenFragment() {
         }
     }
 
-    val BUNDLE_KEY__IMAGE_ID = "imageId"
+    private val BUNDLE_KEY__IMAGE_ID = "imageId"
 
     override fun onCreateView(
         inflater: LayoutInflater,
