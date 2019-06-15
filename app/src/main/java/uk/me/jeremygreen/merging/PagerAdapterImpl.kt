@@ -29,7 +29,7 @@ class PagerAdapterImpl(
     private fun changes(old: List<Image>, new: List<Image>): DiffUtil.DiffResult {
         return DiffUtil.calculateDiff(object: DiffUtil.Callback() {
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return old[oldItemPosition] === new[newItemPosition]
+                return old[oldItemPosition] == new[newItemPosition]
             }
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                 return old[oldItemPosition].id == new[newItemPosition].id
