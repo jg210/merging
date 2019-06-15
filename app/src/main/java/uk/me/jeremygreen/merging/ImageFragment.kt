@@ -62,6 +62,7 @@ class ImageFragment : ScreenFragment() {
         @Suppress("UNUSED_PARAMETER") dialog: DialogInterface,
         @Suppress("UNUSED_PARAMETER") which: Int
     ) {
+        imageDraweeView.setOnLongClickListener { false }
         imageManager.remove(image)
     }
 
