@@ -1,4 +1,4 @@
-* Are coroutines properly scoped w.r.t. the Activity/Fragments?
+* Scope coroutines properly w.r.t. the Activity/Fragments.
   - can implement CoroutineScope and call its clear() from appropriate event
     - which event?
     - need to set coroutineContext property too, but to what?
