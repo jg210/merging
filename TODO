@@ -54,6 +54,8 @@
   - tune priorities.
   - make CircleCI fail.
 
+* android lint says need a backup_descriptor.xml
+
 * Spotbugs.
 
 * Show licence texts.
