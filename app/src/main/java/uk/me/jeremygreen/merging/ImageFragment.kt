@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -58,7 +57,7 @@ class ImageFragment : ScreenFragment() {
         }
     }
 
-    fun handleLongClick(image: Image) {
+    private fun handleLongClick(image: Image) {
         AlertDialog.Builder(requireContext()).apply {
             setMessage(R.string.confirmDeleteImage)
             setPositiveButton(R.string.ok, DialogInterface.OnClickListener(function = { _: DialogInterface, _: Int ->

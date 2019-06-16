@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import java.lang.IllegalStateException
 
 class PagerAdapterImpl(
     fragmentActivity: FragmentActivity
@@ -72,7 +71,7 @@ class PagerAdapterImpl(
     override fun getItemCount(): Int {
         val count = images.size + 1
         Log.v(TAG, "getItemCount() = ${count}")
-        return count;
+        return count
     }
 
     override fun createFragment(position: Int): Fragment {

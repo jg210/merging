@@ -10,6 +10,6 @@ import androidx.room.RoomDatabase
 )
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun imageDao(): ImageDao;
+    abstract fun imageDao(): ImageDao
 
 }

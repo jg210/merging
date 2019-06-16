@@ -4,11 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.room.Room
-import java.io.File
 
 class ImageViewModel(application: Application) : AndroidViewModel(application) {
 
-    val appDatabase: AppDatabase by lazy {
+    private val appDatabase: AppDatabase by lazy {
         Room.databaseBuilder(
             application.applicationContext,
             AppDatabase::class.java,

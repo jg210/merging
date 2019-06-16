@@ -16,7 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
-import java.lang.AssertionError
 import java.util.*
 
 class AddImageFragment : ScreenFragment() {
@@ -65,7 +64,7 @@ class AddImageFragment : ScreenFragment() {
         }
     }
 
-    fun createTakePhotoIntent(context: Context): Intent? {
+    private fun createTakePhotoIntent(context: Context): Intent? {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val cameraActivity = intent.resolveActivity(context.packageManager)
         if (cameraActivity == null) {

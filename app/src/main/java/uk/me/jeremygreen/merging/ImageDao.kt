@@ -1,13 +1,10 @@
 package uk.me.jeremygreen.merging
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import java.io.File
-import java.io.IOException
 
 @Dao
 interface ImageDao {

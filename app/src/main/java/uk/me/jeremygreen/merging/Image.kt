@@ -1,14 +1,7 @@
 package uk.me.jeremygreen.merging
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.provider.MediaStore
-import androidx.core.content.FileProvider
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import java.io.File
 
 @Entity(tableName = "images")
 data class Image(
@@ -27,4 +20,4 @@ data class Image(
 
     val file: String
 
-) {}
+)
