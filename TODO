@@ -1,3 +1,5 @@
+* ViewSlider2 position not persisted on rotation.
+
 * Add Toolbar to AddImageFragment
   - title
   - body View is overlapping the toolbar
