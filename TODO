@@ -11,8 +11,6 @@
   - use appropriately-sized images for feature recognition
   - would need something else for image processing.
 
-* Full landscape/portrait support.
-
 * Show merged photo.
 
 * Better unit tests.
