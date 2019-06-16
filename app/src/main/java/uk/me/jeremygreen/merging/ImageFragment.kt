@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ class ImageFragment : ScreenFragment() {
         }
     }
 
+    private val TAG = "ImageFragment"
     private val BUNDLE_KEY__IMAGE_ID = "imageId"
 
     override fun onCreateView(
@@ -34,13 +36,19 @@ class ImageFragment : ScreenFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        return inflater.inflate(R.layout.image_screen, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
-        val view = inflater.inflate(R.layout.image_screen, container, false)
+        val imageDraweeView = this.imageDraweeView
         GlobalScope.launch(Dispatchers.IO) {
             val image = imageViewModel.findById(imageId)
             withContext(Dispatchers.Main) {
                 val uri = Uri.fromFile(File(image.file))
+                Log.d(TAG, "updating image ${id} with: ${uri}")
                 imageDraweeView.setImageURI(uri, null)
                 imageDraweeView.setOnLongClickListener {
                     handleLongClick(image)
@@ -48,7 +56,6 @@ class ImageFragment : ScreenFragment() {
                 }
             }
         }
-        return view
     }
 
     fun handleLongClick(image: Image) {
