@@ -1,3 +1,10 @@
+* Add Toolbar to AddImageFragment
+  - title
+  - body View is overlapping the toolbar
+  - menu
+  - menu item
+  - icon
+
 * Scope coroutines properly w.r.t. the Activity/Fragments.
   - can implement CoroutineScope and call its clear() from appropriate event
     - which event?
@@ -22,13 +29,14 @@
     - https://developer.android.com/reference/android/support/v7/widget/RecyclerView.RecyclerListener.html?
   - on startup, in case app shuts down or crashes before can delete files
     - add database index for file column so can query if it is used
+  - don't remove images that camera Intent has created but that aren't yet store in the db.
 
 * Handle app rejected permissions.
 
 * Replace launcher icons.
   - Rubin's vase.
 
-* Better app_name.
+* Better appName.
 
 * Image-deletion dialogue dismissed if rotate device.
   - use androidx DialogFragment?
@@ -40,6 +48,7 @@
 * What happens if Camera app isn't given location permission?
 
 * Save apk as artifact on CircleCI.
+  - on CircleCI or as github release?
 
 * Test app on Firebase.
   - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
