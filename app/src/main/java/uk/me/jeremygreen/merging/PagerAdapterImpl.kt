@@ -12,7 +12,7 @@ class PagerAdapterImpl(
 ) : FragmentStateAdapter(fragmentActivity) {
 
     private val TAG = "PagerAdapterImpl"
-    private val ID__ADD_IMAGE = -2L; // -1 is taken by RecyclerView.NO_ID
+    private val ID__ADD_IMAGE = -2L // -1 is taken by RecyclerView.NO_ID
 
     private val imageIds: MutableMap<Long, Image> = mutableMapOf()
     private var images: List<Image> = listOf()

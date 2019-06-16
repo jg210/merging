@@ -60,12 +60,12 @@ class ImageFragment : ScreenFragment() {
     private fun handleLongClick(image: Image) {
         AlertDialog.Builder(requireContext()).apply {
             setMessage(R.string.confirmDeleteImage)
-            setPositiveButton(R.string.ok, DialogInterface.OnClickListener(function = { _: DialogInterface, _: Int ->
+            setPositiveButton(R.string.ok, { _: DialogInterface, _: Int ->
                 imageDraweeView.setOnLongClickListener { false }
                 GlobalScope.launch(Dispatchers.IO) {
                     imageViewModel.delete(image)
                 }
-            }))
+            })
             setNegativeButton(R.string.cancel, DialogInterface.OnClickListener(function = ::handleRemoveImageCancel))
             show()
         }
