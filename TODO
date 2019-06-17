@@ -35,7 +35,7 @@
     - add database index for file column so can query if it is used
   - don't remove images that camera Intent has created but that aren't yet store in the db.
 
-* Handle app rejected permissions.
+* Handle rejected permissions.
 
 * Better appName.
 
@@ -47,9 +47,6 @@
 * If possible, stop camera app asking for location permission.
 
 * What happens if Camera app isn't given location permission?
-
-* Save apk as artifact on CircleCI.
-  - on CircleCI or as github release?
 
 * Test app on Firebase.
   - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
@@ -63,22 +60,12 @@
 * Spotbugs.
 
 * Show licence texts.
-  - extra ViewPager screen would be simplest
   - https://github.com/hierynomus/license-gradle-plugin
   - https://github.com/cookpad/license-tools-plugin
   - https://plugins.gradle.org/search?term=license
 
+* Crash reporting tool.
+
 * Publish to store.
 
 * Firebase analytics.
-
-* Crash reporting tool.
-
-* Return FragmentStatePagerAdapter.POSITION_UNCHANGED from PagerAdapter in more cases.
-  - for better performance when delete photo
-  - keep Fragments in sparse ArrayList
-  - find length of common prefix of old and new List<File>
-  - only keep this many Fragments in the ArrayList
-
-* Persistent ViewPager state.
-  - persists across rotations etc., but not full restarts.
