@@ -1,4 +1,6 @@
 * ViewSlider2 position not persisted on rotation.
+  - probably since ViewPager2 saves and restores it, but when
+    restored, there are no images in the slider.
 
 * Add Toolbar to AddImageFragment
   - title
