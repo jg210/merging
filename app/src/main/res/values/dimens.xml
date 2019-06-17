@@ -1,3 +1,4 @@
 <resources>
     <dimen name="addImageTextSize">100sp</dimen>
+    <dimen name="addImageButtonSize">150sp</dimen>
 </resources>

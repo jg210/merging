@@ -43,7 +43,7 @@ class AddImageFragment : ScreenFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        addImageScreen.setOnClickListener { handleTakePhoto() }
+        addImageButton.setOnClickListener { handleTakePhoto() }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
