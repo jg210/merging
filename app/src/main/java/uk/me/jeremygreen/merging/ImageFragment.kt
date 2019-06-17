@@ -66,15 +66,9 @@ class ImageFragment : ScreenFragment() {
                     imageViewModel.delete(image)
                 }
             })
-            setNegativeButton(R.string.cancel, DialogInterface.OnClickListener(function = ::handleRemoveImageCancel))
+            setNegativeButton(R.string.cancel, { _: DialogInterface, _: Int -> })
             show()
         }
-    }
-
-    fun handleRemoveImageCancel(
-        @Suppress("UNUSED_PARAMETER") dialog: DialogInterface,
-        @Suppress("UNUSED_PARAMETER") which: Int) {
-        // Empty
     }
 
 }
