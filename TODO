@@ -1,9 +1,11 @@
 * Add menu to AddImageFragment
   X limit touchable area of add-image button
   X selector drawable for menu button
-  - new assets for menu button
+  X new assets for menu button
+  X round highlight for settings menu button
   - extra fragments for settings screen
   - choose colour scheme for app
+  - tune layout
 
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when
