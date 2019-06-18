@@ -59,6 +59,8 @@
 
 * android lint says need a backup_descriptor.xml
 
+* kotlin doesn't use java-style capitalization for CONSTANTS.
+
 * Spotbugs.
 
 * Show licence texts.
