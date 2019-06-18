@@ -1,6 +1,6 @@
 * Add menu to AddImageFragment
   X limit touchable area of add-image button
-  - selector drawable for menu button
+  X selector drawable for menu button
   - new assets for menu button
   - extra fragments for settings screen
   - choose colour scheme for app
