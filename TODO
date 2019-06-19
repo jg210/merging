@@ -3,9 +3,13 @@
   X selector drawable for menu button
   X new assets for menu button
   X round highlight for settings menu button
-  - extra fragments for settings screen
+  - format toolbar to match licence text activity
+    - primary colour bar
+    - white/tintable icon
+  - animate to/from licence Activity.
   - choose colour scheme for app
   - tune layout
+
 
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when
@@ -68,10 +72,7 @@
 
 * Spotbugs.
 
-* Show licence texts.
-  - https://github.com/hierynomus/license-gradle-plugin
-  - https://github.com/cookpad/license-tools-plugin
-  - https://plugins.gradle.org/search?term=license
+* "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
 
 * Crash reporting tool.
 

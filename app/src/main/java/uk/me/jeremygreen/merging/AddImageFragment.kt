@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.FileProvider
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import kotlinx.android.synthetic.main.add_image_screen.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -44,6 +45,12 @@ class AddImageFragment : ScreenFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         addImageButton.setOnClickListener { handleTakePhoto() }
+        appIcon.setOnClickListener {
+            val intent: Intent = Intent(
+                requireActivity().applicationContext,
+                OssLicensesMenuActivity::class.java)   //Intent(this, OssLicensesMenuActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
