@@ -10,7 +10,6 @@
   - choose colour scheme for app
   - tune layout
 
-
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when
     restored, there are no images in the slider.
@@ -56,6 +55,8 @@
 
 * Test app on Firebase.
   - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
+
+* Move licence button to settings menu, if get one.
 
 * Material design
   - implementation 'com.google.android.material:material:1.0.0'
