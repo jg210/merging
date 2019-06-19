@@ -1,6 +1,7 @@
 <resources>
-    <dimen name="addImageTextSize">96sp</dimen>
-    <dimen name="addImageButtonSize">150sp</dimen>
+    <dimen name="addImageTextSize">36sp</dimen>
+    <dimen name="addImageButtonSize">56sp</dimen>
+    <dimen name="addImageButtonMargin">16dp</dimen>
     <dimen name="toolbarMargin">4dp</dimen>
     <dimen name="toolbarIconSize">48dp</dimen>
 </resources>
