@@ -63,6 +63,9 @@
   - don't misuse dark/light primary color resources
   - Floating Action Button should be in fixed position and fade in/out of view as swipe
 
+* Automated licence report.
+  - listed by licence type.
+
 * Configure android lint
   - tune priorities.
   - make CircleCI fail.
