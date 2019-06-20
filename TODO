@@ -3,6 +3,9 @@
   X selector drawable for menu button
   X new assets for menu button
   X round highlight for settings menu button
+  - add Toolbar using AppCompatActivity
+    - https://guides.codepath.com/android/using-the-app-toolbar
+    - NPE...
   - format toolbar to match licence text activity
     - primary colour bar
     - white/tintable icon
