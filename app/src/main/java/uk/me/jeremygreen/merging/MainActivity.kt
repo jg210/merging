@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         imageViewModel.allImages().observe(this, Observer { images ->
             pagerAdapter.setImages(images)
         })
-        supportActionBar!!.show()
+//        supportActionBar!!.show()
 //        fab.setOnClickListener { handleTakePhoto() }
 //        appIcon.setOnClickListener {
 //            val intent: Intent = Intent(
