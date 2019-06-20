@@ -6,6 +6,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
@@ -56,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         imageViewModel.allImages().observe(this, Observer { images ->
             pagerAdapter.setImages(images)
         })
-//        supportActionBar!!.show()
+        supportActionBar!!.show()
 //        fab.setOnClickListener { handleTakePhoto() }
 //        appIcon.setOnClickListener {
 //            val intent: Intent = Intent(
@@ -64,6 +66,18 @@ class MainActivity : AppCompatActivity() {
 //                OssLicensesMenuActivity::class.java)   //Intent(this, OssLicensesMenuActivity::class.java)
 //            startActivity(intent)
 //        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> true
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
