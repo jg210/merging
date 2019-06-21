@@ -64,7 +64,8 @@ class MainActivity : AppCompatActivity() {
             pagerAdapter.setImages(images)
         })
         fab.setOnClickListener { handleTakePhoto() }
-        OssLicensesMenuActivity.setActivityTitle(getResources().getString(R.string.actionLicences))
+        val licencesTitle = getResources().getString(R.string.actionLicences)
+        OssLicensesMenuActivity.setActivityTitle(licencesTitle)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
