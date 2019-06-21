@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 file = File(fileString)
             }
         }
-        setContentView(R.layout.content_main)
+        setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         val pagerAdapter = PagerAdapterImpl(this)
         pager.adapter = pagerAdapter
@@ -58,8 +58,7 @@ class MainActivity : AppCompatActivity() {
         imageViewModel.allImages().observe(this, Observer { images ->
             pagerAdapter.setImages(images)
         })
-        supportActionBar!!.show()
-//        fab.setOnClickListener { handleTakePhoto() }
+        fab.setOnClickListener { handleTakePhoto() }
 //        appIcon.setOnClickListener {
 //            val intent: Intent = Intent(
 //                requireActivity().applicationContext,
