@@ -24,6 +24,10 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     companion object {
+
+        init {
+        }
+
         fun imagesDir(activity: Activity): File {
             return File(activity.filesDir, "photos")
         }
@@ -60,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             pagerAdapter.setImages(images)
         })
         fab.setOnClickListener { handleTakePhoto() }
+        OssLicensesMenuActivity.setActivityTitle(getResources().getString(R.string.actionLicences))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

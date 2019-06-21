@@ -18,7 +18,7 @@
                 android:background="?attr/colorPrimary"
                 android:elevation="4dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:logo="@drawable/ic_app_icon"
+                app:navigationIcon="@drawable/ic_app_icon"
         />
 
     </com.google.android.material.appbar.AppBarLayout>

@@ -7,9 +7,9 @@
   X FAB button looks ugly
   X add app icon to toolbar
   X connect toolbar back up to licence text activity
-  - set licence activity title to Licences.
-  - app title is too close to app logo in toolbar
-  - format toolbar to match licence text activity
+  X set licence activity title to Licences.
+  X app title is too close to app logo in toolbar
+  X format toolbar to match licence text activity
   - animate to/from licence Activity.
   - choose colour scheme for app
 
