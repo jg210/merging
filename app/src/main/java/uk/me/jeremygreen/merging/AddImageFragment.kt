@@ -13,7 +13,7 @@ class AddImageFragment : ScreenFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.add_image_screen, container, false)
+        return inflater.inflate(R.layout.merged_image_screen, container, false)
     }
 
 }

@@ -12,7 +12,7 @@ class PagerAdapterImpl(
 ) : FragmentStateAdapter(fragmentActivity) {
 
     private val TAG = "PagerAdapterImpl"
-    private val ID__ADD_IMAGE = -2L // -1 is taken by RecyclerView.NO_ID
+    private val ID__MERGED_IMAGE = -2L // -1 is taken by RecyclerView.NO_ID
 
     private val imageIds: MutableMap<Long, Image> = mutableMapOf()
     private var images: List<Image> = listOf()
@@ -24,7 +24,7 @@ class PagerAdapterImpl(
         images.forEach {image ->
             val id = image.id
             when (id) {
-                ID__ADD_IMAGE, RecyclerView.NO_ID ->
+                ID__MERGED_IMAGE, RecyclerView.NO_ID ->
                     throw IllegalStateException("collides with non-image id: ${id}")
             }
             imageIds[id] = image
@@ -52,16 +52,18 @@ class PagerAdapterImpl(
 
     override fun getItemId(position: Int): Long {
         val imageCount = images.size
-        return when {
-            (position >= 0 && position < imageCount) -> images[position].id
-            (position == imageCount) -> ID__ADD_IMAGE
-            else -> RecyclerView.NO_ID
+        if (position >= 0 && position < imageCount) {
+            return images[position].id
         }
+        if (position < getItemCount()) {
+            return ID__MERGED_IMAGE
+        }
+        return RecyclerView.NO_ID
     }
 
     // From FragmentStateAdapter
     override fun containsItem(id: Long): Boolean {
-        if (id == ID__ADD_IMAGE) {
+        if (id == ID__MERGED_IMAGE) {
             return true
         }
         return id in imageIds
@@ -69,7 +71,11 @@ class PagerAdapterImpl(
 
     // From FragmentStateAdapter
     override fun getItemCount(): Int {
-        val count = images.size + 1
+        val count = if (images.size >= 2) {
+            images.size + 1
+        } else {
+            images.size
+        }
         Log.v(TAG, "getItemCount() = ${count}")
         return count
     }

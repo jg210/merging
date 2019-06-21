@@ -1,6 +1,8 @@
 * Convert add image screen to merged image screen.
-  - rename
-  - change background
+  X rename
+  X change background
+  - crashes if remove an image when have two images
+    - likely since changes() only consider ImageScreen images.
 
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when
