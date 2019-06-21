@@ -33,6 +33,8 @@
 
 * Show merged photo.
 
+* Screenshots in github.
+
 * Better unit tests.
 
 * If wipe AVD data, camera app doesn't send photo back to app first time use it.
