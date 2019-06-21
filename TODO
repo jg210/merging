@@ -10,8 +10,6 @@
   X set licence activity title to Licences.
   X app title is too close to app logo in toolbar
   X format toolbar to match licence text activity
-  - animate to/from licence Activity.
-  - choose colour scheme for app
 
 * Convert add image screen to merged image screen.
   - rename
@@ -65,7 +63,7 @@
 * Test app on Firebase.
   - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
 
-* Move licence button to settings menu, if get one.
+* Choose colour scheme for app
 
 * Material design
   - implementation 'com.google.android.material:material:1.0.0'
