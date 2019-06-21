@@ -1,6 +1,5 @@
 <resources>
-    <string name="actionSettings">Settings</string>
-    <string name="addImage">+</string>
+    <string name="actionLicences">Licences</string>
     <string name="appName">Merging</string>
     <string name="cancel">Cancel</string>
     <string name="confirmDeleteImage">Delete the photo?</string>

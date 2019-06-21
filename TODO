@@ -6,13 +6,16 @@
   X add Toolbar using AppCompatActivity
   X FAB button looks ugly
   X add app icon to toolbar
-  - connect toolbar back up to licence text activity
-  - don't need an add-image screen
+  X connect toolbar back up to licence text activity
+  - set licence activity title to Licences.
+  - app title is too close to app logo in toolbar
   - format toolbar to match licence text activity
-    - primary colour bar
-    - white/tintable icon
   - animate to/from licence Activity.
   - choose colour scheme for app
+
+* Convert add image screen to merged image screen.
+  - rename
+  - change background
 
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when

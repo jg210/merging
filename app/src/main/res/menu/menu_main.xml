@@ -2,8 +2,8 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="uk.me.jeremygreen.merging.MainActivity">
-    <item android:id="@+id/action_settings"
-          android:title="@string/actionSettings"
+    <item android:id="@+id/actionLicences"
+          android:title="@string/actionLicences"
           android:orderInCategory="100"
           app:showAsAction="never"/>
 </menu>

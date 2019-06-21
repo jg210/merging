@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.coroutines.Dispatchers
@@ -59,12 +60,6 @@ class MainActivity : AppCompatActivity() {
             pagerAdapter.setImages(images)
         })
         fab.setOnClickListener { handleTakePhoto() }
-//        appIcon.setOnClickListener {
-//            val intent: Intent = Intent(
-//                requireActivity().applicationContext,
-//                OssLicensesMenuActivity::class.java)   //Intent(this, OssLicensesMenuActivity::class.java)
-//            startActivity(intent)
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -74,7 +69,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.actionLicences -> {
+                startActivity(intent)
+                val intent: Intent = Intent(this, OssLicensesMenuActivity::class.java)
+                startActivity(intent)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
