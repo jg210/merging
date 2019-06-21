@@ -8,16 +8,14 @@ import java.io.File
 
 abstract class ScreenFragment : Fragment() {
 
-    protected val imagesDir: File by lazy {
-        File(requireContext().filesDir, "photos")
-    }
-
     protected lateinit var imageViewModel: ImageViewModel
+    protected lateinit var imagesDir: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        imagesDir.mkdirs()
         val activity = requireActivity()
+        imagesDir = MainActivity.imagesDir(activity)
+        imagesDir.mkdirs()
         imageViewModel = ViewModelProviders.of(activity).get(ImageViewModel::class.java)
     }
 

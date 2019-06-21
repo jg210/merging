@@ -3,12 +3,17 @@
   X selector drawable for menu button
   X new assets for menu button
   X round highlight for settings menu button
-  - format toolbar to match licence text activity
-    - primary colour bar
-    - white/tintable icon
-  - animate to/from licence Activity.
-  - choose colour scheme for app
-  - tune layout
+  X add Toolbar using AppCompatActivity
+  X FAB button looks ugly
+  X add app icon to toolbar
+  X connect toolbar back up to licence text activity
+  X set licence activity title to Licences.
+  X app title is too close to app logo in toolbar
+  X format toolbar to match licence text activity
+
+* Convert add image screen to merged image screen.
+  - rename
+  - change background
 
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when
@@ -28,6 +33,8 @@
   - would need something else for image processing.
 
 * Show merged photo.
+
+* Screenshots in github.
 
 * Better unit tests.
 
@@ -56,7 +63,7 @@
 * Test app on Firebase.
   - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
 
-* Move licence button to settings menu, if get one.
+* Choose colour scheme for app
 
 * Material design
   - implementation 'com.google.android.material:material:1.0.0'

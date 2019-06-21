@@ -6,41 +6,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <ImageButton
-            android:id="@+id/appIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_app_icon"
-            android:background="?attr/selectableItemBackground"
-            android:layout_margin="@dimen/toolbarMargin"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-    />
-
-    <!--<ImageButton-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/ic_settings_icon"-->
-            <!--android:background="?attr/selectableItemBackground"-->
-            <!--android:layout_margin="@dimen/toolbarMargin"-->
-            <!--app:layout_constraintTop_toTopOf="parent"-->
-            <!--app:layout_constraintRight_toRightOf="parent"-->
-    <!--/>-->
-
-    <TextView
-            android:id="@+id/addImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/addImageButtonMargin"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.8"
-            android:textSize="@dimen/addImageTextSize"
-            android:text="@string/addImage"
-            android:textAlignment="center"
-            android:background="@drawable/add_image_drawable"
-    />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
