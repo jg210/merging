@@ -4,9 +4,9 @@
   X new assets for menu button
   X round highlight for settings menu button
   X add Toolbar using AppCompatActivity
+  X FAB button looks ugly
   - add app icon to toolbar
   - connect toolbar back up to licence text activity
-  - FAB button looks ugly
   - don't need an add-image screen
   - format toolbar to match licence text activity
     - primary colour bar
