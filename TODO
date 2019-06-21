@@ -1,16 +1,3 @@
-* Add menu to AddImageFragment
-  X limit touchable area of add-image button
-  X selector drawable for menu button
-  X new assets for menu button
-  X round highlight for settings menu button
-  X add Toolbar using AppCompatActivity
-  X FAB button looks ugly
-  X add app icon to toolbar
-  X connect toolbar back up to licence text activity
-  X set licence activity title to Licences.
-  X app title is too close to app logo in toolbar
-  X format toolbar to match licence text activity
-
 * Convert add image screen to merged image screen.
   - rename
   - change background
