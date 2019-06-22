@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModelProviders
 import uk.me.jeremygreen.merging.model.ImageViewModel
 import java.io.File
 
-
+/**
+ * Base class for the ViewPager2 Fragments in the screen package.
+ */
 abstract class ScreenFragment : Fragment() {
 
     protected lateinit var imageViewModel: ImageViewModel
