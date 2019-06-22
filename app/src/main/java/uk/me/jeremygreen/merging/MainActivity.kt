@@ -13,6 +13,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_main.*
 import uk.me.jeremygreen.merging.model.ImageViewModel
 import java.io.File

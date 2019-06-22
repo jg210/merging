@@ -10,11 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.*
-import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.ScreenFragment
 import uk.me.jeremygreen.merging.ScreenFragmentFactory
 import uk.me.jeremygreen.merging.model.Image
 import java.io.File
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
+import uk.me.jeremygreen.merging.R
+import java.lang.Exception
+
 
 class ImageFragment : ScreenFragment() {
 
@@ -42,6 +48,15 @@ class ImageFragment : ScreenFragment() {
     private val TAG = "ImageFragment"
     private val BUNDLE_KEY__IMAGE_ID = "imageId"
 
+    private val faceDetectorOptions by lazy {
+        FirebaseVisionFaceDetectorOptions.Builder()
+            .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
+            .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
+            .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
+            .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
+            .build()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,13 +72,43 @@ class ImageFragment : ScreenFragment() {
         val imageDraweeView = this.imageDraweeView
         launch(Dispatchers.IO) {
             val image = imageViewModel.findById(imageId)
-            withContext(Dispatchers.Main) {
+            launch(Dispatchers.Main) {
                 val uri = Uri.fromFile(File(image.file))
                 Log.d(TAG, "updating image ${id} with: ${uri}")
                 imageDraweeView.setImageURI(uri, null)
                 imageDraweeView.setOnLongClickListener {
                     handleLongClick(image)
                     false // not consumed
+                }
+            }
+            // https//firebase.google.com/docs/ml-kit/android/detect-faces suggests size to use.
+            image.process(360, 480) { closeableReference ->
+                Log.i(TAG, "decoded bitmap.")
+                // The IO thread has done it's work reading the Bitmap. Don't want to block this thread any more,
+                // so clone the reference and hand it to Dispatcher.Default coroutine to do the CPU-intensive
+                // face-detection work.
+                val clonedReference = closeableReference.clone()
+                launch(Dispatchers.Default) {
+                    try {
+                        Log.i(TAG, "detecting faces.")
+                        val bitmap = clonedReference.get()
+                        val firebaseImage = FirebaseVisionImage.fromBitmap(bitmap)
+                        val detector = FirebaseVision.getInstance().getVisionFaceDetector(faceDetectorOptions)
+                        detector.detectInImage(firebaseImage)
+                            .addOnSuccessListener { faces ->
+                                Log.i(TAG, "detected faces: ${faces.size}")
+                                faces.forEach { face ->
+                                    Log.i(TAG, face.toString())
+                                }
+                            }
+                            .addOnFailureListener(object: OnFailureListener {
+                                    override fun onFailure(e: Exception) {
+                                        Log.e(TAG, "face detection failed", e);
+                                    }
+                            })
+                    } finally {
+                        clonedReference.close()
+                    }
                 }
             }
         }

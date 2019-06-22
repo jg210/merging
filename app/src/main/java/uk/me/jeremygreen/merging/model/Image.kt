@@ -18,6 +18,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.facebook.imagepipeline.common.ImageDecodeOptions
 import com.facebook.imagepipeline.common.RotationOptions
 import java.io.File
+import java.lang.NullPointerException
 
 @Entity(tableName = "images")
 data class Image(
@@ -68,9 +69,10 @@ data class Image(
        val dataSubscriber: DataSubscriber<CloseableReference<CloseableImage>> =
           object: BaseBitmapReferenceDataSubscriber() {
               override fun onNewResultImpl(bitmapReference: CloseableReference<Bitmap>?) {
-                  if (bitmapReference != null) {
-                      callback(bitmapReference)
+                  if (bitmapReference == null) {
+                      throw NullPointerException()
                   }
+                  callback(bitmapReference)
               }
               override fun onFailureImpl(dataSource: DataSource<CloseableReference<CloseableImage>>?) {
                   throw RuntimeException()

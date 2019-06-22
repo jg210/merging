@@ -18,15 +18,6 @@ class ImageViewModel(application: Application) : AndroidViewModel(application) {
             "app").build()
     }
 
-    private val faceDetectorOptions by lazy {
-        FirebaseVisionFaceDetectorOptions.Builder()
-            .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
-            .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
-            .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
-            .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
-            .build()
-    }
-
     fun allImages(): LiveData<List<Image>> {
         return appDatabase.imageDao().getImages()
     }
