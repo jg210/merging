@@ -18,13 +18,23 @@ import java.io.File
 class ImageFragment : ScreenFragment() {
 
     companion object {
-        fun newInstance(imageId: Long): ImageFragment {
-            return ImageFragment().apply {
-                arguments = Bundle().apply {
-                    putLong(BUNDLE_KEY__IMAGE_ID, imageId)
+
+        fun createFactory(image: Image): ScreenFragmentFactory<ImageFragment> {
+            if (image.id < 0) {
+                throw IllegalStateException("might collide with non-image id: ${image.id}")
+            }
+            return object: ScreenFragmentFactory<ImageFragment> {
+                override val id: Long = image.id
+                override fun createInstance(): ImageFragment {
+                    return ImageFragment().apply {
+                        arguments = Bundle().apply {
+                            putLong(BUNDLE_KEY__IMAGE_ID, image.id)
+                        }
+                    }
                 }
             }
         }
+
     }
 
     private val TAG = "ImageFragment"
