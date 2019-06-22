@@ -7,5 +7,5 @@ h1. Firebase Configuration
 * In CircleCI project's Environment Variables settings, add a GOOGLE_SERVICES environment variable with its value set to the output of the following command:
 
 ```
-base64 app/google-services.json
+base64 --wrap=0 app/google-services.json && echo
 ```
