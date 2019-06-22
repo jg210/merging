@@ -66,6 +66,8 @@
 
 * kotlin doesn't use java-style capitalization for CONSTANTS.
 
+* Version number screen.
+
 * Spotbugs.
 
 * "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
