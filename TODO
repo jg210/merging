@@ -68,6 +68,8 @@
 
 * Version number screen.
 
+* Move features in this list to github issues.
+
 * Spotbugs.
 
 * "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
