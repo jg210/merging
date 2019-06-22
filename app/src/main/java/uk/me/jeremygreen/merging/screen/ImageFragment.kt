@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging
+package uk.me.jeremygreen.merging.screen
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -13,6 +13,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import uk.me.jeremygreen.merging.R
+import uk.me.jeremygreen.merging.ScreenFragment
+import uk.me.jeremygreen.merging.ScreenFragmentFactory
 import uk.me.jeremygreen.merging.model.Image
 import java.io.File
 
@@ -24,7 +27,8 @@ class ImageFragment : ScreenFragment() {
             if (image.id < 0) {
                 throw IllegalStateException("might collide with non-image id: ${image.id}")
             }
-            return object: ScreenFragmentFactory<ImageFragment> {
+            return object:
+                ScreenFragmentFactory<ImageFragment> {
                 override val id: Long = image.id
                 override fun createInstance(): ImageFragment {
                     return ImageFragment().apply {
