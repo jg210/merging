@@ -16,9 +16,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
+                <!-- Setting invisible navigationIcon gives better title position. -->
+                app:navigationIcon="?attr/colorPrimary"
                 android:elevation="4dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:navigationIcon="@drawable/ic_app_icon"
         />
 
     </com.google.android.material.appbar.AppBarLayout>
