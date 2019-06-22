@@ -14,11 +14,6 @@
     - same problem is moved into code that sets up this LiveData
   - keep hold of restored state and use it for first images update?
 
-* Scope coroutines properly w.r.t. the Activity/Fragments.
-  - can implement CoroutineScope and call its clear() from appropriate event
-    - which event?
-    - need to set coroutineContext property too, but to what?
-
 * Show merged photo.
 
 * Screenshots in github.
@@ -70,7 +65,11 @@
 
 * Version number screen.
 
-* Eplain need INTERNET permission for model download in app blurb.
+* Why wasn't it possible to get coroutine scope like this?
+  - https://developer.android.com/topic/libraries/architecture/coroutines#lifecyclescope
+  - had to implement CoroutineScope in ImageFragment instead, which is OK, but not as clear
+
+* Explain need INTERNET permission for model download in app blurb.
 
 * Move features in this list to github issues.
 

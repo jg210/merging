@@ -14,9 +14,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import uk.me.jeremygreen.merging.model.ImageViewModel
 import java.io.File
 import java.util.*
@@ -126,9 +123,7 @@ class MainActivity : AppCompatActivity() {
             if (file == null) {
                 throw AssertionError()
             }
-            GlobalScope.launch(Dispatchers.IO) {
-                imageViewModel.addImage(file.path)
-            }
+            imageViewModel.addImage(file.path)
         }
     }
 

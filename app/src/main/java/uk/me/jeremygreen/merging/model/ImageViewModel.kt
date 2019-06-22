@@ -3,7 +3,10 @@ package uk.me.jeremygreen.merging.model
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import androidx.room.Room
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ImageViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -22,12 +25,16 @@ class ImageViewModel(application: Application) : AndroidViewModel(application) {
         return appDatabase.imageDao().findById(id)
     }
 
-    suspend fun delete(image: Image) {
-        appDatabase.imageDao().delete(image)
+    fun delete(image: Image) {
+        viewModelScope.launch(Dispatchers.IO) {
+            appDatabase.imageDao().delete(image)
+        }
     }
 
-    suspend fun addImage(file: String) {
-        appDatabase.imageDao().add(Image(0, file))
+    fun addImage(file: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            appDatabase.imageDao().add(Image(0, file))
+        }
     }
 
 }

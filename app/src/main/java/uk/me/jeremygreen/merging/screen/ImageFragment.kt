@@ -9,10 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.image_screen.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.ScreenFragment
 import uk.me.jeremygreen.merging.ScreenFragmentFactory
@@ -58,7 +55,7 @@ class ImageFragment : ScreenFragment() {
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
         val imageDraweeView = this.imageDraweeView
-        GlobalScope.launch(Dispatchers.IO) {
+        launch(Dispatchers.IO) {
             val image = imageViewModel.findById(imageId)
             withContext(Dispatchers.Main) {
                 val uri = Uri.fromFile(File(image.file))
@@ -71,15 +68,13 @@ class ImageFragment : ScreenFragment() {
             }
         }
     }
-
+    
     private fun handleLongClick(image: Image) {
         AlertDialog.Builder(requireContext()).apply {
             setMessage(R.string.confirmDeleteImage)
             setPositiveButton(R.string.ok, { _: DialogInterface, _: Int ->
                 imageDraweeView.setOnLongClickListener { false }
-                GlobalScope.launch(Dispatchers.IO) {
-                    imageViewModel.delete(image)
-                }
+                imageViewModel.delete(image)
             })
             setNegativeButton(R.string.cancel, { _: DialogInterface, _: Int -> })
             show()
