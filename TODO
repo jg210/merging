@@ -1,19 +1,16 @@
 * Find a face in images.
-  - where should images be processed?
-    - intercept images events in ImageViewModel
-      - but there's no scope available for doing work
-    - intercept images in MainActivity observer and push processing into queue
-      - would make MainActivity too complicated
-      - how will it know which image to process first?
-    - do work lazily in fragments
-      - caching to share it between places that need it in ImageViewModel
-  - wait for MLKit model to download when necessary
-  - use appropriately-sized images for feature recognition
+  X use appropriately-sized images for feature recognition
+  - break implementation into separate functions
   - store contour coordinates in database
-  - https://proandroiddev.com/android-room-handling-relations-using-livedata-2d892e40bd53
-  - render coordinates on to of images
+    - https://proandroiddev.com/android-room-handling-relations-using-livedata-2d892e40bd53
+    - delete if image deleted
+  - wait for MLKit model to download when necessary
+  - face-detection code doesn't belong in ImageFragment
+  - render coordinates on top of images
     - subscribe to data at lowest level
       => in ImageFragment
+
+* Firebase hasn't detected the app yet.
 
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when restored, there are no images in the slider.
@@ -61,9 +58,11 @@
   - Floating Action Button should be in fixed position and fade in/out of view as swipe
 
 * GDPR.
+  - terms and conditions page at startup.
 
 * Automated licence report.
   - listed by licence type.
+  - jk1?
 
 * Configure android lint
   - tune priorities.
@@ -87,7 +86,7 @@
 
 * "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
 
-* Crash reporting tool.
+* Firebase crashlytics.
 
 * Publish to store.
 
