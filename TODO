@@ -1,4 +1,12 @@
 * Find a face in images.
+  - where should images be processed?
+    - intercept images events in ImageViewModel
+      - but there's no scope available for doing work
+    - intercept images in MainActivity observer and push processing into queue
+      - would make MainActivity too complicated
+      - how will it know which image to process first?
+    - do work lazily in fragments
+      - caching to share it between places that need it in ImageViewModel
   - wait for MLKit model to download when necessary
   - use appropriately-sized images for feature recognition
   - store contour coordinates in database
