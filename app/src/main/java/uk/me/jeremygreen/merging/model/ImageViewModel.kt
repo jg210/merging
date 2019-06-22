@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging
+package uk.me.jeremygreen.merging.model
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

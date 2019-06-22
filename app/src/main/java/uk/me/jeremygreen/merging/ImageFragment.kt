@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import uk.me.jeremygreen.merging.model.Image
 import java.io.File
 
 class ImageFragment : ScreenFragment() {

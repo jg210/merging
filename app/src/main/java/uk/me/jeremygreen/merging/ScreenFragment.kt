@@ -3,6 +3,7 @@ package uk.me.jeremygreen.merging
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import uk.me.jeremygreen.merging.model.ImageViewModel
 import java.io.File
 
 

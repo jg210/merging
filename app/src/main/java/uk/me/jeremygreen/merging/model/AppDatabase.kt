@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging
+package uk.me.jeremygreen.merging.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

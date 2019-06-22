@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import uk.me.jeremygreen.merging.model.ImageViewModel
 import java.io.File
 import java.util.*
 
