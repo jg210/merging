@@ -1,19 +1,21 @@
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when
     restored, there are no images in the slider.
+  - persist in ViewModel instead
+
+* Find a face in images.
+  - wait for MLKit model to download when necessary
+  - use appropriately-sized images for feature recognition
+  - store contour coordinates in database
+  - https://proandroiddev.com/android-room-handling-relations-using-livedata-2d892e40bd53
+  - render coordinates on to of images
+    - subscribe to data at lowest level
+      => in ImageFragment
 
 * Scope coroutines properly w.r.t. the Activity/Fragments.
   - can implement CoroutineScope and call its clear() from appropriate event
     - which event?
     - need to set coroutineContext property too, but to what?
-
-* MLKit
-  - configure to start download of model at install time
-  - wait for model to download when necessary
-    - after first need model
-  - will need INTERNET permission for model download
-  - use appropriately-sized images for feature recognition
-  - would need something else for image processing.
 
 * Show merged photo.
 
@@ -65,6 +67,8 @@
 * kotlin doesn't use java-style capitalization for CONSTANTS.
 
 * Version number screen.
+
+* Eplain need INTERNET permission for model download in app blurb.
 
 * Move features in this list to github issues.
 
