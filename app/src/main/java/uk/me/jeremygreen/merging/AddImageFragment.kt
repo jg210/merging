@@ -9,6 +9,13 @@ class AddImageFragment : ScreenFragment() {
 
     private val TAG = "AddImageFragment"
 
+    companion object: ScreenFragmentFactory<AddImageFragment> {
+        override val id: Long = -2
+        override fun createInstance(): AddImageFragment {
+            return AddImageFragment()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
