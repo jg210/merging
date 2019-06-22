@@ -32,7 +32,7 @@ class PagerAdapterImpl(
         if (newIds.size != newFactories.size) {
             throw AssertionError("ids: ${this.ids} factories: ${this.factories}")
         }
-        if RecyclerView.NO_ID in newIds {
+        if (RecyclerView.NO_ID in newIds) {
             throw AssertionError("ids: ${this.ids} factories: ${this.factories}")
         }
         val changes = changes(this.factories, newFactories)
