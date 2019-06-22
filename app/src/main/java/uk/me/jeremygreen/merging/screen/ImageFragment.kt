@@ -90,13 +90,13 @@ class ImageFragment : ScreenFragment() {
                 val clonedReference = closeableReference.clone()
                 launch(Dispatchers.Default) {
                     try {
-                        Log.i(TAG, "detecting faces.")
+                        Log.i(TAG, "detecting faces for image id: ${imageId}")
                         val bitmap = clonedReference.get()
                         val firebaseImage = FirebaseVisionImage.fromBitmap(bitmap)
                         val detector = FirebaseVision.getInstance().getVisionFaceDetector(faceDetectorOptions)
                         detector.detectInImage(firebaseImage)
                             .addOnSuccessListener { faces ->
-                                Log.i(TAG, "detected faces: ${faces.size}")
+                                Log.i(TAG, "detected ${faces.size} faces for image id: ${imageId}")
                                 faces.forEach { face ->
                                     Log.i(TAG, face.toString())
                                 }
