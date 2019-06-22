@@ -12,6 +12,9 @@
 /captures
 .externalNativeBuild
 
+# Firebase
+/app/google-services.json
+
 # emacs
 *~
 .#*
