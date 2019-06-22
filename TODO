@@ -60,6 +60,8 @@
   - don't misuse dark/light primary color resources
   - Floating Action Button should be in fixed position and fade in/out of view as swipe
 
+* GDPR.
+
 * Automated licence report.
   - listed by licence type.
 
