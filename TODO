@@ -1,6 +1,3 @@
-* Upload google-services.json to CircleCI.
-  - https://stackoverflow.com/questions/39063493/how-to-test-android-application-on-circle-ci-with-google-services-gradle-plugin
-
 * Find a face in images.
   - where should images be processed?
     - intercept images events in ImageViewModel
