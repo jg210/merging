@@ -11,12 +11,12 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:theme="@style/AppTheme.AppBarOverlay">
+        <!-- Setting invisible navigationIcon gives better title position. -->
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                <!-- Setting invisible navigationIcon gives better title position. -->
                 app:navigationIcon="?attr/colorPrimary"
                 android:elevation="4dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
