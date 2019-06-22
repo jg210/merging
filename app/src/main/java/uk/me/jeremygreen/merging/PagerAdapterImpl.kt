@@ -17,7 +17,7 @@ class PagerAdapterImpl(
     private var factories: List<ScreenFragmentFactory<*>> = listOf()
 
     fun setImages(images: List<Image>) {
-        Log.v(TAG, "onImagesChange(${images.size} images)")
+        Log.v(TAG, "setImages(${images.size})")
         val newFactories: MutableList<ScreenFragmentFactory<*>> = mutableListOf()
         if (images.isEmpty()) {
             newFactories.add(AddImageFragment)
