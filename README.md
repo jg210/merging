@@ -14,7 +14,7 @@ It's already using:
 ## Firebase Configuration
 
 * Create a project for the app in [Firebase](https://firebase.google.com/).
-* Download a copy of google-services.json into the app/ directory.
+* Download a copy of google-services.json from Firebase and put it in the app/ directory.
 * In CircleCI project's Environment Variables settings, add a GOOGLE_SERVICES environment variable with its value set to the output of the following command:
 
 ```
