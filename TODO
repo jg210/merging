@@ -12,8 +12,6 @@
     - subscribe to data at lowest level
       => in ImageFragment
 
-* Firebase hasn't detected the app yet.
-
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when restored, there are no images in the slider.
   - stop ViewPager2 persisting position itself and persist ViewPager2 id in ViewModel instead
@@ -22,6 +20,8 @@
   - keep hold of restored state and use it for first images update?
 
 * Show merged photo.
+
+* Enable Firebase Analytics.
 
 * Screenshots in github.
 
@@ -102,8 +102,6 @@
 
 * Publish to store.
   - https://developer.android.com/distribute/best-practices/launch/launch-checklist
-
-* Firebase analytics.
 
 * AndroidManifest says app suports RTL.
   - is that correct?
