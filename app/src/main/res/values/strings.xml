@@ -4,6 +4,7 @@
     <string name="onboardingText_02">Stores photos on your device.</string>
     <string name="onboardingText_03">Does face recognition without uploading images anywhere.</string>
     <string name="onboardingText_04">Uses Firebase Crashlytics for crash reporting, so personal or sensitive data (but not photos) might be uploaded if the app crashes.</string>
+    <string name="onboardingText_05">Uses Firebase Analytics to analyze how you use the app.</string>
     <string name="actionLicences">Licences</string>
     <string name="appName">Merging</string>
     <string name="cancel">Cancel</string>

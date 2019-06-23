@@ -13,6 +13,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_main.*
 import uk.me.jeremygreen.merging.model.ImageViewModel
 import java.io.File
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private val REQUEST_TAKE_PHOTO = 1
     private val BUNDLE_KEY__FILE = "file"
     private var file: File? = null
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val imageViewModel by lazy {
         ViewModelProviders.of(this).get(ImageViewModel::class.java)
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                 file = File(fileString)
             }
         }
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         val pagerAdapter = PagerAdapterImpl(this)
