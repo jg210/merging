@@ -42,6 +42,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text = "@string/onboardingText_03"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text = "@string/onboardingText_04"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
