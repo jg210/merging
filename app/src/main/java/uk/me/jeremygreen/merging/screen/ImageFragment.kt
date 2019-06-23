@@ -83,7 +83,7 @@ class ImageFragment : ScreenFragment() {
             }
             // https//firebase.google.com/docs/ml-kit/android/detect-faces suggests size to use.
             image.process(360, 480) { closeableReference ->
-                Log.i(TAG, "decoded bitmap.")
+                Log.i(TAG, "decoded bitmap for image id: ${imageId}")
                 // The IO thread has done it's work reading the Bitmap. Don't want to block this thread any more,
                 // so clone the reference and hand it to Dispatcher.Default coroutine to do the CPU-intensive
                 // face-detection work.
