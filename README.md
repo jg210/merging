@@ -8,7 +8,7 @@ It's already using:
 
 * [ML Kit](https://developers.google.com/ml-kit/) for face feature detection.
 * [Crashlytics](https://firebase.google.com/docs/crashlytics/) for crash reporting.
-* [Firebase](https://firebase.google.com/) since ML Kit and Crashltics require this.
+* [Firebase](https://firebase.google.com/) since ML Kit and Crashlytics require this.
 * [Fresco](https://developers.google.com/ml-kit/) for android Bitmap management.
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build and test.
 * [Material Design](https://material.io/design/).
