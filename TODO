@@ -1,3 +1,9 @@
+* CircleCI needs an upload key.
+
+* Automated version-number generation.
+
+* Create release branch.
+
 * Find a face in images.
   X use appropriately-sized images for feature recognition
   - break implementation into separate functions
@@ -20,8 +26,6 @@
   - keep hold of restored state and use it for first images update?
 
 * Show merged photo.
-
-* Enable Firebase Analytics.
 
 * Screenshots in github.
 
@@ -63,6 +67,10 @@
 * Test app on Firebase.
   - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
 
+* Add Firebase Analytics events.
+  - https://firebase.google.com/docs/analytics/android/start
+  - enabled only in release builds.
+
 * Choose colour scheme for app.
   - various things are using @color resources directly, not theme attributes...
 
@@ -85,8 +93,6 @@
 * android lint says need a backup_descriptor.xml
 
 * kotlin doesn't use java-style capitalization for CONSTANTS.
-
-* Automated version-number generation.
 
 * Version number screen.
 
