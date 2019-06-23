@@ -8,18 +8,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import kotlinx.android.synthetic.main.image_screen.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.ScreenFragment
 import uk.me.jeremygreen.merging.ScreenFragmentFactory
 import uk.me.jeremygreen.merging.model.Image
 import java.io.File
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.firebase.ml.vision.FirebaseVision
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
-import uk.me.jeremygreen.merging.R
-import java.lang.Exception
 
 
 class ImageFragment : ScreenFragment() {
@@ -101,11 +100,7 @@ class ImageFragment : ScreenFragment() {
                                     Log.i(TAG, face.toString())
                                 }
                             }
-                            .addOnFailureListener(object: OnFailureListener {
-                                    override fun onFailure(e: Exception) {
-                                        Log.e(TAG, "face detection failed", e);
-                                    }
-                            })
+                            .addOnFailureListener { e -> Log.e(TAG, "face detection failed", e) }
                     } finally {
                         clonedReference.close()
                     }
@@ -117,11 +112,11 @@ class ImageFragment : ScreenFragment() {
     private fun handleLongClick(image: Image) {
         AlertDialog.Builder(requireContext()).apply {
             setMessage(R.string.confirmDeleteImage)
-            setPositiveButton(R.string.ok, { _: DialogInterface, _: Int ->
+            setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
                 imageDraweeView.setOnLongClickListener { false }
                 imageViewModel.delete(image)
-            })
-            setNegativeButton(R.string.cancel, { _: DialogInterface, _: Int -> })
+            }
+            setNegativeButton(R.string.cancel) { _: DialogInterface, _: Int -> }
             show()
         }
     }

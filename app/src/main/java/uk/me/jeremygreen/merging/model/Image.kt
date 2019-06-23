@@ -82,7 +82,7 @@ data class Image(
                 }
 
             }
-        dataSource.subscribe(dataSubscriber, CallerThreadExecutor.getInstance());
+        dataSource.subscribe(dataSubscriber, CallerThreadExecutor.getInstance())
     }
 
 }

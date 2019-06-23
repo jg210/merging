@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
