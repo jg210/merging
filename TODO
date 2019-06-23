@@ -1,4 +1,7 @@
-* Add OnboardingActivity.
+* Add Onboarding screen.
+  X add activity.
+  - add text
+  - animate the FAB.
 
 * Find a face in images.
   X use appropriately-sized images for feature recognition
@@ -59,7 +62,8 @@
 * Test app on Firebase.
   - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
 
-* Choose colour scheme for app
+* Choose colour scheme for app.
+  - various things are using @color resources directly, not theme attributes...
 
 * Material design
   - implementation 'com.google.android.material:material:1.0.0'
@@ -100,3 +104,6 @@
 * Publish to store.
 
 * Firebase analytics.
+
+* AndroidManifest says app suports RTL.
+  - is that correct?
