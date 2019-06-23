@@ -43,42 +43,46 @@ data class Image(
     @delegate:Ignore
     val uri: Uri by lazy { Uri.fromFile(File(this.file)) }
 
-   inline fun processBitmap(
-       width: Int,
-       height: Int,
-       /**
-        * https://frescolib.org/docs/closeable-references.html
-        */
-       crossinline callback: (CloseableReference<Bitmap>) -> Unit) {
+    inline fun processBitmap(
+        width: Int,
+        height: Int,
+        /**
+         * https://frescolib.org/docs/closeable-references.html
+         */
+        crossinline callback: (CloseableReference<Bitmap>) -> Unit
+    ) {
 
-       val decodeOptions = ImageDecodeOptions.newBuilder().build()
-       val rotationOptions = RotationOptions.autoRotate()
-       val imageRequest = ImageRequestBuilder
-           .newBuilderWithSource(this.uri)
-           .setImageDecodeOptions(decodeOptions)
-           .setRotationOptions(rotationOptions)
-           .setLocalThumbnailPreviewsEnabled(true)
-           .setLowestPermittedRequestLevel(RequestLevel.FULL_FETCH)
-           .setProgressiveRenderingEnabled(false)
-           .setResizeOptions(ResizeOptions(width, height))
-           .build()
-       val imagePipeline = Fresco.getImagePipeline()
-       val callerContext = null
-       val dataSource: DataSource<CloseableReference<CloseableImage>> =
-           imagePipeline.fetchDecodedImage(imageRequest, callerContext)
-       val dataSubscriber: DataSubscriber<CloseableReference<CloseableImage>> =
-          object: BaseBitmapReferenceDataSubscriber() {
-              override fun onNewResultImpl(bitmapReference: CloseableReference<Bitmap>?) {
-                  if (bitmapReference == null) {
-                      throw NullPointerException()
-                  }
-                  callback(bitmapReference)
-              }
-              override fun onFailureImpl(dataSource: DataSource<CloseableReference<CloseableImage>>?) {
-                  throw RuntimeException()
-              }
-          }
+        val decodeOptions = ImageDecodeOptions.newBuilder().build()
+        val rotationOptions = RotationOptions.autoRotate()
+        val imageRequest = ImageRequestBuilder
+            .newBuilderWithSource(this.uri)
+            .setImageDecodeOptions(decodeOptions)
+            .setRotationOptions(rotationOptions)
+            .setLocalThumbnailPreviewsEnabled(true)
+            .setLowestPermittedRequestLevel(RequestLevel.FULL_FETCH)
+            .setProgressiveRenderingEnabled(false)
+            .setResizeOptions(ResizeOptions(width, height))
+            .build()
+        val imagePipeline = Fresco.getImagePipeline()
+        val callerContext = null
+        val dataSource: DataSource<CloseableReference<CloseableImage>> =
+            imagePipeline.fetchDecodedImage(imageRequest, callerContext)
+        val dataSubscriber: DataSubscriber<CloseableReference<CloseableImage>> =
+            object : BaseBitmapReferenceDataSubscriber() {
+
+                override fun onNewResultImpl(bitmapReference: CloseableReference<Bitmap>?) {
+                    if (bitmapReference == null) {
+                        throw NullPointerException()
+                    }
+                    callback(bitmapReference)
+                }
+
+                override fun onFailureImpl(dataSource: DataSource<CloseableReference<CloseableImage>>?) {
+                    throw RuntimeException()
+                }
+
+            }
         dataSource.subscribe(dataSubscriber, CallerThreadExecutor.getInstance());
-   }
+    }
 
 }
