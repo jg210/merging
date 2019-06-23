@@ -64,8 +64,8 @@ data class Image(
            .build()
        val imagePipeline = Fresco.getImagePipeline()
        val callerContext = null
-        val dataSource: DataSource<CloseableReference<CloseableImage>> =
-            imagePipeline.fetchDecodedImage(imageRequest, callerContext)
+       val dataSource: DataSource<CloseableReference<CloseableImage>> =
+           imagePipeline.fetchDecodedImage(imageRequest, callerContext)
        val dataSubscriber: DataSubscriber<CloseableReference<CloseableImage>> =
           object: BaseBitmapReferenceDataSubscriber() {
               override fun onNewResultImpl(bitmapReference: CloseableReference<Bitmap>?) {
