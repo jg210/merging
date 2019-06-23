@@ -10,6 +10,7 @@ It's already using:
 * [Firebase](https://firebase.google.com/) since ML Kit requires this, and since Crashlytics etc. will be useful later on.
 * [Fresco](https://developers.google.com/ml-kit/) for android Bitmap management.
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build and test.
+* [Material Design](https://material.io/design/).
 
 There won't be any database versioning/migrations until after the first release, so it might be necessary to wipe the
 app's data when switching between versions.
