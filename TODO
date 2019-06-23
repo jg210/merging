@@ -2,7 +2,7 @@
   X add activity.
   X add text
   X remove OnboardingActivity from backstack
-  - add toolbar
+  X add toolbar
   - bullet points
     - https://developer.android.com/reference/android/text/style/BulletSpan
   - animate the FAB.
