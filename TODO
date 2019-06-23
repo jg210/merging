@@ -1,8 +1,8 @@
 * Add onboarding screen.
   X add activity.
   X add text
+  X remove OnboardingActivity from backstack
   - add toolbar
-  - remove OnboardingActivity from backstack
   - bullet points
     - https://developer.android.com/reference/android/text/style/BulletSpan
   - animate the FAB.

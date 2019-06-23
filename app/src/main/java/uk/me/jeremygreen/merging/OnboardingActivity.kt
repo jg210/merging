@@ -12,7 +12,9 @@ class OnboardingActivity: AppCompatActivity() {
         setContentView(R.layout.onboarding)
         onboarding_accept.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
             startActivity(intent)
+            finish()
         }
     }
 
