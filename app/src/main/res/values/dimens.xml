@@ -1,4 +1,3 @@
 <resources>
-    <dimen name="toolbarIconSize">48dp</dimen>
     <dimen name="fabMargin">16dp</dimen>
 </resources>

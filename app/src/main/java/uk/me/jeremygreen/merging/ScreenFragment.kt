@@ -17,7 +17,7 @@ import kotlin.coroutines.CoroutineContext
 abstract class ScreenFragment : Fragment(), CoroutineScope {
 
     protected lateinit var imageViewModel: ImageViewModel
-    protected lateinit var imagesDir: File
+    private lateinit var imagesDir: File
 
     // CoroutineScope: configure default CouroutineContext.
     private val job = Job()

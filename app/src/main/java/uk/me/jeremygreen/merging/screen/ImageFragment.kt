@@ -8,13 +8,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import kotlinx.android.synthetic.main.image_screen.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.ScreenFragment
 import uk.me.jeremygreen.merging.ScreenFragmentFactory
 import uk.me.jeremygreen.merging.model.Image
 import java.io.File
+
 
 class ImageFragment : ScreenFragment() {
 
@@ -42,6 +47,15 @@ class ImageFragment : ScreenFragment() {
     private val TAG = "ImageFragment"
     private val BUNDLE_KEY__IMAGE_ID = "imageId"
 
+    private val faceDetectorOptions by lazy {
+        FirebaseVisionFaceDetectorOptions.Builder()
+            .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
+            .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
+            .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
+            .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
+            .build()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,7 +71,7 @@ class ImageFragment : ScreenFragment() {
         val imageDraweeView = this.imageDraweeView
         launch(Dispatchers.IO) {
             val image = imageViewModel.findById(imageId)
-            withContext(Dispatchers.Main) {
+            launch(Dispatchers.Main) {
                 val uri = Uri.fromFile(File(image.file))
                 Log.d(TAG, "updating image ${id} with: ${uri}")
                 imageDraweeView.setImageURI(uri, null)
@@ -66,17 +80,43 @@ class ImageFragment : ScreenFragment() {
                     false // not consumed
                 }
             }
+            // https//firebase.google.com/docs/ml-kit/android/detect-faces suggests size to use.
+            image.processBitmap(360, 480) { closeableReference ->
+                Log.i(TAG, "decoded bitmap for image id: ${imageId}")
+                // The IO thread has done it's work reading the Bitmap. Don't want to block this thread any more,
+                // so clone the reference and hand it to Dispatcher.Default coroutine to do the CPU-intensive
+                // face-detection work.
+                val clonedReference = closeableReference.clone()
+                launch(Dispatchers.Default) {
+                    try {
+                        Log.i(TAG, "detecting faces for image id: ${imageId}")
+                        val bitmap = clonedReference.get()
+                        val firebaseImage = FirebaseVisionImage.fromBitmap(bitmap)
+                        val detector = FirebaseVision.getInstance().getVisionFaceDetector(faceDetectorOptions)
+                        detector.detectInImage(firebaseImage)
+                            .addOnSuccessListener { faces ->
+                                Log.i(TAG, "detected ${faces.size} faces for image id: ${imageId}")
+                                faces.forEach { face ->
+                                    Log.i(TAG, face.toString())
+                                }
+                            }
+                            .addOnFailureListener { e -> Log.e(TAG, "face detection failed", e) }
+                    } finally {
+                        clonedReference.close()
+                    }
+                }
+            }
         }
     }
     
     private fun handleLongClick(image: Image) {
         AlertDialog.Builder(requireContext()).apply {
             setMessage(R.string.confirmDeleteImage)
-            setPositiveButton(R.string.ok, { _: DialogInterface, _: Int ->
+            setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
                 imageDraweeView.setOnLongClickListener { false }
                 imageViewModel.delete(image)
-            })
-            setNegativeButton(R.string.cancel, { _: DialogInterface, _: Int -> })
+            }
+            setNegativeButton(R.string.cancel) { _: DialogInterface, _: Int -> }
             show()
         }
     }

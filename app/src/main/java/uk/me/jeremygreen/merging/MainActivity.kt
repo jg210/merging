@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         ViewModelProviders.of(this).get(ImageViewModel::class.java)
     }
 
-    val imagesDir: File by lazy {
+    private val imagesDir: File by lazy {
         MainActivity.imagesDir(this)
     }
 
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             pagerAdapter.setImages(images)
         })
         fab.setOnClickListener { handleTakePhoto() }
-        val licencesTitle = getResources().getString(R.string.actionLicences)
+        val licencesTitle = resources.getString(R.string.actionLicences)
         OssLicensesMenuActivity.setActivityTitle(licencesTitle)
     }
 
