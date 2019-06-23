@@ -46,6 +46,9 @@
     - a local database of versions already seen.
     - no ordering of versions.
 
+* Add "I agree" checkbox to OnboardingActivity.
+  - https://www.termsfeed.com/blog/google-prominent-disclosure-requirement/
+
 * Better appName.
 
 * Image-deletion dialogue dismissed if rotate device.
@@ -70,7 +73,6 @@
   - animate the FAB as switch activities.
 
 * GDPR.
-  - terms and conditions page at startup.
 
 * Automated licence report.
   - listed by licence type.
@@ -98,9 +100,8 @@
 
 * "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
 
-* Firebase crashlytics.
-
 * Publish to store.
+  - https://developer.android.com/distribute/best-practices/launch/launch-checklist
 
 * Firebase analytics.
 

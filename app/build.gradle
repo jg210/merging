@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'org.jetbrains.kotlin.kapt'
     id 'com.google.gms.google-services'
+    id 'io.fabric'
 }
 
 android {
@@ -47,7 +48,9 @@ dependencies {
     implementation "androidx.room:room-ktx:${room_version}"
     implementation "androidx.room:room-runtime:${room_version}"
     implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha05'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.facebook.fresco:fresco:1.13.0'
+    implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-ml-vision:20.0.0'
     implementation 'com.google.firebase:firebase-ml-vision-face-model:17.0.2'
     implementation 'com.google.android.gms:play-services-oss-licenses:16.0.2'
