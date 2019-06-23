@@ -34,7 +34,10 @@
                     android:resource="@xml/file_paths"/>
         </provider>
         <meta-data
-                android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-                android:value="face" />
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="face" />
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${enableCrashReporting}" />
     </application>
 </manifest>
