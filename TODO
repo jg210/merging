@@ -25,6 +25,9 @@
 
 * Screenshots in github.
 
+* Add bullet points to onboarding text
+    - https://developer.android.com/reference/android/text/style/BulletSpan
+
 * Better unit tests.
 
 * If wipe AVD data, camera app doesn't send photo back to app first time use it.
@@ -37,6 +40,11 @@
   - don't remove images that camera Intent has created but that aren't yet store in the db.
 
 * Handle rejected permissions.
+
+* Skip OnboardingActivity if it's been seen before.
+  - showing it again if text changes.
+    - a local database of versions already seen.
+    - no ordering of versions.
 
 * Better appName.
 
@@ -52,12 +60,14 @@
 * Test app on Firebase.
   - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
 
-* Choose colour scheme for app
+* Choose colour scheme for app.
+  - various things are using @color resources directly, not theme attributes...
 
 * Material design
   - implementation 'com.google.android.material:material:1.0.0'
   - don't misuse dark/light primary color resources
-  - Floating Action Button should be in fixed position and fade in/out of view as swipe
+  - Floating Action Button should be in fixed position and fade in/out of view as swipe (if remove it from merged image screen)
+  - animate the FAB as switch activities.
 
 * GDPR.
   - terms and conditions page at startup.
@@ -93,3 +103,6 @@
 * Publish to store.
 
 * Firebase analytics.
+
+* AndroidManifest says app suports RTL.
+  - is that correct?

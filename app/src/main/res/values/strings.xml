@@ -1,4 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="onboardingText_01">This application downloads ML Kit face-recognition models.</string>
+    <string name="onboardingText_02">Stores photos on your device.</string>
+    <string name="onboardingText_03">Does face recognition without uploading images anywhere.</string>
     <string name="actionLicences">Licences</string>
     <string name="appName">Merging</string>
     <string name="cancel">Cancel</string>
