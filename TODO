@@ -86,6 +86,8 @@
 
 * kotlin doesn't use java-style capitalization for CONSTANTS.
 
+* Automated version-number generation.
+
 * Version number screen.
 
 * Why wasn't it possible to get coroutine scope like this?
