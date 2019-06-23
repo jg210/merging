@@ -1,3 +1,5 @@
+* Add OnboardingActivity.
+
 * Find a face in images.
   X use appropriately-sized images for feature recognition
   - break implementation into separate functions
@@ -37,6 +39,11 @@
   - don't remove images that camera Intent has created but that aren't yet store in the db.
 
 * Handle rejected permissions.
+
+* Skip OnboardingActivity if it's been seen before.
+  - showing it again if text changes.
+    - a local database of versions already seen.
+    - no ordering of versions.
 
 * Better appName.
 
