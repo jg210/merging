@@ -43,7 +43,7 @@ data class Image(
     @delegate:Ignore
     val uri: Uri by lazy { Uri.fromFile(File(this.file)) }
 
-   inline fun process(
+   inline fun processBitmap(
        width: Int,
        height: Int,
        /**
