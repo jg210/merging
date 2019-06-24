@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        firebaseAnalytics.setAnalyticsCollectionEnabled(true)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         val pagerAdapter = PagerAdapterImpl(this)
