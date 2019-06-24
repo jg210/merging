@@ -1,5 +1,4 @@
-* Disable Crashlytics until have agreed to their use.
-  - https://medium.com/schibsted-tech-polska/from-fabric-to-firebase-on-the-road-with-gdpr-b33342bf344b
+* Hard-coded Licences string in MainActivity.
 
 * CircleCI needs an upload key.
 

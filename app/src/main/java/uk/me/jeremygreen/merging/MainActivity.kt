@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.crashlytics.android.Crashlytics
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.analytics.FirebaseAnalytics
+import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
 import uk.me.jeremygreen.merging.model.ImageViewModel
 import java.io.File
@@ -53,8 +55,12 @@ class MainActivity : AppCompatActivity() {
                 file = File(fileString)
             }
         }
+        // Firebase Analytics and Crashlytics are only configured after have agreed to their use.
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
         firebaseAnalytics.setAnalyticsCollectionEnabled(true)
+        if (!BuildConfig.DEBUG) {
+            Fabric.with(this, Crashlytics())
+        }
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         val pagerAdapter = PagerAdapterImpl(this)
