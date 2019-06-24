@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager2.widget.ViewPager2
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     private val REQUEST_TAKE_PHOTO = 1
     private val BUNDLE_KEY__FILE = "file"
     private var file: File? = null
+    private lateinit var pagerAdapter: PagerAdapterImpl
+    private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val imageViewModel by lazy {
@@ -47,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         MainActivity.imagesDir(this)
     }
 
+    // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
@@ -62,17 +66,38 @@ class MainActivity : AppCompatActivity() {
             Fabric.with(this, Crashlytics())
         }
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        val pagerAdapter = PagerAdapterImpl(this)
-        pager.adapter = pagerAdapter
-        pager.offscreenPageLimit = 2
+        setSupportActionBar(this.toolbar)
+        this.pagerAdapter = PagerAdapterImpl(this)
+        this.pager.adapter = this.pagerAdapter
+        this.pager.offscreenPageLimit = 2
+        this.pageChangeCallback = object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                val screenName: String? = this@MainActivity.pagerAdapter.screenName(pager)
+                if (screenName != null) {
+                    this@MainActivity.firebaseAnalytics.setCurrentScreen(this@MainActivity, screenName, null)
+                }
+            }
+        }
         val imageViewModel = ViewModelProviders.of(this).get(ImageViewModel::class.java)
         imageViewModel.allImages().observe(this, Observer { images ->
-            pagerAdapter.setImages(images)
+            this.pagerAdapter.setImages(images)
         })
-        fab.setOnClickListener { handleTakePhoto() }
         val licencesTitle = resources.getString(R.string.actionLicences)
         OssLicensesMenuActivity.setActivityTitle(licencesTitle)
+    }
+
+    // Activity
+    override fun onResume() {
+        super.onResume()
+        this.pager.registerOnPageChangeCallback(this.pageChangeCallback)
+        this.fab.setOnClickListener { handleTakePhoto() }
+    }
+
+    // Activity
+    override fun onPause() {
+        this.fab.setOnClickListener(null)
+        this.pager.unregisterOnPageChangeCallback(this.pageChangeCallback)
+        super.onPause()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -91,6 +116,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Activity
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val file = this.file
@@ -126,6 +152,7 @@ class MainActivity : AppCompatActivity() {
         return intent
     }
 
+    // Activity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {

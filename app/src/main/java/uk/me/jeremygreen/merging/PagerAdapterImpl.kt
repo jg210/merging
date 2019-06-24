@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import uk.me.jeremygreen.merging.model.Image
 import uk.me.jeremygreen.merging.screen.AddImageFragment
 import uk.me.jeremygreen.merging.screen.ImageFragment
@@ -65,20 +66,35 @@ class PagerAdapterImpl(
         })
     }
 
+    /**
+     * Firebase analytics "screen name".
+     */
+    fun screenName(viewPager2: ViewPager2): String? {
+        if (this.factories.isEmpty()) {
+            return null
+        }
+        val position = viewPager2.currentItem
+        return this.factories[position].screenName()
+    }
+
+    // FragmentStateAdapter
     override fun getItemId(position: Int): Long {
         return this.factories[position].id // ...or RecyclerView.NO_ID?
     }
 
+    // FragmentStateAdapter
     override fun containsItem(id: Long): Boolean {
         return id in this.ids
     }
 
+    // FragmentStateAdapter
     override fun getItemCount(): Int {
         val count = this.ids.size
         Log.v(TAG, "getItemCount() = ${count}")
         return count
     }
 
+    // FragmentStateAdapter
     override fun createFragment(position: Int): Fragment {
         Log.v(TAG, "createFragment(${position})")
         return this.factories[position].createInstance()

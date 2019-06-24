@@ -9,4 +9,9 @@ interface ScreenFragmentFactory<T: ScreenFragment> {
 
     fun createInstance(): T
 
+    /**
+     * Firebase Analytics "screen name".
+     */
+    fun screenName(): String
+
 }

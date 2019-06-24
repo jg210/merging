@@ -39,6 +39,7 @@ class ImageFragment : ScreenFragment() {
                         }
                     }
                 }
+                override fun screenName(): String = "Image"
             }
         }
 

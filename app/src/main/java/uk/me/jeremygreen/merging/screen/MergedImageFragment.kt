@@ -17,6 +17,7 @@ class MergedImageFragment : ScreenFragment() {
         override fun createInstance(): MergedImageFragment {
             return MergedImageFragment()
         }
+        override fun screenName(): String = "MergedImage"
     }
 
     override fun onCreateView(

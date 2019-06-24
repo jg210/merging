@@ -17,6 +17,7 @@ class AddImageFragment : ScreenFragment() {
         override fun createInstance(): AddImageFragment {
             return AddImageFragment()
         }
+        override fun screenName(): String = "AddImage"
     }
 
     override fun onCreateView(
