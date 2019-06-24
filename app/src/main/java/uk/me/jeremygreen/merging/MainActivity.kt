@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         this.pageChangeCallback = object: ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 val screenName: String? = this@MainActivity.pagerAdapter.screenName(pager)
+                Log.i(TAG, "screen name: ${screenName}")
                 if (screenName != null) {
                     this@MainActivity.firebaseAnalytics.setCurrentScreen(this@MainActivity, screenName, null)
                 }
