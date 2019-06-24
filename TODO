@@ -1,5 +1,7 @@
 * Hard-coded Licences string in MainActivity.
 
+* Connect Fragment transitions to Firebase Analytics.
+
 * CircleCI needs an upload key.
 
 * Automated version-number generation.
