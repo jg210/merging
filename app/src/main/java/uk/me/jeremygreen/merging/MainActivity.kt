@@ -25,10 +25,6 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     companion object {
-
-        init {
-        }
-
         fun imagesDir(activity: Activity): File {
             return File(activity.filesDir, "photos")
         }
