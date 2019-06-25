@@ -24,6 +24,10 @@
                 android:name=".MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+                android:name=".AboutActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <provider
                 android:name="androidx.core.content.FileProvider"
                 android:authorities="uk.me.jeremygreen.merging.fileprovider"

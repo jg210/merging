@@ -6,6 +6,7 @@
     <string name="onboardingText_04">Uses Firebase Crashlytics for crash reporting.</string>
     <string name="onboardingText_05">Uses Firebase Analytics to analyze how you use the app.</string>
     <string name="actionLicences">Licences</string>
+    <string name="actionAbout">About</string>
     <string name="appName">Merging</string>
     <string name="cancel">Cancel</string>
     <string name="confirmDeleteImage">Delete the photo?</string>
