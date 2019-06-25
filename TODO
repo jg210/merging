@@ -1,3 +1,5 @@
+* android lint says need a backup_descriptor.xml
+
 * CircleCI needs an upload key.
 
 * Create release branch.
@@ -66,7 +68,7 @@
 * Test app on Firebase.
   - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
 
-* Add Firebase Analytics events.
+* Add more Firebase Analytics events.
   - https://firebase.google.com/docs/analytics/android/start
   - enabled only in release builds.
 
@@ -93,8 +95,6 @@
 * Configure android lint
   - tune priorities.
   - make CircleCI fail.
-
-* android lint says need a backup_descriptor.xml
 
 * kotlin doesn't use java-style capitalization for CONSTANTS.
 
