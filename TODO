@@ -1,3 +1,5 @@
+* Do Activities need to declare theme if same as Application?
+
 * CircleCI needs an upload key.
 
 * Create release branch.
@@ -84,6 +86,9 @@
   - listed by licence type.
   - jk1?
 
+* Replace Room with something better
+  - Realm?
+
 * Persist whether analytics and crashlytics have been opted in to, and enable in OnboardingActivity, not MainActivity.
 
 * Configure android lint
@@ -100,7 +105,11 @@
   - https://developer.android.com/topic/libraries/architecture/coroutines#lifecyclescope
   - had to implement CoroutineScope in ImageFragment instead, which is OK, but not as clear
 
-* Explain need INTERNET permission for model download in app blurb.
+* Explain need INTERNET permission for model download in play-store app blurb.
+
+* Coherent naming scheme for resource ids.
+
+* Better structure for java packages.
 
 * Move features in this list to github issues.
 
