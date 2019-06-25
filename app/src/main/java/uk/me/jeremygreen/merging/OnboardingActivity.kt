@@ -2,7 +2,12 @@ package uk.me.jeremygreen.merging
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.BulletSpan
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 import kotlinx.android.synthetic.main.onboarding.*
 
 class OnboardingActivity: AppCompatActivity() {
@@ -12,6 +17,21 @@ class OnboardingActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.onboarding)
         setSupportActionBar(onboardingToolbar)
+        this.onboardingTextContainer.children.forEach { child: View ->
+            if (child is TextView) {
+                addBullet(child)
+            }
+        }
+    }
+
+    private fun addBullet(textView: TextView) {
+        val text = textView.text
+        if (!(text is String)) {
+            throw IllegalArgumentException("${text.javaClass} ${text}")
+        }
+        val spannedText = SpannableString(text)
+        spannedText.setSpan(BulletSpan(), 0, text.length, 0)
+        textView.text = spannedText
     }
 
     // Activity
