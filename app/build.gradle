@@ -8,14 +8,32 @@ plugins {
     id 'io.fabric'
 }
 
+/**
+ * The android version code.
+ */
+static int getVersionCode() {
+    // This gives the depth of the commit, using the first parent
+    // in the graph for merge commits, which means staying "in"
+    // the branch that is merged into. Providing all releases are
+    // made from the same branch, and don't try to release
+    // the same commit twice, this gives an automatic,
+    // always-increasing version number. It avoids the need to take
+    // care with test-server build job numbers (i.e. back them
+    // up and be able to restore them), and avoids the need to
+    // update the version number manually.
+    final command = ["git", "rev-list", "HEAD", "--first-parent", "--count"]
+    final stdout = command.execute().text.trim()
+    return Integer.parseInt(stdout)
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "uk.me.jeremygreen.merging"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode getVersionCode()
+        versionName "1.0.${getVersionCode()}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
