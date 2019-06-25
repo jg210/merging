@@ -32,6 +32,9 @@
 
 * Adjust formatting of onboarding bullet points.
 
+* Consistent text size.
+  - licences, about, onboarding.
+
 * If wipe AVD data, camera app doesn't send photo back to app first time use it.
 
 * Garbage collect files after delete them and UI has finished updating.
