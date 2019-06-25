@@ -1,5 +1,3 @@
-* android lint says need a backup_descriptor.xml
-
 * CircleCI needs an upload key.
 
 * Create release branch.
@@ -121,3 +119,7 @@
 
 * AndroidManifest says app suports RTL.
   - is that correct?
+
+* Allow app's data to be backed up.
+  - set allowBackup="true"
+  - android lint says need to exclude "GCM id" since can't be reused
