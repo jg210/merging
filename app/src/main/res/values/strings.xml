@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onboardingText_01">This application downloads ML Kit face-recognition models.</string>
-    <string name="onboardingText_02">Stores photos on your device.</string>
-    <string name="onboardingText_03">Does face recognition without uploading images anywhere.</string>
+    <string name="onboardingText_01">This app downloads ML Kit face-recognition models.</string>
+    <string name="onboardingText_02">Stores images on your device.</string>
+    <string name="onboardingText_03">Doesn\'t upload your images anywhere.</string>
     <string name="onboardingText_04">Uses Firebase Crashlytics for crash reporting.</string>
     <string name="onboardingText_05">Uses Firebase Analytics to analyze how you use the app.</string>
     <string name="actionLicences">Licences</string>
