@@ -46,13 +46,13 @@
 
 * Handle rejected permissions.
 
+* Add "I agree" checkbox to OnboardingActivity.
+  - https://www.termsfeed.com/blog/google-prominent-disclosure-requirement/
+
 * Skip OnboardingActivity if it's been seen before.
   - showing it again if text changes.
     - a local database of versions already seen.
     - no ordering of versions.
-
-* Add "I agree" checkbox to OnboardingActivity.
-  - https://www.termsfeed.com/blog/google-prominent-disclosure-requirement/
 
 * Better appName.
 
