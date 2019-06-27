@@ -55,6 +55,8 @@
 
 * Better appName.
 
+* Include licence text in About screen.
+
 * Image-deletion dialogue dismissed if rotate device.
   - use androidx DialogFragment?
 
