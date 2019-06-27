@@ -1,8 +1,10 @@
 * CircleCI needs an upload key.
 
-* Create release branch.
-  - or develop branch, and release from master?
-  - only use auto versioning if on this branch.
+* Create develop branch
+  - make it default branch.
+  - only use auto versioning if on master branch.
+  - document branching strategy in README.
+  - add link to master-branch apks to README.
 
 * Find a face in images.
   X use appropriately-sized images for feature recognition
