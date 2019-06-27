@@ -2,6 +2,7 @@
 
 * Create release branch.
   - or develop branch, and release from master?
+  - only use auto versioning if on this branch.
 
 * Find a face in images.
   X use appropriately-sized images for feature recognition
