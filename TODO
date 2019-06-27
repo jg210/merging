@@ -31,9 +31,6 @@
 
 * Better unit tests.
 
-* Adjust formatting of onboarding bullet points.
-  - not just for API level 28 and above.
-
 * Consistent text size.
   - licences, about, onboarding.
 
