@@ -34,7 +34,9 @@
             <TextView
                 android:id="@+id/appVersion"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/defaultTextSize"
+            />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

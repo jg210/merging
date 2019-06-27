@@ -1,3 +1,4 @@
 <resources>
     <dimen name="fabMargin">16dp</dimen>
+    <dimen name="defaultTextSize">16sp</dimen>
 </resources>
