@@ -1,6 +1,7 @@
 package uk.me.jeremygreen.merging
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.BulletSpan
@@ -30,7 +31,16 @@ class OnboardingActivity: AppCompatActivity() {
             throw IllegalArgumentException("${text.javaClass} ${text}")
         }
         val spannedText = SpannableString(text)
-        spannedText.setSpan(BulletSpan(), 0, text.length, 0)
+        val bulletSpan = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val defaultTextSize = resources.getDimensionPixelSize(R.dimen.defaultTextSize)
+            val gapWidth = defaultTextSize / 2
+            val radius = gapWidth / 2
+            val color = textView.currentTextColor
+            BulletSpan(gapWidth, color, radius)
+        } else {
+            BulletSpan()
+        }
+        spannedText.setSpan(bulletSpan, 0, text.length, 0)
         textView.text = spannedText
     }
 

@@ -31,6 +31,7 @@
 * Better unit tests.
 
 * Adjust formatting of onboarding bullet points.
+  - not just for API level 28 and above.
 
 * Consistent text size.
   - licences, about, onboarding.
@@ -97,6 +98,8 @@
   - make CircleCI fail.
 
 * kotlin doesn't use java-style capitalization for CONSTANTS.
+
+* Does idiomatic kotlin use underscores_in_automatic_view_fields?
 
 * Version number screen.
 
