@@ -1,15 +1,11 @@
-* CircleCI needs an upload key.
+* Create and use    a signing key.
 
 * If wipe AVD data, camera app doesn't send photo back to app first time use it.
 
 * ACTION_IMAGE_CAPTURE Intent might not work well on all platforms
   - https://commonsware.com/blog/2015/06/08/action-image-capture-fallacy.html
 
-* Create develop branch
-  - make it default branch.
-  - only use auto versioning if on master branch.
-  - document branching strategy in README.
-  - add link to master-branch apks to README.
+* Add link to master-branch apks to README.
 
 * Find a face in images.
   X use appropriately-sized images for feature recognition
@@ -123,6 +119,8 @@
 * "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
 
 * Publish to store.
+  - upload signing key
+  - change over to building with upload key.
   - https://developer.android.com/distribute/best-practices/launch/launch-checklist
 
 * AndroidManifest says app suports RTL.

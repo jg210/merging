@@ -8,10 +8,22 @@ plugins {
     id 'io.fabric'
 }
 
+static String getBranchName() {
+    final branchCommand = ["git", "symbolic-ref", "HEAD", "--short"]
+    return branchCommand.execute().text.trim()
+}
+
+static boolean isVersioned() {
+    return getBranchName() == "master"
+}
+
 /**
- * The android version code.
+ * The android "version code".
  */
 static int getVersionCode() {
+    if (!isVersioned()) {
+        return 1
+    }
     // This gives the depth of the commit, using the first parent
     // in the graph for merge commits, which means staying "in"
     // the branch that is merged into. Providing all releases are
@@ -26,6 +38,16 @@ static int getVersionCode() {
     return Integer.parseInt(stdout)
 }
 
+/**
+ * The android "version name".
+ */
+static String getVersionName() {
+    if (!isVersioned()) {
+        return "0.0.1"
+    }
+    return "1.0.${getVersionCode()}"
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -33,7 +55,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode getVersionCode()
-        versionName "1.0.${getVersionCode()}"
+        versionName getVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

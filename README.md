@@ -25,3 +25,9 @@ app's data when switching between versions.
 ```
 base64 --wrap=0 app/google-services.json && echo
 ```
+
+## Branching
+
+* Development is done on "develop" branch.
+* Releases are made from "master" branch.
+
