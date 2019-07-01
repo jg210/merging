@@ -1,8 +1,10 @@
-package uk.me.jeremygreen.merging
+package uk.me.jeremygreen.merging.about
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.about.*
+import uk.me.jeremygreen.merging.BuildConfig
+import uk.me.jeremygreen.merging.R
 
 class AboutActivity: AppCompatActivity() {
 

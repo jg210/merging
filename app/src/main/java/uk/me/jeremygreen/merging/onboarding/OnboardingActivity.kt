@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging
+package uk.me.jeremygreen.merging.onboarding
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import kotlinx.android.synthetic.main.onboarding.*
+import uk.me.jeremygreen.merging.MainActivity
+import uk.me.jeremygreen.merging.R
 
 class OnboardingActivity: AppCompatActivity() {
 

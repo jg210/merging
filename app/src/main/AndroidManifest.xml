@@ -13,7 +13,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".OnboardingActivity"
+                android:name=".onboarding.OnboardingActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,7 +25,7 @@
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".AboutActivity"
+                android:name=".about.AboutActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <provider
