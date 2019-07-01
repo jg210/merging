@@ -62,10 +62,10 @@
                     android:text = "@string/onboardingText_05"/>
             </LinearLayout>
             <CheckBox
-                android:id="@+id/onboardingAgreement"
+                android:id="@+id/onboarding_accept_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/onboardingAgreement"
+                android:text="@string/onboarding_accept_checkbox"
                 android:layout_marginTop="@dimen/fabMargin"
                 android:textSize="@dimen/defaultTextSize"
           />
@@ -73,7 +73,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/onboarding_accept"
+        android:id="@+id/onboarding_accept_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

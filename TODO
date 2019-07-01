@@ -11,7 +11,6 @@
       - show text again if e.g. just delete on id?
     - version number
       - wil have to remember to change it
-   - better names for agreement and accept view ids.
 
 * CircleCI needs an upload key.
 

@@ -43,31 +43,31 @@ class OnboardingActivity: AppCompatActivity() {
     // Activity
     override fun onResume() {
         super.onResume()
-        this.onboarding_accept.setOnClickListener {
-            onboarding_accept.setOnClickListener(null)
+        this.onboarding_accept_button.setOnClickListener {
+            onboarding_accept_button.setOnClickListener(null)
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
             startActivity(intent)
             finish()
         }
-        this.onboardingAgreement.setOnClickListener {
+        this.onboarding_accept_checkbox.setOnClickListener {
             updateFabState()
         }
         updateFabState()
     }
 
     fun updateFabState() {
-        if (this.onboardingAgreement.isChecked) {
-            this.onboarding_accept.show()
+        if (this.onboarding_accept_checkbox.isChecked) {
+            this.onboarding_accept_button.show()
         } else {
-            this.onboarding_accept.hide()
+            this.onboarding_accept_button.hide()
         }
     }
 
     // Activity
     override fun onPause() {
-        this.onboarding_accept.setOnClickListener(null)
-        this.onboardingAgreement.setOnClickListener(null)
+        this.onboarding_accept_button.setOnClickListener(null)
+        this.onboarding_accept_checkbox.setOnClickListener(null)
         super.onPause()
     }
 

@@ -5,7 +5,7 @@
     <string name="onboardingText_03">Doesn\'t upload your images anywhere.</string>
     <string name="onboardingText_04">Uses Firebase Crashlytics for crash reporting.</string>
     <string name="onboardingText_05">Uses Firebase Analytics to analyze how you use the app.</string>
-    <string name="onboardingAgreement">I agree</string>
+    <string name="onboarding_accept_checkbox">I agree</string>
     <string name="actionLicences">Licences</string>
     <string name="actionAbout">About</string>
     <string name="appName">Merging</string>
