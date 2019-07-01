@@ -17,7 +17,7 @@ import com.crashlytics.android.Crashlytics
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.fabric.sdk.android.Fabric
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.main.*
 import uk.me.jeremygreen.merging.BuildConfig
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.about.AboutActivity
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         if (!BuildConfig.DEBUG) {
             Fabric.with(this, Crashlytics())
         }
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.main)
         setSupportActionBar(this.toolbar)
         this.pagerAdapter = PagerAdapterImpl(this)
         this.pager.adapter = this.pagerAdapter
