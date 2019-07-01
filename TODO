@@ -1,4 +1,7 @@
 * Add "I agree" checkbox to OnboardingActivity.
+  - set FAB app:backgroundTint if disabled, not colour of the tick
+  - set FAB ripple colour?
+    - both FABs
   - https://www.termsfeed.com/blog/google-prominent-disclosure-requirement/#
   - how to persist
     - boolean
@@ -11,6 +14,7 @@
       - show text again if e.g. just delete on id?
     - version number
       - wil have to remember to change it
+   - better names for agreement and accept view ids.
 
 * CircleCI needs an upload key.
 
