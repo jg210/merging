@@ -1,16 +1,5 @@
-* Add "I agree" checkbox to OnboardingActivity.
-  - https://www.termsfeed.com/blog/google-prominent-disclosure-requirement/#
-  - how to persist
-    - boolean
-      - no, since text will change over time
-    - fingerprint of text
-      - maybe, but will reappear if change language
-        - maybe that's useful though
-    - set of ids
-      - might accidentally change text for existing id.
-      - show text again if e.g. just delete on id?
-    - version number
-      - wil have to remember to change it
+* Show splash screen for minimum amount of time
+  - separate coroutine Jobs for database lookup and a sleep, then wait for both?
 
 * CircleCI needs an upload key.
 

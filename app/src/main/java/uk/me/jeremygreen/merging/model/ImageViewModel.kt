@@ -37,5 +37,15 @@ class ImageViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    suspend fun onboardingAccepted(version: Long): Boolean {
+        return appDatabase.onboardingDao().findById(version) != null
+    }
+
+    fun acceptOnboarding(version: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            appDatabase.onboardingDao().add(Onboarding(version))
+        }
+    }
+
 }
 

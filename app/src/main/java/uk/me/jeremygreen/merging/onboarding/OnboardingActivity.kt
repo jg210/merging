@@ -8,16 +8,26 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.onboarding.*
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.R
+import uk.me.jeremygreen.merging.model.ImageViewModel
 
 class OnboardingActivity: AppCompatActivity() {
+
+    companion object {
+        // Increase this whenever onboarding text is changed.
+        val version = 1L
+    }
+
+    lateinit var imageViewModel: ImageViewModel
 
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.onboarding)
+        imageViewModel = ViewModelProviders.of(this).get(ImageViewModel::class.java)
         setSupportActionBar(onboardingToolbar)
         this.onboardingTextContainer.children.forEach { child: View ->
             if (child is TextView) {
@@ -45,6 +55,7 @@ class OnboardingActivity: AppCompatActivity() {
         super.onResume()
         this.onboarding_accept_button.setOnClickListener {
             onboarding_accept_button.setOnClickListener(null)
+            imageViewModel.acceptOnboarding(OnboardingActivity.version)
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
             startActivity(intent)
