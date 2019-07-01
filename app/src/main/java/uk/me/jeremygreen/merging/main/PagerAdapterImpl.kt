@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import uk.me.jeremygreen.merging.model.Image
-import uk.me.jeremygreen.merging.screen.AddImageFragment
-import uk.me.jeremygreen.merging.screen.ImageFragment
-import uk.me.jeremygreen.merging.screen.MergedImageFragment
+import uk.me.jeremygreen.merging.main.screen.AddImageFragment
+import uk.me.jeremygreen.merging.main.screen.ImageFragment
+import uk.me.jeremygreen.merging.main.screen.MergedImageFragment
 
 class PagerAdapterImpl(
     fragmentActivity: FragmentActivity

@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging.screen
+package uk.me.jeremygreen.merging.main.screen
 
 import android.app.AlertDialog
 import android.content.DialogInterface
