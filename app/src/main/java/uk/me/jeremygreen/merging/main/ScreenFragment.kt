@@ -4,16 +4,15 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.coroutines.*
-import uk.me.jeremygreen.merging.model.ImageViewModel
+import uk.me.jeremygreen.merging.model.AppViewModel
 import java.io.File
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Base class for the ViewPager2 Fragments in the screen package.
  */
 abstract class ScreenFragment : Fragment(), CoroutineScope by MainScope() {
 
-    protected lateinit var imageViewModel: ImageViewModel
+    protected lateinit var appViewModel: AppViewModel
     private lateinit var imagesDir: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +20,7 @@ abstract class ScreenFragment : Fragment(), CoroutineScope by MainScope() {
         val activity = requireActivity()
         imagesDir = MainActivity.imagesDir(activity)
         imagesDir.mkdirs()
-        imageViewModel = ViewModelProviders.of(activity).get(ImageViewModel::class.java)
+        appViewModel = ViewModelProviders.of(activity).get(AppViewModel::class.java)
     }
 
     override fun onDestroyView() {

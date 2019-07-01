@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.onboarding.*
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.R
-import uk.me.jeremygreen.merging.model.ImageViewModel
+import uk.me.jeremygreen.merging.model.AppViewModel
 
 class OnboardingActivity: AppCompatActivity() {
 
@@ -21,13 +21,13 @@ class OnboardingActivity: AppCompatActivity() {
         val version = 1L
     }
 
-    lateinit var imageViewModel: ImageViewModel
+    lateinit var appViewModel: AppViewModel
 
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.onboarding)
-        imageViewModel = ViewModelProviders.of(this).get(ImageViewModel::class.java)
+        appViewModel = ViewModelProviders.of(this).get(AppViewModel::class.java)
         setSupportActionBar(onboardingToolbar)
         this.onboardingTextContainer.children.forEach { child: View ->
             if (child is TextView) {
@@ -55,7 +55,7 @@ class OnboardingActivity: AppCompatActivity() {
         super.onResume()
         this.onboarding_accept_button.setOnClickListener {
             onboarding_accept_button.setOnClickListener(null)
-            imageViewModel.acceptOnboarding(OnboardingActivity.version)
+            appViewModel.acceptOnboarding(OnboardingActivity.version)
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
             startActivity(intent)

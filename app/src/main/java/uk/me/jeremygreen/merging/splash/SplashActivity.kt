@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.coroutines.*
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.R
-import uk.me.jeremygreen.merging.model.ImageViewModel
+import uk.me.jeremygreen.merging.model.AppViewModel
 import uk.me.jeremygreen.merging.onboarding.OnboardingActivity
 
 class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
@@ -16,7 +16,7 @@ class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash)
-        val imageViewModel = ViewModelProviders.of(this).get(ImageViewModel::class.java)
+        val imageViewModel = ViewModelProviders.of(this).get(AppViewModel::class.java)
         launch(Dispatchers.IO) {
             val acceptedVersion = async {
                 imageViewModel.onboardingAccepted(OnboardingActivity.version)
