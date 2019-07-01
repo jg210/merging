@@ -97,11 +97,13 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
     }
 
+    // Activity
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
+    // Activity
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.actionLicences -> {
