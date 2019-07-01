@@ -79,6 +79,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fabMargin"
         app:srcCompat="@drawable/onboarding_accept"
+        app:rippleColor="@color/colorPrimaryDark"
     />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

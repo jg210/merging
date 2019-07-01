@@ -57,7 +57,11 @@ class OnboardingActivity: AppCompatActivity() {
     }
 
     fun updateFabState() {
-        this.onboarding_accept.setEnabled(this.onboardingAgreement.isChecked)
+        if (this.onboardingAgreement.isChecked) {
+            this.onboarding_accept.show()
+        } else {
+            this.onboarding_accept.hide()
+        }
     }
 
     // Activity

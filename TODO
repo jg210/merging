@@ -1,7 +1,4 @@
 * Add "I agree" checkbox to OnboardingActivity.
-  - set FAB app:backgroundTint if disabled, not colour of the tick
-  - set FAB ripple colour?
-    - both FABs
   - https://www.termsfeed.com/blog/google-prominent-disclosure-requirement/#
   - how to persist
     - boolean
