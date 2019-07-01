@@ -1,4 +1,23 @@
+* Add "I agree" checkbox to OnboardingActivity.
+  - https://www.termsfeed.com/blog/google-prominent-disclosure-requirement/#
+  - how to persist
+    - boolean
+      - no, since text will change over time
+    - fingerprint of text
+      - maybe, but will reappear if change language
+        - maybe that's useful though
+    - set of ids
+      - might accidentally change text for existing id.
+      - show text again if e.g. just delete on id?
+    - version number
+      - wil have to remember to change it
+
 * CircleCI needs an upload key.
+
+* If wipe AVD data, camera app doesn't send photo back to app first time use it.
+
+* ACTION_IMAGE_CAPTURE Intent might not work well on all platforms
+  - https://commonsware.com/blog/2015/06/08/action-image-capture-fallacy.html
 
 * Create develop branch
   - make it default branch.
@@ -33,11 +52,6 @@
 
 * Better unit tests.
 
-* Consistent text size.
-  - licences, about, onboarding.
-
-* If wipe AVD data, camera app doesn't send photo back to app first time use it.
-
 * Garbage collect files after delete them and UI has finished updating.
   - when ViewPager2 stops using them
     - https://developer.android.com/reference/android/support/v7/widget/RecyclerView.RecyclerListener.html?
@@ -46,9 +60,6 @@
   - don't remove images that camera Intent has created but that aren't yet store in the db.
 
 * Handle rejected permissions.
-
-* Add "I agree" checkbox to OnboardingActivity.
-  - https://www.termsfeed.com/blog/google-prominent-disclosure-requirement/
 
 * Skip OnboardingActivity if it's been seen before.
   - showing it again if text changes.
