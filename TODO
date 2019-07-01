@@ -36,6 +36,9 @@
 
 * Screenshots in github.
 
+* Don't show splashscreen if start up is fast enough
+  - but if do show it, show it for at least 1.5s.
+
 * Better unit tests.
 
 * Garbage collect files after delete them and UI has finished updating.
