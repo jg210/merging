@@ -67,6 +67,9 @@ class OnboardingActivity: AppCompatActivity() {
         updateFabState()
     }
 
+    /**
+     * Update FloatingActionButton properties etc.
+     */
     fun updateFabState() {
         if (this.onboarding_accept_checkbox.isChecked) {
             this.onboarding_accept_button.show()

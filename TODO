@@ -33,6 +33,7 @@
   - keep hold of restored state and use it for first images update?
 
 * Show merged photo.
+  - retrieve joined data with a view.
 
 * Screenshots in github.
 
