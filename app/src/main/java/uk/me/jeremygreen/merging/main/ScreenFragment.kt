@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging
+package uk.me.jeremygreen.merging.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

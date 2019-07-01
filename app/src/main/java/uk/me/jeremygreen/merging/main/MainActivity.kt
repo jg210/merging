@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging
+package uk.me.jeremygreen.merging.main
 
 import android.app.Activity
 import android.content.Intent
@@ -18,6 +18,8 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
+import uk.me.jeremygreen.merging.BuildConfig
+import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.about.AboutActivity
 import uk.me.jeremygreen.merging.model.ImageViewModel
 import java.io.File
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val imagesDir: File by lazy {
-        MainActivity.imagesDir(this)
+        imagesDir(this)
     }
 
     // Activity

@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uk.me.jeremygreen.merging.R
-import uk.me.jeremygreen.merging.ScreenFragment
-import uk.me.jeremygreen.merging.ScreenFragmentFactory
+import uk.me.jeremygreen.merging.main.ScreenFragment
+import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
 import uk.me.jeremygreen.merging.model.Image
 import java.io.File
 

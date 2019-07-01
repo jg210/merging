@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".MainActivity"
+                android:name=".main.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity

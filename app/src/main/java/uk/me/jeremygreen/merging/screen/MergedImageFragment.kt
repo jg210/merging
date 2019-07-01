@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import uk.me.jeremygreen.merging.R
-import uk.me.jeremygreen.merging.ScreenFragment
-import uk.me.jeremygreen.merging.ScreenFragmentFactory
+import uk.me.jeremygreen.merging.main.ScreenFragment
+import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
 
 class MergedImageFragment : ScreenFragment() {
 

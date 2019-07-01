@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging
+package uk.me.jeremygreen.merging.main
 
 interface ScreenFragmentFactory<T: ScreenFragment> {
 
