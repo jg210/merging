@@ -8,7 +8,7 @@ import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ImageViewModel(application: Application) : AndroidViewModel(application) {
+class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     private val appDatabase: AppDatabase by lazy {
         Room.databaseBuilder(
@@ -34,6 +34,16 @@ class ImageViewModel(application: Application) : AndroidViewModel(application) {
     fun addImage(file: String) {
         viewModelScope.launch(Dispatchers.IO) {
             appDatabase.imageDao().add(Image(0, file))
+        }
+    }
+
+    suspend fun onboardingAccepted(version: Long): Boolean {
+        return appDatabase.onboardingDao().findById(version) != null
+    }
+
+    fun acceptOnboarding(version: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            appDatabase.onboardingDao().add(Onboarding(version))
         }
     }
 

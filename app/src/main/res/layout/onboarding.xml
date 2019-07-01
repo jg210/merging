@@ -26,46 +26,60 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
-            android:id="@+id/onboardingTextContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fabMargin"
             android:orientation="vertical">
-            <TextView
+            <LinearLayout
+                    android:id="@+id/onboardingTextContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/defaultTextSize"
+                    android:text = "@string/onboardingText_01"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/defaultTextSize"
+                    android:text = "@string/onboardingText_02"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/defaultTextSize"
+                    android:text = "@string/onboardingText_03"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/defaultTextSize"
+                    android:text = "@string/onboardingText_04"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/defaultTextSize"
+                    android:text = "@string/onboardingText_05"/>
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/onboarding_accept_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/onboarding_accept_checkbox"
+                android:layout_marginTop="@dimen/fabMargin"
                 android:textSize="@dimen/defaultTextSize"
-                android:text = "@string/onboardingText_01"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/defaultTextSize"
-                android:text = "@string/onboardingText_02"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/defaultTextSize"
-                android:text = "@string/onboardingText_03"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/defaultTextSize"
-                android:text = "@string/onboardingText_04"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/defaultTextSize"
-                android:text = "@string/onboardingText_05"/>
+          />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/onboarding_accept"
+        android:id="@+id/onboarding_accept_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fabMargin"
-        app:srcCompat="@drawable/onboarding_accept_default"
+        app:srcCompat="@drawable/onboarding_accept"
+        app:rippleColor="@color/colorPrimaryDark"
     />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,17 +1,3 @@
-* Add "I agree" checkbox to OnboardingActivity.
-  - https://www.termsfeed.com/blog/google-prominent-disclosure-requirement/#
-  - how to persist
-    - boolean
-      - no, since text will change over time
-    - fingerprint of text
-      - maybe, but will reappear if change language
-        - maybe that's useful though
-    - set of ids
-      - might accidentally change text for existing id.
-      - show text again if e.g. just delete on id?
-    - version number
-      - wil have to remember to change it
-
 * CircleCI needs an upload key.
 
 * If wipe AVD data, camera app doesn't send photo back to app first time use it.
@@ -47,8 +33,12 @@
   - keep hold of restored state and use it for first images update?
 
 * Show merged photo.
+  - retrieve joined data with a view.
 
 * Screenshots in github.
+
+* Don't show splashscreen if start up is fast enough
+  - but if do show it, show it for at least 1.5s.
 
 * Better unit tests.
 

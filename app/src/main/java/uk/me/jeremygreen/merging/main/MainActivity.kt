@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import uk.me.jeremygreen.merging.BuildConfig
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.about.AboutActivity
-import uk.me.jeremygreen.merging.model.ImageViewModel
+import uk.me.jeremygreen.merging.model.AppViewModel
 import java.io.File
 import java.util.*
 
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val imageViewModel by lazy {
-        ViewModelProviders.of(this).get(ImageViewModel::class.java)
+        ViewModelProviders.of(this).get(AppViewModel::class.java)
     }
 
     private val imagesDir: File by lazy {
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        val imageViewModel = ViewModelProviders.of(this).get(ImageViewModel::class.java)
+        val imageViewModel = ViewModelProviders.of(this).get(AppViewModel::class.java)
         imageViewModel.allImages().observe(this, Observer { images ->
             this.pagerAdapter.setImages(images)
         })

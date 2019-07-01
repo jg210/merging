@@ -71,7 +71,7 @@ class ImageFragment : ScreenFragment() {
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
         val imageDraweeView = this.imageDraweeView
         launch(Dispatchers.IO) {
-            val image = imageViewModel.findById(imageId)
+            val image = appViewModel.findById(imageId)
             launch(Dispatchers.Main) {
                 val uri = Uri.fromFile(File(image.file))
                 Log.d(TAG, "updating image ${id} with: ${uri}")
@@ -115,7 +115,7 @@ class ImageFragment : ScreenFragment() {
             setMessage(R.string.confirmDeleteImage)
             setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
                 imageDraweeView.setOnLongClickListener { false }
-                imageViewModel.delete(image)
+                appViewModel.delete(image)
             }
             setNegativeButton(R.string.cancel) { _: DialogInterface, _: Int -> }
             show()
