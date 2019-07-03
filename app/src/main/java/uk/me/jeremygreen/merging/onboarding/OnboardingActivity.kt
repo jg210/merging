@@ -19,10 +19,10 @@ class OnboardingActivity: AppCompatActivity() {
 
     companion object {
         // Increase this whenever onboarding text is changed.
-        val version = 1L
+        const val version = 1L
     }
 
-    lateinit var appViewModel: AppViewModel
+    private lateinit var appViewModel: AppViewModel
 
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class OnboardingActivity: AppCompatActivity() {
 
     private fun addBullet(textView: TextView) {
         val text = textView.text
-        if (!(text is String)) {
+        if (text !is String) {
             throw IllegalArgumentException("${text.javaClass} ${text}")
         }
         val spannedText = SpannableString(text)
@@ -76,7 +76,7 @@ class OnboardingActivity: AppCompatActivity() {
     /**
      * Update FloatingActionButton properties etc.
      */
-    fun updateFabState() {
+    private fun updateFabState() {
         if (this.onboarding_accept_checkbox.isChecked) {
             this.onboarding_accept_button.show()
         } else {
