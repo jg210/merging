@@ -13,7 +13,7 @@ class AboutActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.about)
         setSupportActionBar(this.aboutToolbar)
-        this.appVersion.text = "${BuildConfig.APPLICATION_ID}\nversion ${BuildConfig.VERSION_NAME}"
+        this.appVersion.text = getString(R.string.version, BuildConfig.APPLICATION_ID, BuildConfig.VERSION_NAME)
     }
 
     // Activity

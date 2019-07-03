@@ -13,4 +13,5 @@
     <string name="cancel">Cancel</string>
     <string name="confirmDeleteImage">Delete the photo?</string>
     <string name="ok">OK</string>
+    <string name="version">%1$s\nversion: %2$s</string>
 </resources>
