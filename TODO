@@ -49,11 +49,6 @@
 
 * Handle rejected permissions.
 
-* Skip OnboardingActivity if it's been seen before.
-  - showing it again if text changes.
-    - a local database of versions already seen.
-    - no ordering of versions.
-
 * Better appName.
 
 * Include licence text in About screen.
@@ -75,7 +70,6 @@
   - enabled only in release builds.
 
 * Choose colour scheme for app.
-  - various things are using @color resources directly, not theme attributes.
 
 * Material design
   - implementation 'com.google.android.material:material:1.0.0'
@@ -89,10 +83,10 @@
   - listed by licence type.
   - jk1?
 
-* Replace Room with something better
+* Replace Room with something better?
   - Realm?
 
-* Persist whether analytics and crashlytics have been opted in to, and enable in OnboardingActivity, not MainActivity.
+* Persist whether analytics and crashlytics have been opted in to, and enable in MainApplication or OnboardingActivity, not MainActivity.
 
 * Configure android lint
   - tune priorities.
