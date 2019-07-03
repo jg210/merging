@@ -23,7 +23,7 @@ class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
             }
             val delayJob = launch {
                 // Show splash screen for at least this long.
-                delay(1500)
+                delay(1000)
             }
             val activity = if (acceptedVersion.await()) {
                 MainActivity::class.java

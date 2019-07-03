@@ -3,9 +3,8 @@
     <item
         android:drawable="@color/splashBackground"
     />
-    <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@mipmap/ic_launcher_round"/>
+    <item
+        android:gravity="center"
+        android:drawable="@drawable/app_icon_56">
     </item>
 </layer-list>
