@@ -58,8 +58,17 @@ android {
         versionName getVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword file(RELEASE_STORE_PASSWORD_FILE).getText('UTF-8').trim()
+            keyPassword file(RELEASE_KEY_PASSWORD_FILE).getText('UTF-8').trim()
+            keyAlias RELEASE_KEY_ALIAS
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
