@@ -1,4 +1,4 @@
-* Create and use    a signing key.
+* Create and use a signing key.
 
 * If wipe AVD data, camera app doesn't send photo back to app first time use it.
 
@@ -73,7 +73,9 @@
   - enabled only in release builds.
 
 * Choose colour scheme for app.
-  - various things are using @color resources directly, not theme attributes...
+  - various things are using @color resources directly, not theme attributes.
+
+* Set textSize using theme, not view properties.
 
 * Material design
   - implementation 'com.google.android.material:material:1.0.0'

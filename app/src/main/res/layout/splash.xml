@@ -2,19 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/addImageScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/imagePlaceholder">
+        android:background="@android:color/transparent">
 
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:src="@mipmap/ic_launcher_round"
-    />
+    <!--
+    The splash screen is rendered using android:windowBackground in this Activity's theme. This
+    means it is rendered as soon as the app starts, not when this Activity is started.
+    -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
