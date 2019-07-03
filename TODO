@@ -77,8 +77,6 @@
 * Choose colour scheme for app.
   - various things are using @color resources directly, not theme attributes.
 
-* Set textSize using theme, not view properties.
-
 * Material design
   - implementation 'com.google.android.material:material:1.0.0'
   - don't misuse dark/light primary color resources

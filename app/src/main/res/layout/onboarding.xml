@@ -38,27 +38,22 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/defaultTextSize"
                     android:text = "@string/onboardingText_01"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/defaultTextSize"
                     android:text = "@string/onboardingText_02"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/defaultTextSize"
                     android:text = "@string/onboardingText_03"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/defaultTextSize"
                     android:text = "@string/onboardingText_04"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/defaultTextSize"
                     android:text = "@string/onboardingText_05"/>
             </LinearLayout>
             <CheckBox
@@ -67,7 +62,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/onboarding_accept_checkbox"
                 android:layout_marginTop="@dimen/fabMargin"
-                android:textSize="@dimen/defaultTextSize"
           />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

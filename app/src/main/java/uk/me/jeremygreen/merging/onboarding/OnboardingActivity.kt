@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.BulletSpan
+import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -42,12 +43,17 @@ class OnboardingActivity: AppCompatActivity() {
             throw IllegalArgumentException("${text.javaClass} ${text}")
         }
         val spannedText = SpannableString(text)
-        val defaultTextSize = resources.getDimensionPixelSize(R.dimen.defaultTextSize)
-        val gapWidth = (0.4 * defaultTextSize).toInt()
+        val gapWidth = (0.4 * defaultTextSize()).toInt()
         val color = textView.currentTextColor
         val bulletSpan = BulletSpan(gapWidth, color)
         spannedText.setSpan(bulletSpan, 0, text.length, 0)
         textView.text = spannedText
+    }
+
+    private fun defaultTextSize(): Float {
+        val typedValue = TypedValue()
+        theme.resolveAttribute(android.R.attr.textSize, typedValue, true)
+        return typedValue.getDimension(resources.displayMetrics)
     }
 
     // Activity
