@@ -60,15 +60,15 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file(RELEASE_STORE_FILE)
-            storePassword file(RELEASE_STORE_PASSWORD_FILE).getText('UTF-8').trim()
-            keyPassword file(RELEASE_KEY_PASSWORD_FILE).getText('UTF-8').trim()
+            storeFile file(RELEASE_STORE_FILE, PathValidation.NONE)
+            storePassword file(RELEASE_STORE_PASSWORD_FILE, PathValidation.NONE).getText('UTF-8').trim()
+            keyPassword file(RELEASE_KEY_PASSWORD_FILE, PathValidation.NONE).getText('UTF-8').trim()
             keyAlias RELEASE_KEY_ALIAS
         }
     }
     buildTypes {
         release {
-            if (file(RELEASE_STORE_FILE).exists()) {
+            if (file(RELEASE_STORE_FILE, PathValidation.NONE).exists()) {
                 signingConfig signingConfigs.release
             }
             minifyEnabled false

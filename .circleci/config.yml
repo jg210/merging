@@ -6,9 +6,9 @@ jobs:
       - image: circleci/android:api-28-alpha
     environment:
       JVM_OPTS: -Xmx3200m
-      ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: release.keystore
-      ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: release.password
-      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: release.password
+      ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: ~/code/release.keystore
+      ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: ~/code/release.password
+      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: ~/code/release.password
     steps:
       - checkout
       - restore_cache:
