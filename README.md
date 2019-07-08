@@ -19,6 +19,10 @@ Release apks are available as artifacts here:
 
 https://circleci.com/gh/jg210/merging/tree/master
 
+...although the "artifacts" tab isn't always visible in the Circle CI UI:
+
+https://discuss.circleci.com/t/stored-artifacts-not-showing-up-on-a-build/20761/3
+
 ## Firebase Configuration
 
 * Create a project for the app in the [Firebase console](https://console.firebase.google.com/).

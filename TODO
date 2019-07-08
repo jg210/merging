@@ -79,6 +79,11 @@
   - listed by licence type.
   - jk1?
 
+* CircleCI has too many minor issues
+  - no per-branch env. vars.
+  - artifacts tab not always shown
+    - https://discuss.circleci.com/t/stored-artifacts-not-showing-up-on-a-build/20761/3
+
 * Replace Room with something better?
   - Realm?
 
