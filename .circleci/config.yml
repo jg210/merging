@@ -8,7 +8,7 @@ jobs:
       JVM_OPTS: -Xmx3200m
       ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
       ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
-      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/release.password
+      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
     steps:
       - checkout
       - restore_cache:
