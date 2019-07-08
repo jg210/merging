@@ -5,8 +5,6 @@
 * ACTION_IMAGE_CAPTURE Intent might not work well on all platforms
   - https://commonsware.com/blog/2015/06/08/action-image-capture-fallacy.html
 
-* Add link to master-branch apks to README.
-
 * Find a face in images.
   X use appropriately-sized images for feature recognition
   - break implementation into separate functions
@@ -85,6 +83,7 @@
   - Realm?
 
 * Persist whether analytics and crashlytics have been opted in to, and enable in MainApplication or OnboardingActivity, not MainActivity.
+  - otherwise, might miss some early crashes.
 
 * Configure android lint
   - tune priorities.
