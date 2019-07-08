@@ -20,10 +20,21 @@ app's data when switching between versions.
 
 * Create a project for the app in the [Firebase console](https://console.firebase.google.com/).
 * Download a copy of google-services.json from the Firebase console and put it in the app/ directory.
+
+## Circle CI Configuration
+
 * In CircleCI project's Environment Variables settings, add a GOOGLE_SERVICES environment variable with its value set to the output of the following command:
 
 ```
 base64 --wrap=0 app/google-services.json && echo
+```
+
+
+* Set RELEASE_KEY_PASSWORD to android release key's password (the store and key passwords must be the same).
+* Set RELEASE_KEYSTORE to output of:
+
+```
+base64 --wrap=0 release.keystore && echo
 ```
 
 ## Branching

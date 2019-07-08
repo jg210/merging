@@ -6,13 +6,22 @@ jobs:
       - image: circleci/android:api-28-alpha
     environment:
       JVM_OPTS: -Xmx3200m
+      ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: release.keystore
+      ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: release.password
+      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: release.password
     steps:
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Create google-services.json
-          command: printf "%s\n" "${GOOGLE_SERVICES}" | base64 --decode > app/google-services.json
+          command: printf "%s" "${GOOGLE_SERVICES}" | base64 --decode > app/google-services.json
+      - run:
+          name: Create release.password
+          command: printf "%s\n" "${RELEASE_KEY_PASSWORD:-}" | > "${ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE}"
+      - run:
+          name: Create release.keystore
+          command: printf "%s" "${RELEASE_KEYSTORE:-}" | base64 --decode > "${ORG_GRADLE_PROJECT_RELEASE_STORE_FILE}"
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
