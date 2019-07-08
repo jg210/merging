@@ -48,6 +48,8 @@ static String getVersionName() {
     return "1.0.${getVersionCode()}"
 }
 
+def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -60,7 +62,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file(RELEASE_STORE_FILE, PathValidation.NONE)
+            storeFile releaseStoreFile
             storePassword file(RELEASE_STORE_PASSWORD_FILE, PathValidation.NONE).getText('UTF-8').trim()
             keyPassword file(RELEASE_KEY_PASSWORD_FILE, PathValidation.NONE).getText('UTF-8').trim()
             keyAlias RELEASE_KEY_ALIAS
@@ -68,7 +70,7 @@ android {
     }
     buildTypes {
         release {
-            if (file(RELEASE_STORE_FILE, PathValidation.NONE).exists()) {
+            if (releaseStoreFile.exists() && releaseStoreFile.size() > 0) {
                 signingConfig signingConfigs.release
             }
             minifyEnabled false
