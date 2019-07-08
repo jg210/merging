@@ -6,13 +6,22 @@ jobs:
       - image: circleci/android:api-28-alpha
     environment:
       JVM_OPTS: -Xmx3200m
+      ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
+      ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
+      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
     steps:
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Create google-services.json
-          command: printf "%s\n" "${GOOGLE_SERVICES}" | base64 --decode > app/google-services.json
+          command: printf "%s" "${GOOGLE_SERVICES}" | base64 --decode > app/google-services.json
+      - run:
+          name: Create release.password
+          command: printf "%s\n" "${RELEASE_KEY_PASSWORD:-}" > "${ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE}"
+      - run:
+          name: Create release.keystore
+          command: printf "%s" "${RELEASE_KEYSTORE:-}" | base64 --decode > "${ORG_GRADLE_PROJECT_RELEASE_STORE_FILE}"
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
@@ -24,8 +33,8 @@ jobs:
           name: Run Tests
           command: ./gradlew lint test assemble
       - store_artifacts: # https://circleci.com/docs/2.0/artifacts/
-          path: app/build/outputs/apk/release/app-release-unsigned.apk
-          destination: apks/app-release-unsigned.apk
+          path: app/build/outputs/apk/release/app-release.apk
+          destination: apks/app-release.apk
       - store_artifacts:
           path: app/build/reports
           destination: reports

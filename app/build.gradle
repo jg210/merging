@@ -48,6 +48,8 @@ static String getVersionName() {
     return "1.0.${getVersionCode()}"
 }
 
+def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -58,8 +60,19 @@ android {
         versionName getVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            storeFile releaseStoreFile
+            storePassword file(RELEASE_STORE_PASSWORD_FILE).getText('UTF-8').trim()
+            keyPassword file(RELEASE_KEY_PASSWORD_FILE).getText('UTF-8').trim()
+            keyAlias RELEASE_KEY_ALIAS
+        }
+    }
     buildTypes {
         release {
+            if (releaseStoreFile.exists() && releaseStoreFile.size() > 0) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
