@@ -6,6 +6,8 @@ import androidx.room.RoomDatabase
 @Database(
     entities = [
         Image::class,
+        Face::class,
+        Coordinate::class,
         Onboarding::class
     ],
     version = 1,

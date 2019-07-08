@@ -13,6 +13,12 @@
   - store contour coordinates in database
     - https://proandroiddev.com/android-room-handling-relations-using-livedata-2d892e40bd53
     - delete if image deleted
+    - how can Room handle relationships?
+      - separate Face and FaceEntity classes?
+        - can use @Relation annotation
+      - Face class with @ignored coordinates field?
+        - populate field in Dao class.
+          - https://stackoverflow.com/questions/44667160/android-room-insert-relation-entities-using-room
   - wait for MLKit model to download when necessary
   - face-detection code doesn't belong in ImageFragment
   - render coordinates on top of images
