@@ -13,8 +13,11 @@ It's using:
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build and test.
 * [Material Design](https://material.io/design/).
 
-There won't be any database versioning/migrations until after the first release, so it might be necessary to wipe the
-app's data when switching between versions.
+There won't be any database versioning/migrations until after the first play store release, so it might be necessary to wipe the app's data when switching between versions.
+
+Release apks are available as artifacts here:
+
+https://circleci.com/gh/jg210/merging/tree/master
 
 ## Firebase Configuration
 

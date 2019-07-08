@@ -63,8 +63,8 @@ android {
     signingConfigs {
         release {
             storeFile releaseStoreFile
-            storePassword file(RELEASE_STORE_PASSWORD_FILE, PathValidation.NONE).getText('UTF-8').trim()
-            keyPassword file(RELEASE_KEY_PASSWORD_FILE, PathValidation.NONE).getText('UTF-8').trim()
+            storePassword file(RELEASE_STORE_PASSWORD_FILE).getText('UTF-8').trim()
+            keyPassword file(RELEASE_KEY_PASSWORD_FILE).getText('UTF-8').trim()
             keyAlias RELEASE_KEY_ALIAS
         }
     }
