@@ -18,10 +18,10 @@ jobs:
           command: printf "%s" "${GOOGLE_SERVICES}" | base64 --decode > app/google-services.json
       - run:
           name: Create release.password
-          command: printf "%s\n" "${RELEASE_KEY_PASSWORD:-}" > "${ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE}"
+          command: printf "%s\n" "${RELEASE_KEY_PASSWORD:-}" > ${ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE}
       - run:
           name: Create release.keystore
-          command: printf "%s" "${RELEASE_KEYSTORE:-}" | base64 --decode > "${ORG_GRADLE_PROJECT_RELEASE_STORE_FILE}"
+          command: printf "%s" "${RELEASE_KEYSTORE:-}" | base64 --decode > ${ORG_GRADLE_PROJECT_RELEASE_STORE_FILE}
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
