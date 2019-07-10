@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 @Database(
     entities = [
         Image::class,
-        Face::class,
+        FaceEntity::class,
         Coordinate::class,
         Onboarding::class
     ],
@@ -16,6 +16,10 @@ import androidx.room.RoomDatabase
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun imageDao(): ImageDao
+
+    abstract fun faceDao(): FaceDao
+
+    abstract fun coordinateDao(): CoordinateDao
 
     abstract fun onboardingDao(): OnboardingDao
 

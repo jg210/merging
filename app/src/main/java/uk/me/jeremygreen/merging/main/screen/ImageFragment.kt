@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.Dispatchers
@@ -17,8 +18,11 @@ import kotlinx.coroutines.launch
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.main.ScreenFragment
 import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
+import uk.me.jeremygreen.merging.model.Coordinate
+import uk.me.jeremygreen.merging.model.Face
 import uk.me.jeremygreen.merging.model.Image
 import java.io.File
+import kotlin.math.roundToInt
 
 
 class ImageFragment : ScreenFragment() {
@@ -94,12 +98,21 @@ class ImageFragment : ScreenFragment() {
                         val bitmap = clonedReference.get()
                         val firebaseImage = FirebaseVisionImage.fromBitmap(bitmap)
                         val detector = FirebaseVision.getInstance().getVisionFaceDetector(faceDetectorOptions)
-                        detector.detectInImage(firebaseImage)
-                            .addOnSuccessListener { faces ->
-                                Log.i(TAG, "detected ${faces.size} faces for image id: ${imageId}")
-                                faces.forEach { face ->
-                                    Log.i(TAG, face.toString())
+                        detector.detectInImage(firebaseImage).addOnSuccessListener { firebaseVisionFaces ->
+                                Log.i(TAG, "detected ${firebaseVisionFaces.size} faces for image id: ${imageId}")
+                                firebaseVisionFaces.forEach { firebaseVisionFace ->
+                                    Log.i(TAG, firebaseVisionFaces.toString())
                                 }
+                                // TODO Refactor into some method.
+                                val faces = firebaseVisionFaces.map { firebaseVisionFace ->
+                                    val firebaseVisionFaceContour = firebaseVisionFace.getContour(FirebaseVisionFaceContour.ALL_POINTS)
+                                    val coordinates: List<Coordinate> = firebaseVisionFaceContour.points.map { point ->
+                                        // TODO faceId needs to match parent.
+                                        Coordinate(1, 0, point.x.roundToInt(), point.y.roundToInt())
+                                    }
+                                    Face(0, imageId,  coordinates)
+                                }
+                                appViewModel.addAll(faces)
                             }
                             .addOnFailureListener { e -> Log.e(TAG, "face detection failed", e) }
                     } finally {

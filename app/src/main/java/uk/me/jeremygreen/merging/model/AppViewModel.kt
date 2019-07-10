@@ -47,5 +47,17 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun addAll(faces: List<Face>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val faceEntities = faces.map { face ->
+                FaceEntity(face.id, face.imageId)
+            }
+            appDatabase.faceDao().addAll(faceEntities)
+            faces.forEach { face ->
+                appDatabase.coordinateDao().addAll(face.coordinates)
+            }
+        }
+    }
+
 }
 

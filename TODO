@@ -13,6 +13,8 @@
   - store contour coordinates in database
     - https://proandroiddev.com/android-room-handling-relations-using-livedata-2d892e40bd53
     - delete if image deleted
+    - fix missing-index warnings
+    - fix missing @Transaction warning
     - how can Room handle relationships?
       - separate Face and FaceEntity classes?
         - can use @Relation annotation
