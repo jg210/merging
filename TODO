@@ -1,30 +1,22 @@
+* Find a face in images.
+  - don't store new database entries every time recreate ImageFragment's View.
+  - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved
+  - break implementation into separate functions
+  - fix missing-index warnings
+  - store contour coordinates in database
+  - wait for MLKit model to download when necessary
+  - face-detection code doesn't belong in ImageFragment
+  - render coordinates on top of images
+    - subscribe to data at lowest level
+      => in ImageFragment
+  - use appropriately-sized images when doing feature recognition
+
 * Does splash screen look OK on android 21/22?
 
 * If wipe AVD data, camera app doesn't send photo back to app first time use it.
 
 * ACTION_IMAGE_CAPTURE Intent might not work well on all platforms
   - https://commonsware.com/blog/2015/06/08/action-image-capture-fallacy.html
-
-* Find a face in images.
-  X use appropriately-sized images for feature recognition
-  - break implementation into separate functions
-  - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved
-  - allow multiple faces per image or just use first one?
-  - store contour coordinates in database
-    - https://proandroiddev.com/android-room-handling-relations-using-livedata-2d892e40bd53
-    - delete if image deleted
-    - fix missing-index warnings
-    - how can Room handle relationships?
-      - separate Face and FaceEntity classes?
-        - can use @Relation annotation
-      - Face class with @ignored coordinates field?
-        - populate field in Dao class.
-          - https://stackoverflow.com/questions/44667160/android-room-insert-relation-entities-using-room
-  - wait for MLKit model to download when necessary
-  - face-detection code doesn't belong in ImageFragment
-  - render coordinates on top of images
-    - subscribe to data at lowest level
-      => in ImageFragment
 
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when restored, there are no images in the slider.
