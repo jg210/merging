@@ -98,23 +98,26 @@ class ImageFragment : ScreenFragment() {
                         val bitmap = clonedReference.get()
                         val firebaseImage = FirebaseVisionImage.fromBitmap(bitmap)
                         val detector = FirebaseVision.getInstance().getVisionFaceDetector(faceDetectorOptions)
-                        detector.detectInImage(firebaseImage).addOnSuccessListener { firebaseVisionFaces ->
-                                Log.i(TAG, "detected ${firebaseVisionFaces.size} faces for image id: ${imageId}")
-                                firebaseVisionFaces.forEach { firebaseVisionFace ->
-                                    Log.i(TAG, firebaseVisionFaces.toString())
-                                }
-                                // TODO Refactor into some method.
-                                val faces = firebaseVisionFaces.map { firebaseVisionFace ->
-                                    val firebaseVisionFaceContour = firebaseVisionFace.getContour(FirebaseVisionFaceContour.ALL_POINTS)
-                                    val coordinates: List<Coordinate> = firebaseVisionFaceContour.points.map { point ->
-                                        // TODO faceId needs to match parent.
-                                        Coordinate(1, 0, point.x.roundToInt(), point.y.roundToInt())
-                                    }
-                                    Face(0, imageId,  coordinates)
-                                }
-                                appViewModel.addAll(faces)
+                        val task = detector.detectInImage(firebaseImage)
+                        task.addOnSuccessListener { firebaseVisionFaces ->
+                            Log.i(TAG, "detected ${firebaseVisionFaces.size} faces for image id: ${imageId}")
+                            firebaseVisionFaces.forEach { firebaseVisionFace ->
+                                Log.i(TAG, firebaseVisionFaces.toString())
                             }
-                            .addOnFailureListener { e -> Log.e(TAG, "face detection failed", e) }
+                            // TODO Refactor into some method.
+                            val faces = firebaseVisionFaces.map { firebaseVisionFace ->
+                                val firebaseVisionFaceContour = firebaseVisionFace.getContour(FirebaseVisionFaceContour.ALL_POINTS)
+                                val coordinates: List<Coordinate> = firebaseVisionFaceContour.points.map { point ->
+                                    // TODO faceId needs to match parent.
+                                    Coordinate(1, 0, point.x.roundToInt(), point.y.roundToInt())
+                                }
+                                Face(0, imageId,  coordinates)
+                            }
+                            appViewModel.addAll(faces)
+                        }
+                        task.addOnFailureListener {
+                            e -> Log.e(TAG, "face detection failed", e)
+                        }
                     } finally {
                         clonedReference.close()
                     }
