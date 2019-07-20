@@ -1,9 +1,10 @@
 * Find a face in images.
+  - record whether have detected faces somewhere
+    - can't use number of FaceEntity rows since it might be zero.
   - don't store new database entries every time recreate ImageFragment's View.
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved
   - break implementation into separate functions
   - fix missing-index warnings
-  - store contour coordinates in database
   - wait for MLKit model to download when necessary
   - face-detection code doesn't belong in ImageFragment
   - render coordinates on top of images
