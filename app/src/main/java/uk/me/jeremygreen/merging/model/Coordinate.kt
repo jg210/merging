@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey
     ]
 )
 data class Coordinate(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id: Long,
 
     val faceId: Long,

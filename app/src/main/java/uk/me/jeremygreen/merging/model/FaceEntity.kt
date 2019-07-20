@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
 )
 data class FaceEntity(
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id: Long,
 
     val imageId: Long
