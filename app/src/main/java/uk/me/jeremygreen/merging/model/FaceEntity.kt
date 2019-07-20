@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
 data class FaceEntity(
 
     @PrimaryKey
-    val id: Int,
+    val id: Long,
 
     val imageId: Long
 

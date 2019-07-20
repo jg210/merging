@@ -47,16 +47,20 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun addAll(faces: List<Face>) {
+    fun add(faces: List<Face>) {
         viewModelScope.launch(Dispatchers.IO) {
             appDatabase.runInTransaction {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val faceEntities = faces.map { face ->
-                        FaceEntity(face.id, face.imageId)
-                    }
-                    appDatabase.faceDao().addAll(faceEntities)
-                    faces.forEach { face ->
-                        appDatabase.coordinateDao().addAll(face.coordinates)
+                    val faceEntities = faces.map { face -> FaceEntity(face.id, face.imageId) }
+                    val faceIds = appDatabase.faceDao().addAll(faceEntities)
+                    faceIds.zip(faces).forEach { pair ->
+                        val id = pair.first
+                        val face = pair.second
+                        // Replace Coordinate instances with new instance with correct face ids.
+                        val relatedCoordinates = face.coordinates.map { coordinate ->
+                            coordinate.copy(faceId = id)
+                        }
+                        appDatabase.coordinateDao().addAll(relatedCoordinates)
                     }
                 }
             }

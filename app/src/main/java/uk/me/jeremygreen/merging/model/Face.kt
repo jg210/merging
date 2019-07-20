@@ -4,7 +4,7 @@ import androidx.room.Relation
 
 data class Face(
 
-    val id: Int,
+    val id: Long,
 
     val imageId: Long,
 

@@ -108,8 +108,7 @@ class ImageFragment : ScreenFragment() {
                             val faces = firebaseVisionFaces.map { firebaseVisionFace ->
                                 val firebaseVisionFaceContour = firebaseVisionFace.getContour(FirebaseVisionFaceContour.ALL_POINTS)
                                 val coordinates: List<Coordinate> = firebaseVisionFaceContour.points.map { point ->
-                                    // TODO faceId needs to match parent.
-                                    Coordinate(1, 0, point.x.roundToInt(), point.y.roundToInt())
+                                    Coordinate(0, 0, point.x.roundToInt(), point.y.roundToInt())
                                 }
                                 Face(0, imageId,  coordinates)
                             }

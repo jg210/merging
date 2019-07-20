@@ -1,8 +1,6 @@
 package uk.me.jeremygreen.merging.model
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
@@ -13,7 +11,7 @@ interface FaceDao {
     suspend fun findById(imageId: Long): List<Face>
 
     @Insert
-    suspend fun addAll(faces: List<FaceEntity>)
+    suspend fun addAll(faces: List<FaceEntity>): List<Long>
 
 }
 

@@ -17,9 +17,9 @@ import androidx.room.PrimaryKey
 )
 data class Coordinate(
     @PrimaryKey
-    val id: Int,
+    val id: Long,
 
-    val faceId: Int,
+    val faceId: Long,
 
     val x: Int,
     val y: Int
