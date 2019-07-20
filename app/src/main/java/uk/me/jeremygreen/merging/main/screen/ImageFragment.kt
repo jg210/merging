@@ -113,6 +113,7 @@ class ImageFragment : ScreenFragment() {
                                 Face(0, imageId,  coordinates)
                             }
                             appViewModel.addAll(faces)
+                            Log.i(TAG, "added ${faces.size} faces to database.")
                         }
                         task.addOnFailureListener {
                             e -> Log.e(TAG, "face detection failed", e)
