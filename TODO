@@ -25,9 +25,6 @@
     - same problem is moved into code that sets up this LiveData
   - keep hold of restored state and use it for first images update?
 
-* Show merged photo.
-  - retrieve joined data with a view.
-
 * Screenshots in github.
 
 * Don't show splashscreen if start up is fast enough
