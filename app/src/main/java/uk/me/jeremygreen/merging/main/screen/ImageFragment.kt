@@ -22,6 +22,7 @@ import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
 import uk.me.jeremygreen.merging.model.Coordinate
 import uk.me.jeremygreen.merging.model.Face
 import uk.me.jeremygreen.merging.model.Image
+import uk.me.jeremygreen.merging.model.ProcessingStage
 import java.io.File
 import kotlin.math.roundToInt
 
@@ -116,7 +117,8 @@ class ImageFragment : ScreenFragment() {
                                 }
                                 Face(0, imageId,  coordinates)
                             }
-                            appViewModel.addAll(faces)
+                            val processedImage = image.copy(processingStage = ProcessingStage.facesDetected)
+                            appViewModel.addAll(processedImage, faces)
                             Log.i(TAG, "added ${faces.size} faces to database.")
                         }
                         task.addOnFailureListener {

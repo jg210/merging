@@ -1,10 +1,7 @@
 package uk.me.jeremygreen.merging.model
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface ImageDao {
@@ -20,6 +17,9 @@ interface ImageDao {
 
     @Insert
     suspend fun add(image: Image)
+
+    @Update
+    suspend fun update(image: Image)
 
 }
 

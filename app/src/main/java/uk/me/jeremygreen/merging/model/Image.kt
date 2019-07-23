@@ -9,16 +9,15 @@ import com.facebook.common.executors.CallerThreadExecutor
 import com.facebook.common.references.CloseableReference
 import com.facebook.datasource.DataSource
 import com.facebook.datasource.DataSubscriber
-import com.facebook.imagepipeline.image.CloseableImage
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.imagepipeline.datasource.BaseBitmapReferenceDataSubscriber
+import com.facebook.imagepipeline.common.ImageDecodeOptions
 import com.facebook.imagepipeline.common.ResizeOptions
+import com.facebook.imagepipeline.common.RotationOptions
+import com.facebook.imagepipeline.datasource.BaseBitmapReferenceDataSubscriber
+import com.facebook.imagepipeline.image.CloseableImage
 import com.facebook.imagepipeline.request.ImageRequest.RequestLevel
 import com.facebook.imagepipeline.request.ImageRequestBuilder
-import com.facebook.imagepipeline.common.ImageDecodeOptions
-import com.facebook.imagepipeline.common.RotationOptions
 import java.io.File
-import java.lang.NullPointerException
 
 @Entity(tableName = "images")
 data class Image(
@@ -36,7 +35,12 @@ data class Image(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
 
-    val file: String
+    val file: String,
+
+    /**
+     * [ProcessingStage]
+     */
+    val processingStage: Int
 
 ) {
 
