@@ -1,5 +1,6 @@
 * Find a face in images.
   - record whether have detected faces somewhere
+    - add processed column to images table
     - can't use number of FaceEntity rows since it might be zero.
   - don't store new database entries every time recreate ImageFragment's View.
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved

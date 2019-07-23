@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour
@@ -74,6 +75,9 @@ class ImageFragment : ScreenFragment() {
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
         val imageDraweeView = this.imageDraweeView
+        appViewModel.faceCount(imageId).observe(this, Observer { count ->
+            this.faceCount.text = count.toString()
+        })
         launch(Dispatchers.IO) {
             val image = appViewModel.findById(imageId)
             launch(Dispatchers.Main) {

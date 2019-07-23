@@ -25,6 +25,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         return appDatabase.imageDao().findById(id)
     }
 
+    fun faceCount(imageId: Long): LiveData<Long> {
+        return appDatabase.faceDao().countById(imageId)
+    }
+
     fun delete(image: Image) {
         viewModelScope.launch(Dispatchers.IO) {
             appDatabase.imageDao().delete(image)
