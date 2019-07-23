@@ -107,7 +107,7 @@ class ImageFragment : ScreenFragment() {
                         task.addOnSuccessListener { firebaseVisionFaces ->
                             Log.i(TAG, "detected ${firebaseVisionFaces.size} faces for image id: ${imageId}")
                             firebaseVisionFaces.forEach { firebaseVisionFace ->
-                                Log.i(TAG, firebaseVisionFaces.toString())
+                                Log.i(TAG, firebaseVisionFace.toString())
                             }
                             // TODO Refactor into some method.
                             val faces = firebaseVisionFaces.map { firebaseVisionFace ->
