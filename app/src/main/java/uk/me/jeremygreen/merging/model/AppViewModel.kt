@@ -21,8 +21,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         return appDatabase.imageDao().getImages()
     }
 
-    suspend fun findById(id: Long): Image {
-        return appDatabase.imageDao().findById(id)
+    suspend fun findById(imageId: Long): Image {
+        return appDatabase.imageDao().findById(imageId)
     }
 
     fun faceCount(imageId: Long): LiveData<Long> {

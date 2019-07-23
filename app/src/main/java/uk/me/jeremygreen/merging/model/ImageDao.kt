@@ -12,8 +12,8 @@ interface ImageDao {
     @Query("SELECT * from images ORDER BY id ASC")
     fun getImages(): LiveData<List<Image>>
 
-    @Query("SELECT * from images WHERE id = :id")
-    suspend fun findById(id: Long): Image
+    @Query("SELECT * from images WHERE id = :imageId")
+    suspend fun findById(imageId: Long): Image
 
     @Delete
     suspend fun delete(image: Image)
