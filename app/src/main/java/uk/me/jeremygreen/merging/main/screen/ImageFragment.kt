@@ -2,7 +2,6 @@ package uk.me.jeremygreen.merging.main.screen
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -11,9 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.facebook.drawee.view.SimpleDraweeView
-import com.google.firebase.ml.vision.FirebaseVision
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.Dispatchers
@@ -21,12 +17,9 @@ import kotlinx.coroutines.launch
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.main.ScreenFragment
 import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
-import uk.me.jeremygreen.merging.model.Coordinate
-import uk.me.jeremygreen.merging.model.Face
 import uk.me.jeremygreen.merging.model.Image
 import uk.me.jeremygreen.merging.model.ProcessingStage
 import java.io.File
-import kotlin.math.roundToInt
 
 
 class ImageFragment : ScreenFragment() {
@@ -115,7 +108,7 @@ class ImageFragment : ScreenFragment() {
                 try {
                     Log.i(TAG, "detecting faces for image id: ${imageId}")
                     val bitmap = clonedReference.get()
-                    processBitmap(bitmap, imageId) { faces ->
+                    image.findFaces(bitmap, faceDetectorOptions, ::handleFaceDetectionError) { faces ->
                         Log.i(TAG, "detected ${faces.size} faces for image id: ${imageId}")
                         val processedImage = image.copy(processingStage = ProcessingStage.facesDetected)
                         appViewModel.addAll(processedImage, faces)
@@ -128,31 +121,8 @@ class ImageFragment : ScreenFragment() {
         }
     }
 
-    private inline fun processBitmap(
-        bitmap: Bitmap,
-        imageId: Long,
-        crossinline callback: (List<Face>) -> Unit
-    ) {
-        val firebaseImage = FirebaseVisionImage.fromBitmap(bitmap)
-        val detector = FirebaseVision.getInstance().getVisionFaceDetector(faceDetectorOptions)
-        val task = detector.detectInImage(firebaseImage)
-        task.addOnSuccessListener { firebaseVisionFaces ->
-            firebaseVisionFaces.forEach { firebaseVisionFace ->
-                Log.i(TAG, firebaseVisionFace.toString())
-            }
-            val faces = firebaseVisionFaces.map { firebaseVisionFace ->
-                val firebaseVisionFaceContour =
-                    firebaseVisionFace.getContour(FirebaseVisionFaceContour.ALL_POINTS)
-                val coordinates: List<Coordinate> = firebaseVisionFaceContour.points.map { point ->
-                    Coordinate(0, 0, point.x.roundToInt(), point.y.roundToInt())
-                }
-                Face(0, imageId, coordinates)
-            }
-            callback(faces)
-        }
-        task.addOnFailureListener { e ->
-            Log.e(TAG, "face detection failed", e)
-        }
+    private fun handleFaceDetectionError(e: Exception) {
+        Log.e(TAG, "face detection failed", e)
     }
 
     private fun handleLongClick(image: Image) {
