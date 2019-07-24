@@ -2,6 +2,7 @@ package uk.me.jeremygreen.merging.main.screen
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.facebook.drawee.view.SimpleDraweeView
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour
@@ -82,56 +84,77 @@ class ImageFragment : ScreenFragment() {
         launch(Dispatchers.IO) {
             val image = appViewModel.findById(imageId)
             launch(Dispatchers.Main) {
-                val uri = Uri.fromFile(File(image.file))
-                Log.d(TAG, "updating image ${id} with: ${uri}")
-                imageDraweeView.setImageURI(uri, null)
-                imageDraweeView.setOnLongClickListener {
-                    handleLongClick(image)
-                    false // not consumed
-                }
+                updateImageDraweeView(image, imageDraweeView)
             }
             // https//firebase.google.com/docs/ml-kit/android/detect-faces suggests size to use.
-            image.processBitmap(360, 480) { closeableReference ->
-                Log.i(TAG, "decoded bitmap for image id: ${imageId}")
-                // The IO thread has done it's work reading the Bitmap. Don't want to block this thread any more,
-                // so clone the reference and hand it to Dispatcher.Default coroutine to do the CPU-intensive
-                // face-detection work.
-                val clonedReference = closeableReference.clone()
-                launch(Dispatchers.Default) {
-                    try {
-                        Log.i(TAG, "detecting faces for image id: ${imageId}")
-                        val bitmap = clonedReference.get()
-                        val firebaseImage = FirebaseVisionImage.fromBitmap(bitmap)
-                        val detector = FirebaseVision.getInstance().getVisionFaceDetector(faceDetectorOptions)
-                        val task = detector.detectInImage(firebaseImage)
-                        task.addOnSuccessListener { firebaseVisionFaces ->
-                            Log.i(TAG, "detected ${firebaseVisionFaces.size} faces for image id: ${imageId}")
-                            firebaseVisionFaces.forEach { firebaseVisionFace ->
-                                Log.i(TAG, firebaseVisionFace.toString())
-                            }
-                            // TODO Refactor into some method.
-                            val faces = firebaseVisionFaces.map { firebaseVisionFace ->
-                                val firebaseVisionFaceContour = firebaseVisionFace.getContour(FirebaseVisionFaceContour.ALL_POINTS)
-                                val coordinates: List<Coordinate> = firebaseVisionFaceContour.points.map { point ->
-                                    Coordinate(0, 0, point.x.roundToInt(), point.y.roundToInt())
-                                }
-                                Face(0, imageId,  coordinates)
-                            }
-                            val processedImage = image.copy(processingStage = ProcessingStage.facesDetected)
-                            appViewModel.addAll(processedImage, faces)
-                            Log.i(TAG, "added ${faces.size} faces to database.")
-                        }
-                        task.addOnFailureListener {
-                            e -> Log.e(TAG, "face detection failed", e)
-                        }
-                    } finally {
-                        clonedReference.close()
+            processFaces(image, imageId)
+        }
+    }
+
+    private fun updateImageDraweeView(
+        image: Image,
+        imageDraweeView: SimpleDraweeView
+    ) {
+        val uri = Uri.fromFile(File(image.file))
+        Log.d(TAG, "updating image ${id} with: ${uri}")
+        imageDraweeView.setImageURI(uri, null)
+        imageDraweeView.setOnLongClickListener {
+            handleLongClick(image)
+            false // not consumed
+        }
+    }
+
+    private fun processFaces(image: Image, imageId: Long) {
+        image.processBitmap(360, 480) { closeableReference ->
+            Log.i(TAG, "decoded bitmap for image id: ${imageId}")
+            // The IO thread has done it's work reading the Bitmap. Don't want to block this thread any more,
+            // so clone the reference and hand it to Dispatcher.Default coroutine to do the CPU-intensive
+            // face-detection work.
+            val clonedReference = closeableReference.clone()
+            launch(Dispatchers.Default) {
+                try {
+                    Log.i(TAG, "detecting faces for image id: ${imageId}")
+                    val bitmap = clonedReference.get()
+                    processBitmap(bitmap, imageId) { faces ->
+                        Log.i(TAG, "detected ${faces.size} faces for image id: ${imageId}")
+                        val processedImage = image.copy(processingStage = ProcessingStage.facesDetected)
+                        appViewModel.addAll(processedImage, faces)
+                        Log.i(TAG, "added ${faces.size} faces to database.")
                     }
+                } finally {
+                    clonedReference.close()
                 }
             }
         }
     }
-    
+
+    private inline fun processBitmap(
+        bitmap: Bitmap,
+        imageId: Long,
+        crossinline callback: (List<Face>) -> Unit
+    ) {
+        val firebaseImage = FirebaseVisionImage.fromBitmap(bitmap)
+        val detector = FirebaseVision.getInstance().getVisionFaceDetector(faceDetectorOptions)
+        val task = detector.detectInImage(firebaseImage)
+        task.addOnSuccessListener { firebaseVisionFaces ->
+            firebaseVisionFaces.forEach { firebaseVisionFace ->
+                Log.i(TAG, firebaseVisionFace.toString())
+            }
+            val faces = firebaseVisionFaces.map { firebaseVisionFace ->
+                val firebaseVisionFaceContour =
+                    firebaseVisionFace.getContour(FirebaseVisionFaceContour.ALL_POINTS)
+                val coordinates: List<Coordinate> = firebaseVisionFaceContour.points.map { point ->
+                    Coordinate(0, 0, point.x.roundToInt(), point.y.roundToInt())
+                }
+                Face(0, imageId, coordinates)
+            }
+            callback(faces)
+        }
+        task.addOnFailureListener { e ->
+            Log.e(TAG, "face detection failed", e)
+        }
+    }
+
     private fun handleLongClick(image: Image) {
         AlertDialog.Builder(requireContext()).apply {
             setMessage(R.string.confirmDeleteImage)
