@@ -79,8 +79,11 @@ class ImageFragment : ScreenFragment() {
             launch(Dispatchers.Main) {
                 updateImageDraweeView(image, imageDraweeView)
             }
-            // https//firebase.google.com/docs/ml-kit/android/detect-faces suggests size to use.
-            processFaces(image, imageId)
+            val processingStage = appViewModel.getProcessingStage(imageId)
+            if (processingStage == ProcessingStage.unprocessed) {
+                // https//firebase.google.com/docs/ml-kit/android/detect-faces suggests size to use.
+                processFaces(image, imageId)
+            }
         }
     }
 

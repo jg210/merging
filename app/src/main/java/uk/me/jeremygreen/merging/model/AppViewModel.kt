@@ -21,6 +21,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         return appDatabase.imageDao().getImages()
     }
 
+    suspend fun getProcessingStage(imageId: Long): Int {
+        return appDatabase.imageDao().getProcessingStage(imageId)
+    }
+
     suspend fun findById(imageId: Long): Image {
         return appDatabase.imageDao().findById(imageId)
     }
