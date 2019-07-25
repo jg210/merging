@@ -1,5 +1,7 @@
 * Find a face in images.
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved
+  - use androidx.palette to ensure image overlay visible.
+    - dev/image_overlay_palette
   - refactor and refine implementation.
   - wait for MLKit model to download when necessary
     - https://firebase.google.com/docs/ml-kit/android/detect-faces#before-you-begin
