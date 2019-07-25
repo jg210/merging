@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.palette.graphics.Palette
 import com.facebook.drawee.view.SimpleDraweeView
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import kotlinx.android.synthetic.main.image_screen.*
@@ -72,6 +73,7 @@ class ImageFragment : ScreenFragment() {
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
         val imageDraweeView = this.imageDraweeView
         appViewModel.faceCount(imageId).observe(this, Observer { count ->
+            // TODO use colour from Palette, to ensure text visible.
             this.faceCount.text = count.toString()
         })
         launch(Dispatchers.IO) {
@@ -111,6 +113,10 @@ class ImageFragment : ScreenFragment() {
                 try {
                     Log.i(TAG, "detecting faces for image id: ${imageId}")
                     val bitmap = clonedReference.get()
+                    launch(Dispatchers.Default) {
+                        val palette = Palette.from(bitmap).generate()
+                        // TODO Save in database.
+                    }
                     image.findFaces(bitmap, faceDetectorOptions, ::handleFaceDetectionError) { faces ->
                         Log.i(TAG, "detected ${faces.size} faces for image id: ${imageId}")
                         val processedImage = image.copy(processingStage = ProcessingStage.facesDetected)
