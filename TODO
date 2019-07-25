@@ -2,6 +2,9 @@
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved
   - refactor and refine implementation.
   - wait for MLKit model to download when necessary
+    - https://firebase.google.com/docs/ml-kit/android/detect-faces#before-you-begin
+    - how?
+    - is having manifest config. sufficient?
   - face-detection code doesn't belong in ImageFragment
   - render coordinates on top of images
     - subscribe to data at lowest level
