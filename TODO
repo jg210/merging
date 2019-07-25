@@ -1,8 +1,6 @@
 * Find a face in images.
-  - suppress FaceDao @Transaction warning - are using transaction in AppViewModel.
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved
   - refactor and refine implementation.
-  - fix missing-index warnings
   - wait for MLKit model to download when necessary
   - face-detection code doesn't belong in ImageFragment
   - render coordinates on top of images
