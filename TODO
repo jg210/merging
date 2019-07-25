@@ -5,6 +5,8 @@
     - https://firebase.google.com/docs/ml-kit/android/detect-faces#before-you-begin
     - how?
     - is having manifest config. sufficient?
+    - https://github.com/firebase/quickstart-android/issues/586
+      - for custom image recognition models, not face detection
   - face-detection code doesn't belong in ImageFragment
   - render coordinates on top of images
     - subscribe to data at lowest level

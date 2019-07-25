@@ -67,7 +67,7 @@ data class Image(
             .newBuilderWithSource(this.uri)
             .setImageDecodeOptions(decodeOptions)
             .setRotationOptions(rotationOptions)
-            .setLocalThumbnailPreviewsEnabled(true)
+            .setLocalThumbnailPreviewsEnabled(false)
             .setLowestPermittedRequestLevel(RequestLevel.FULL_FETCH)
             .setProgressiveRenderingEnabled(false)
             .setResizeOptions(ResizeOptions(width, height))
