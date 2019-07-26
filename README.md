@@ -53,7 +53,7 @@ base64 --wrap=0 release.keystore && echo
 ```
 git checkout master
 git pull
-git merge --no-ff origin/develop
+git merge --no-ff origin/develop      # The commit message appears as release notes.
 git push
 git checkout develop
 ```
