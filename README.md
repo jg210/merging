@@ -2,7 +2,12 @@
 
 Work in progress.
 
-This kotlin android app will merge photos of faces. Currently, it just allows photos to be taken, does face detection and displays the number of detected faces.
+This kotlin android app will merge photos of faces. Currently, it:
+
+* Allows photos to be taken.
+* Does face detection.
+* Displays the number of detected faces.
+* Shows onboarding and licence information.
 
 It's using:
 
