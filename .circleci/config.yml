@@ -40,6 +40,11 @@ jobs:
           destination: reports
       - store_test_results: # https://circleci.com/docs/2.0/collect-test-data/
           path: app/build/test-results
+      - persist_to_workspace:
+          root: app/build
+          paths:
+            - version
+            - outputs
   publish-github-release:
     docker:
       - image: cibuilds/github:0.10
@@ -59,3 +64,6 @@ workflows:
       - publish-github-release:
           requires:
             - build
+#          filters:
+#            branches:
+#              only: master
