@@ -9,16 +9,20 @@ import com.facebook.common.executors.CallerThreadExecutor
 import com.facebook.common.references.CloseableReference
 import com.facebook.datasource.DataSource
 import com.facebook.datasource.DataSubscriber
-import com.facebook.imagepipeline.image.CloseableImage
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.imagepipeline.datasource.BaseBitmapReferenceDataSubscriber
+import com.facebook.imagepipeline.common.ImageDecodeOptions
 import com.facebook.imagepipeline.common.ResizeOptions
+import com.facebook.imagepipeline.common.RotationOptions
+import com.facebook.imagepipeline.datasource.BaseBitmapReferenceDataSubscriber
+import com.facebook.imagepipeline.image.CloseableImage
 import com.facebook.imagepipeline.request.ImageRequest.RequestLevel
 import com.facebook.imagepipeline.request.ImageRequestBuilder
-import com.facebook.imagepipeline.common.ImageDecodeOptions
-import com.facebook.imagepipeline.common.RotationOptions
+import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import java.io.File
-import java.lang.NullPointerException
+import kotlin.math.roundToInt
 
 @Entity(tableName = "images")
 data class Image(
@@ -36,7 +40,12 @@ data class Image(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
 
-    val file: String
+    val file: String,
+
+    /**
+     * [ProcessingStage]
+     */
+    val processingStage: Int
 
 ) {
 
@@ -58,7 +67,7 @@ data class Image(
             .newBuilderWithSource(this.uri)
             .setImageDecodeOptions(decodeOptions)
             .setRotationOptions(rotationOptions)
-            .setLocalThumbnailPreviewsEnabled(true)
+            .setLocalThumbnailPreviewsEnabled(false)
             .setLowestPermittedRequestLevel(RequestLevel.FULL_FETCH)
             .setProgressiveRenderingEnabled(false)
             .setResizeOptions(ResizeOptions(width, height))
@@ -83,6 +92,31 @@ data class Image(
 
             }
         dataSource.subscribe(dataSubscriber, CallerThreadExecutor.getInstance())
+    }
+
+    inline fun findFaces(
+        bitmap: Bitmap,
+        faceDetectorOptions: FirebaseVisionFaceDetectorOptions,
+        crossinline onError: (Exception) -> Unit,
+        crossinline onSuccess: (List<Face>) -> Unit
+    ) {
+        val firebaseImage = FirebaseVisionImage.fromBitmap(bitmap)
+        val detector = FirebaseVision.getInstance().getVisionFaceDetector(faceDetectorOptions)
+        val task = detector.detectInImage(firebaseImage)
+        task.addOnSuccessListener { firebaseVisionFaces ->
+            val faces = firebaseVisionFaces.map { firebaseVisionFace ->
+                val firebaseVisionFaceContour =
+                    firebaseVisionFace.getContour(FirebaseVisionFaceContour.ALL_POINTS)
+                val coordinates: List<Coordinate> = firebaseVisionFaceContour.points.map { point ->
+                    Coordinate(0, 0, point.x.roundToInt(), point.y.roundToInt())
+                }
+                Face(0, this.id, coordinates)
+            }
+            onSuccess(faces)
+        }
+        task.addOnFailureListener({ e ->
+            onError(e)
+        })
     }
 
 }

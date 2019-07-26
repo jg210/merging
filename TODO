@@ -1,3 +1,12 @@
+* apks as releases on github.
+
+* Render coordinates on top of images
+  - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved.
+  - observe and render Coordinates.
+
+* Refactor and refine face-detection implementation.
+  - too much code in ImageFragment
+
 * Does splash screen look OK on android 21/22?
 
 * If wipe AVD data, camera app doesn't send photo back to app first time use it.
@@ -5,29 +14,12 @@
 * ACTION_IMAGE_CAPTURE Intent might not work well on all platforms
   - https://commonsware.com/blog/2015/06/08/action-image-capture-fallacy.html
 
-* Find a face in images.
-  X use appropriately-sized images for feature recognition
-  - break implementation into separate functions
-  - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved
-  - allow multiple faces per image or just use first one?
-  - store contour coordinates in database
-    - https://proandroiddev.com/android-room-handling-relations-using-livedata-2d892e40bd53
-    - delete if image deleted
-  - wait for MLKit model to download when necessary
-  - face-detection code doesn't belong in ImageFragment
-  - render coordinates on top of images
-    - subscribe to data at lowest level
-      => in ImageFragment
-
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when restored, there are no images in the slider.
   - stop ViewPager2 persisting position itself and persist ViewPager2 id in ViewModel instead
     - observe LiveData<MainActivityState>
     - same problem is moved into code that sets up this LiveData
   - keep hold of restored state and use it for first images update?
-
-* Show merged photo.
-  - retrieve joined data with a view.
 
 * Screenshots in github.
 
@@ -86,6 +78,16 @@
 
 * Replace Room with something better?
   - Realm?
+
+* Is it necessary to wait for MLKit model to download when necessary
+    - https://firebase.google.com/docs/ml-kit/android/detect-faces#before-you-begin
+    - how?
+    - is having manifest config. sufficient?
+    - https://github.com/firebase/quickstart-android/issues/586
+      - for custom image recognition models, not face detection
+
+* Use androidx.palette to ensure image overlay visible?
+  - dev/image_overlay_palette
 
 * Persist whether analytics and crashlytics have been opted in to, and enable in MainApplication or OnboardingActivity, not MainActivity.
   - otherwise, might miss some early crashes.

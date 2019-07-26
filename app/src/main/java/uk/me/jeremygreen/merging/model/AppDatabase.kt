@@ -5,6 +5,8 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [
+        Coordinate::class,
+        FaceEntity::class,
         Image::class,
         Onboarding::class
     ],
@@ -12,6 +14,10 @@ import androidx.room.RoomDatabase
     exportSchema = false
 )
 abstract class AppDatabase: RoomDatabase() {
+
+    abstract fun coordinateDao(): CoordinateDao
+
+    abstract fun faceDao(): FaceDao
 
     abstract fun imageDao(): ImageDao
 

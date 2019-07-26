@@ -110,12 +110,12 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.actionLicences -> {
-                val intent: Intent = Intent(this, OssLicensesMenuActivity::class.java)
+                val intent = Intent(this, OssLicensesMenuActivity::class.java)
                 startActivity(intent)
                 true
             }
             R.id.actionAbout -> {
-                val intent: Intent = Intent(this, AboutActivity::class.java)
+                val intent = Intent(this, AboutActivity::class.java)
                 startActivity(intent)
                 true
             }

@@ -10,8 +10,6 @@ import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
 
 class MergedImageFragment : ScreenFragment() {
 
-    private val TAG = "MergedImageFragment"
-
     companion object: ScreenFragmentFactory<MergedImageFragment> {
         override val id: Long = -3
         override fun createInstance(): MergedImageFragment {

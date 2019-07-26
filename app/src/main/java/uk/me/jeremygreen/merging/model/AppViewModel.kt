@@ -21,8 +21,16 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         return appDatabase.imageDao().getImages()
     }
 
-    suspend fun findById(id: Long): Image {
-        return appDatabase.imageDao().findById(id)
+    suspend fun getProcessingStage(imageId: Long): Int {
+        return appDatabase.imageDao().getProcessingStage(imageId)
+    }
+
+    suspend fun findById(imageId: Long): Image {
+        return appDatabase.imageDao().findById(imageId)
+    }
+
+    fun faceCount(imageId: Long): LiveData<Long> {
+        return appDatabase.faceDao().countById(imageId)
     }
 
     fun delete(image: Image) {
@@ -33,7 +41,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addImage(file: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            appDatabase.imageDao().add(Image(0, file))
+            appDatabase.imageDao().add(Image(0, file, ProcessingStage.unprocessed))
         }
     }
 
@@ -44,6 +52,34 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     fun acceptOnboarding(version: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             appDatabase.onboardingDao().add(Onboarding(version))
+        }
+    }
+
+    /**
+     * Add all the faces to the database, updating the image (in particular, the [ProcessingStage].
+     * The faces must all belong to the image.
+     */
+    fun addAll(image: Image, faces: List<Face>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            appDatabase.runInTransaction {
+                viewModelScope.launch(Dispatchers.IO) {
+                    val faceEntities = faces.map { face -> FaceEntity(face.id, face.imageId) }
+                    val faceIds = appDatabase.faceDao().addAll(faceEntities)
+                    faceIds.zip(faces).forEach { pair ->
+                        val id = pair.first
+                        val face = pair.second
+                        if (face.imageId != image.id) {
+                            throw IllegalArgumentException("${face} doesn't belong to ${image}")
+                        }
+                        // Replace Coordinate instances with new instance with correct face ids.
+                        val relatedCoordinates = face.coordinates.map { coordinate ->
+                            coordinate.copy(faceId = id)
+                        }
+                        appDatabase.coordinateDao().addAll(relatedCoordinates)
+                    }
+                    appDatabase.imageDao().update(image)
+                }
+            }
         }
     }
 
