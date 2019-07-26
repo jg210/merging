@@ -15,11 +15,11 @@ import androidx.room.RoomDatabase
 )
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun imageDao(): ImageDao
+    abstract fun coordinateDao(): CoordinateDao
 
     abstract fun faceDao(): FaceDao
 
-    abstract fun coordinateDao(): CoordinateDao
+    abstract fun imageDao(): ImageDao
 
     abstract fun onboardingDao(): OnboardingDao
 
