@@ -1,12 +1,8 @@
+* apks as releases on github?
+
 * Find a face in images.
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved
   - refactor and refine implementation.
-  - wait for MLKit model to download when necessary
-    - https://firebase.google.com/docs/ml-kit/android/detect-faces#before-you-begin
-    - how?
-    - is having manifest config. sufficient?
-    - https://github.com/firebase/quickstart-android/issues/586
-      - for custom image recognition models, not face detection
   - face-detection code doesn't belong in ImageFragment
   - render coordinates on top of images
     - subscribe to data at lowest level
@@ -84,6 +80,13 @@
 
 * Replace Room with something better?
   - Realm?
+
+* Is it necessary to wait for MLKit model to download when necessary
+    - https://firebase.google.com/docs/ml-kit/android/detect-faces#before-you-begin
+    - how?
+    - is having manifest config. sufficient?
+    - https://github.com/firebase/quickstart-android/issues/586
+      - for custom image recognition models, not face detection
 
 * Use androidx.palette to ensure image overlay visible?
   - dev/image_overlay_palette
