@@ -13,15 +13,9 @@ It's using:
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build and test.
 * [Material Design](https://material.io/design/).
 
+Release apks are built by Circle CI and published as [github releases](/jg210/merging/releases/latest/download/).
+
 There won't be any database versioning/migrations until after the first play store release, so it might be necessary to wipe the app's data when switching between versions.
-
-Release apks are available as artifacts here:
-
-https://circleci.com/gh/jg210/merging/tree/master
-
-...although the "artifacts" tab isn't always visible in the Circle CI UI:
-
-https://discuss.circleci.com/t/stored-artifacts-not-showing-up-on-a-build/20761/3
 
 ## Firebase Configuration
 
