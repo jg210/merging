@@ -43,5 +43,13 @@ base64 --wrap=0 release.keystore && echo
 ## Branching
 
 * Development is done on "develop" branch.
-* Releases are made from "master" branch.
+* Releases are made from "master" branch. The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the release branch should be merge commits. Otherwise, the version number will generally increment by more than one.
+
+```
+git checkout master
+git pull
+git merge --no-ff origin/develop
+git push
+git checkout develop
+```
 
