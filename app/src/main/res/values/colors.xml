@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorBackground">#c6c3c7</color>
     <color name="imagePlaceholder">#000000</color>
+    <color name="imageOverlay">#ffffff</color>
 </resources>
