@@ -40,3 +40,22 @@ jobs:
           destination: reports
       - store_test_results: # https://circleci.com/docs/2.0/collect-test-data/
           path: app/build/test-results
+  publish-github-release:
+    docker:
+      - image: cibuilds/github:0.10
+    steps:
+      - attach_workspace:
+          at: ./artifacts
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            VERSION=$(cat ./artifacts/app/build/version)
+            ghr -t "${GITHUB_TOKEN}"  -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" "${VERSION}" ./artifacts/app/build/outputs/apk/release/app-release.apk
+workflows:
+  version: 2
+  all:
+    jobs:
+      - build
+      - publish-github-release:
+          requires:
+            - build

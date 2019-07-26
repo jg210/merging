@@ -38,6 +38,13 @@ static int getVersionCode() {
     return Integer.parseInt(stdout)
 }
 
+task writeVersionFile {
+    doLast {
+        file("${buildDir}/version").write(getVersionName(), "UTF-8");
+    }
+}
+assemble.dependsOn writeVersionFile
+
 /**
  * The android "version name".
  */

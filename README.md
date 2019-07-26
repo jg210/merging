@@ -44,6 +44,8 @@ base64 --wrap=0 app/google-services.json && echo
 base64 --wrap=0 release.keystore && echo
 ```
 
+* Set GITHUB_TOKEN with token created as explained by https://github.com/tcnksm/ghr#github-api-token 
+
 ## Branching
 
 * Development is done on "develop" branch.
