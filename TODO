@@ -1,13 +1,11 @@
-* apks as releases on github?
+* apks as releases on github.
 
-* Find a face in images.
-  - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved
-  - refactor and refine implementation.
-  - face-detection code doesn't belong in ImageFragment
-  - render coordinates on top of images
-    - subscribe to data at lowest level
-      => in ImageFragment
-  - use appropriately-sized images when doing feature recognition
+* Render coordinates on top of images
+  - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved.
+  - observe and render Coordinates.
+
+* Refactor and refine face-detection implementation.
+  - too much code in ImageFragment
 
 * Does splash screen look OK on android 21/22?
 
