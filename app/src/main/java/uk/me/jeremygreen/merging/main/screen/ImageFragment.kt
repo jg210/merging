@@ -81,7 +81,6 @@ class ImageFragment : ScreenFragment() {
             }
             val processingStage = appViewModel.getProcessingStage(imageId)
             if (processingStage == ProcessingStage.unprocessed) {
-                // https//firebase.google.com/docs/ml-kit/android/detect-faces suggests size to use.
                 processFaces(image, imageId)
             }
         }
@@ -101,6 +100,7 @@ class ImageFragment : ScreenFragment() {
     }
 
     private fun processFaces(image: Image, imageId: Long) {
+        // https//firebase.google.com/docs/ml-kit/android/detect-faces suggests size to use.
         image.processBitmap(360, 480) { closeableReference ->
             Log.i(TAG, "decoded bitmap for image id: ${imageId}")
             // The IO thread has done it's work reading the Bitmap. Don't want to block this thread any more,
