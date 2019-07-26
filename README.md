@@ -2,7 +2,7 @@
 
 Work in progress.
 
-This kotlin android app will merge photos of faces. Currently, it just does face detection and sends the result to logcat.
+This kotlin android app will merge photos of faces. Currently, it just allows photos to be taken, does face detection and displays the number of detected faces.
 
 It's using:
 
