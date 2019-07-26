@@ -55,8 +55,8 @@ jobs:
           name: "Publish Release on GitHub"
           command: |
             ls -lR ./artifacts
-            VERSION=$(cat ./artifacts/app/build/version)
-            ghr -t "${GITHUB_TOKEN}"  -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" "${VERSION}" ./artifacts/app/build/outputs/apk/release/app-release.apk
+            VERSION=$(cat ./artifacts/version)
+            ghr -t "${GITHUB_TOKEN}"  -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" "${VERSION}" ./artifacts/outputs/apk/release/app-release.apk
 workflows:
   version: 2
   all:
