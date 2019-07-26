@@ -13,15 +13,9 @@ It's using:
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build and test.
 * [Material Design](https://material.io/design/).
 
+Release apks are built by Circle CI and published as [github releases](https://github.com/jg210/merging/releases).
+
 There won't be any database versioning/migrations until after the first play store release, so it might be necessary to wipe the app's data when switching between versions.
-
-Release apks are available as artifacts here:
-
-https://circleci.com/gh/jg210/merging/tree/master
-
-...although the "artifacts" tab isn't always visible in the Circle CI UI:
-
-https://discuss.circleci.com/t/stored-artifacts-not-showing-up-on-a-build/20761/3
 
 ## Firebase Configuration
 
@@ -44,8 +38,18 @@ base64 --wrap=0 app/google-services.json && echo
 base64 --wrap=0 release.keystore && echo
 ```
 
+* Set GITHUB_TOKEN with token created as explained by https://github.com/tcnksm/ghr#github-api-token 
+
 ## Branching
 
 * Development is done on "develop" branch.
-* Releases are made from "master" branch.
+* Releases are made from "master" branch. The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the release branch should be merge commits. Otherwise, the version number will generally increment by more than one.
+
+```
+git checkout master
+git pull
+git merge --no-ff origin/develop
+git push
+git checkout develop
+```
 

@@ -1,5 +1,3 @@
-* apks as releases on github.
-
 * Render coordinates on top of images
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved.
   - observe and render Coordinates.
