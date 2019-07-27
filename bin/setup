@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Copyright (c) 2019 Jeremy Green.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
+source "$(dirname "$0")/.common.sh"
+
+cd "$(dirname "$0")/.."
+
+if ! which rbenv > /dev/null 2> /dev/null ; then
+    cat <<EOF
+You need to:
+
+* Install rbenv: https://github.com/rbenv/rbenv#installation
+* Install ruby-build as an rbenv plugin: https://github.com/rbenv/ruby-build#installation
+
+...and re-run this script.
+
+EOF
+fi
+
+rbenv install "$(cat .ruby-version)" \
+      --skip-existing \
+      --verbose
+rbenv exec bundle install \
+      --binstubs=.bin

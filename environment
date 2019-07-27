@@ -1,0 +1,15 @@
+# -*- mode: shell-script -*-
+#
+# Copyright (c) 2019 Jeremy Green.
+
+SOURCE_DIR="$(readlink -f "$(dirname "$0")")"
+if [ -d "${HOME}/.rbenv/bin" ] ; then
+   PATH="${HOME}/.rbenv/bin:${PATH}"
+fi
+eval "$(rbenv init -)"
+PATH="${SOURCE_DIR}/.bundle/bin:${PATH}"
+PATH="${SOURCE_DIR}/bin:${PATH}"
+
+# https://docs.fastlane.tools/getting-started/ios/setup/#set-up-environment-variables
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8

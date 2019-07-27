@@ -22,6 +22,22 @@ Release apks are built by Circle CI and published as [github releases](https://g
 
 There won't be any database versioning/migrations until after the first play store release, so it might be necessary to wipe the app's data when switching between versions.
 
+## Development Environment
+
+Typically, just need to open the project in Android Studio, or use `./gradlew`.
+
+To use [Fastlane](https://fastlane.tools/):
+
+* Install [rbenv](https://github.com/rbenv/rbenv#installation).
+* Install [ruby-build](https://github.com/rbenv/ruby-build#installation) as an rbenv plugin.
+* Run:
+
+```
+bin/setup
+. ./environment
+fastlane --help
+```
+
 ## Firebase Configuration
 
 * Create a project for the app in the [Firebase console](https://console.firebase.google.com/).
