@@ -52,7 +52,7 @@ static String getVersionName() {
     if (!isVersioned()) {
         return "0.0.1"
     }
-    return "1.0.${getVersionCode()}"
+    return "0.0.${getVersionCode()}"
 }
 
 def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
