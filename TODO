@@ -7,21 +7,23 @@
   X create email address just for the app
   - create app in play store
     - title
-
-Face Merging
-
+      - Face Merging
     - short description
-
-Takes photes and detects faces. Will merge faces when the app is complete.
-
+      - Takes photos and detects faces. Will merge faces when the app is complete.	
     - full description
-
-Takes photes and detects faces. Will merge faces when the app is complete.
-
+      - same as short description
     - 512 x 512 icon
+      - app/src/main/ic_launcher-web.png
     - 2 phone screenshots
+      - app/src/main/screenshots/landscape.png
+      - app/src/main/screenshots/portrait.png
     - 1024 x 500 feature graphic
+      - only shown if also have promo video
+      - required anyway      
+      => can use empty image.
+      - app/src/main/feature_graphic.png
     - category
+      - Photography
     - content rating
     - website
     - e-mail
@@ -30,6 +32,13 @@ Takes photes and detects faces. Will merge faces when the app is complete.
   - set up API key locally
     - add to .gitignore
   - configure fastlane supply from play store
+
+* Use different android flavor for development and production.
+
+* Use android app bundle.
+  - upload signing key
+  - create upload key
+  - ???
 
 * Render coordinates on top of images
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved.
@@ -101,6 +110,8 @@ Takes photes and detects faces. Will merge faces when the app is complete.
 * Automated licence report.
   - listed by licence type.
   - jk1?
+
+* Better play-store screenshots.
 
 * CircleCI has too many minor issues
   - no per-branch env. vars.
