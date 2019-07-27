@@ -1,3 +1,13 @@
+* Play store releases
+  X create play store account
+  X link to firebase
+  X create API key
+  - configure CI with API key
+  - install ruby environment
+  - configure fastlane
+  - screenshots
+  - store text
+
 * Render coordinates on top of images
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved.
   - observe and render Coordinates.
