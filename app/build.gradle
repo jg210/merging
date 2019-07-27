@@ -45,13 +45,6 @@ static int gitFirstParentDepth()
     return Integer.parseInt(stdout)
 }
 
-task writeVersionFile {
-    doLast {
-        file("${buildDir}/version").write(getVersionName(), "UTF-8");
-    }
-}
-assemble.dependsOn writeVersionFile
-
 /**
  * The android "version name".
  */
@@ -130,3 +123,10 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }
+
+task writeVersionFile {
+    doLast {
+        file("${buildDir}/version").write(getVersionName(), "UTF-8");
+    }
+}
+assemble.dependsOn writeVersionFile
