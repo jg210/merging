@@ -2,11 +2,25 @@
   X create play store account
   X link to firebase
   X create API key
+  X configure fastlane
+  X install ruby environment
+  X create email address just for the app
+  - create app in play store
+    - title
+    - short description
+    - full description
+    - 512 x 512 icon
+    - 2 phone screenshots
+    - 1024 x 500 feature graphic
+    - category
+    - content rating
+    - website
+    - e-mail
+    - privacy policy URL? (optional)
   - configure CI with API key
-  - install ruby environment
-  - configure fastlane
-  - screenshots
-  - store text
+  - set up API key locally
+    - add to .gitignore
+  - configure fastlane supply from play store
 
 * Render coordinates on top of images
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved.
