@@ -7,8 +7,17 @@
   X create email address just for the app
   - create app in play store
     - title
+
+Face Merging
+
     - short description
+
+Takes photes and detects faces. Will merge faces when the app is complete.
+
     - full description
+
+Takes photes and detects faces. Will merge faces when the app is complete.
+
     - 512 x 512 icon
     - 2 phone screenshots
     - 1024 x 500 feature graphic
