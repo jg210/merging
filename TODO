@@ -5,29 +5,28 @@
   X configure fastlane
   X install ruby environment
   X create email address just for the app
-  - create app in play store
-    - title
-      - Face Merging
-    - short description
-      - Takes photos and detects faces. Will merge faces when the app is complete.	
-    - full description
-      - same as short description
-    - 512 x 512 icon
-      - app/src/main/ic_launcher-web.png
-    - 2 phone screenshots
-      - app/src/main/screenshots/landscape.png
-      - app/src/main/screenshots/portrait.png
-    - 1024 x 500 feature graphic
-      - only shown if also have promo video
-      - required anyway      
+  X create app in play store
+    X title
+      X Face Merging
+    X short description
+      X Takes photos and detects faces. Will merge faces when the app is complete.
+    X full description
+      X same as short description
+    X 512 x 512 icon
+      X app/src/main/ic_launcher-web.png
+    X 2 phone screenshots
+      X app/src/main/screenshots/landscape.png
+      X app/src/main/screenshots/portrait.png
+    X 1024 x 500 feature graphic
+      X only shown if also have promo video
+      X required anyway
       => can use empty image.
-      - app/src/main/feature_graphic.png
-    - category
-      - Photography
-    - content rating
-    - website
-    - e-mail
-    - privacy policy URL? (optional)
+      X app/src/main/feature_graphic.png
+    X category
+      X Photography
+    X content rating
+    X e-mail
+  - make release with the play store UI
   - configure CI with API key
   - set up API key locally
     - add to .gitignore
@@ -98,6 +97,7 @@
   - enabled only in release builds.
 
 * Choose colour scheme for app.
+  - current scheme gives low-contrast warnings in the pre-launch report.
 
 * Material design
   - implementation 'com.google.android.material:material:1.0.0'
