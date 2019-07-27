@@ -24,7 +24,7 @@ There won't be any database versioning/migrations until after the first play sto
 
 ## Development Environment
 
-Typically, just need to open the project in Android Studio, or use `./gradlew`.
+Can just open the project in Android Studio, or use `./gradlew`.
 
 To use [Fastlane](https://fastlane.tools/):
 
