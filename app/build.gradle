@@ -13,6 +13,17 @@ static String getBranchName() {
     return branchCommand.execute().text.trim()
 }
 
+/**
+ * The depth of the commit, using the first parent in the graph for
+ * merge commits, which means staying "in" the branch that is
+ * merged into.
+ */
+static int gitFirstParentDepth()
+    final command = ["git", "rev-list", "HEAD", "--first-parent", "--count"]
+    final stdout = command.execute().text.trim()
+    return Integer.parseInt(stdout)
+}
+
 static boolean isVersioned() {
     return getBranchName() == "master"
 }
@@ -32,17 +43,6 @@ static int getVersionCode() {
     } else {
         return 1
     }
-}
-    
-/**
- * The depth of the commit, using the first parent in the graph for
- * merge commits, which means staying "in" the branch that is
- * merged into.
- */
-static int gitFirstParentDepth()
-    final command = ["git", "rev-list", "HEAD", "--first-parent", "--count"]
-    final stdout = command.execute().text.trim()
-    return Integer.parseInt(stdout)
 }
 
 /**
