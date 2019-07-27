@@ -1,2 +1,2 @@
-json_key_file("google-play-service.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
-package_name("uk.me.jeremygreen.merging") # e.g. com.krausefx.app
+json_key_file("google-play-service.json")
+package_name("uk.me.jeremygreen.merging")
