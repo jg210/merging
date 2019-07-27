@@ -2,7 +2,12 @@
 
 Work in progress.
 
-This kotlin android app will merge photos of faces. Currently, it just allows photos to be taken, does face detection and displays the number of detected faces.
+This kotlin android app will merge photos of faces. Currently, it:
+
+* Allows photos to be taken.
+* Does face detection.
+* Displays the number of detected faces.
+* Shows onboarding and licence information.
 
 It's using:
 
@@ -38,17 +43,22 @@ base64 --wrap=0 app/google-services.json && echo
 base64 --wrap=0 release.keystore && echo
 ```
 
-* Set GITHUB_TOKEN with token created as explained by https://github.com/tcnksm/ghr#github-api-token 
+* Set GITHUB_TOKEN as explained by https://github.com/tcnksm/ghr#github-api-token. 
 
 ## Branching
 
 * Development is done on "develop" branch.
-* Releases are made from "master" branch. The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the release branch should be merge commits. Otherwise, the version number will generally increment by more than one.
+* Releases are made from "master" branch. 
+
+## Creating release
+
+* The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the release branch should be merge commits. Otherwise, the version number will generally increment by more than one.
+* Wait for develop branch to be tested, otherwise github blocks pushes to the master branch.
 
 ```
 git checkout master
 git pull
-git merge --no-ff origin/develop
+git merge --no-ff origin/develop      # The commit message appears as release notes.
 git push
 git checkout develop
 ```
