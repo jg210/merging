@@ -31,6 +31,7 @@
   - set up API key locally
     - add to .gitignore
   - configure fastlane supply from play store
+  - build and deploy using fastlane from Circle CI
 
 * Use different android flavor for development and production.
 
