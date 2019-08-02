@@ -18,6 +18,10 @@ It's using:
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build and test.
 * [Material Design](https://material.io/design/).
 
+The app is available as a beta (early access) release on the google play store:
+
+https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging
+
 Release apks are built by Circle CI and published as [github releases](https://github.com/jg210/merging/releases).
 
 There won't be any database versioning/migrations until after the first play store release, so it might be necessary to wipe the app's data when switching between versions.

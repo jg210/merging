@@ -26,7 +26,9 @@
       X Photography
     X content rating
     X e-mail
-  - make release with the play store UI
+  X make release with the play store UI
+  X put beta release URL on github.
+  - better play store text etc.
   - configure CI with API key
   - set up API key locally
     - add to .gitignore
