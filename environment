@@ -2,7 +2,7 @@
 #
 # Copyright (c) 2019 Jeremy Green.
 
-SOURCE_DIR="$(readlink -f "$(dirname "$0")")"
+SOURCE_DIR="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
 if [ -d "${HOME}/.rbenv/bin" ] ; then
    PATH="${HOME}/.rbenv/bin:${PATH}"
 fi
