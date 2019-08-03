@@ -17,8 +17,6 @@ if which rbenv > /dev/null 2> /dev/null ; then
     rbenv install "${rubyVersionExpected}" \
 	  --skip-existing \
 	  --verbose
-    rbenv exec bundle install \
-	  --binstubs=.bin
 else
     if [ "${CIRCLECI:-}" != "true" ] ; then
 	cat <<EOF
@@ -34,6 +32,9 @@ EOF
     fi
 fi
 . "${SOURCE_DIR}/environment"
+gem install bundler
+bundler install \
+	--binstubs=.bin
 rubyVersionActual="$(ruby -e 'puts RUBY_VERSION')"
 if [ "${rubyVersionExpected}" != "${rubyVersionActual}" ] ; then
     log "ERROR: need ruby ${rubyVersionExpected} but have ruby ${rubyVersionActual}"

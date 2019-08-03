@@ -20,7 +20,7 @@ It's using:
 * [Firebase Analytics](https://firebase.google.com/docs/analytics).
 * [Fresco](https://developers.google.com/ml-kit/) for android Bitmap management.
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build, test and continuous delivery.
-* [Fastlane](https://fastlane.tools/) to publish the app as a beta (early access) release on the [Google Play store](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging).
+* [Fastlane](https://fastlane.tools/) to publish the app as a beta (early access) release on the [Google Play store](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging) for every commit on the master branch.
 * [Material Design](https://material.io/design/).
 
 ## Development Environment
@@ -76,7 +76,7 @@ base64 --wrap=0 release.keystore && echo
 
 ## Creating release
 
-* The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the release branch should be merge commits. Otherwise, the version number will generally increment by more than one.
+* The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the master branch should be merge commits. Otherwise, the version number will generally increment by more than one.
 * Wait for develop branch to be tested, otherwise github blocks pushes to the master branch.
 
 ```
