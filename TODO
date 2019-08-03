@@ -1,39 +1,4 @@
-* Play store releases
-  X create play store account
-  X link to firebase
-  X create API key
-  X configure fastlane
-  X install ruby environment
-  X create email address just for the app
-  X create app in play store
-    X title
-      X Face Merging
-    X short description
-      X Takes photos and detects faces. Will merge faces when the app is complete.
-    X full description
-      X same as short description
-    X 512 x 512 icon
-      X app/src/main/ic_launcher-web.png
-    X 2 phone screenshots
-      X app/src/main/screenshots/landscape.png
-      X app/src/main/screenshots/portrait.png
-    X 1024 x 500 feature graphic
-      X only shown if also have promo video
-      X required anyway
-      => can use empty image.
-      X app/src/main/feature_graphic.png
-    X category
-      X Photography
-    X content rating
-    X e-mail
-  X make release with the play store UI
-  X put beta release URL on github.
-  X set up API key locally
-    X add to .gitignore
-  X configure CI with API key
-  X configure fastlane supply from play store
-  X build and deploy using fastlane from Circle CI
-  - better play store text etc.
+* better play store text etc.
 
 * Use different android flavor for development and production.
 
