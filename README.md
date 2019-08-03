@@ -34,6 +34,8 @@ To use [Fastlane](https://fastlane.tools/):
 
 * Install [rbenv](https://github.com/rbenv/rbenv#installation).
 * Install [ruby-build](https://github.com/rbenv/ruby-build#installation) as an rbenv plugin.
+* Create a google play store API key: https://docs.fastlane.tools/actions/supply/
+* Rename the google play store API key to google-play-service.json and put it in the top-level source-code directory.
 * Run:
 
 ```
