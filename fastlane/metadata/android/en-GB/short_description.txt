@@ -1,0 +1,1 @@
+Takes photos and detects faces. Will merge faces when the app is complete.

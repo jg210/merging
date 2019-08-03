@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# Copyright (c) 2019 Jeremy Green.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
+source "$(dirname "$0")/.common.sh"
+source "$(dirname "$0")/../environment"
+exec bundler exec "$(basename $0)" "$@"
