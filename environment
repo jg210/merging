@@ -6,8 +6,10 @@ SOURCE_DIR="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
 if [ -d "${HOME}/.rbenv/bin" ] ; then
    PATH="${HOME}/.rbenv/bin:${PATH}"
 fi
-eval "$(rbenv init -)"
-PATH="${SOURCE_DIR}/.bundle/bin:${PATH}"
+if which rbenv > /dev/null 2> /dev/null ; then
+    eval "$(rbenv init -)"
+    PATH="${SOURCE_DIR}/.bundle/bin:${PATH}"
+fi
 PATH="${SOURCE_DIR}/bin:${PATH}"
 
 # https://docs.fastlane.tools/getting-started/ios/setup/#set-up-environment-variables

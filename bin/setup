@@ -8,11 +8,20 @@ set -o pipefail
 set -o errtrace
 
 source "$(dirname "$0")/.common.sh"
+SOURCE_DIR="$(dirname "$0")/.."
+cd "${SOURCE_DIR}"
 
-cd "$(dirname "$0")/.."
-
-if ! which rbenv > /dev/null 2> /dev/null ; then
-    cat <<EOF
+rubyVersionExpected="$(cat "${SOURCE_DIR}/.ruby-version")"
+if which rbenv > /dev/null 2> /dev/null ; then
+    log "installing ruby ${rubyVersionExpected}"
+    rbenv install "${rubyVersionExpected}" \
+	  --skip-existing \
+	  --verbose
+    rbenv exec bundle install \
+	  --binstubs=.bin
+else
+    if [ "${CIRCLECI:-}" != "true" ] ; then
+	cat <<EOF
 You need to:
 
 * Install rbenv: https://github.com/rbenv/rbenv#installation
@@ -21,10 +30,12 @@ You need to:
 ...and re-run this script.
 
 EOF
+	exit 1
+    fi
 fi
-
-rbenv install "$(cat .ruby-version)" \
-      --skip-existing \
-      --verbose
-rbenv exec bundle install \
-      --binstubs=.bin
+. "${SOURCE_DIR}/environment"
+rubyVersionActual="$(ruby -e 'puts RUBY_VERSION')"
+if [ "${rubyVersionExpected}" != "${rubyVersionActual}" ] ; then
+    log "ERROR: need ruby ${rubyVersionExpected} but have ruby ${rubyVersionActual}"
+    exit 1
+fi

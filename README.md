@@ -51,12 +51,17 @@ fastlane --help
 
 ## Circle CI Configuration
 
-* In CircleCI project's Environment Variables settings, add a GOOGLE_SERVICES environment variable with its value set to the output of the following command:
+* In CircleCI project's Environment Variables settings, add a GOOGLE_SERVICES environment variable with its value set to the output of:
 
 ```
 base64 --wrap=0 app/google-services.json && echo
 ```
 
+* Add GOOGLE_PLAY_SERVICE_JSON environment variable with its value set to the output of:
+
+```
+base64 --wrap=0 google-play-service.json && echo
+```
 
 * Set RELEASE_KEY_PASSWORD to android release key's password (the store and key passwords must be the same).
 * Set RELEASE_KEYSTORE to output of:

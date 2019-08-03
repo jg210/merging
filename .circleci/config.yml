@@ -56,6 +56,30 @@ jobs:
           command: |
             VERSION=$(cat ./artifacts/version)
             ghr -t "${GITHUB_TOKEN}"  -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" "v${VERSION}" ./artifacts/outputs/apk/release/app-release.apk
+  publish-play-store:
+    docker:
+      - image: circleci/ruby:2.6.3
+    steps:
+      - checkout
+      - run:
+          command: |
+            env | sort
+      - restore_cache:
+          key: rbenv-{{ checksum "Gemfile.lock" }}-{{ checksum "Gemfile" }}-{{ checksum ".ruby-version" }}
+      - run:
+          name: Run setup script
+          command: bin/setup
+      - save_cache:
+          paths:
+            - ~/.rbenv
+          key: rbenv-{{ checksum "Gemfile.lock" }}-{{ checksum "Gemfile" }}-{{ checksum ".ruby-version" }}
+      - attach_workspace:
+          at: ./artifacts
+      - run:
+          name: "Publish Release to Google Play Store"
+          command: |
+            bin/fastlane upload_to_play_store --track beta --apk ./artifacts/outputs/apk/release/app-release.apk
+
 workflows:
   version: 2
   all:
@@ -67,3 +91,10 @@ workflows:
           filters:
             branches:
               only: master
+      - publish-play-store:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+

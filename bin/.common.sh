@@ -14,3 +14,10 @@ backtrace() {
     exit "${err}"
 }
 trap 'backtrace' ERR
+
+log() {
+    printf "[%s %s] %s\n" \
+           "$(date '+%Y-%m-%d %H:%M:%S' --utc)" \
+           "$(basename -- "$0")" \
+           "$*"
+}
