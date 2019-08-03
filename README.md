@@ -1,10 +1,12 @@
+https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging
+
 [![CircleCI](https://circleci.com/gh/jg210/merging.svg?style=svg)](https://circleci.com/gh/jg210/merging)
 
 Work in progress.
 
 This kotlin android app will merge photos of faces. Currently, it:
 
-* Allows photos to be taken.
+* Can take photos.
 * Does face detection.
 * Displays the number of detected faces.
 * Shows onboarding and licence information.
@@ -18,9 +20,29 @@ It's using:
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build and test.
 * [Material Design](https://material.io/design/).
 
+The app is available as a beta (early access) release on the [google play store](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging).
+
 Release apks are built by Circle CI and published as [github releases](https://github.com/jg210/merging/releases).
 
 There won't be any database versioning/migrations until after the first play store release, so it might be necessary to wipe the app's data when switching between versions.
+
+## Development Environment
+
+Can just open the project in Android Studio, or use `./gradlew`.
+
+To use [Fastlane](https://fastlane.tools/):
+
+* Install [rbenv](https://github.com/rbenv/rbenv#installation).
+* Install [ruby-build](https://github.com/rbenv/ruby-build#installation) as an rbenv plugin.
+* Create a google play store API key: https://docs.fastlane.tools/actions/supply/
+* Rename the google play store API key to google-play-service.json and put it in the top-level source-code directory.
+* Run:
+
+```
+bin/setup
+. ./environment
+fastlane --help
+```
 
 ## Firebase Configuration
 
@@ -29,12 +51,17 @@ There won't be any database versioning/migrations until after the first play sto
 
 ## Circle CI Configuration
 
-* In CircleCI project's Environment Variables settings, add a GOOGLE_SERVICES environment variable with its value set to the output of the following command:
+* In CircleCI project's Environment Variables settings, add a GOOGLE_SERVICES environment variable with its value set to the output of:
 
 ```
 base64 --wrap=0 app/google-services.json && echo
 ```
 
+* Add GOOGLE_PLAY_SERVICE_JSON environment variable with its value set to the output of:
+
+```
+base64 --wrap=0 google-play-service.json && echo
+```
 
 * Set RELEASE_KEY_PASSWORD to android release key's password (the store and key passwords must be the same).
 * Set RELEASE_KEYSTORE to output of:

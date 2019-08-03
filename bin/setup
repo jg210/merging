@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# Copyright (c) 2019 Jeremy Green.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
+source "$(dirname "$0")/.common.sh"
+SOURCE_DIR="$(dirname "$0")/.."
+cd "${SOURCE_DIR}"
+
+rubyVersionExpected="$(cat "${SOURCE_DIR}/.ruby-version")"
+if which rbenv > /dev/null 2> /dev/null ; then
+    log "installing ruby ${rubyVersionExpected}"
+    rbenv install "${rubyVersionExpected}" \
+	  --skip-existing \
+	  --verbose
+    rbenv exec bundle install \
+	  --binstubs=.bin
+else
+    if [ "${CIRCLECI:-}" != "true" ] ; then
+	cat <<EOF
+You need to:
+
+* Install rbenv: https://github.com/rbenv/rbenv#installation
+* Install ruby-build as an rbenv plugin: https://github.com/rbenv/ruby-build#installation
+
+...and re-run this script.
+
+EOF
+	exit 1
+    fi
+fi
+. "${SOURCE_DIR}/environment"
+rubyVersionActual="$(ruby -e 'puts RUBY_VERSION')"
+if [ "${rubyVersionExpected}" != "${rubyVersionActual}" ] ; then
+    log "ERROR: need ruby ${rubyVersionExpected} but have ruby ${rubyVersionActual}"
+    exit 1
+fi

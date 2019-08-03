@@ -2,11 +2,45 @@
   X create play store account
   X link to firebase
   X create API key
-  - configure CI with API key
-  - install ruby environment
-  - configure fastlane
-  - screenshots
-  - store text
+  X configure fastlane
+  X install ruby environment
+  X create email address just for the app
+  X create app in play store
+    X title
+      X Face Merging
+    X short description
+      X Takes photos and detects faces. Will merge faces when the app is complete.
+    X full description
+      X same as short description
+    X 512 x 512 icon
+      X app/src/main/ic_launcher-web.png
+    X 2 phone screenshots
+      X app/src/main/screenshots/landscape.png
+      X app/src/main/screenshots/portrait.png
+    X 1024 x 500 feature graphic
+      X only shown if also have promo video
+      X required anyway
+      => can use empty image.
+      X app/src/main/feature_graphic.png
+    X category
+      X Photography
+    X content rating
+    X e-mail
+  X make release with the play store UI
+  X put beta release URL on github.
+  X set up API key locally
+    X add to .gitignore
+  X configure CI with API key
+  X configure fastlane supply from play store
+  X build and deploy using fastlane from Circle CI
+  - better play store text etc.
+
+* Use different android flavor for development and production.
+
+* Use android app bundle.
+  - upload signing key
+  - create upload key
+  - ???
 
 * Render coordinates on top of images
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved.
@@ -66,6 +100,7 @@
   - enabled only in release builds.
 
 * Choose colour scheme for app.
+  - current scheme gives low-contrast warnings in the pre-launch report.
 
 * Material design
   - implementation 'com.google.android.material:material:1.0.0'
@@ -78,6 +113,8 @@
 * Automated licence report.
   - listed by licence type.
   - jk1?
+
+* Better play-store screenshots.
 
 * CircleCI has too many minor issues
   - no per-branch env. vars.

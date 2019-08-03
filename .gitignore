@@ -19,3 +19,6 @@
 *~
 .#*
 \#*#
+
+# Google play store API key.
+/google-play-service.json

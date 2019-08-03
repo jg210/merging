@@ -7,11 +7,13 @@
     <string name="onboardingText_04">Uses Firebase Crashlytics for crash reporting.</string>
     <string name="onboardingText_05">Uses Firebase Analytics to analyze how you use the app.</string>
     <string name="onboarding_accept_checkbox">I agree</string>
+    <string name="onboarding_accept_content_description">OK</string>
     <string name="actionLicences">Licences</string>
     <string name="actionAbout">About</string>
     <string name="appName">Merging</string>
     <string name="cancel">Cancel</string>
     <string name="confirmDeleteImage">Delete the photo?</string>
+    <string name="fab_content_description">Add photo</string>
     <string name="ok">OK</string>
     <string name="version">%1$s\nversion: %2$s</string>
 </resources>

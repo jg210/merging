@@ -1,0 +1,2 @@
+json_key_file("google-play-service.json")
+package_name("uk.me.jeremygreen.merging")
