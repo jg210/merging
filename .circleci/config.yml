@@ -78,7 +78,7 @@ jobs:
       - run:
           name: "Publish Release to Google Play Store"
           command: |
-            bin/fastlane upload_to_play_store --track beta --apk ./artifacts/outputs/apk/release/app-release.apk
+            bin/fastlane supply --track beta --apk ./artifacts/outputs/apk/release/app-release.apk
 
 workflows:
   version: 2
