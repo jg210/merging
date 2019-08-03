@@ -1,3 +1,5 @@
+https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging
+
 [![CircleCI](https://circleci.com/gh/jg210/merging.svg?style=svg)](https://circleci.com/gh/jg210/merging)
 
 Work in progress.
@@ -18,9 +20,7 @@ It's using:
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build and test.
 * [Material Design](https://material.io/design/).
 
-The app is available as a beta (early access) release on the google play store:
-
-https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging
+The app is available as a beta (early access) release on the [google play store](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging).
 
 Release apks are built by Circle CI and published as [github releases](https://github.com/jg210/merging/releases).
 
