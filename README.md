@@ -4,6 +4,8 @@ https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging
 
 Work in progress.
 
+There won't be any database versioning/migrations until after the first full Play Store release, so it might be necessary to wipe the app's data when switching between versions.
+
 This kotlin android app will merge photos of faces. Currently, it:
 
 * Can take photos.
@@ -17,14 +19,9 @@ It's using:
 * [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics/) for crash reporting.
 * [Firebase Analytics](https://firebase.google.com/docs/analytics).
 * [Fresco](https://developers.google.com/ml-kit/) for android Bitmap management.
-* [Circle CI](https://circleci.com/gh/jg210/merging) for automated build and test.
+* [Circle CI](https://circleci.com/gh/jg210/merging) for automated build, test and continuous delivery.
+* [Fastlane](https://fastlane.tools/) to publish the app as a beta (early access) release on the [Google Play store](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging).
 * [Material Design](https://material.io/design/).
-
-The app is available as a beta (early access) release on the [google play store](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging).
-
-Release apks are built by Circle CI and published as [github releases](https://github.com/jg210/merging/releases).
-
-There won't be any database versioning/migrations until after the first play store release, so it might be necessary to wipe the app's data when switching between versions.
 
 ## Development Environment
 
@@ -34,8 +31,8 @@ To use [Fastlane](https://fastlane.tools/):
 
 * Install [rbenv](https://github.com/rbenv/rbenv#installation).
 * Install [ruby-build](https://github.com/rbenv/ruby-build#installation) as an rbenv plugin.
-* Create a google play store API key: https://docs.fastlane.tools/actions/supply/
-* Rename the google play store API key to google-play-service.json and put it in the top-level source-code directory.
+* Create a Google Play store API key: https://docs.fastlane.tools/actions/supply/
+* Rename the Google Play store API key to google-play-service.json and put it in the top-level source-code directory.
 * Run:
 
 ```
