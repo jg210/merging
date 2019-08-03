@@ -1,3 +1,5 @@
+skip_docs # Prevent creation/update of README.md.
+
 default_platform(:android)
 
 platform :android do
