@@ -28,12 +28,12 @@
     X e-mail
   X make release with the play store UI
   X put beta release URL on github.
+  X set up API key locally
+    X add to .gitignore
+  X configure CI with API key
+  X configure fastlane supply from play store
+  X build and deploy using fastlane from Circle CI
   - better play store text etc.
-  - configure CI with API key
-  - set up API key locally
-    - add to .gitignore
-  - configure fastlane supply from play store
-  - build and deploy using fastlane from Circle CI
 
 * Use different android flavor for development and production.
 
