@@ -11,10 +11,12 @@ import kotlinx.coroutines.launch
 class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     private val appDatabase: AppDatabase by lazy {
-        Room.databaseBuilder(
+        val builder = Room.databaseBuilder(
             application.applicationContext,
             AppDatabase::class.java,
-            "app").build()
+            "app")
+        builder.fallbackToDestructiveMigrationFrom(1)
+        builder.build()
     }
 
     fun allImages(): LiveData<List<Image>> {
