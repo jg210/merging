@@ -1,3 +1,11 @@
+* Render face contours on top of images
+  X store coordinates using fractional position
+  X render contours
+  - apply correct affine transformation
+    - the image doesn't fill the entire view
+     - pass coordinates from fresco event to FacesView
+       - https://frescolib.org/docs/listening-to-events.html
+
 * App link gives "Item not found" error in play store app if android platform is too old.
 
 * image database has become corrupted:
@@ -24,10 +32,6 @@
 
 * onboarding accept click area is still not high enough.
   - "This item's height is 38dp. Consider making the height of this touch target 48dp or larger."
-
-* Render coordinates on top of images
-  - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved.
-  - observe and render Coordinates.
 
 * Refactor and refine face-detection implementation.
   - too much code in ImageFragment
