@@ -7,13 +7,18 @@
 
 * Google Play store console says, "your app is using an old version of the Google Play developer API".
   - https://android-developers.googleblog.com/2019/03/changes-to-google-play-developer-api.html
-
+  - likely fastlane?
+    - https://github.com/fastlane/fastlane/issues/14573
+  
 * Use different android flavor for development and production.
 
 * Use android app bundle.
   - upload signing key
   - create upload key
   - ???
+
+* onboarding accept click area is still not high enough.
+  - "This item's height is 38dp. Consider making the height of this touch target 48dp or larger."
 
 * Render coordinates on top of images
   - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved.
