@@ -79,14 +79,13 @@ class ImageFragment : ScreenFragment() {
             facesDrawable.faces = faces
         }
         launch(Dispatchers.IO) {
-                val image = appViewModel.findById(imageId)
-                launch(Dispatchers.Main) {
-                    updateImageDraweeView(image, imageDraweeView)
-                }
-                val processingStage = appViewModel.getProcessingStage(imageId)
-                if (processingStage == ProcessingStage.unprocessed) {
-                    processFaces(image, imageId)
-                }
+            val image = appViewModel.findById(imageId)
+            launch(Dispatchers.Main) {
+                updateImageDraweeView(image, imageDraweeView)
+            }
+            val processingStage = appViewModel.getProcessingStage(imageId)
+            if (processingStage == ProcessingStage.unprocessed) {
+                processFaces(image, imageId)
             }
         }
     }
