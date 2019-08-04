@@ -16,7 +16,7 @@
             fresco:actualImageScaleType="fitCenter"
     />
 
-    <ImageView
+    <uk.me.jeremygreen.merging.main.FacesView
             android:id="@+id/faces"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

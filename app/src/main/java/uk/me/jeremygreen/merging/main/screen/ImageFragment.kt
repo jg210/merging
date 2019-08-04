@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uk.me.jeremygreen.merging.R
-import uk.me.jeremygreen.merging.main.FacesDrawable
 import uk.me.jeremygreen.merging.main.ScreenFragment
 import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
 import uk.me.jeremygreen.merging.model.Image
@@ -71,12 +70,10 @@ class ImageFragment : ScreenFragment() {
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
         val imageDraweeView = this.imageDraweeView
-        val facesDrawable = FacesDrawable()
         val facesView = this.faces
-        facesView.setImageDrawable(facesDrawable)
         launch(Dispatchers.IO) {
             val faces = appViewModel.faces(imageId)
-            facesDrawable.faces = faces
+            facesView.faces = faces
         }
         launch(Dispatchers.IO) {
             val image = appViewModel.findById(imageId)
