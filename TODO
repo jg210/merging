@@ -5,6 +5,9 @@
 
 * No play store release notes.
 
+* Google Play store console says, "your app is using an old version of the Google Play developer API".
+  - https://android-developers.googleblog.com/2019/03/changes-to-google-play-developer-api.html
+
 * Use different android flavor for development and production.
 
 * Use android app bundle.
