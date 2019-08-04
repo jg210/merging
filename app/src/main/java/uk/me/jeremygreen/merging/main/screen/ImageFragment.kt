@@ -8,16 +8,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import com.facebook.drawee.view.SimpleDraweeView
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uk.me.jeremygreen.merging.R
+import uk.me.jeremygreen.merging.main.FacesDrawable
 import uk.me.jeremygreen.merging.main.ScreenFragment
 import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
-import uk.me.jeremygreen.merging.model.FaceEntity
 import uk.me.jeremygreen.merging.model.Image
 import uk.me.jeremygreen.merging.model.ProcessingStage
 import java.io.File
@@ -72,10 +71,12 @@ class ImageFragment : ScreenFragment() {
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
         val imageDraweeView = this.imageDraweeView
-        val faceCountView = this.faceCount
+        val facesDrawable = FacesDrawable()
+        val facesView = this.faces
+        facesView.setImageDrawable(facesDrawable)
         launch(Dispatchers.IO) {
             val faces = appViewModel.faces(imageId)
-            faceCountView.text = faces.size.toString()
+            facesDrawable.faces = faces
         }
         launch(Dispatchers.IO) {
                 val image = appViewModel.findById(imageId)
