@@ -4,8 +4,6 @@ https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging
 
 Work in progress.
 
-There won't be any database versioning/migrations until after the first full Play Store release, so it might be necessary to wipe the app's data when switching between versions.
-
 This kotlin android app will merge photos of faces. Currently, it:
 
 * Can take photos.
