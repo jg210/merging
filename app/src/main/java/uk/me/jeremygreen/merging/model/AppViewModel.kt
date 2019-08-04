@@ -31,10 +31,6 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         return appDatabase.imageDao().findById(imageId)
     }
 
-    fun faceCount(imageId: Long): LiveData<Long> {
-        return appDatabase.faceDao().countById(imageId)
-    }
-
     fun delete(image: Image) {
         viewModelScope.launch(Dispatchers.IO) {
             appDatabase.imageDao().delete(image)
@@ -83,6 +79,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
         }
+    }
+
+    suspend fun faces(imageId: Long): List<Face> {
+        return appDatabase.faceDao().findById(imageId)
     }
 
 }

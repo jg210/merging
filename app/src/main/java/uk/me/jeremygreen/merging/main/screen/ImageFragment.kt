@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.main.ScreenFragment
 import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
+import uk.me.jeremygreen.merging.model.FaceEntity
 import uk.me.jeremygreen.merging.model.Image
 import uk.me.jeremygreen.merging.model.ProcessingStage
 import java.io.File
@@ -71,17 +72,20 @@ class ImageFragment : ScreenFragment() {
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
         val imageDraweeView = this.imageDraweeView
-        appViewModel.faceCount(imageId).observe(this, Observer { count ->
-            this.faceCount.text = count.toString()
-        })
+        val faceCountView = this.faceCount
         launch(Dispatchers.IO) {
-            val image = appViewModel.findById(imageId)
-            launch(Dispatchers.Main) {
-                updateImageDraweeView(image, imageDraweeView)
-            }
-            val processingStage = appViewModel.getProcessingStage(imageId)
-            if (processingStage == ProcessingStage.unprocessed) {
-                processFaces(image, imageId)
+            val faces = appViewModel.faces(imageId)
+            faceCountView.text = faces.size.toString()
+        }
+        launch(Dispatchers.IO) {
+                val image = appViewModel.findById(imageId)
+                launch(Dispatchers.Main) {
+                    updateImageDraweeView(image, imageDraweeView)
+                }
+                val processingStage = appViewModel.getProcessingStage(imageId)
+                if (processingStage == ProcessingStage.unprocessed) {
+                    processFaces(image, imageId)
+                }
             }
         }
     }
