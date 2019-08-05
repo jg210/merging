@@ -9,8 +9,6 @@ import com.facebook.drawee.view.SimpleDraweeView
 import uk.me.jeremygreen.merging.model.Face
 import kotlin.properties.Delegates
 
-
-
 class FacesView : SimpleDraweeView {
 
     constructor(context: Context) : super(context) {
