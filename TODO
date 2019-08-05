@@ -18,6 +18,9 @@
 
 * No play store release notes.
 
+* Give Firebase analytics the fragment name.
+  - https://stackoverflow.com/a/41786256
+
 * Google Play store console says, "your app is using an old version of the Google Play developer API".
   - https://android-developers.googleblog.com/2019/03/changes-to-google-play-developer-api.html
   - likely fastlane?
