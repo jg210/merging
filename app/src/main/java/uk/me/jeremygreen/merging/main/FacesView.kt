@@ -38,7 +38,9 @@ class FacesView : SimpleDraweeView {
 
     private val facesDrawable = object : Drawable() {
         override fun draw(canvas: Canvas) {
-            drawFaces(canvas)
+            val padding = Rect()
+            this.getPadding(padding)
+            drawFaces(canvas, this.bounds, padding)
         }
         override fun getOpacity(): Int {
             return PixelFormat.TRANSPARENT
@@ -53,13 +55,15 @@ class FacesView : SimpleDraweeView {
         this.hierarchy.setOverlayImage(drawable)
     }
 
-    private fun drawFaces(canvas: Canvas) {
+    private fun drawFaces(canvas: Canvas, bounds: Rect, padding: Rect) {
         val radius = 3
         faces.forEach { face ->
             Log.d(TAG, "drawing face contours for face id: ${face.id}")
             face.coordinates.forEach { coordinate ->
-                val x = coordinate.x * canvas.width
-                val y = coordinate.y * canvas.height
+                val width = bounds.width() - (padding.left + padding.right)
+                val height = bounds.height() - (padding.top + padding.bottom)
+                val x = bounds.left + padding.left + coordinate.x * bounds.width()
+                val y = bounds.top + padding.top + coordinate.y * bounds.height()
                 //Log.d(TAG, "drawing point at (${x}, ${y})")
                 canvas.drawOval(x - radius, y - radius, x + radius, y + radius, paint)
             }

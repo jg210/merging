@@ -8,6 +8,7 @@
      - extend ImageDraweeView and override onDraw()
      - fresco overlay
        - https://frescolib.org/docs/drawee-branches.html
+  - does Drawable invalidateSelf() mean don't need custom View?
 
 * App link gives "Item not found" error in play store app if android platform is too old.
 
