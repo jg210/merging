@@ -6,11 +6,11 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.Log
-import android.view.View
+import com.facebook.drawee.view.SimpleDraweeView
 import uk.me.jeremygreen.merging.model.Face
 import kotlin.properties.Delegates
 
-class FacesView : View {
+class FacesView : SimpleDraweeView {
 
     constructor(context: Context) : super(context) {
     }
@@ -21,8 +21,8 @@ class FacesView : View {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
     }
 
-    val TAG = "FacesDrawable"
-    val paint = Paint().apply {
+    private val TAG = "FacesDrawable"
+    private val paint = Paint().apply {
         isAntiAlias = true
         color = Color.WHITE // TODO get from android resource.
         style = Paint.Style.FILL

@@ -7,19 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/imageDraweeView"
+    <uk.me.jeremygreen.merging.main.FacesView
+            android:id="@+id/faces"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             fresco:placeholderImage="@color/imagePlaceholder"
             fresco:backgroundImage="@color/imagePlaceholder"
             fresco:actualImageScaleType="fitCenter"
-    />
-
-    <uk.me.jeremygreen.merging.main.FacesView
-            android:id="@+id/faces"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
