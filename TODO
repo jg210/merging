@@ -1,3 +1,6 @@
+* Face contours not rendered if image already visible on screen.
+  - e.g. when taking first photo.
+
 * App link gives "Item not found" error in play store app if android platform is too old.
 
 * image database has become corrupted:
