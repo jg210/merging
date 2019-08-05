@@ -1,21 +1,9 @@
 * Render face contours on top of images
   X store coordinates using fractional position
   X render contours
-  - apply correct affine transformation
-    - the image isn't scaled properly
-     - pass coordinates from fresco event to FacesView
-       - https://frescolib.org/docs/listening-to-events.html
-     - extend ImageDraweeView and override onDraw()
-     - fresco overlay
-       - https://frescolib.org/docs/drawee-branches.html
-     - https://frescolib.org/docs/writing-custom-views.html
-     - https://github.com/facebook/fresco/issues/1649
-       - overlayImage matches the actual image here
-     - getActualImageBounds()
-     - try again when respecting margin
-       - used bounds.width(), not width etc.
-  - does Drawable invalidateSelf() mean don't need custom View?
-
+  X apply correct affine transformation
+  X does Drawable invalidateSelf() mean don't need custom View?
+    X no, since need access to hierarchy field.
 
 * App link gives "Item not found" error in play store app if android platform is too old.
 
