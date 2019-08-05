@@ -48,7 +48,6 @@ class FacesView : SimpleDraweeView {
         override fun setAlpha(alpha: Int) {}
     }
 
-
     override fun onAttach() {
         super.onAttach()
         val drawable = ScaleTypeDrawable(this.facesDrawable, ScalingUtils.ScaleType.FIT_CENTER)
