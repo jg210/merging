@@ -21,6 +21,7 @@ class FacesView : SimpleDraweeView {
     }
 
     private val TAG = "FacesView"
+
     private val paint = Paint().apply {
         isAntiAlias = true
         color = Color.WHITE // TODO get from android resource.
@@ -28,7 +29,9 @@ class FacesView : SimpleDraweeView {
     }
 
     var faces: List<Face> by Delegates.observable(listOf()) { _, old, new ->
-        if (old != new) {
+        val oldIds = old.map { face -> face.id }
+        val newIds = new.map { face -> face.id }
+        if (oldIds != newIds) {
             this.invalidate()
         }
     }
