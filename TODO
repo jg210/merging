@@ -5,6 +5,7 @@
     - the image doesn't fill the entire view
      - pass coordinates from fresco event to FacesView
        - https://frescolib.org/docs/listening-to-events.html
+     - extend ImageDraweeView and override onDraw()
 
 * App link gives "Item not found" error in play store app if android platform is too old.
 
