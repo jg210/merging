@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.Log
 import com.facebook.drawee.drawable.ScaleTypeDrawable
-import com.facebook.drawee.drawable.ScalingUtils
 import com.facebook.drawee.view.SimpleDraweeView
 import uk.me.jeremygreen.merging.model.Face
 import kotlin.properties.Delegates
@@ -50,7 +49,7 @@ class FacesView : SimpleDraweeView {
 
     override fun onAttach() {
         super.onAttach()
-        val drawable = ScaleTypeDrawable(this.facesDrawable, ScalingUtils.ScaleType.FIT_CENTER)
+        val drawable = ScaleTypeDrawable(this.facesDrawable, this.hierarchy.actualImageScaleType)
         this.hierarchy.setOverlayImage(drawable)
     }
 
