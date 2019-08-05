@@ -5,7 +5,6 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.Log
-import com.facebook.drawee.drawable.ScaleTypeDrawable
 import com.facebook.drawee.view.SimpleDraweeView
 import uk.me.jeremygreen.merging.model.Face
 import kotlin.properties.Delegates
@@ -38,9 +37,7 @@ class FacesView : SimpleDraweeView {
 
     private val facesDrawable = object : Drawable() {
         override fun draw(canvas: Canvas) {
-            val padding = Rect()
-            this.getPadding(padding)
-            drawFaces(canvas, this.bounds, padding)
+            drawFaces(canvas)
         }
         override fun getOpacity(): Int {
             return PixelFormat.TRANSPARENT
@@ -51,19 +48,18 @@ class FacesView : SimpleDraweeView {
 
     override fun onAttach() {
         super.onAttach()
-        val drawable = ScaleTypeDrawable(this.facesDrawable, this.hierarchy.actualImageScaleType)
-        this.hierarchy.setOverlayImage(drawable)
+        this.hierarchy.setOverlayImage(this.facesDrawable)
     }
 
-    private fun drawFaces(canvas: Canvas, bounds: Rect, padding: Rect) {
+    private fun drawFaces(canvas: Canvas) {
         val radius = 3
+        val bounds = RectF()
+        this.hierarchy.getActualImageBounds(bounds)
         faces.forEach { face ->
             Log.d(TAG, "drawing face contours for face id: ${face.id}")
             face.coordinates.forEach { coordinate ->
-                val width = bounds.width() - (padding.left + padding.right)
-                val height = bounds.height() - (padding.top + padding.bottom)
-                val x = bounds.left + padding.left + coordinate.x * bounds.width()
-                val y = bounds.top + padding.top + coordinate.y * bounds.height()
+                val x = bounds.left + coordinate.x * bounds.width()
+                val y = bounds.top + coordinate.y * bounds.height()
                 //Log.d(TAG, "drawing point at (${x}, ${y})")
                 canvas.drawOval(x - radius, y - radius, x + radius, y + radius, paint)
             }
