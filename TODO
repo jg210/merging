@@ -1,10 +1,3 @@
-* Render face contours on top of images
-  X store coordinates using fractional position
-  X render contours
-  X apply correct affine transformation
-  X does Drawable invalidateSelf() mean don't need custom View?
-    X no, since need access to hierarchy field.
-
 * App link gives "Item not found" error in play store app if android platform is too old.
 
 * image database has become corrupted:
