@@ -38,10 +38,11 @@ class FacesView : View {
         super.onDraw(canvas)
         val radius = 3
         faces.forEach { face ->
+            Log.d(TAG, "drawing face contours for face id: ${face.id}")
             face.coordinates.forEach { coordinate ->
                 val x = coordinate.x * canvas.width
                 val y = coordinate.y * canvas.height
-                Log.d(TAG, "drawing point at (${x}, ${y})")
+                //Log.d(TAG, "drawing point at (${x}, ${y})")
                 canvas.drawOval(x - radius, y - radius, x + radius, y + radius, paint)
             }
         }

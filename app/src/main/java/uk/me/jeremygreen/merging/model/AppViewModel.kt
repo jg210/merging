@@ -81,7 +81,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    suspend fun faces(imageId: Long): List<Face> {
+    fun faces(imageId: Long): LiveData<List<Face>> {
         return appDatabase.faceDao().findById(imageId)
     }
 
