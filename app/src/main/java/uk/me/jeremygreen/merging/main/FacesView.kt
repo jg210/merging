@@ -28,14 +28,11 @@ class FacesView : SimpleDraweeView {
         style = Paint.Style.FILL
     }
 
-    var faces: List<Face> by Delegates.observable(listOf()) { _, old, new ->
-        val oldIds = old.map { face -> face.id }
+    var faces: List<Face> by Delegates.observable(listOf()) { _, _, new ->
         val newIds = new.map { face -> face.id }
         Log.d(TAG, "faces set to: ${newIds}")
-        if (oldIds != newIds) {
-            Log.d(TAG, "face ids changed - invalidating")
-            this.facesDrawable.invalidateSelf()
-        }
+        // TODO Room sends Faces with no coordinates before sending them with coordinates, despite use of transactions.
+        this.facesDrawable.invalidateSelf()
     }
 
     private val facesDrawable = object : Drawable() {

@@ -1,13 +1,3 @@
-* Face contours not rendered if image already visible on screen.
-  - e.g. when taking first photo.
-  - logging shows that invalidate() and then onDraw() called as expected...
-  - https://github.com/facebook/fresco/issues/911 is similar
-  - https://www.bountysource.com/issues/27466559-change-overlay-dynamically
-    - there isn't a SettableDrawable, instead, it's
-      - https://frescolib.org/javadoc/reference/com/facebook/drawee/drawable/ForwardingDrawable.html
-        - doesn't help
-  - setting new Drawable each time doesn't help either.
-
 * App link gives "Item not found" error in play store app if android platform is too old.
 
 * image database has become corrupted:
@@ -47,6 +37,12 @@
 
 * ACTION_IMAGE_CAPTURE Intent might not work well on all platforms
   - https://commonsware.com/blog/2015/06/08/action-image-capture-fallacy.html
+
+* Room sends two LiveData events when add faces rows
+  - once without coordinates
+  - once with
+  => have had to remove change detection to the FacesView property observer
+  - shouldn't use of transactions prevent this?
 
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when restored, there are no images in the slider.
