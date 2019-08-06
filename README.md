@@ -81,7 +81,7 @@ base64 --wrap=0 release.keystore && echo
 ```
 git checkout master
 git pull
-git merge --no-ff origin/develop
+git merge --no-ff origin/develop      # The commit message appears as release notes for github release, so copy from fastlane metadata file.
 git push
 git checkout develop
 ```

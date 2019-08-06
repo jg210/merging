@@ -8,7 +8,9 @@
 * Better play store text etc.
   - short and long description shouldn't be the same.
 
-* No play store release notes.
+* Automate release process.
+  - add play store changelog
+  - use same changelog for github release notes too.
 
 * FirebaseAnalytics.setCurrentScreen gives log warning
   - "W/FA: setCurrentScreen cannot be called with the same class and name"
