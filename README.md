@@ -4,14 +4,12 @@ https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging
 
 Work in progress.
 
-There won't be any database versioning/migrations until after the first full Play Store release, so it might be necessary to wipe the app's data when switching between versions.
-
 This kotlin android app will merge photos of faces. Currently, it:
 
-* Can take photos.
-* Does face detection.
-* Displays the number of detected faces.
+* Takes photos.
+* Detects face features and displays their location.
 * Shows onboarding and licence information.
+* Does not do database migrations, so data may be lost when upgrading.
 
 It's using:
 
@@ -74,9 +72,10 @@ base64 --wrap=0 release.keystore && echo
 * Development is done on "develop" branch.
 * Releases are made from "master" branch. 
 
-## Creating release
+## Creating Release
 
 * The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the master branch should be merge commits. Otherwise, the version number will generally increment by more than one.
+* Commit changelog to a new file in [fastlane/metadata/android/en-GB/changelogs/](fastlane/metadata/android/en-GB/changelogs/).
 * Wait for develop branch to be tested, otherwise github blocks pushes to the master branch.
 
 ```

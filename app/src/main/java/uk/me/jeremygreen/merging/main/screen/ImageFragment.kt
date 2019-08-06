@@ -21,7 +21,6 @@ import uk.me.jeremygreen.merging.model.Image
 import uk.me.jeremygreen.merging.model.ProcessingStage
 import java.io.File
 
-
 class ImageFragment : ScreenFragment() {
 
     companion object {
@@ -70,14 +69,14 @@ class ImageFragment : ScreenFragment() {
         super.onViewCreated(view, savedInstanceState)
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
-        val imageDraweeView = this.imageDraweeView
-        appViewModel.faceCount(imageId).observe(this, Observer { count ->
-            this.faceCount.text = count.toString()
+        val facesView = this.faces
+        appViewModel.faces(imageId).observe(this, Observer { faces ->
+            facesView.faces = faces
         })
         launch(Dispatchers.IO) {
             val image = appViewModel.findById(imageId)
             launch(Dispatchers.Main) {
-                updateImageDraweeView(image, imageDraweeView)
+                updateImageDraweeView(image, facesView)
             }
             val processingStage = appViewModel.getProcessingStage(imageId)
             if (processingStage == ProcessingStage.unprocessed) {
@@ -132,7 +131,7 @@ class ImageFragment : ScreenFragment() {
         AlertDialog.Builder(requireContext()).apply {
             setMessage(R.string.confirmDeleteImage)
             setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
-                imageDraweeView.setOnLongClickListener { false }
+                faces.setOnLongClickListener { false }
                 appViewModel.delete(image)
             }
             setNegativeButton(R.string.cancel) { _: DialogInterface, _: Int -> }

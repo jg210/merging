@@ -11,15 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.onboarding.*
-import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.R
+import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.model.AppViewModel
 
 class OnboardingActivity: AppCompatActivity() {
 
     companion object {
         // Increase this whenever onboarding text is changed.
-        const val version = 1L
+        const val version = 2L
     }
 
     private lateinit var appViewModel: AppViewModel

@@ -3,6 +3,15 @@ package uk.me.jeremygreen.merging.model
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
+/**
+ * Version 1
+ *
+ * Tables: images, faces, coordinates.
+ *
+ * Version 2
+ *
+ * Changed type of coordinate table's x and y columns from INTEGER to REAL.
+ */
 @Database(
     entities = [
         Coordinate::class,
@@ -10,7 +19,7 @@ import androidx.room.RoomDatabase
         Image::class,
         Onboarding::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase: RoomDatabase() {

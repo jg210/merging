@@ -7,24 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/imageDraweeView"
+    <uk.me.jeremygreen.merging.main.FacesView
+            android:id="@+id/faces"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             fresco:placeholderImage="@color/imagePlaceholder"
             fresco:backgroundImage="@color/imagePlaceholder"
             fresco:actualImageScaleType="fitCenter"
-    />
-
-    <TextView
-            android:id="@+id/faceCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/imageOverlay"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

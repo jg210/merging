@@ -55,6 +55,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text = "@string/onboardingText_05"/>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text = "@string/onboardingText_06"/>
             </LinearLayout>
             <CheckBox
                 android:id="@+id/onboarding_accept_checkbox"
