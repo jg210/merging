@@ -33,7 +33,7 @@ class FacesView : SimpleDraweeView {
         val newIds = new.map { face -> face.id }
         Log.d(TAG, "faces set to: ${newIds}")
         if (oldIds != newIds) {
-            Log.d(TAG, "face ids changed - invalidating View")
+            Log.d(TAG, "face ids changed - invalidating")
             this.facesDrawable.invalidateSelf()
         }
     }
