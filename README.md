@@ -72,7 +72,7 @@ base64 --wrap=0 release.keystore && echo
 * Development is done on "develop" branch.
 * Releases are made from "master" branch. 
 
-## Creating release
+## Creating Release
 
 * The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the master branch should be merge commits. Otherwise, the version number will generally increment by more than one.
 * Wait for develop branch to be tested, otherwise github blocks pushes to the master branch.
