@@ -3,9 +3,11 @@ package uk.me.jeremygreen.merging.main
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import com.facebook.drawee.view.SimpleDraweeView
+import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.model.Face
 import kotlin.properties.Delegates
 
@@ -24,7 +26,11 @@ class FacesView : SimpleDraweeView {
 
     private val paint = Paint().apply {
         isAntiAlias = true
-        color = Color.WHITE // TODO get from android resource.
+        color = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            resources.getColor(R.color.imageOverlay, context.theme)
+        } else {
+            resources.getColor(R.color.imageOverlay)
+        }
         style = Paint.Style.FILL
     }
 
