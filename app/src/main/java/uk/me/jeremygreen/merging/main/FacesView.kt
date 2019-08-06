@@ -31,7 +31,9 @@ class FacesView : SimpleDraweeView {
     var faces: List<Face> by Delegates.observable(listOf()) { _, old, new ->
         val oldIds = old.map { face -> face.id }
         val newIds = new.map { face -> face.id }
+        Log.d(TAG, "faces set to: ${newIds}")
         if (oldIds != newIds) {
+            Log.d(TAG, "face ids changed - invalidating View")
             this.invalidate()
         }
     }
