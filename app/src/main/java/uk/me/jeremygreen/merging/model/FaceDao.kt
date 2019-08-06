@@ -11,10 +11,7 @@ interface FaceDao {
 
     @Transaction
     @Query("SELECT * from faces WHERE imageId = :imageId")
-    suspend fun findById(imageId: Long): List<Face>
-
-    @Query("SELECT COUNT(*) from faces WHERE imageId = :imageId")
-    fun countById(imageId: Long): LiveData<Long>
+    fun findById(imageId: Long): LiveData<List<Face>>
 
     @Insert
     suspend fun addAll(faces: List<FaceEntity>): List<Long>

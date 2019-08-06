@@ -22,7 +22,6 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import java.io.File
-import kotlin.math.roundToInt
 
 @Entity(tableName = "images")
 data class Image(
@@ -108,7 +107,7 @@ data class Image(
                 val firebaseVisionFaceContour =
                     firebaseVisionFace.getContour(FirebaseVisionFaceContour.ALL_POINTS)
                 val coordinates: List<Coordinate> = firebaseVisionFaceContour.points.map { point ->
-                    Coordinate(0, 0, point.x.roundToInt(), point.y.roundToInt())
+                    Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
                 }
                 Face(0, this.id, coordinates)
             }

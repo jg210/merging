@@ -1,9 +1,19 @@
 * App link gives "Item not found" error in play store app if android platform is too old.
 
+* image database has become corrupted:
+
+2019-08-04 20:44:12.917 5264-5264/uk.me.jeremygreen.merging D/ImageFragment: updating image 0 with: file:///data/user/0/uk.me.jeremygreen.merging/files/photos/3b2ed863-133c-4ec5-8a10-c0ebe0e1cbce.jpg
+2019-08-04 20:44:12.923 5264-5264/uk.me.jeremygreen.merging D/ImageFragment: updating image 0 with: file:///data/user/0/uk.me.jeremygreen.merging/files/photos/4db3e981-8725-454a-b8af-734f2f3746eb.jpg
+
 * Better play store text etc.
   - short and long description shouldn't be the same.
 
 * No play store release notes.
+
+* FirebaseAnalytics.setCurrentScreen gives log warning
+  - "W/FA: setCurrentScreen cannot be called with the same class and name"
+  - https://stackoverflow.com/a/41786256
+  - probably since I happen to have used a class name that same as screen name?
 
 * Google Play store console says, "your app is using an old version of the Google Play developer API".
   - https://android-developers.googleblog.com/2019/03/changes-to-google-play-developer-api.html
@@ -20,10 +30,6 @@
 * onboarding accept click area is still not high enough.
   - "This item's height is 38dp. Consider making the height of this touch target 48dp or larger."
 
-* Render coordinates on top of images
-  - scale images in a way that allows coordinate transforms to be known and aspect ratio to be preserved.
-  - observe and render Coordinates.
-
 * Refactor and refine face-detection implementation.
   - too much code in ImageFragment
 
@@ -34,6 +40,12 @@
 * ACTION_IMAGE_CAPTURE Intent might not work well on all platforms
   - https://commonsware.com/blog/2015/06/08/action-image-capture-fallacy.html
 
+* Room sends two LiveData events when add faces rows
+  - once without coordinates
+  - once with
+  => have had to remove change detection to the FacesView property observer
+  - shouldn't use of transactions prevent this?
+
 * ViewSlider2 position not persisted on rotation.
   - probably since ViewPager2 saves and restores it, but when restored, there are no images in the slider.
   - stop ViewPager2 persisting position itself and persist ViewPager2 id in ViewModel instead
@@ -42,6 +54,9 @@
   - keep hold of restored state and use it for first images update?
 
 * Screenshots in github.
+
+* Repeat face contour detection with cropped images?
+  - to improve accuracy of coordinates.
 
 * Don't show splashscreen if start up is fast enough
   - but if do show it, show it for at least 1.5s.

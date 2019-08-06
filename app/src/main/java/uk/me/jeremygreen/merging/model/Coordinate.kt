@@ -23,6 +23,6 @@ data class Coordinate(
 
     val faceId: Long,
 
-    val x: Int,
-    val y: Int
+    val x: Float,
+    val y: Float
 )

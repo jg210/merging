@@ -6,10 +6,10 @@ Work in progress.
 
 This kotlin android app will merge photos of faces. Currently, it:
 
-* Can take photos.
-* Does face detection.
-* Displays the number of detected faces.
+* Takes photos.
+* Detects face features and displays their location.
 * Shows onboarding and licence information.
+* Does not do database migrations, so data may be lost when upgrading.
 
 It's using:
 

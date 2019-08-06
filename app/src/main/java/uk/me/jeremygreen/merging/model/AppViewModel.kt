@@ -11,10 +11,12 @@ import kotlinx.coroutines.launch
 class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     private val appDatabase: AppDatabase by lazy {
-        Room.databaseBuilder(
+        val builder = Room.databaseBuilder(
             application.applicationContext,
             AppDatabase::class.java,
-            "app").build()
+            "app")
+        builder.fallbackToDestructiveMigrationFrom(1)
+        builder.build()
     }
 
     fun allImages(): LiveData<List<Image>> {
@@ -27,10 +29,6 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun findById(imageId: Long): Image {
         return appDatabase.imageDao().findById(imageId)
-    }
-
-    fun faceCount(imageId: Long): LiveData<Long> {
-        return appDatabase.faceDao().countById(imageId)
     }
 
     fun delete(image: Image) {
@@ -81,6 +79,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
         }
+    }
+
+    fun faces(imageId: Long): LiveData<List<Face>> {
+        return appDatabase.faceDao().findById(imageId)
     }
 
 }
