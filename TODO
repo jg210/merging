@@ -5,10 +5,8 @@
   - https://www.bountysource.com/issues/27466559-change-overlay-dynamically
     - there isn't a SettableDrawable, instead, it's
       - https://frescolib.org/javadoc/reference/com/facebook/drawee/drawable/ForwardingDrawable.html
-
-    - does Drawable invalidateSelf() mean don't need custom View?
-
-
+        - doesn't help
+  - setting new Drawable each time doesn't help either.
 
 * App link gives "Item not found" error in play store app if android platform is too old.
 
