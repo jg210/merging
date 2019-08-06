@@ -55,6 +55,9 @@
 
 * Screenshots in github.
 
+* Repeat face contour detection with cropped images?
+  - to improve accuracy of coordinates.
+
 * Don't show splashscreen if start up is fast enough
   - but if do show it, show it for at least 1.5s.
 
