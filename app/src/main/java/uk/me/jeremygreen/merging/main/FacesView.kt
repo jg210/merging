@@ -34,7 +34,7 @@ class FacesView : SimpleDraweeView {
         Log.d(TAG, "faces set to: ${newIds}")
         if (oldIds != newIds) {
             Log.d(TAG, "face ids changed - invalidating View")
-            this.invalidate()
+            this.facesDrawable.invalidateSelf()
         }
     }
 

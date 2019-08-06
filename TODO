@@ -1,5 +1,14 @@
 * Face contours not rendered if image already visible on screen.
   - e.g. when taking first photo.
+  - logging shows that invalidate() and then onDraw() called as expected...
+  - https://github.com/facebook/fresco/issues/911 is similar
+  - https://www.bountysource.com/issues/27466559-change-overlay-dynamically
+    - there isn't a SettableDrawable, instead, it's
+      - https://frescolib.org/javadoc/reference/com/facebook/drawee/drawable/ForwardingDrawable.html
+
+    - does Drawable invalidateSelf() mean don't need custom View?
+
+
 
 * App link gives "Item not found" error in play store app if android platform is too old.
 
