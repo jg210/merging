@@ -2,14 +2,12 @@ package uk.me.jeremygreen.merging.main.screen
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.facebook.drawee.view.SimpleDraweeView
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
 import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +17,6 @@ import uk.me.jeremygreen.merging.main.ScreenFragment
 import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
 import uk.me.jeremygreen.merging.model.Image
 import uk.me.jeremygreen.merging.model.ProcessingStage
-import java.io.File
 
 class ImageFragment : ScreenFragment() {
 
@@ -76,25 +73,12 @@ class ImageFragment : ScreenFragment() {
         launch(Dispatchers.IO) {
             val image = appViewModel.findById(imageId)
             launch(Dispatchers.Main) {
-                updateImageDraweeView(image, facesView)
+                facesView.setImage(image, ::handleLongClick)
             }
             val processingStage = appViewModel.getProcessingStage(imageId)
             if (processingStage == ProcessingStage.unprocessed) {
                 processFaces(image, imageId)
             }
-        }
-    }
-
-    private fun updateImageDraweeView(
-        image: Image,
-        imageDraweeView: SimpleDraweeView
-    ) {
-        val uri = Uri.fromFile(File(image.file))
-        Log.d(TAG, "updating image ${id} with: ${uri}")
-        imageDraweeView.setImageURI(uri, null)
-        imageDraweeView.setOnLongClickListener {
-            handleLongClick(image)
-            false // not consumed
         }
     }
 
