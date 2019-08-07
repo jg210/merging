@@ -1,0 +1,1 @@
+Draw faces only after images are displayed.
