@@ -2,13 +2,20 @@ package uk.me.jeremygreen.merging.main
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.drawee.controller.BaseControllerListener
 import com.facebook.drawee.view.SimpleDraweeView
+import com.facebook.imagepipeline.image.ImageInfo
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.model.Face
+import uk.me.jeremygreen.merging.model.Image
+import java.io.File
 import kotlin.properties.Delegates
 
 class FacesView : SimpleDraweeView {
@@ -34,6 +41,9 @@ class FacesView : SimpleDraweeView {
         style = Paint.Style.FILL
     }
 
+    private var imageLoadingComplete: Boolean = false
+    private var imageSet: Boolean = false
+
     var faces: List<Face> by Delegates.observable(listOf()) { _, _, new ->
         val newIds = new.map { face -> face.id }
         Log.d(TAG, "faces set to: ${newIds}")
@@ -52,16 +62,53 @@ class FacesView : SimpleDraweeView {
         override fun setAlpha(alpha: Int) {}
     }
 
+    fun setImage(
+        image: Image,
+        longClickListener: (image: Image) -> Unit
+    ) {
+        if (this.imageSet) {
+            throw IllegalStateException("cannot call setImage() twice - ${image.id}")
+        }
+        if (this.imageLoadingComplete) {
+            throw AssertionError()
+        }
+        this.imageSet = true
+        val uri = Uri.fromFile(File(image.file))
+        Log.d(TAG, "updating image ${id} with: ${uri}")
+        val listener = object : BaseControllerListener<ImageInfo>() {
+            override fun onFinalImageSet(id: String?, imageInfo: ImageInfo?, animatable: Animatable?) {
+                Log.d(TAG, "image loading complete: ${image.id}")
+                this@FacesView.imageLoadingComplete = true
+                this@FacesView.facesDrawable.invalidateSelf()
+            }
+        }
+        this.controller = Fresco.newDraweeControllerBuilder()
+            .setUri(uri)
+            .setOldController(this.controller)
+            .setControllerListener(listener)
+            .build()
+        this.setOnLongClickListener {
+            longClickListener(image)
+            false // not consumed
+        }
+    }
+
     override fun onAttach() {
         super.onAttach()
         this.hierarchy.setOverlayImage(this.facesDrawable)
     }
 
     private fun drawFaces(canvas: Canvas) {
+        if (!this.imageLoadingComplete) {
+            // Need to have loaded image for bounds to be correct.
+            Log.d(TAG, "not drawing faces since image loading not complete.")
+            return
+        }
         val radius = 3
         val bounds = RectF()
         this.hierarchy.getActualImageBounds(bounds)
-        faces.forEach { face ->
+        Log.d(TAG, "drawFaces() bounds: ${bounds.toShortString()}")
+        this.faces.forEach { face ->
             Log.d(TAG, "drawing face contours for face id: ${face.id}")
             face.coordinates.forEach { coordinate ->
                 val x = bounds.left + coordinate.x * bounds.width()

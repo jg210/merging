@@ -1,3 +1,5 @@
+* Is FacesView leaking anything?
+
 * App link gives "Item not found" error in play store app if android platform is too old.
 
 * image database has become corrupted:
