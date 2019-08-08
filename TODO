@@ -1,11 +1,17 @@
+* Only one face drawn even if more are in LiveData event.
+
+* Have seen three faces in LiveData message when there should be two.
+
 * Is FacesView leaking anything?
 
 * App link gives "Item not found" error in play store app if android platform is too old.
 
-* image database has become corrupted:
+* Image database has become corrupted:
 
 2019-08-04 20:44:12.917 5264-5264/uk.me.jeremygreen.merging D/ImageFragment: updating image 0 with: file:///data/user/0/uk.me.jeremygreen.merging/files/photos/3b2ed863-133c-4ec5-8a10-c0ebe0e1cbce.jpg
 2019-08-04 20:44:12.923 5264-5264/uk.me.jeremygreen.merging D/ImageFragment: updating image 0 with: file:///data/user/0/uk.me.jeremygreen.merging/files/photos/4db3e981-8725-454a-b8af-734f2f3746eb.jpg
+
+2019-08-08 23:41:30.698 9106-9106/? D/FacesView: updating image 2131230833 with: file:///data/user/0/uk.me.jeremygreen.merging/files/photos/2a203507-73b4-498e-b010-c325ecedd673.jpg
 
 * Better play store text etc.
   - short and long description shouldn't be the same.
