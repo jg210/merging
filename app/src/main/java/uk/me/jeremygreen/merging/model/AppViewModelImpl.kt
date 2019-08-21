@@ -1,6 +1,7 @@
 package uk.me.jeremygreen.merging.model
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -11,6 +12,10 @@ open class AppViewModelImpl(
     application: Application,
     private val appDatabase: AppDatabase)
     : AndroidViewModel(application) {
+
+    companion object {
+        private val TAG = "AppViewModelImpl"
+    }
 
     fun allImages(): LiveData<List<Image>> {
         return appDatabase.imageDao().getImages()
@@ -56,6 +61,7 @@ open class AppViewModelImpl(
                 viewModelScope.launch(Dispatchers.IO) {
                     val faceEntities = faces.map { face -> FaceEntity(face.id, face.imageId) }
                     val faceIds = appDatabase.faceDao().addAll(faceEntities)
+                    Log.d(TAG, "addAll() face ids: ${faceIds.joinToString(", ")}")
                     faceIds.zip(faces).forEach { pair ->
                         val id = pair.first
                         val face = pair.second

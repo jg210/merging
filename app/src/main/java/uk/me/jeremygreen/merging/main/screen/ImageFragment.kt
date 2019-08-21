@@ -98,7 +98,6 @@ class ImageFragment : ScreenFragment() {
                         Log.i(TAG, "detected ${faces.size} faces for image id: ${imageId}")
                         val processedImage = image.copy(processingStage = ProcessingStage.facesDetected)
                         appViewModel.addAll(processedImage, faces)
-                        Log.i(TAG, "added ${faces.size} faces to database.")
                     }
                 } finally {
                     clonedReference.close()
