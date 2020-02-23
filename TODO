@@ -1,4 +1,8 @@
 * Only one face drawn even if more are in LiveData event.
+  - this is a feature of Firebase MLKit
+    - https://github.com/firebase/quickstart-android/issues/795
+  - detect faces, crop image and redetect single face's contours?
+    - probably required anyway, for accurate contour coordinate detection.
 
 * Have seen three faces in LiveData message when there should be two.
 
