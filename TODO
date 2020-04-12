@@ -1,5 +1,7 @@
 * Migrate from fabric to firebase SDK.
 
+* "FA: setCurrentScreen cannot be called with the same class and name" warnings when swipe between images.
+
 * Only one face drawn even if more are in LiveData event.
   - this is a feature of Firebase MLKit
     - https://github.com/firebase/quickstart-android/issues/795
