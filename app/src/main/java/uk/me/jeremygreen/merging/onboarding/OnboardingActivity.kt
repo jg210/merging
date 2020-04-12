@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.onboarding.*
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.main.MainActivity
@@ -28,7 +28,7 @@ class OnboardingActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.onboarding)
-        appViewModel = ViewModelProviders.of(this).get(AppViewModel::class.java)
+        appViewModel = ViewModelProvider(this).get(AppViewModel::class.java)
         setSupportActionBar(onboardingToolbar)
         this.onboardingTextContainer.children.forEach { child: View ->
             if (child is TextView) {
