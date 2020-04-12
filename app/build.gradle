@@ -125,7 +125,7 @@ dependencies {
 
 task writeVersionFile {
     doLast {
-        file("${buildDir}/version").write(getVersionName(), "UTF-8");
+        file("${buildDir}/version").write(getVersionName(), "UTF-8")
     }
 }
 assemble.dependsOn writeVersionFile
