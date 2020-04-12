@@ -41,6 +41,9 @@
     - https://github.com/fastlane/fastlane/issues/14573
 
 * Use different android flavor for development and production.
+  => firebase project per flavor
+
+* Can google-services.json(s) be taken from merging-secrets repo?
 
 * Use android app bundle.
   - upload signing key
