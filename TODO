@@ -1,3 +1,5 @@
+* Migrate from fabric to firebase SDK.
+
 * Only one face drawn even if more are in LiveData event.
   - this is a feature of Firebase MLKit
     - https://github.com/firebase/quickstart-android/issues/795
@@ -33,7 +35,7 @@
   - https://android-developers.googleblog.com/2019/03/changes-to-google-play-developer-api.html
   - likely fastlane?
     - https://github.com/fastlane/fastlane/issues/14573
-  
+
 * Use different android flavor for development and production.
 
 * Use android app bundle.
