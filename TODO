@@ -5,6 +5,9 @@
 
 * "FA: setCurrentScreen cannot be called with the same class and name" warnings when swipe between images.
 
+* git tag for each release
+  - locally before pushing or from CI?
+
 * Only one face drawn even if more are in LiveData event.
   - this is a feature of Firebase MLKit
     - https://github.com/firebase/quickstart-android/issues/795
