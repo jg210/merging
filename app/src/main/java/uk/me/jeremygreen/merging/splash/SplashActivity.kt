@@ -16,10 +16,11 @@ class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash)
-        val imageViewModel = ViewModelProvider(this).get(AppViewModel::class.java)
+        val appViewModelFactory = AppViewModel.Factory(application);
+        val appViewModel = ViewModelProvider(this, appViewModelFactory).get(AppViewModel::class.java)
         launch(Dispatchers.IO) {
             val acceptedVersion = async {
-                imageViewModel.onboardingAccepted(OnboardingActivity.version)
+                appViewModel.onboardingAccepted(OnboardingActivity.version)
             }
             val delayJob = launch {
                 // Show splash screen for at least this long.

@@ -41,8 +41,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
-    private val imageViewModel by lazy {
-        ViewModelProvider(this).get(AppViewModel::class.java)
+    private val appViewModel by lazy {
+        val appViewModelFactory = AppViewModel.Factory(application);
+        ViewModelProvider(this, appViewModelFactory).get(AppViewModel::class.java)
     }
 
     private val imagesDir: File by lazy {
@@ -78,8 +79,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        val imageViewModel = ViewModelProvider(this).get(AppViewModel::class.java)
-        imageViewModel.allImages().observe(this, Observer { images ->
+        appViewModel.allImages().observe(this, Observer { images ->
             this.pagerAdapter.setImages(images)
         })
         val licencesTitle = resources.getString(R.string.actionLicences)
@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
             if (file == null) {
                 throw AssertionError()
             }
-            imageViewModel.addImage(file.path)
+            appViewModel.addImage(file.path)
         }
     }
 
