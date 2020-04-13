@@ -1,5 +1,8 @@
 * Migrate from fabric to firebase SDK.
 
+* Use different android flavor for development and production.
+  => firebase project per flavor
+
 * "FA: setCurrentScreen cannot be called with the same class and name" warnings when swipe between images.
 
 * Only one face drawn even if more are in LiveData event.
@@ -37,9 +40,6 @@
   - https://android-developers.googleblog.com/2019/03/changes-to-google-play-developer-api.html
   - likely fastlane?
     - https://github.com/fastlane/fastlane/issues/14573
-
-* Use different android flavor for development and production.
-  => firebase project per flavor
 
 * Can google-services.json(s) be taken from merging-secrets repo?
 
