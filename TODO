@@ -1,4 +1,7 @@
-* Migrate from fabric to firebase SDK.
+* Migrate from fabric to firebase SDK when it's out of beta.
+  - make sure it's disabled until onboarding has been completed.
+
+* Configure NDK crash reporting.
 
 * Use different android flavor for development and production.
   => firebase project per flavor
@@ -30,6 +33,8 @@
 * Automate release process.
   - add play store changelog
   - use same changelog for github release notes too.
+  - git tag for each release
+    - locally before pushing or from CI?
 
 * FirebaseAnalytics.setCurrentScreen gives log warning
   - "W/FA: setCurrentScreen cannot be called with the same class and name"
