@@ -2,7 +2,7 @@ package uk.me.jeremygreen.merging.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.*
 import uk.me.jeremygreen.merging.model.AppViewModel
 import java.io.File
@@ -20,7 +20,7 @@ abstract class ScreenFragment : Fragment(), CoroutineScope by MainScope() {
         val activity = requireActivity()
         imagesDir = MainActivity.imagesDir(activity)
         imagesDir.mkdirs()
-        appViewModel = ViewModelProviders.of(activity).get(AppViewModel::class.java)
+        appViewModel = AppViewModel.create(this, activity.application)
     }
 
     override fun onDestroyView() {

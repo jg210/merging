@@ -67,7 +67,7 @@ class ImageFragment : ScreenFragment() {
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
         val facesView = this.faces
-        appViewModel.faces(imageId).observe(this, Observer { faces ->
+        appViewModel.faces(imageId).observe(viewLifecycleOwner, Observer { faces ->
             facesView.faces = faces
         })
         launch(Dispatchers.IO) {
@@ -98,7 +98,6 @@ class ImageFragment : ScreenFragment() {
                         Log.i(TAG, "detected ${faces.size} faces for image id: ${imageId}")
                         val processedImage = image.copy(processingStage = ProcessingStage.facesDetected)
                         appViewModel.addAll(processedImage, faces)
-                        Log.i(TAG, "added ${faces.size} faces to database.")
                     }
                 } finally {
                     clonedReference.close()

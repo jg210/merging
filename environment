@@ -17,3 +17,14 @@ export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
 . "${SOURCE_DIR}/fastlane/completions/completion.bash"
+
+# Android SDK.
+localProperties="${SOURCE_DIR}/local.properties"
+if [ -e "${localProperties}" ] ; then
+    sdkDir=$(egrep '^sdk[.]dir=' "${localProperties}" | cut -d= -f2-)
+    if [ -d ${sdkDir} ] ; then
+        export ANDROID_SDK_ROOT="${SDK_ROOT}"
+        export ANDROID_HOME="${SDK_ROOT}"
+        export PATH="${sdkDir}/tools:${sdkDir}/platform-tools:${PATH}"
+    fi
+fi

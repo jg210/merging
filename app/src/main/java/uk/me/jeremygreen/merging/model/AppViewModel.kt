@@ -1,23 +1,36 @@
 package uk.me.jeremygreen.merging.model
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AppViewModel(application: Application) : AndroidViewModel(application) {
+class AppViewModel(
+    application: Application,
+    private val appDatabase: AppDatabase)
+    : AndroidViewModel(application) {
 
-    private val appDatabase: AppDatabase by lazy {
-        val builder = Room.databaseBuilder(
-            application.applicationContext,
-            AppDatabase::class.java,
-            "app")
-        builder.fallbackToDestructiveMigrationFrom(1)
-        builder.build()
+    companion object {
+        private const val TAG = "AppViewModelImpl"
+        private fun createAppDatabase(application: Application): AppDatabase {
+            val builder = Room.databaseBuilder(
+                application.applicationContext,
+                AppDatabase::class.java,
+                "app"
+            )
+            builder.fallbackToDestructiveMigrationFrom(1)
+            return builder.build()
+        }
+        fun create(owner: ViewModelStoreOwner, application: Application) =
+            ViewModelProvider(
+                owner,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+            ).get(AppViewModel::class.java)
     }
+
+    constructor(application: Application): this(application, createAppDatabase(application))
 
     fun allImages(): LiveData<List<Image>> {
         return appDatabase.imageDao().getImages()
@@ -63,6 +76,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 viewModelScope.launch(Dispatchers.IO) {
                     val faceEntities = faces.map { face -> FaceEntity(face.id, face.imageId) }
                     val faceIds = appDatabase.faceDao().addAll(faceEntities)
+                    Log.d(TAG, "addAll() face ids: ${faceIds.joinToString(", ")}")
                     faceIds.zip(faces).forEach { pair ->
                         val id = pair.first
                         val face = pair.second

@@ -113,9 +113,9 @@ data class Image(
             }
             onSuccess(faces)
         }
-        task.addOnFailureListener({ e ->
+        task.addOnFailureListener { e ->
             onError(e)
-        })
+        }
     }
 
 }
