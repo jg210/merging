@@ -75,7 +75,7 @@ base64 --wrap=0 release.keystore && echo
 ## Creating Release
 
 * The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the master branch should be merge commits. Otherwise, the version number will generally increment by more than one.
-* Commit changelog to a new file in [fastlane/metadata/android/en-GB/changelogs/](fastlane/metadata/android/en-GB/changelogs/). Do this from the develop branch, prior to merging to master.
+* Commit changelog to a new file in [fastlane/metadata/android/en-GB/changelogs](fastlane/metadata/android/en-GB/changelogs). Do this from the develop branch, prior to merging to master.
 * Wait for develop branch to be tested, otherwise github blocks pushes to the master branch.
 
 ```
