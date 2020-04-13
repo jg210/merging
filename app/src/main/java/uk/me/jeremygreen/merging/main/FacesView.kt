@@ -33,7 +33,8 @@ class FacesView : SimpleDraweeView {
         color = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             resources.getColor(R.color.imageOverlay, context.theme)
         } else {
-            resources.getColor(R.color.imageOverlay)
+            @Suppress("DEPRECATION") // No other API if target API 21.
+            resources.getColor(R.color.imageOverlay);
         }
         style = Paint.Style.FILL
     }

@@ -2,8 +2,6 @@
 
 * "FA: setCurrentScreen cannot be called with the same class and name" warnings when swipe between images.
 
-* "w: app/src/main/java/uk/me/jeremygreen/merging/main/FacesView.kt: (39, 23): 'getColor(Int): Int' is deprecated. Deprecated in Java"
-
 * Only one face drawn even if more are in LiveData event.
   - this is a feature of Firebase MLKit
     - https://github.com/firebase/quickstart-android/issues/795
