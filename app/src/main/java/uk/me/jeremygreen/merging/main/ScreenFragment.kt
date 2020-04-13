@@ -20,7 +20,7 @@ abstract class ScreenFragment : Fragment(), CoroutineScope by MainScope() {
         val activity = requireActivity()
         imagesDir = MainActivity.imagesDir(activity)
         imagesDir.mkdirs()
-        appViewModel = ViewModelProvider(activity).get(AppViewModel::class.java)
+        appViewModel = AppViewModel.create(this, activity.application)
     }
 
     override fun onDestroyView() {
