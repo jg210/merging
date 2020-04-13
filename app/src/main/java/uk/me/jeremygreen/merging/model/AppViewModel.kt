@@ -14,7 +14,23 @@ class AppViewModel(
 
     companion object {
         private val TAG = "AppViewModelImpl"
+        private fun createAppDatabase(application: Application): AppDatabase {
+            val builder = Room.databaseBuilder(
+                application.applicationContext,
+                AppDatabase::class.java,
+                "app"
+            )
+            builder.fallbackToDestructiveMigrationFrom(1)
+            return builder.build()
+        }
+        fun create(owner: ViewModelStoreOwner, application: Application) =
+            ViewModelProvider(
+                owner,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+            ).get(AppViewModel::class.java)
     }
+
+    constructor(application: Application): this(application, createAppDatabase(application)) {}
 
     fun allImages(): LiveData<List<Image>> {
         return appDatabase.imageDao().getImages()
@@ -81,26 +97,6 @@ class AppViewModel(
 
     fun faces(imageId: Long): LiveData<List<Face>> {
         return appDatabase.faceDao().findById(imageId)
-    }
-
-    class Factory(val application: Application) :
-        ViewModelProvider.AndroidViewModelFactory(application) {
-
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            val appDatabase = createAppDatabase();
-            return AppViewModel(application, appDatabase) as T
-        }
-
-        private fun createAppDatabase(): AppDatabase {
-            val builder = Room.databaseBuilder(
-                application.applicationContext,
-                AppDatabase::class.java,
-                "app"
-            )
-            builder.fallbackToDestructiveMigrationFrom(1)
-            return builder.build()
-        }
-
     }
 
 }

@@ -1,9 +1,11 @@
 package uk.me.jeremygreen.merging.splash
 
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import kotlinx.coroutines.*
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.R
@@ -16,8 +18,7 @@ class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash)
-        val appViewModelFactory = AppViewModel.Factory(application);
-        val appViewModel = ViewModelProvider(this, appViewModelFactory).get(AppViewModel::class.java)
+        val appViewModel = AppViewModel.create(this, application)
         launch(Dispatchers.IO) {
             val acceptedVersion = async {
                 appViewModel.onboardingAccepted(OnboardingActivity.version)
