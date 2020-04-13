@@ -1,6 +1,6 @@
 https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging
 
-[![CircleCI](https://circleci.com/gh/jg210/merging.svg?style=svg)](https://circleci.com/gh/jg210/merging)
+[![CircleCI](https://circleci.com/gh/jg210/merging/tree/develop.svg?style=svg)](https://circleci.com/gh/jg210/merging)
 
 Work in progress.
 
