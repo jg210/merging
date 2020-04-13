@@ -11,7 +11,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -41,8 +40,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
-    private val imageViewModel by lazy {
-        ViewModelProviders.of(this).get(AppViewModel::class.java)
+    private val appViewModel by lazy {
+        AppViewModel.create(this, application)
     }
 
     private val imagesDir: File by lazy {
@@ -78,8 +77,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        val imageViewModel = ViewModelProviders.of(this).get(AppViewModel::class.java)
-        imageViewModel.allImages().observe(this, Observer { images ->
+        appViewModel.allImages().observe(this, Observer { images ->
             this.pagerAdapter.setImages(images)
         })
         val licencesTitle = resources.getString(R.string.actionLicences)
@@ -167,7 +165,7 @@ class MainActivity : AppCompatActivity() {
             if (file == null) {
                 throw AssertionError()
             }
-            imageViewModel.addImage(file.path)
+            appViewModel.addImage(file.path)
         }
     }
 

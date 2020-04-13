@@ -20,14 +20,11 @@ import kotlin.properties.Delegates
 
 class FacesView : SimpleDraweeView {
 
-    constructor(context: Context) : super(context) {
-    }
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet): super(context, attrs) {
-    }
+    constructor(context: Context, attrs: AttributeSet): super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-    }
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     private val TAG = "FacesView"
 
@@ -36,7 +33,8 @@ class FacesView : SimpleDraweeView {
         color = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             resources.getColor(R.color.imageOverlay, context.theme)
         } else {
-            resources.getColor(R.color.imageOverlay)
+            @Suppress("DEPRECATION") // No other API if target API 21.
+            resources.getColor(R.color.imageOverlay);
         }
         style = Paint.Style.FILL
     }

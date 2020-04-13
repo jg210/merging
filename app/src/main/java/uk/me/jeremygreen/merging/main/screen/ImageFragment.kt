@@ -67,7 +67,7 @@ class ImageFragment : ScreenFragment() {
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
         val facesView = this.faces
-        appViewModel.faces(imageId).observe(this, Observer { faces ->
+        appViewModel.faces(imageId).observe(viewLifecycleOwner, Observer { faces ->
             facesView.faces = faces
         })
         launch(Dispatchers.IO) {

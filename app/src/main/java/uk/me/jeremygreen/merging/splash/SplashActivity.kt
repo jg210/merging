@@ -3,7 +3,6 @@ package uk.me.jeremygreen.merging.splash
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import kotlinx.coroutines.*
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.R
@@ -16,10 +15,10 @@ class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash)
-        val imageViewModel = ViewModelProviders.of(this).get(AppViewModel::class.java)
+        val appViewModel = AppViewModel.create(this, application)
         launch(Dispatchers.IO) {
             val acceptedVersion = async {
-                imageViewModel.onboardingAccepted(OnboardingActivity.version)
+                appViewModel.onboardingAccepted(OnboardingActivity.version)
             }
             val delayJob = launch {
                 // Show splash screen for at least this long.
