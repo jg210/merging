@@ -1,11 +1,8 @@
 package uk.me.jeremygreen.merging.splash
 
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import kotlinx.coroutines.*
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.R

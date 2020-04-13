@@ -30,7 +30,7 @@ class AppViewModel(
             ).get(AppViewModel::class.java)
     }
 
-    constructor(application: Application): this(application, createAppDatabase(application)) {}
+    constructor(application: Application): this(application, createAppDatabase(application))
 
     fun allImages(): LiveData<List<Image>> {
         return appDatabase.imageDao().getImages()
