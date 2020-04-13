@@ -12,6 +12,16 @@ SOURCE_DIR="$(dirname "$0")/.."
 cd "${SOURCE_DIR}"
 
 rubyVersionExpected="$(cat "${SOURCE_DIR}/.ruby-version")"
+
+circleCiConfig="${SOURCE_DIR}/.circleci/config.yml"
+rubyVersionCircleCi=$(egrep '^ *- image: circleci/ruby:' "${circleCiConfig}" | cut -d: -f3- | egrep --only-matching '[^ ].*')
+if [ "${rubyVersionExpected}" != "${rubyVersionCircleCi}" ] ; then
+    log "ERROR: circle CI ruby version needs to be updated in ${circleCiConfig}"
+    log "expected: ${rubyVersionExpected}"
+    log "found: ${rubyVersionCircleCi}"
+    exit 1
+fi
+
 if which rbenv > /dev/null 2> /dev/null ; then
     log "installing ruby ${rubyVersionExpected}"
     rbenv install "${rubyVersionExpected}" \
