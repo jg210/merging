@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
-import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.onboarding.*
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.main.MainActivity
