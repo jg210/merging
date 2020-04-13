@@ -13,7 +13,7 @@ class AppViewModel(
     : AndroidViewModel(application) {
 
     companion object {
-        private val TAG = "AppViewModelImpl"
+        private const val TAG = "AppViewModelImpl"
         private fun createAppDatabase(application: Application): AppDatabase {
             val builder = Room.databaseBuilder(
                 application.applicationContext,
