@@ -1,6 +1,8 @@
 * Migrate from fabric to firebase SDK when it's out of beta.
   - make sure it's disabled until onboarding has been completed.
 
+* splashscreen has very large image on android-21 emulator.
+
 * Configure NDK crash reporting.
 
 * Use different android flavor for development and production.
