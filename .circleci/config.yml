@@ -14,8 +14,11 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
       - run:
-          name: Create google-services.json
-          command: printf "%s" "${GOOGLE_SERVICES}" | base64 --decode > app/google-services.json
+          name: Create google-services.json (product flavour)
+          command: rm -f app/src/product/google-services.json && printf "%s" "${GOOGLE_SERVICES}" | base64 --decode > app/src/product/google-services.json
+      - run:
+          name: Create google-services.json (develop flavour)
+          command: rm -f app/src/develop/google-services.json && printf "%s" "${GOOGLE_SERVICES_DEVELOP}" | base64 --decode > app/src/develop/google-services.json
       - run:
           name: Create release.password
           command: printf "%s\n" "${RELEASE_KEY_PASSWORD:-}" > "${ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE}"
@@ -31,10 +34,10 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum "gradle.properties" }}
       - run:
           name: Run Tests
-          command: ./gradlew lint test assemble
+          command: ./gradlew lint test assembleProduct
       - store_artifacts: # https://circleci.com/docs/2.0/artifacts/
-          path: app/build/outputs/apk/release/app-release.apk
-          destination: apks/app-release.apk
+          path: app/build/outputs/apk/release/app-product-release.apk
+          destination: apks/app-product-release.apk
       - store_artifacts:
           path: app/build/reports
           destination: reports
@@ -55,7 +58,7 @@ jobs:
           name: "Publish Release on GitHub"
           command: |
             VERSION=$(cat ./artifacts/version)
-            ghr -t "${GITHUB_TOKEN}"  -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" "v${VERSION}" ./artifacts/outputs/apk/release/app-release.apk
+            ghr -t "${GITHUB_TOKEN}"  -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" "v${VERSION}" ./artifacts/outputs/apk/release/app-product-release.apk
   publish-play-store:
     docker:
       - image: circleci/ruby:2.7.1
@@ -81,7 +84,7 @@ jobs:
       - run:
           name: "Publish Release to Google Play Store"
           command: |
-            bin/fastlane supply --track beta --apk ./artifacts/outputs/apk/release/app-release.apk
+            bin/fastlane supply --track beta --apk ./artifacts/outputs/apk/release/app-product-release.apk
 
 workflows:
   version: 2

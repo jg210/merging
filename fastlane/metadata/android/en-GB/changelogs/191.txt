@@ -1,0 +1,1 @@
+Add develop and product android build flavours, to allow simultaneous installation of app from play store and android studio.

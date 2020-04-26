@@ -1,10 +1,9 @@
 * Migrate from fabric to firebase SDK when it's out of beta.
   - make sure it's disabled until onboarding has been completed.
 
-* Configure NDK crash reporting.
+* splashscreen has very large image on android-21 emulator.
 
-* Use different android flavor for development and production.
-  => firebase project per flavor
+* Configure NDK crash reporting.
 
 * "FA: setCurrentScreen cannot be called with the same class and name" warnings when swipe between images.
 

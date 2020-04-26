@@ -12,13 +12,8 @@
 /captures
 .externalNativeBuild
 
-# Firebase
-/app/google-services.json
-
 # emacs
 *~
 .#*
 \#*#
 
-# Google play store API key.
-/google-play-service.json
