@@ -136,4 +136,8 @@ task writeVersionFile {
         file("${buildDir}/version").write(getVersionName(), "UTF-8")
     }
 }
-assemble.dependsOn writeVersionFile
+
+productFlavors.all { flavor ->
+    final task = tasks.named("assemble${flavor.capitalize()}")
+    task.dependsOn writeVersionFile
+}
