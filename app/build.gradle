@@ -137,7 +137,4 @@ task writeVersionFile {
     }
 }
 
-productFlavors.all { flavor ->
-    final task = tasks.named("assemble${flavor.capitalize()}")
-    task.dependsOn writeVersionFile
-}
+preBuild.dependsOn(writeVersionFile)
