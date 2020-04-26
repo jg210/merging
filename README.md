@@ -41,18 +41,24 @@ fastlane --help
 
 ## Firebase Configuration
 
-* Create a project for the app in the [Firebase console](https://console.firebase.google.com/).
-* Download a copy of google-services.json from the Firebase console and put it in the app/ directory.
+* Create projects for the app in the [Firebase console](https://console.firebase.google.com/) - one for each flavour.
+* Download the google-services.json files from the Firebase console and put them in the location indicated by the symlinks in the app/src/product/ and app/src/develop/ directories.
 
 ## Circle CI Configuration
 
 * In CircleCI project's Environment Variables settings, add a GOOGLE_SERVICES environment variable with its value set to the output of:
 
 ```
-base64 --wrap=0 app/google-services.json && echo
+base64 --wrap=0 ../merging-secrets/firebase/product/google-services.json && echo
 ```
 
-* Add GOOGLE_PLAY_SERVICE_JSON environment variable with its value set to the output of:
+* Add GOOGLE_SERVICES_DEVELOP environment variable with its value set to the output of:
+
+```
+base64 --wrap=0 ../merging-secrets/firebase/develop/google-services.json && echo
+```
+
+* For play store API access key, add GOOGLE_PLAY_SERVICE_JSON environment variable with its value set to the output of:
 
 ```
 base64 --wrap=0 google-play-service.json && echo

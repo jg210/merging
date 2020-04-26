@@ -5,9 +5,6 @@
 
 * Configure NDK crash reporting.
 
-* Use different android flavor for development and production.
-  => firebase project per flavor
-
 * "FA: setCurrentScreen cannot be called with the same class and name" warnings when swipe between images.
 
 * Only one face drawn even if more are in LiveData event.
