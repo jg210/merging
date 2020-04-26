@@ -36,7 +36,7 @@ jobs:
           name: Run Tests
           command: ./gradlew lint test assembleProduct
       - store_artifacts: # https://circleci.com/docs/2.0/artifacts/
-          path: app/build/outputs/apk/release/app-product-release.apk
+          path: app/build/outputs/apk/product/release/app-product-release.apk
           destination: apks/app-product-release.apk
       - store_artifacts:
           path: app/build/reports
@@ -58,7 +58,7 @@ jobs:
           name: "Publish Release on GitHub"
           command: |
             VERSION=$(cat ./artifacts/version)
-            ghr -t "${GITHUB_TOKEN}"  -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" "v${VERSION}" ./artifacts/outputs/apk/release/app-product-release.apk
+            ghr -t "${GITHUB_TOKEN}"  -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" "v${VERSION}" ./artifacts/outputs/apk/product/release/app-product-release.apk
   publish-play-store:
     docker:
       - image: circleci/ruby:2.7.1
@@ -84,7 +84,7 @@ jobs:
       - run:
           name: "Publish Release to Google Play Store"
           command: |
-            bin/fastlane supply --track beta --apk ./artifacts/outputs/apk/release/app-product-release.apk
+            bin/fastlane supply --track beta --apk ./artifacts/outputs/apk/product/release/app-product-release.apk
 
 workflows:
   version: 2
