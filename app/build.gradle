@@ -58,11 +58,11 @@ static String getVersionName() {
 def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
         applicationId "uk.me.jeremygreen.merging"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode getVersionCode()
         versionName getVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
