@@ -1,4 +1,8 @@
-* Migrate from fabric to firebase SDK when it's out of beta.
+* Image deletion is broken.
+  - deletes detected face immediately
+  - the image is only removed from the UI when restart app.
+
+* Migrate from fabric to firebase SDK before it's shut down.
   - make sure it's disabled until onboarding has been completed.
 
 * splashscreen has very large image on android-21 emulator.
