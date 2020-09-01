@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         val file = File(imagesDir, "${uuid}.jpg")
         val imageUri: Uri = FileProvider.getUriForFile(
             baseContext,
-            "uk.me.jeremygreen.merging.fileprovider",
+            BuildConfig.APPLICATION_ID + ".fileprovider",
             file
         )
         this.file = file
