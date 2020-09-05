@@ -1,6 +1,6 @@
 * Image deletion is broken.
   - deletes detected face immediately
-  - the image is only removed from the UI when restart app.
+  - the image is only removed from the UI when force refresh by further UI interaction or restart.
 
 * Migrate from fabric to firebase SDK before it's shut down.
   - make sure it's disabled until onboarding has been completed.
