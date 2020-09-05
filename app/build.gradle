@@ -5,7 +5,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'org.jetbrains.kotlin.kapt'
     id 'com.google.gms.google-services'
-    id 'io.fabric'
+    id 'com.google.firebase.crashlytics'
 }
 
 static String getBranchName() {
@@ -116,9 +116,9 @@ dependencies {
     implementation "androidx.room:room-ktx:${room_version}"
     implementation "androidx.room:room-runtime:${room_version}"
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
     implementation 'com.facebook.fresco:fresco:1.13.0'
-    implementation 'com.google.firebase:firebase-analytics:17.3.0'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
     implementation 'com.google.firebase:firebase-ml-vision:24.0.2'
     implementation 'com.google.firebase:firebase-ml-vision-face-model:20.0.0'
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
