@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val appViewModel by lazy {
-        AppViewModel.create(this, application)
+        AppViewModel.getInstance(this, application)
     }
 
     private val imagesDir: File by lazy {

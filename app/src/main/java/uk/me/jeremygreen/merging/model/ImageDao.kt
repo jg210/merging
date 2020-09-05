@@ -25,4 +25,3 @@ interface ImageDao {
     suspend fun update(image: Image)
 
 }
-
