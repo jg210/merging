@@ -80,7 +80,7 @@ base64 --wrap=0 release.keystore && echo
 
 ## Creating Release
 
-Releases to the play store are done automatically from the "release" branch using a Circle CI job.
+Releases to the play store are done automatically from the "release" branch using a Circle CI job and fastlane.
 
 * The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the release branch should be merge commits. Otherwise, the version number will generally increment by more than one.
 * Commit changelog to a new file in [fastlane/metadata/android/en-GB/changelogs](fastlane/metadata/android/en-GB/changelogs). Do this from the develop branch, prior to merging to release.
