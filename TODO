@@ -6,6 +6,9 @@
 * Migrate from fabric to firebase SDK before it's shut down.
   - make sure it's disabled until onboarding has been completed.
 
+* migrate from firebase-ml-vision to ML Kit
+  - https://developers.google.com/ml-kit/migration
+
 * splashscreen has very large image on android-21 emulator.
 
 * Configure NDK crash reporting.
