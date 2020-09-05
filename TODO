@@ -3,6 +3,7 @@
 
 * migrate from firebase-ml-vision to ML Kit
   - https://developers.google.com/ml-kit/migration
+  - update README
 
 * splashscreen has very large image on android-21 emulator.
 
