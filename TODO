@@ -9,8 +9,6 @@
 
 * Configure NDK crash reporting.
 
-* "FA: setCurrentScreen cannot be called with the same class and name" warnings when swipe between images.
-
 * Only one face drawn even if more are in LiveData event.
   - this is a feature of Firebase MLKit
     - https://github.com/firebase/quickstart-android/issues/795
@@ -33,7 +31,7 @@
 * Better play store text etc.
   - short and long description shouldn't be the same.
 
-* Automate release process.
+* Further automate release process.
   - add play store changelog
   - use same changelog for github release notes too.
   - git tag for each release
