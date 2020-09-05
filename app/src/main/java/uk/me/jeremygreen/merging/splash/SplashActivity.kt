@@ -15,7 +15,7 @@ class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash)
-        val appViewModel = AppViewModel.create(this, application)
+        val appViewModel = AppViewModel.getInstance(this, application)
         launch(Dispatchers.IO) {
             val acceptedVersion = async {
                 appViewModel.onboardingAccepted(OnboardingActivity.version)

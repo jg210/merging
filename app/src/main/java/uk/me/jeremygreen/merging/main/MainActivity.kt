@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val appViewModel by lazy {
-        AppViewModel.create(this, application)
+        AppViewModel.getInstance(this, application)
     }
 
     private val imagesDir: File by lazy {
@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         val file = File(imagesDir, "${uuid}.jpg")
         val imageUri: Uri = FileProvider.getUriForFile(
             baseContext,
-            "uk.me.jeremygreen.merging.fileprovider",
+            BuildConfig.APPLICATION_ID + ".fileprovider",
             file
         )
         this.file = file

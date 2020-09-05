@@ -1,11 +1,12 @@
-* Migrate from fabric to firebase SDK when it's out of beta.
+* Migrate from fabric to firebase SDK before it's shut down.
   - make sure it's disabled until onboarding has been completed.
+
+* migrate from firebase-ml-vision to ML Kit
+  - https://developers.google.com/ml-kit/migration
 
 * splashscreen has very large image on android-21 emulator.
 
 * Configure NDK crash reporting.
-
-* "FA: setCurrentScreen cannot be called with the same class and name" warnings when swipe between images.
 
 * Only one face drawn even if more are in LiveData event.
   - this is a feature of Firebase MLKit
@@ -16,6 +17,7 @@
 * Have seen three faces in LiveData message when there should be two.
 
 * Is FacesView leaking anything?
+  - https://proandroiddev.com/5-common-mistakes-when-using-architecture-components-403e9899f4cb
 
 * App link gives "Item not found" error in play store app if android platform is too old.
 
@@ -29,7 +31,7 @@
 * Better play store text etc.
   - short and long description shouldn't be the same.
 
-* Automate release process.
+* Further automate release process.
   - add play store changelog
   - use same changelog for github release notes too.
   - git tag for each release

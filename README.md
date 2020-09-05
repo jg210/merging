@@ -25,7 +25,7 @@ It's using:
 
 Can just open the project in Android Studio, or use `./gradlew`.
 
-To use [Fastlane](https://fastlane.tools/):
+To use [Fastlane](https://fastlane.tools/) (for publishing the app):
 
 * Install [rbenv](https://github.com/rbenv/rbenv#installation).
 * Install [ruby-build](https://github.com/rbenv/ruby-build#installation) as an rbenv plugin.

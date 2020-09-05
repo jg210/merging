@@ -13,7 +13,7 @@ class AppViewModel(
     : AndroidViewModel(application) {
 
     companion object {
-        private const val TAG = "AppViewModelImpl"
+        private const val TAG = "AppViewModel"
         private fun createAppDatabase(application: Application): AppDatabase {
             val builder = Room.databaseBuilder(
                 application.applicationContext,
@@ -23,13 +23,18 @@ class AppViewModel(
             builder.fallbackToDestructiveMigrationFrom(1)
             return builder.build()
         }
-        fun create(owner: ViewModelStoreOwner, application: Application) =
+
+        /**
+         * @param owner must be the same for all things using the instance
+         */
+        fun getInstance(owner: ViewModelStoreOwner, application: Application) =
             ViewModelProvider(
                 owner,
                 ViewModelProvider.AndroidViewModelFactory.getInstance(application)
             ).get(AppViewModel::class.java)
     }
 
+    @Suppress("unused")
     constructor(application: Application): this(application, createAppDatabase(application))
 
     fun allImages(): LiveData<List<Image>> {

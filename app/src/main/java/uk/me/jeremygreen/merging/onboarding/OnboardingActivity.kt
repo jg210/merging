@@ -27,7 +27,7 @@ class OnboardingActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.onboarding)
-        appViewModel = AppViewModel.create(this, application)
+        appViewModel = AppViewModel.getInstance(this, application)
         setSupportActionBar(onboardingToolbar)
         this.onboardingTextContainer.children.forEach { child: View ->
             if (child is TextView) {
