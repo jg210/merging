@@ -35,6 +35,10 @@
   - likely fastlane?
     - https://github.com/fastlane/fastlane/issues/14573
 
+* Use fastlane/metadata/android/en-GB/changelogs/ file with highest number not git first-parent depth for version number?
+  - fewer steps required to make a release
+  - no need to be careful about how merge to release branch.
+
 * Can google-services.json(s) be taken from merging-secrets repo?
 
 * Use android app bundle.
