@@ -1,14 +1,3 @@
-* Failing lint check.
-  - FirebaseInstanceId version is not compatible with FirebaseInstallations
-    These versions of FirebaseInstanceId and FirebaseInstallations can not be used in parallel.
-    Please update your Firebase Instance ID to a version 20.1.1 or later.
-    Issue id: IncompatibleIidVersion
-  - https://github.com/firebase/firebase-android-sdk/issues/1339
-    - need at firebase-id >= 20.1.5, have 20.0.0, from com.google.firebase:firebase-ml-vision:24.0.2
-      => need to upgrade it or replace with ML Kit (see below).
-  X https://github.com/firebase/firebase-android-sdk/issues/1407
-    X need recent android gradle plugin to avoid this.
-
 * NDK crash reporting
 
 * MainActivity.kt: (78, 57): 'setCurrentScreen(Activity, String?, String?): Unit' is deprecated. Deprecated in Java
@@ -16,8 +5,7 @@
 * Splashscreen has very large image on android-21 emulator.
 
 * Only one face drawn even if more are in LiveData event.
-  - this is a feature of Firebase MLKit
-    - https://github.com/firebase/quickstart-android/issues/795
+  - this is a feature of MLKit
   - detect faces, crop image and redetect single face's contours?
     - probably required anyway, for accurate contour coordinate detection.
 
