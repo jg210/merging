@@ -5,16 +5,19 @@
     Issue id: IncompatibleIidVersion
   - https://github.com/firebase/firebase-android-sdk/issues/1339
     - need at firebase-id >= 20.1.5, have 20.0.0, from com.google.firebase:firebase-ml-vision:24.0.2
-  - https://github.com/firebase/firebase-android-sdk/issues/1407
-    - need recent android gradle plugin to avoid this.
+      => need to upgrade it or replace with ML Kit (see below).
+  X https://github.com/firebase/firebase-android-sdk/issues/1407
+    X need recent android gradle plugin to avoid this.
 
 * NDK crash reporting
 
 * MainActivity.kt: (78, 57): 'setCurrentScreen(Activity, String?, String?): Unit' is deprecated. Deprecated in Java
 
 * migrate from firebase-ml-vision to ML Kit
-  - https://developers.google.com/ml-kit/migration
-  - update README
+  X https://developers.google.com/ml-kit/migration
+  X ML Kit has removed FaceContour.ALL_POINTS
+  X update README
+  - close() all handles
 
 * Splashscreen has very large image on android-21 emulator.
 

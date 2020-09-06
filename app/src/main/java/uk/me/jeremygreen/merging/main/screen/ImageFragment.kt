@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
+import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,11 +46,11 @@ class ImageFragment : ScreenFragment() {
     private val BUNDLE_KEY__IMAGE_ID = "imageId"
 
     private val faceDetectorOptions by lazy {
-        FirebaseVisionFaceDetectorOptions.Builder()
-            .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
-            .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
-            .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
-            .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
+        FaceDetectorOptions.Builder()
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
+            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
+            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
+            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
             .build()
     }
 
