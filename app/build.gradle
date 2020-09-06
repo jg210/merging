@@ -34,7 +34,7 @@ int getVersionCode() {
 /**
  * The android "version name".
  */
-static String getVersionName() {
+String getVersionName() {
     if (!isVersioned()) {
         return "0.0.1"
     }
