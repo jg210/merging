@@ -1,0 +1,1 @@
+Migrate fabric to firebase-crashlytics, and firebase-ml-vision to ML Kit play-services-mlkit-face-detection.
