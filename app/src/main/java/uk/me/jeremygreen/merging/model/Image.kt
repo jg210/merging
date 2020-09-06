@@ -92,39 +92,37 @@ data class Image(
         dataSource.subscribe(dataSubscriber, CallerThreadExecutor.getInstance())
     }
 
+    /**
+     * Find faces, decrement Bitmap reference count, invoke appropriate callback.
+     */
     inline fun findFaces(
-        bitmap: Bitmap,
+        closeableReference: CloseableReference<Bitmap>,
         faceDetectorOptions: FaceDetectorOptions,
         crossinline onError: (Exception) -> Unit,
-        crossinline finally: () -> Unit,
         crossinline onSuccess: (List<Face>) -> Unit
     ) {
         val rotationDegrees = 0
+        val bitmap = closeableReference.get()
         val inputImage = InputImage.fromBitmap(bitmap, rotationDegrees)
         val detector = FaceDetection.getClient(faceDetectorOptions)
         val task = detector.process(inputImage)
+        val decrementBitmapReferenceCount = { -> closeableReference.close() }
         task.addOnSuccessListener { mlKitFaces ->
-            try {
-                val faces = mlKitFaces.map { mlKitFace ->
-                    val allContours = mlKitFace.allContours
-                    val coordinates: List<Coordinate> = allContours.flatMap { contour ->
-                        contour.points.map { point ->
-                            Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
-                        }
+            decrementBitmapReferenceCount()
+            val faces = mlKitFaces.map { mlKitFace ->
+                val allContours = mlKitFace.allContours
+                val coordinates: List<Coordinate> = allContours.flatMap { contour ->
+                    contour.points.map { point ->
+                        Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
                     }
-                    Face(0, this.id, coordinates)
                 }
-                onSuccess(faces)
-            } finally {
-                finally()
+                Face(0, this.id, coordinates)
             }
+            onSuccess(faces)
         }
         task.addOnFailureListener { e ->
-            try {
-                onError(e)
-            } finally {
-                finally()
-            }
+            decrementBitmapReferenceCount()
+            onError(e)
         }
     }
 
