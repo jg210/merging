@@ -1,3 +1,8 @@
+* Publishing to play store is broken.
+  - version number appears to be correct, but get error
+
+     "[!] Google Api Error: forbidden: APK has an invalid version code. - APK has an invalid version code."
+
 * NDK crash reporting
 
 * Splashscreen has very large image on android-21 emulator.
