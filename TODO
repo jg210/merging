@@ -1,18 +1,13 @@
-* Migrate from fabric to firebase SDK before it's shut down.
-  - make sure it's disabled until onboarding has been completed.
+* NDK crash reporting
 
-* migrate from firebase-ml-vision to ML Kit
-  - https://developers.google.com/ml-kit/migration
+* MainActivity.kt: (78, 57): 'setCurrentScreen(Activity, String?, String?): Unit' is deprecated. Deprecated in Java
 
-* splashscreen has very large image on android-21 emulator.
+* Splashscreen has very large image on android-21 emulator.
 
-* Configure NDK crash reporting.
-
-* Only one face drawn even if more are in LiveData event.
-  - this is a feature of Firebase MLKit
-    - https://github.com/firebase/quickstart-android/issues/795
-  - detect faces, crop image and redetect single face's contours?
-    - probably required anyway, for accurate contour coordinate detection.
+* detect all faces, crop image and redetect each face's contours
+  - can only detect one face if contour-detection enabled.
+  - allowing merging of group of faces from one photo
+  - probably required for accurate contour coordinate detection too.
 
 * Have seen three faces in LiveData message when there should be two.
 
@@ -54,6 +49,10 @@
   - create upload key
   - ???
 
+* Enable crashlytics and analytics in SplashActivity if previously enabled via OnboardingActivity.
+  - currently, enable in MainActivity, which avoids need to persist state, but means
+    early crashes not visible.
+
 * onboarding accept click area is still not high enough.
   - "This item's height is 38dp. Consider making the height of this touch target 48dp or larger."
 
@@ -88,7 +87,9 @@
 * Don't show splashscreen if start up is fast enough
   - but if do show it, show it for at least 1.5s.
 
-* Better unit tests.
+* Unit tests.
+  - write some
+  - run from test server
 
 * Garbage collect files after delete them and UI has finished updating.
   - when ViewPager2 stops using them
@@ -197,3 +198,8 @@
 
 * Make forks build on Circle CI?
   - dummy google-services.json?
+
+* Try https://developer.android.com/training/camerax when its out of beta.
+
+* ML Kit might need image orientation to be set
+  - https://developers.google.com/ml-kit/vision/face-detection/android#using-a-media.image

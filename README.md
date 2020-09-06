@@ -7,18 +7,18 @@ Work in progress.
 This kotlin android app will merge photos of faces. Currently, it:
 
 * Takes photos.
-* Detects face features and displays their location.
+* Detects and displays face features.
 * Shows onboarding and licence information.
 * Does not do database migrations, so data may be lost when upgrading.
 
 It's using:
 
-* [ML Kit](https://developers.google.com/ml-kit/) from the [Firebase](https://firebase.google.com/) platform for face feature detection.
+* [ML Kit](https://developers.google.com/ml-kit/vision/face-detection) for face feature detection.
 * [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics/) for crash reporting.
 * [Firebase Analytics](https://firebase.google.com/docs/analytics).
 * [Fresco](https://developers.google.com/ml-kit/) for android Bitmap management.
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build, test and continuous delivery.
-* [Fastlane](https://fastlane.tools/) to publish the app as a beta (early access) release on the [Google Play store](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging) for every commit on the master branch.
+* [Fastlane](https://fastlane.tools/) to publish the app as a beta (early access) release on the [Google Play store](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging) for every commit on the release branch.
 * [Material Design](https://material.io/design/).
 
 ## Development Environment
@@ -76,16 +76,18 @@ base64 --wrap=0 release.keystore && echo
 ## Branching
 
 * Development is done on "develop" branch.
-* Releases are made from "master" branch (automatically, see below).
+* Releases are made from "release" branch (automatically, see below).
 
 ## Creating Release
 
-* The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the master branch should be merge commits. Otherwise, the version number will generally increment by more than one.
-* Commit changelog to a new file in [fastlane/metadata/android/en-GB/changelogs](fastlane/metadata/android/en-GB/changelogs). Do this from the develop branch, prior to merging to master.
-* Wait for develop branch to be tested, otherwise github blocks pushes to the master branch.
+Releases to the play store are done automatically from the "release" branch using a Circle CI job and fastlane.
+
+* The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the release branch should be merge commits. Otherwise, the version number will generally increment by more than one.
+* Commit changelog to a new file in [fastlane/metadata/android/en-GB/changelogs](fastlane/metadata/android/en-GB/changelogs). Do this from the develop branch, prior to merging to release.
+* Wait for develop branch to be tested, otherwise github blocks pushes to the release branch.
 
 ```
-git checkout master
+git checkout release
 git pull
 git merge --no-ff origin/develop      # The commit message appears as release notes for github release, so copy from fastlane metadata file.
 git push

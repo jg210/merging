@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
+import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,11 +46,11 @@ class ImageFragment : ScreenFragment() {
     private val BUNDLE_KEY__IMAGE_ID = "imageId"
 
     private val faceDetectorOptions by lazy {
-        FirebaseVisionFaceDetectorOptions.Builder()
-            .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
-            .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
-            .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
-            .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
+        FaceDetectorOptions.Builder()
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
+            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
+            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
+            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
             .build()
     }
 
@@ -91,16 +91,11 @@ class ImageFragment : ScreenFragment() {
             // face-detection work.
             val clonedReference = closeableReference.clone()
             launch(Dispatchers.Default) {
-                try {
-                    Log.i(TAG, "detecting faces for image id: ${imageId}")
-                    val bitmap = clonedReference.get()
-                    image.findFaces(bitmap, faceDetectorOptions, ::handleFaceDetectionError) { faces ->
-                        Log.i(TAG, "detected ${faces.size} faces for image id: ${imageId}")
-                        val processedImage = image.copy(processingStage = ProcessingStage.facesDetected)
-                        appViewModel.addAll(processedImage, faces)
-                    }
-                } finally {
-                    clonedReference.close()
+                Log.i(TAG, "detecting faces for image id: ${imageId}")
+                image.findFaces(clonedReference, faceDetectorOptions, ::handleFaceDetectionError) { faces ->
+                    Log.i(TAG, "detected ${faces.size} faces for image id: ${imageId}")
+                    val processedImage = image.copy(processingStage = ProcessingStage.facesDetected)
+                    appViewModel.addAll(processedImage, faces)
                 }
             }
         }
