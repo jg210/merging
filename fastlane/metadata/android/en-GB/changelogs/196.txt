@@ -1,0 +1,1 @@
+Send face-detection errors to firebase, set google analytics warnings from setCurrentScreen() method.
