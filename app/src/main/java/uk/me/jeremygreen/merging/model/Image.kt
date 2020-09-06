@@ -17,10 +17,9 @@ import com.facebook.imagepipeline.datasource.BaseBitmapReferenceDataSubscriber
 import com.facebook.imagepipeline.image.CloseableImage
 import com.facebook.imagepipeline.request.ImageRequest.RequestLevel
 import com.facebook.imagepipeline.request.ImageRequestBuilder
-import com.google.firebase.ml.vision.FirebaseVision
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.face.FaceDetectorOptions
 import java.io.File
 
 @Entity(tableName = "images")
@@ -93,27 +92,42 @@ data class Image(
         dataSource.subscribe(dataSubscriber, CallerThreadExecutor.getInstance())
     }
 
+    /**
+     * Find faces, decrement Bitmap reference count, invoke appropriate callback.
+     */
     inline fun findFaces(
-        bitmap: Bitmap,
-        faceDetectorOptions: FirebaseVisionFaceDetectorOptions,
+        closeableReference: CloseableReference<Bitmap>,
+        faceDetectorOptions: FaceDetectorOptions,
         crossinline onError: (Exception) -> Unit,
         crossinline onSuccess: (List<Face>) -> Unit
     ) {
-        val firebaseImage = FirebaseVisionImage.fromBitmap(bitmap)
-        val detector = FirebaseVision.getInstance().getVisionFaceDetector(faceDetectorOptions)
-        val task = detector.detectInImage(firebaseImage)
-        task.addOnSuccessListener { firebaseVisionFaces ->
-            val faces = firebaseVisionFaces.map { firebaseVisionFace ->
-                val firebaseVisionFaceContour =
-                    firebaseVisionFace.getContour(FirebaseVisionFaceContour.ALL_POINTS)
-                val coordinates: List<Coordinate> = firebaseVisionFaceContour.points.map { point ->
-                    Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
+        val rotationDegrees = 0
+        val bitmap = closeableReference.get()
+        val inputImage = InputImage.fromBitmap(bitmap, rotationDegrees)
+        val detector = FaceDetection.getClient(faceDetectorOptions)
+        val task = detector.process(inputImage)
+        val onProcessingComplete = {
+            try {
+                detector.close()
+            } finally {
+                closeableReference.close()
+            }
+        }
+        task.addOnSuccessListener { mlKitFaces ->
+            onProcessingComplete()
+            val faces = mlKitFaces.map { mlKitFace ->
+                val allContours = mlKitFace.allContours
+                val coordinates: List<Coordinate> = allContours.flatMap { contour ->
+                    contour.points.map { point ->
+                        Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
+                    }
                 }
                 Face(0, this.id, coordinates)
             }
             onSuccess(faces)
         }
         task.addOnFailureListener { e ->
+            onProcessingComplete()
             onError(e)
         }
     }

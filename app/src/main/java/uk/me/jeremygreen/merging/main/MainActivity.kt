@@ -12,10 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
-import com.crashlytics.android.Crashlytics
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.analytics.FirebaseAnalytics
-import io.fabric.sdk.android.Fabric
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.main.*
 import uk.me.jeremygreen.merging.BuildConfig
 import uk.me.jeremygreen.merging.R
@@ -57,11 +56,13 @@ class MainActivity : AppCompatActivity() {
                 file = File(fileString)
             }
         }
-        // Firebase Analytics and Crashlytics are only configured after have agreed to their use.
+        // Firebase Analytics and Crashlytics are only enabled after have agreed to their
+        // use, which is done using OnboardingActivity.
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
         firebaseAnalytics.setAnalyticsCollectionEnabled(true)
         if (!BuildConfig.DEBUG) {
-            Fabric.with(this, Crashlytics())
+            val crashlytics = FirebaseCrashlytics.getInstance()
+            crashlytics.setCrashlyticsCollectionEnabled(true)
         }
         setContentView(R.layout.main)
         setSupportActionBar(this.toolbar)
@@ -73,7 +74,11 @@ class MainActivity : AppCompatActivity() {
                 val screenName: String? = this@MainActivity.pagerAdapter.screenName(pager)
                 Log.i(TAG, "screen name: ${screenName}")
                 if (screenName != null) {
-                    this@MainActivity.firebaseAnalytics.setCurrentScreen(this@MainActivity, screenName, null)
+                    this@MainActivity.firebaseAnalytics.setCurrentScreen(
+                        this@MainActivity,
+                        screenName,
+                        null
+                    )
                 }
             }
         }
