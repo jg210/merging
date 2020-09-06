@@ -22,9 +22,8 @@ static boolean isVersioned() {
  */
 int getVersionCode() {
     if (isVersioned()) {
-        def changelogsDir = new File(rootDir, "fastlane/metadata/android/en-GB/changelogs")
-        final command = "find ${changelogsDir} -name '*.txt' -name '*.txt' -exec basename '{}' ';' | sed 's/[.]txt\$//' | sort -n | tail -n1"
-        final stdout = command.execute().text.trim()
+        def versionNameScript = new File(rootDir, "bin/versionNumber")
+        final stdout = [versionNameScript].execute().text.trim()
         return Integer.parseInt(stdout)
     } else {
         return 1

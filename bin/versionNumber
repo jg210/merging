@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Copyright (c) 2019-2020 Jeremy Green.
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
+source "$(dirname "$0")/.common.sh"
+source "$(dirname "$0")/../environment"
+
+changelogsDir="$(dirname "$0")/../fastlane/metadata/android/en-GB/changelogs"
+
+find "${changelogsDir}" \
+     -name '*.txt' \
+     -name '*.txt' \
+     -exec basename '{}' ';' | \
+    sed 's/[.]txt$//' | \
+    sort -n | \
+    tail -n1
