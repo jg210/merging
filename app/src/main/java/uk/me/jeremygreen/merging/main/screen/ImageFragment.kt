@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.Dispatchers
@@ -103,6 +105,7 @@ class ImageFragment : ScreenFragment() {
 
     private fun handleFaceDetectionError(e: Exception) {
         Log.e(TAG, "face detection failed", e)
+        FirebaseCrashlytics.getInstance().recordException(e)
     }
 
     private fun handleLongClick(image: Image) {
