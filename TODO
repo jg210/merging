@@ -13,12 +13,6 @@
 
 * MainActivity.kt: (78, 57): 'setCurrentScreen(Activity, String?, String?): Unit' is deprecated. Deprecated in Java
 
-* migrate from firebase-ml-vision to ML Kit
-  X https://developers.google.com/ml-kit/migration
-  X ML Kit has removed FaceContour.ALL_POINTS
-  X update README
-  - close() all handles
-
 * Splashscreen has very large image on android-21 emulator.
 
 * Only one face drawn even if more are in LiveData event.
