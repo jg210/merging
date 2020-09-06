@@ -96,6 +96,7 @@ data class Image(
         bitmap: Bitmap,
         faceDetectorOptions: FaceDetectorOptions,
         crossinline onError: (Exception) -> Unit,
+        crossinline finally: () -> Unit,
         crossinline onSuccess: (List<Face>) -> Unit
     ) {
         val rotationDegrees = 0
@@ -103,19 +104,27 @@ data class Image(
         val detector = FaceDetection.getClient(faceDetectorOptions)
         val task = detector.process(inputImage)
         task.addOnSuccessListener { mlKitFaces ->
-            val faces = mlKitFaces.map { mlKitFace ->
-                val allContours = mlKitFace.allContours
-                val coordinates: List<Coordinate> = allContours.flatMap { contour ->
-                    contour.points.map { point ->
-                        Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
+            try {
+                val faces = mlKitFaces.map { mlKitFace ->
+                    val allContours = mlKitFace.allContours
+                    val coordinates: List<Coordinate> = allContours.flatMap { contour ->
+                        contour.points.map { point ->
+                            Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
+                        }
                     }
+                    Face(0, this.id, coordinates)
                 }
-                Face(0, this.id, coordinates)
+                onSuccess(faces)
+            } finally {
+                finally()
             }
-            onSuccess(faces)
         }
         task.addOnFailureListener { e ->
-            onError(e)
+            try {
+                onError(e)
+            } finally {
+                finally()
+            }
         }
     }
 
