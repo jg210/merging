@@ -38,6 +38,9 @@
             at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641) 
             at java.lang.Thread.run(Thread.java:764) 
 
+* ML Kit might need image orientation to be set
+  - https://developers.google.com/ml-kit/vision/face-detection/android#using-a-media.image
+
 * Splashscreen has very large image on android-21 emulator.
 
 * Only one face drawn even if more are in LiveData event.
@@ -234,3 +237,5 @@
 
 * Make forks build on Circle CI?
   - dummy google-services.json?
+
+* Try https://developer.android.com/training/camerax when its out of beta.
