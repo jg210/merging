@@ -25,7 +25,7 @@ static int gitFirstParentDepth() {
 }
 
 static boolean isVersioned() {
-    return getBranchName() == "master"
+    return getBranchName() == "release"
 }
 
 /**
