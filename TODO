@@ -7,6 +7,36 @@
   X ML Kit has removed FaceContour.ALL_POINTS
   X update README
   - close() all handles
+  - fix this
+    2020-09-06 13:09:53.674 1609-1609/uk.me.jeremygreen.merging.develop E/ImageFragment: face detection failed
+        com.google.mlkit.common.MlKitException: Internal error has occurred when executing ML Kit tasks
+            at com.google.mlkit.common.sdkinternal.ModelResource.zza(com.google.mlkit:common@@17.0.0:32)
+            at com.google.mlkit.common.sdkinternal.zzl.run(Unknown Source:10)
+            at com.google.mlkit.common.sdkinternal.zzp.run(com.google.mlkit:common@@17.0.0:3)
+            at com.google.mlkit.common.sdkinternal.MlKitThreadPool.zzd(com.google.mlkit:common@@17.0.0:24)
+            at com.google.mlkit.common.sdkinternal.MlKitThreadPool.zza(com.google.mlkit:common@@17.0.0:30)
+            at com.google.mlkit.common.sdkinternal.zzh.run(Unknown Source:2)
+            at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+            at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+            at java.lang.Thread.run(Thread.java:764)
+         Caused by: java.lang.IllegalStateException: Can't call getPixels() on a recycled bitmap
+            at android.graphics.Bitmap.checkRecycled(Bitmap.java:395)
+            at android.graphics.Bitmap.getPixels(Bitmap.java:1768)
+            at com.google.mlkit.vision.common.internal.ImageConvertUtils.convertToNv21Buffer(com.google.mlkit:vision-common@@16.1.0:28)
+            at com.google.mlkit.vision.face.internal.zzb.zza(com.google.android.gms:play-services-mlkit-face-detection@@16.1.1:69)
+            at com.google.mlkit.vision.face.internal.zzb.zza(com.google.android.gms:play-services-mlkit-face-detection@@16.1.1:90)
+            at com.google.mlkit.vision.face.internal.zzb.run(com.google.android.gms:play-services-mlkit-face-detection@@16.1.1:169)
+            at com.google.mlkit.vision.common.internal.MobileVisionBase.zza(com.google.mlkit:vision-common@@16.1.0:23)
+            at com.google.mlkit.vision.common.internal.zzc.call(Unknown Source:4)
+            at com.google.mlkit.common.sdkinternal.ModelResource.zza(com.google.mlkit:common@@17.0.0:29)
+            at com.google.mlkit.common.sdkinternal.zzl.run(Unknown Source:10) 
+            at com.google.mlkit.common.sdkinternal.zzp.run(com.google.mlkit:common@@17.0.0:3) 
+            at com.google.mlkit.common.sdkinternal.MlKitThreadPool.zzd(com.google.mlkit:common@@17.0.0:24) 
+            at com.google.mlkit.common.sdkinternal.MlKitThreadPool.zza(com.google.mlkit:common@@17.0.0:30) 
+            at com.google.mlkit.common.sdkinternal.zzh.run(Unknown Source:2) 
+            at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167) 
+            at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641) 
+            at java.lang.Thread.run(Thread.java:764) 
 
 * Splashscreen has very large image on android-21 emulator.
 
