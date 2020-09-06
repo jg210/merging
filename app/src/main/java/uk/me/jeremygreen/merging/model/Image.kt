@@ -106,9 +106,15 @@ data class Image(
         val inputImage = InputImage.fromBitmap(bitmap, rotationDegrees)
         val detector = FaceDetection.getClient(faceDetectorOptions)
         val task = detector.process(inputImage)
-        val decrementBitmapReferenceCount = { -> closeableReference.close() }
+        val onProcessingComplete = {
+            try {
+                detector.close()
+            } finally {
+                closeableReference.close()
+            }
+        }
         task.addOnSuccessListener { mlKitFaces ->
-            decrementBitmapReferenceCount()
+            onProcessingComplete()
             val faces = mlKitFaces.map { mlKitFace ->
                 val allContours = mlKitFace.allContours
                 val coordinates: List<Coordinate> = allContours.flatMap { contour ->
@@ -121,7 +127,7 @@ data class Image(
             onSuccess(faces)
         }
         task.addOnFailureListener { e ->
-            decrementBitmapReferenceCount()
+            onProcessingComplete()
             onError(e)
         }
     }
