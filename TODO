@@ -1,3 +1,13 @@
+* Failing lint check.
+  - FirebaseInstanceId version is not compatible with FirebaseInstallations
+    These versions of FirebaseInstanceId and FirebaseInstallations can not be used in parallel.
+    Please update your Firebase Instance ID to a version 20.1.1 or later.
+    Issue id: IncompatibleIidVersion
+  - https://github.com/firebase/firebase-android-sdk/issues/1339
+    - need at firebase-id >= 20.1.5, have 20.0.0, from com.google.firebase:firebase-ml-vision:24.0.2
+  - https://github.com/firebase/firebase-android-sdk/issues/1407
+    - need recent android gradle plugin to avoid this.
+
 * NDK crash reporting
 
 * MainActivity.kt: (78, 57): 'setCurrentScreen(Activity, String?, String?): Unit' is deprecated. Deprecated in Java
