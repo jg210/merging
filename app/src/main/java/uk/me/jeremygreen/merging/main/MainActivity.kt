@@ -53,13 +53,13 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState != null) {
             val fileString = savedInstanceState.getString(BUNDLE_KEY__FILE)
             if (fileString != null) {
-                file = File(fileString)
+                this.file = File(fileString)
             }
         }
         // Firebase Analytics and Crashlytics are only enabled after have agreed to their
         // use, which is done using OnboardingActivity.
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
-        firebaseAnalytics.setAnalyticsCollectionEnabled(true)
+        this.firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        this.firebaseAnalytics.setAnalyticsCollectionEnabled(true)
         if (!BuildConfig.DEBUG) {
             val crashlytics = FirebaseCrashlytics.getInstance()
             crashlytics.setCrashlyticsCollectionEnabled(true)
@@ -72,21 +72,24 @@ class MainActivity : AppCompatActivity() {
         this.pageChangeCallback = object: ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 val screenName: String? = this@MainActivity.pagerAdapter.screenName(pager)
-                Log.i(TAG, "screen name: ${screenName}")
-                if (screenName != null) {
-                    this@MainActivity.firebaseAnalytics.setCurrentScreen(
-                        this@MainActivity,
-                        screenName,
-                        null
-                    )
-                }
+                screenView(screenName)
             }
         }
-        appViewModel.allImages().observe(this, Observer { images ->
+        this.appViewModel.allImages().observe(this, Observer { images ->
             this.pagerAdapter.setImages(images)
         })
         val licencesTitle = resources.getString(R.string.actionLicences)
         OssLicensesMenuActivity.setActivityTitle(licencesTitle)
+    }
+
+    private fun screenView(screenName: String?) {
+        if (screenName == null) {
+            return
+        }
+        Log.i(TAG, "screen name: ${screenName}")
+        val params = Bundle()
+        params.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
+        this.firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, params)
     }
 
     // Activity
@@ -105,7 +108,7 @@ class MainActivity : AppCompatActivity() {
 
     // Activity
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
+        this.menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
@@ -170,7 +173,7 @@ class MainActivity : AppCompatActivity() {
             if (file == null) {
                 throw AssertionError()
             }
-            appViewModel.addImage(file.path)
+            this.appViewModel.addImage(file.path)
         }
     }
 
