@@ -82,14 +82,14 @@ base64 --wrap=0 release.keystore && echo
 
 Releases to the play store are done automatically from the "release" branch using a Circle CI job and fastlane.
 
-* The version numbers are generated from the first-parent depth of the git commit graph, so all commits to the release branch should be merge commits. Otherwise, the version number will generally increment by more than one.
-* Commit changelog to a new file in [fastlane/metadata/android/en-GB/changelogs](fastlane/metadata/android/en-GB/changelogs). Do this from the develop branch, prior to merging to release.
+* Commit changelog to a new file in [fastlane/metadata/android/en-GB/changelogs](fastlane/metadata/android/en-GB/changelogs). Do this from the develop branch, prior to merging to release. The highest-numbered changelog file sets the android app's version number.
 * Wait for develop branch to be tested, otherwise github blocks pushes to the release branch.
+* Run the following commands:
 
 ```
 git checkout release
 git pull
-git merge --no-ff origin/develop      # The commit message appears as release notes for github release, so copy from fastlane metadata file.
+git merge --no-ff origin/develop      # The commit message appears as release notes for github release, so copy from fastlane changelog file.
 git push
 git checkout develop
 ```
