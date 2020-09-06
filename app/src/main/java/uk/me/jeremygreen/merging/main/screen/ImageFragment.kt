@@ -91,7 +91,7 @@ class ImageFragment : ScreenFragment() {
             // face-detection work.
             val clonedReference = closeableReference.clone()
             launch(Dispatchers.Default) {
-                try {
+                clonedReference.use { clonedReference ->
                     Log.i(TAG, "detecting faces for image id: ${imageId}")
                     val bitmap = clonedReference.get()
                     image.findFaces(bitmap, faceDetectorOptions, ::handleFaceDetectionError) { faces ->
@@ -99,8 +99,6 @@ class ImageFragment : ScreenFragment() {
                         val processedImage = image.copy(processingStage = ProcessingStage.facesDetected)
                         appViewModel.addAll(processedImage, faces)
                     }
-                } finally {
-                    clonedReference.close()
                 }
             }
         }
