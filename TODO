@@ -2,21 +2,12 @@
 
 * MainActivity.kt: (78, 57): 'setCurrentScreen(Activity, String?, String?): Unit' is deprecated. Deprecated in Java
 
-* migrate from firebase-ml-vision to ML Kit
-  X https://developers.google.com/ml-kit/migration
-  X ML Kit has removed FaceContour.ALL_POINTS
-  X update README
-  - close() all handles
-
-* ML Kit might need image orientation to be set
-  - https://developers.google.com/ml-kit/vision/face-detection/android#using-a-media.image
-
 * Splashscreen has very large image on android-21 emulator.
 
-* Only one face drawn even if more are in LiveData event.
-  - this is a feature of MLKit
-  - detect faces, crop image and redetect single face's contours?
-    - probably required anyway, for accurate contour coordinate detection.
+* detect all faces, crop image and redetect each face's contours
+  - can only detect one face if contour-detection enabled.
+  - allowing merging of group of faces from one photo
+  - probably required for accurate contour coordinate detection too.
 
 * Have seen three faces in LiveData message when there should be two.
 
@@ -209,3 +200,6 @@
   - dummy google-services.json?
 
 * Try https://developer.android.com/training/camerax when its out of beta.
+
+* ML Kit might need image orientation to be set
+  - https://developers.google.com/ml-kit/vision/face-detection/android#using-a-media.image
