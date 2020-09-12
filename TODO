@@ -1,8 +1,3 @@
-* Publishing to play store is broken.
-  - version number appears to be correct, but get error
-
-     "[!] Google Api Error: forbidden: APK has an invalid version code. - APK has an invalid version code."
-
 * NDK crash reporting
 
 * Splashscreen has very large image on android-21 emulator.
@@ -187,3 +182,5 @@
 
 * ML Kit might need image orientation to be set
   - https://developers.google.com/ml-kit/vision/face-detection/android#using-a-media.image
+
+* Add "Developer page" for app on google play console.
