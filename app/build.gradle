@@ -21,13 +21,16 @@ static boolean isVersioned() {
  * The android "version code", from the highest-number changelog file.
  */
 int getVersionCode() {
+    final int versionCode;
     if (isVersioned()) {
         def versionNameScript = new File(rootDir, "bin/versionNumber")
         final stdout = [versionNameScript].execute().text.trim()
-        return Integer.parseInt(stdout)
+        versionCode = Integer.parseInt(stdout)
     } else {
-        return 1
+        versionCode = 1
     }
+    logger.lifecycle("verson code: ${versionCode}")
+    return versionCode
 }
 
 /**
