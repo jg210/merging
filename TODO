@@ -3,6 +3,10 @@
 
      "[!] Google Api Error: forbidden: APK has an invalid version code. - APK has an invalid version code."
 
+  - apk is missing the version name and code:
+
+    $ANDROID_HOME/build-tools/29.0.3/aapt dump badging app/build/outputs/apk/product/release/app-product-release.apk | egrep version
+
 * NDK crash reporting
 
 * Splashscreen has very large image on android-21 emulator.
