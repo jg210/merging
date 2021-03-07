@@ -1,12 +1,13 @@
 #!/bin/bash
 #
-# Copyright (c) 2019-2020 Jeremy Green.
+# Copyright (c) 2019-2021 Jeremy Green.
 
 set -o errexit
 set -o nounset
 set -o pipefail
 set -o errtrace
 
+# shellcheck source=./common.sh
 source "$(dirname "$0")/.common.sh"
 SOURCE_DIR="$(dirname "$0")/.."
 cd "${SOURCE_DIR}"
@@ -14,7 +15,7 @@ cd "${SOURCE_DIR}"
 rubyVersionExpected="$(cat "${SOURCE_DIR}/.ruby-version")"
 
 circleCiConfig="${SOURCE_DIR}/.circleci/config.yml"
-rubyVersionCircleCi=$(egrep '^ *- image: circleci/ruby:' "${circleCiConfig}" | cut -d: -f3- | egrep --only-matching '[^ ].*')
+rubyVersionCircleCi=$(grep -E '^ *- image: circleci/ruby:' "${circleCiConfig}" | cut -d: -f3- | grep -E --only-matching '[^ ].*')
 if [ "${rubyVersionExpected}" != "${rubyVersionCircleCi}" ] ; then
     log "ERROR: circle CI ruby version needs to be updated in ${circleCiConfig}"
     log "expected: ${rubyVersionExpected}"
@@ -22,7 +23,7 @@ if [ "${rubyVersionExpected}" != "${rubyVersionCircleCi}" ] ; then
     exit 1
 fi
 
-if which rbenv > /dev/null 2> /dev/null ; then
+if command -v rbenv > /dev/null 2> /dev/null ; then
     log "installing ruby ${rubyVersionExpected}"
     rbenv install "${rubyVersionExpected}" \
 	  --skip-existing \
@@ -41,6 +42,7 @@ EOF
 	exit 1
     fi
 fi
+# shellcheck source=../environment
 . "${SOURCE_DIR}/environment"
 gem install bundler --version 2.1.4
 bundler install \

@@ -1,13 +1,15 @@
 #!/bin/bash
 #
-# Copyright (c) 2019-2020 Jeremy Green.
+# Copyright (c) 2019-2021 Jeremy Green.
 
 set -o errexit
 set -o nounset
 set -o pipefail
 set -o errtrace
 
+# shellcheck source=./common.sh
 source "$(dirname "$0")/.common.sh"
+# shellcheck source=../environment
 source "$(dirname "$0")/../environment"
 
 changelogsDir="$(dirname "$0")/../fastlane/metadata/android/en-GB/changelogs"
