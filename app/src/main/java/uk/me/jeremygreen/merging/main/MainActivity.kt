@@ -10,7 +10,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -144,7 +143,7 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(intent, REQUEST_TAKE_PHOTO)
     }
 
-    private fun createTakePhotoIntent(): Intent? {
+    private fun createTakePhotoIntent(): Intent {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val uuid = UUID.randomUUID()
         val file = File(imagesDir, "${uuid}.jpg")
@@ -161,11 +160,8 @@ class MainActivity : AppCompatActivity() {
     // Activity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
-            val file = file
-            if (file == null) {
-                throw AssertionError()
-            }
+        val file = file
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO && file != null) {
             this.appViewModel.addImage(file.path)
         }
     }
