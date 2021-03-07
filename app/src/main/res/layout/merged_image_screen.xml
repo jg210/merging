@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="merged image"
+        android:text="@string/merged_image"
         android:textColor="@color/colorAccent"
     />
 

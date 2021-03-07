@@ -141,6 +141,9 @@
     - https://github.com/firebase/quickstart-android/issues/586
       - for custom image recognition models, not face detection
 
+* Remove background before merging
+  - https://developers.google.com/ml-kit/vision/selfie-segmentation
+
 * Use androidx.palette to ensure image overlay visible?
   - dev/image_overlay_palette
 
@@ -168,7 +171,7 @@
 
 * "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
 
-* AndroidManifest says app suports RTL.
+* AndroidManifest says app supports RTL.
   - is that correct?
 
 * Allow app's data to be backed up.

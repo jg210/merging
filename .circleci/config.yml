@@ -61,7 +61,7 @@ jobs:
             ghr -t "${GITHUB_TOKEN}"  -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" "v${VERSION}" ./artifacts/outputs/apk/product/release/app-product-release.apk
   publish-play-store:
     docker:
-      - image: circleci/ruby:2.7.1
+      - image: circleci/ruby:2.7.2
     steps:
       - checkout
       - run:

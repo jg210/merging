@@ -60,7 +60,7 @@ class OnboardingActivity: AppCompatActivity() {
         super.onResume()
         this.onboarding_accept_button.setOnClickListener {
             onboarding_accept_button.setOnClickListener(null)
-            appViewModel.acceptOnboarding(OnboardingActivity.version)
+            appViewModel.acceptOnboarding(version)
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
             startActivity(intent)

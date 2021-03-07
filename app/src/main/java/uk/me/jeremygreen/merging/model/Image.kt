@@ -107,10 +107,8 @@ data class Image(
         val detector = FaceDetection.getClient(faceDetectorOptions)
         val task = detector.process(inputImage)
         val onProcessingComplete = {
-            try {
+            closeableReference.use {
                 detector.close()
-            } finally {
-                closeableReference.close()
             }
         }
         task.addOnSuccessListener { mlKitFaces ->

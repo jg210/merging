@@ -26,7 +26,9 @@ class FacesView : SimpleDraweeView {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    private val TAG = "FacesView"
+    companion object {
+        private const val TAG = "FacesView"
+    }
 
     private val paint = Paint().apply {
         isAntiAlias = true
@@ -34,7 +36,7 @@ class FacesView : SimpleDraweeView {
             resources.getColor(R.color.imageOverlay, context.theme)
         } else {
             @Suppress("DEPRECATION") // No other API if target API 21.
-            resources.getColor(R.color.imageOverlay);
+            resources.getColor(R.color.imageOverlay)
         }
         style = Paint.Style.FILL
     }
