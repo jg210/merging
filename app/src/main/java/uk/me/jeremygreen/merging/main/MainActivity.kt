@@ -140,19 +140,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleTakePhoto() {
         val intent = createTakePhotoIntent()
-        if (intent == null) {
-            Log.w(TAG, "No camera application available.")
-        } else {
-            startActivityForResult(intent, REQUEST_TAKE_PHOTO)
-        }
+        startActivityForResult(intent, REQUEST_TAKE_PHOTO)
     }
 
     private fun createTakePhotoIntent(): Intent? {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val cameraActivity = intent.resolveActivity(baseContext.packageManager)
-        if (cameraActivity == null) {
-            return null
-        }
         val uuid = UUID.randomUUID()
         val file = File(imagesDir, "${uuid}.jpg")
         val imageUri: Uri = FileProvider.getUriForFile(
