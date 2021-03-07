@@ -21,7 +21,7 @@ static boolean isVersioned() {
  * The android "version code", from the highest-number changelog file.
  */
 static int getVersionCode() {
-    final int versionCode;
+    final int versionCode
     if (isVersioned()) {
         def versionNameScript = new File("bin/versionNumber")
         final stdout = [versionNameScript].execute().text.trim()
