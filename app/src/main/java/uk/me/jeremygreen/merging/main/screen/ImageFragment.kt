@@ -7,8 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.android.synthetic.main.image_screen.*
@@ -23,6 +21,9 @@ import uk.me.jeremygreen.merging.model.ProcessingStage
 class ImageFragment : ScreenFragment() {
 
     companion object {
+
+        private const val TAG = "ImageFragment"
+        private const val BUNDLE_KEY__IMAGE_ID = "imageId"
 
         fun createFactory(image: Image): ScreenFragmentFactory<ImageFragment> {
             if (image.id < 0) {
@@ -43,9 +44,6 @@ class ImageFragment : ScreenFragment() {
         }
 
     }
-
-    private val TAG = "ImageFragment"
-    private val BUNDLE_KEY__IMAGE_ID = "imageId"
 
     private val faceDetectorOptions by lazy {
         FaceDetectorOptions.Builder()
@@ -69,9 +67,9 @@ class ImageFragment : ScreenFragment() {
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
         val facesView = this.faces
-        appViewModel.faces(imageId).observe(viewLifecycleOwner, Observer { faces ->
+        appViewModel.faces(imageId).observe(viewLifecycleOwner) { faces ->
             facesView.faces = faces
-        })
+        }
         launch(Dispatchers.IO) {
             val image = appViewModel.findById(imageId)
             launch(Dispatchers.Main) {

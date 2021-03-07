@@ -26,14 +26,15 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     companion object {
+        private const val TAG = "MainActivity"
+        private const val REQUEST_TAKE_PHOTO = 1
+        private const val BUNDLE_KEY__FILE = "file"
+
         fun imagesDir(activity: Activity): File {
             return File(activity.filesDir, "photos")
         }
     }
 
-    private val TAG = "MainActivity"
-    private val REQUEST_TAKE_PHOTO = 1
-    private val BUNDLE_KEY__FILE = "file"
     private var file: File? = null
     private lateinit var pagerAdapter: PagerAdapterImpl
     private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
@@ -75,9 +76,9 @@ class MainActivity : AppCompatActivity() {
                 screenView(screenName)
             }
         }
-        this.appViewModel.allImages().observe(this, Observer { images ->
+        this.appViewModel.allImages().observe(this) { images ->
             this.pagerAdapter.setImages(images)
-        })
+        }
         val licencesTitle = resources.getString(R.string.actionLicences)
         OssLicensesMenuActivity.setActivityTitle(licencesTitle)
     }
