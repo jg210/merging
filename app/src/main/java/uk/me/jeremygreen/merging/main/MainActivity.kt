@@ -10,7 +10,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -26,14 +25,15 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     companion object {
+        private const val TAG = "MainActivity"
+        private const val REQUEST_TAKE_PHOTO = 1
+        private const val BUNDLE_KEY__FILE = "file"
+
         fun imagesDir(activity: Activity): File {
             return File(activity.filesDir, "photos")
         }
     }
 
-    private val TAG = "MainActivity"
-    private val REQUEST_TAKE_PHOTO = 1
-    private val BUNDLE_KEY__FILE = "file"
     private var file: File? = null
     private lateinit var pagerAdapter: PagerAdapterImpl
     private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
@@ -75,9 +75,9 @@ class MainActivity : AppCompatActivity() {
                 screenView(screenName)
             }
         }
-        this.appViewModel.allImages().observe(this, Observer { images ->
+        this.appViewModel.allImages().observe(this) { images ->
             this.pagerAdapter.setImages(images)
-        })
+        }
         val licencesTitle = resources.getString(R.string.actionLicences)
         OssLicensesMenuActivity.setActivityTitle(licencesTitle)
     }
@@ -140,19 +140,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleTakePhoto() {
         val intent = createTakePhotoIntent()
-        if (intent == null) {
-            Log.w(TAG, "No camera application available.")
-        } else {
-            startActivityForResult(intent, REQUEST_TAKE_PHOTO)
-        }
+        startActivityForResult(intent, REQUEST_TAKE_PHOTO)
     }
 
-    private fun createTakePhotoIntent(): Intent? {
+    private fun createTakePhotoIntent(): Intent {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val cameraActivity = intent.resolveActivity(baseContext.packageManager)
-        if (cameraActivity == null) {
-            return null
-        }
         val uuid = UUID.randomUUID()
         val file = File(imagesDir, "${uuid}.jpg")
         val imageUri: Uri = FileProvider.getUriForFile(
@@ -168,11 +160,8 @@ class MainActivity : AppCompatActivity() {
     // Activity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
-            val file = file
-            if (file == null) {
-                throw AssertionError()
-            }
+        val file = file
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO && file != null) {
             this.appViewModel.addImage(file.path)
         }
     }

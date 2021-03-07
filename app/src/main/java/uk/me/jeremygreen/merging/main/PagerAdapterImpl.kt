@@ -16,7 +16,9 @@ class PagerAdapterImpl(
     fragmentActivity: FragmentActivity
 ) : FragmentStateAdapter(fragmentActivity) {
 
-    private val TAG = "PagerAdapterImpl"
+    companion object {
+        private const val TAG = "PagerAdapterImpl"
+    }
 
     private var ids: Set<Long> = setOf()
     private var factories: List<ScreenFragmentFactory<*>> = listOf()

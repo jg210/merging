@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package uk.me.jeremygreen.merging
 
 import android.app.Application
