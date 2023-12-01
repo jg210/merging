@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'com.google.android.gms.oss-licenses-plugin'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'org.jetbrains.kotlin.kapt'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
@@ -53,6 +52,9 @@ android {
         versionCode getVersionCode()
         versionName getVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildFeatures {
+        viewBinding = true
     }
     signingConfigs {
         release {

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import kotlinx.android.synthetic.main.onboarding.*
 import uk.me.jeremygreen.merging.R
+import uk.me.jeremygreen.merging.databinding.OnboardingBinding
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.model.AppViewModel
 
@@ -21,15 +22,17 @@ class OnboardingActivity: AppCompatActivity() {
         const val version = 2L
     }
 
+    private lateinit var onboardingBinding: OnboardingBinding
     private lateinit var appViewModel: AppViewModel
 
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        onboardingBinding = OnboardingBinding.inflate(layoutInflater)
         setContentView(R.layout.onboarding)
         appViewModel = AppViewModel.getInstance(this, application)
-        setSupportActionBar(onboardingToolbar)
-        this.onboardingTextContainer.children.forEach { child: View ->
+        setSupportActionBar(onboardingBinding.onboardingToolbar)
+        onboardingBinding.onboardingTextContainer.children.forEach { child: View ->
             if (child is TextView) {
                 addBullet(child)
             }
@@ -58,15 +61,15 @@ class OnboardingActivity: AppCompatActivity() {
     // Activity
     override fun onResume() {
         super.onResume()
-        this.onboarding_accept_button.setOnClickListener {
-            onboarding_accept_button.setOnClickListener(null)
+        onboardingBinding.onboardingAcceptButton.setOnClickListener {
+            onboardingBinding.onboardingAcceptButton.setOnClickListener(null)
             appViewModel.acceptOnboarding(version)
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
             startActivity(intent)
             finish()
         }
-        this.onboarding_accept_checkbox.setOnClickListener {
+        onboardingBinding.onboardingAcceptCheckbox.setOnClickListener {
             updateFabState()
         }
         updateFabState()
@@ -76,17 +79,17 @@ class OnboardingActivity: AppCompatActivity() {
      * Update FloatingActionButton properties etc.
      */
     private fun updateFabState() {
-        if (this.onboarding_accept_checkbox.isChecked) {
-            this.onboarding_accept_button.show()
+        if (onboardingBinding.onboardingAcceptCheckbox.isChecked) {
+            onboardingBinding.onboardingAcceptButton.show()
         } else {
-            this.onboarding_accept_button.hide()
+            onboardingBinding.onboardingAcceptButton.hide()
         }
     }
 
     // Activity
     override fun onPause() {
-        this.onboarding_accept_button.setOnClickListener(null)
-        this.onboarding_accept_checkbox.setOnClickListener(null)
+        onboardingBinding.onboardingAcceptButton.setOnClickListener(null)
+        onboardingBinding.onboardingAcceptCheckbox.setOnClickListener(null)
         super.onPause()
     }
 
