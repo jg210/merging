@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="uk.me.jeremygreen.merging"
-          tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning">
     <uses-feature android:name="android.hardware.camera" android:required="true" />
 
     <application
