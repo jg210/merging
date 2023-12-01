@@ -14,7 +14,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import kotlinx.android.synthetic.main.main.*
 import uk.me.jeremygreen.merging.BuildConfig
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.about.AboutActivity
