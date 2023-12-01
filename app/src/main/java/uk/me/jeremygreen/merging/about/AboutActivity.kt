@@ -8,6 +8,8 @@ import uk.me.jeremygreen.merging.databinding.AboutBinding
 
 class AboutActivity: AppCompatActivity() {
 
+    private val versionName by lazy { packageManager.getPackageInfo(packageName, 0).versionName }
+
     private lateinit var aboutBinding: AboutBinding
 
     // Activity
@@ -16,7 +18,7 @@ class AboutActivity: AppCompatActivity() {
         aboutBinding = AboutBinding.inflate(layoutInflater)
         setContentView(R.layout.about)
         setSupportActionBar(aboutBinding.aboutToolbar)
-        aboutBinding.appVersion.text = getString(R.string.version, BuildConfig.APPLICATION_ID, BuildConfig.VERSION_NAME)
+        aboutBinding.appVersion.text = getString(R.string.version, BuildConfig.APPLICATION_ID, versionName)
     }
 
     // Activity
