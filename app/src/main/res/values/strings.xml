@@ -7,7 +7,7 @@
     <string name="onboardingText_04">Uses Firebase Crashlytics for crash reporting.</string>
     <string name="onboardingText_05">Uses Firebase Analytics to analyze how you use the app.</string>
     <string name="onboardingText_06">Does not do database migrations yet, so data may be lost when upgrading.</string>
-    <string name="onboarding_accept_checkbox">I agree</string>
+    <string name="onboardingAcceptCheckbox">I agree</string>
     <string name="onboarding_accept_content_description">OK</string>
     <string name="actionLicences">Licences</string>
     <string name="actionAbout">About</string>
