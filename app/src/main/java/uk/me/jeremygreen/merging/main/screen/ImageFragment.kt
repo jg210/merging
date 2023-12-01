@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.mlkit.vision.face.FaceDetectorOptions
-import kotlinx.android.synthetic.main.image_screen.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uk.me.jeremygreen.merging.R
+import uk.me.jeremygreen.merging.databinding.ImageScreenBinding
 import uk.me.jeremygreen.merging.main.ScreenFragment
 import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
 import uk.me.jeremygreen.merging.model.Image
@@ -45,6 +45,9 @@ class ImageFragment : ScreenFragment() {
 
     }
 
+    private var _binding: ImageScreenBinding? = null
+    private val binding get() = _binding!!
+
     private val faceDetectorOptions by lazy {
         FaceDetectorOptions.Builder()
             .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
@@ -58,15 +61,16 @@ class ImageFragment : ScreenFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.image_screen, container, false)
+    ): View {
+        _binding = ImageScreenBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val bundle = arguments
         val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
-        val facesView = this.faces
+        val facesView = binding.faces
         appViewModel.faces(imageId).observe(viewLifecycleOwner) { faces ->
             facesView.faces = faces
         }
@@ -80,6 +84,11 @@ class ImageFragment : ScreenFragment() {
                 processFaces(image, imageId)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
     private fun processFaces(image: Image, imageId: Long) {
@@ -110,7 +119,7 @@ class ImageFragment : ScreenFragment() {
         AlertDialog.Builder(requireContext()).apply {
             setMessage(R.string.confirmDeleteImage)
             setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
-                faces.setOnLongClickListener { false }
+                binding.faces.setOnLongClickListener { false }
                 appViewModel.delete(image)
             }
             setNegativeButton(R.string.cancel) { _: DialogInterface, _: Int -> }
