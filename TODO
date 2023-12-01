@@ -4,6 +4,8 @@
 
 * Complete data safety form on play store.
 
+* Bullet points missing from onboarding screen.
+
 * Use KSP not kapt for room.
   - https://developer.android.com/build/migrate-to-ksp
 
