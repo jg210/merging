@@ -4,6 +4,8 @@
 
 * Bullet points missing from onboarding screen.
 
+* Don't need jetifier any more.
+
 * Use KSP not kapt for room.
   - https://developer.android.com/build/migrate-to-ksp
 
@@ -15,6 +17,8 @@
   - can only detect one face if contour-detection enabled.
   - allowing merging of group of faces from one photo
   - probably required for accurate contour coordinate detection too.
+
+* Use fingerprint of onboarding text not "version" in OnboardingActivity?
 
 * Have seen three faces in LiveData message when there should be two.
 
