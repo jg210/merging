@@ -4,8 +4,6 @@
 
 * Bullet points missing from onboarding screen.
 
-* Don't need jetifier any more.
-
 * Use KSP not kapt for room.
   - https://developer.android.com/build/migrate-to-ksp
 
