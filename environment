@@ -1,8 +1,14 @@
 # -*- mode: shell-script -*-
 #
-# Copyright (c) 2019 Jeremy Green.
+# Copyright (c) 2019-2023 Jeremy Green.
 
 SOURCE_DIR="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
+
+# java
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH="${JAVA_HOME}/bin:${PATH}"
+
+# ruby
 if [ -d "${HOME}/.rbenv/bin" ] ; then
    PATH="${HOME}/.rbenv/bin:${PATH}"
 fi
@@ -14,8 +20,6 @@ PATH="${SOURCE_DIR}/bin:${PATH}"
 
 # https://docs.fastlane.tools/getting-started/ios/setup/#set-up-environment-variables
 export LC_ALL=C.UTF-8
-export LANG=C.UTF-8
-
 . "${SOURCE_DIR}/fastlane/completions/completion.bash"
 
 # Android SDK.
