@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
-import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.databinding.OnboardingBinding
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.model.AppViewModel
@@ -28,7 +27,7 @@ class OnboardingActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onboardingBinding = OnboardingBinding.inflate(layoutInflater)
-        setContentView(R.layout.onboarding)
+        setContentView(onboardingBinding.root)
         appViewModel = AppViewModel.getInstance(this, application)
         setSupportActionBar(onboardingBinding.onboardingToolbar)
         onboardingBinding.onboardingTextContainer.children.forEach { child: View ->

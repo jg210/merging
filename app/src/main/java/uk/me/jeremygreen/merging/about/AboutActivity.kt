@@ -16,7 +16,7 @@ class AboutActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         aboutBinding = AboutBinding.inflate(layoutInflater)
-        setContentView(R.layout.about)
+        setContentView(aboutBinding.root)
         setSupportActionBar(aboutBinding.aboutToolbar)
         aboutBinding.appVersion.text = getString(R.string.version, BuildConfig.APPLICATION_ID, versionName)
     }

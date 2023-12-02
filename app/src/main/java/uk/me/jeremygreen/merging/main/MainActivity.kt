@@ -66,11 +66,11 @@ class MainActivity : AppCompatActivity() {
             val crashlytics = FirebaseCrashlytics.getInstance()
             crashlytics.setCrashlyticsCollectionEnabled(true)
         }
-        setContentView(R.layout.main)
-        setSupportActionBar(mainBinding.toolbar)
+        setContentView(this.mainBinding.root)
+        setSupportActionBar(this.mainBinding.toolbar)
         this.pagerAdapter = PagerAdapterImpl(this)
-        mainBinding.pager.adapter = this.pagerAdapter
-        mainBinding.pager.offscreenPageLimit = 2
+        this.mainBinding.pager.adapter = this.pagerAdapter
+        this.mainBinding.pager.offscreenPageLimit = 2
         this.pageChangeCallback = object: ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 val screenName: String? = this@MainActivity.pagerAdapter.screenName(mainBinding.pager)
