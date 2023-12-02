@@ -123,7 +123,9 @@ dependencies {
 
 task writeVersionFile {
     doLast {
-        file("${buildDir}/version").write(getVersionName(), "UTF-8")
+        def versionFile = file("${buildDir}/version")
+        versionFile.parentFile.mkdirs()
+        versionFile.write(getVersionName(), "UTF-8")
     }
 }
 
