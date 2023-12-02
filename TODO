@@ -4,8 +4,6 @@
 * Complete data safety form on play store.
   - need to do this after privacy policy.
 
-* Add gradle version to circle CI cache key.
-
 * Use KSP not kapt for room.
   - https://developer.android.com/build/migrate-to-ksp
 
