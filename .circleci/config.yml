@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:2023.11.1
+      - image: cimg/android:2023.11.1
     environment:
       JVM_OPTS: -Xmx3200m
       ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
