@@ -2,6 +2,7 @@ package uk.me.jeremygreen.merging.onboarding
 
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import uk.me.jeremygreen.merging.databinding.OnboardingBinding
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.model.AppViewModel
+
 
 class OnboardingActivity: AppCompatActivity() {
 
@@ -36,6 +38,15 @@ class OnboardingActivity: AppCompatActivity() {
         binding.onboardingWebView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 binding.onboardingAcceptCheckbox.visibility = View.VISIBLE
+            }
+            override fun shouldOverrideUrlLoading(webView: WebView?, url: String): Boolean {
+                if (url.startsWith("mailto:")) {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.setData(Uri.parse(url))
+                    startActivity(intent)
+                    return true
+                }
+                return false
             }
         }
     }
