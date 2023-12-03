@@ -2,24 +2,29 @@ package uk.me.jeremygreen.merging.about
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.about.*
 import uk.me.jeremygreen.merging.BuildConfig
 import uk.me.jeremygreen.merging.R
+import uk.me.jeremygreen.merging.databinding.AboutBinding
 
 class AboutActivity: AppCompatActivity() {
+
+    private val versionName by lazy { packageManager.getPackageInfo(packageName, 0).versionName }
+
+    private lateinit var binding: AboutBinding
 
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.about)
-        setSupportActionBar(this.aboutToolbar)
-        this.appVersion.text = getString(R.string.version, BuildConfig.APPLICATION_ID, BuildConfig.VERSION_NAME)
+        binding = AboutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.aboutToolbar)
+        binding.appVersion.text = getString(R.string.version, BuildConfig.APPLICATION_ID, versionName)
     }
 
     // Activity
     override fun onResume() {
         super.onResume()
-        this.aboutToolbar.setNavigationOnClickListener {
+        binding.aboutToolbar.setNavigationOnClickListener {
             finish()
         }
     }
@@ -27,7 +32,7 @@ class AboutActivity: AppCompatActivity() {
     // Activity
     override fun onPause() {
         super.onPause()
-        this.aboutToolbar.setNavigationOnClickListener(null)
+        binding.aboutToolbar.setNavigationOnClickListener(null)
     }
 
 }

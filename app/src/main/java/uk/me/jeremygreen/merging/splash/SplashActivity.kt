@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.*
 import uk.me.jeremygreen.merging.main.MainActivity
-import uk.me.jeremygreen.merging.R
+import uk.me.jeremygreen.merging.databinding.SplashBinding
 import uk.me.jeremygreen.merging.model.AppViewModel
 import uk.me.jeremygreen.merging.onboarding.OnboardingActivity
 
@@ -14,7 +14,8 @@ class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.splash)
+        val binding = SplashBinding.inflate(this.layoutInflater)
+        setContentView(binding.root)
         val appViewModel = AppViewModel.getInstance(this, application)
         launch(Dispatchers.IO) {
             val acceptedVersion = async {
