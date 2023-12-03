@@ -10,21 +10,21 @@ class AboutActivity: AppCompatActivity() {
 
     private val versionName by lazy { packageManager.getPackageInfo(packageName, 0).versionName }
 
-    private lateinit var aboutBinding: AboutBinding
+    private lateinit var binding: AboutBinding
 
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        aboutBinding = AboutBinding.inflate(layoutInflater)
-        setContentView(aboutBinding.root)
-        setSupportActionBar(aboutBinding.aboutToolbar)
-        aboutBinding.appVersion.text = getString(R.string.version, BuildConfig.APPLICATION_ID, versionName)
+        binding = AboutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.aboutToolbar)
+        binding.appVersion.text = getString(R.string.version, BuildConfig.APPLICATION_ID, versionName)
     }
 
     // Activity
     override fun onResume() {
         super.onResume()
-        aboutBinding.aboutToolbar.setNavigationOnClickListener {
+        binding.aboutToolbar.setNavigationOnClickListener {
             finish()
         }
     }
@@ -32,7 +32,7 @@ class AboutActivity: AppCompatActivity() {
     // Activity
     override fun onPause() {
         super.onPause()
-        aboutBinding.aboutToolbar.setNavigationOnClickListener(null)
+        binding.aboutToolbar.setNavigationOnClickListener(null)
     }
 
 }

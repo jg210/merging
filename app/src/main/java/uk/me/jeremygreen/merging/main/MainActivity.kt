@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var file: File? = null
-    private lateinit var mainBinding: MainBinding
+    private lateinit var binding: MainBinding
     private lateinit var pagerAdapter: PagerAdapterImpl
     private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.mainBinding = MainBinding.inflate(layoutInflater)
+        this.binding = MainBinding.inflate(layoutInflater)
         if (savedInstanceState != null) {
             val fileString = savedInstanceState.getString(BUNDLE_KEY__FILE)
             if (fileString != null) {
@@ -66,14 +66,14 @@ class MainActivity : AppCompatActivity() {
             val crashlytics = FirebaseCrashlytics.getInstance()
             crashlytics.setCrashlyticsCollectionEnabled(true)
         }
-        setContentView(this.mainBinding.root)
-        setSupportActionBar(this.mainBinding.toolbar)
+        setContentView(this.binding.root)
+        setSupportActionBar(this.binding.toolbar)
         this.pagerAdapter = PagerAdapterImpl(this)
-        this.mainBinding.pager.adapter = this.pagerAdapter
-        this.mainBinding.pager.offscreenPageLimit = 2
+        this.binding.pager.adapter = this.pagerAdapter
+        this.binding.pager.offscreenPageLimit = 2
         this.pageChangeCallback = object: ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                val screenName: String? = this@MainActivity.pagerAdapter.screenName(mainBinding.pager)
+                val screenName: String? = this@MainActivity.pagerAdapter.screenName(binding.pager)
                 screenView(screenName)
             }
         }
@@ -97,14 +97,14 @@ class MainActivity : AppCompatActivity() {
     // Activity
     override fun onResume() {
         super.onResume()
-        mainBinding.pager.registerOnPageChangeCallback(this.pageChangeCallback)
-        mainBinding.fab.setOnClickListener { handleTakePhoto() }
+        binding.pager.registerOnPageChangeCallback(this.pageChangeCallback)
+        binding.fab.setOnClickListener { handleTakePhoto() }
     }
 
     // Activity
     override fun onPause() {
-        mainBinding.fab.setOnClickListener(null)
-        mainBinding.pager.unregisterOnPageChangeCallback(this.pageChangeCallback)
+        binding.fab.setOnClickListener(null)
+        binding.pager.unregisterOnPageChangeCallback(this.pageChangeCallback)
         super.onPause()
     }
 

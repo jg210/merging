@@ -14,8 +14,8 @@ class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val splashBinding = SplashBinding.inflate(this.layoutInflater)
-        setContentView(splashBinding.root)
+        val binding = SplashBinding.inflate(this.layoutInflater)
+        setContentView(binding.root)
         val appViewModel = AppViewModel.getInstance(this, application)
         launch(Dispatchers.IO) {
             val acceptedVersion = async {

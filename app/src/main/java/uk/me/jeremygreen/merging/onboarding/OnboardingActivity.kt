@@ -20,17 +20,17 @@ class OnboardingActivity: AppCompatActivity() {
         const val version = 2L
     }
 
-    private lateinit var onboardingBinding: OnboardingBinding
+    private lateinit var binding: OnboardingBinding
     private lateinit var appViewModel: AppViewModel
 
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onboardingBinding = OnboardingBinding.inflate(layoutInflater)
-        setContentView(onboardingBinding.root)
+        binding = OnboardingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         appViewModel = AppViewModel.getInstance(this, application)
-        setSupportActionBar(onboardingBinding.onboardingToolbar)
-        onboardingBinding.onboardingTextContainer.children.forEach { child: View ->
+        setSupportActionBar(binding.onboardingToolbar)
+        binding.onboardingTextContainer.children.forEach { child: View ->
             if (child is TextView) {
                 addBullet(child)
             }
@@ -59,15 +59,15 @@ class OnboardingActivity: AppCompatActivity() {
     // Activity
     override fun onResume() {
         super.onResume()
-        onboardingBinding.onboardingAcceptButton.setOnClickListener {
-            onboardingBinding.onboardingAcceptButton.setOnClickListener(null)
+        binding.onboardingAcceptButton.setOnClickListener {
+            binding.onboardingAcceptButton.setOnClickListener(null)
             appViewModel.acceptOnboarding(version)
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
             startActivity(intent)
             finish()
         }
-        onboardingBinding.onboardingAcceptCheckbox.setOnClickListener {
+        binding.onboardingAcceptCheckbox.setOnClickListener {
             updateFabState()
         }
         updateFabState()
@@ -77,17 +77,17 @@ class OnboardingActivity: AppCompatActivity() {
      * Update FloatingActionButton properties etc.
      */
     private fun updateFabState() {
-        if (onboardingBinding.onboardingAcceptCheckbox.isChecked) {
-            onboardingBinding.onboardingAcceptButton.show()
+        if (binding.onboardingAcceptCheckbox.isChecked) {
+            binding.onboardingAcceptButton.show()
         } else {
-            onboardingBinding.onboardingAcceptButton.hide()
+            binding.onboardingAcceptButton.hide()
         }
     }
 
     // Activity
     override fun onPause() {
-        onboardingBinding.onboardingAcceptButton.setOnClickListener(null)
-        onboardingBinding.onboardingAcceptCheckbox.setOnClickListener(null)
+        binding.onboardingAcceptButton.setOnClickListener(null)
+        binding.onboardingAcceptCheckbox.setOnClickListener(null)
         super.onPause()
     }
 
