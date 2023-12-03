@@ -75,7 +75,7 @@ base64 --wrap=0 release.keystore && echo
 
 ## Privacy Policy
 
-Google require an https-hosted privacy policy. They also require the policy to appear in the app. The policy is [hosted from this repo using github pages](https://jg210.github.io/merging). The same html is also included in the app using a WebView via a [symlink](src/app/main/assets/privacy).
+Google require an https-hosted privacy policy. They also require the policy to appear in the app. The policy is [hosted from this repo using github pages](https://jg210.github.io/merging). The same html is also included in the app using a WebView via a [symlink](app/src/main/assets/privacy).
 
 ## Branching
 
