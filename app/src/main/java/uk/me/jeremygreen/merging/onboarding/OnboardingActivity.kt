@@ -17,7 +17,10 @@ class OnboardingActivity: AppCompatActivity() {
 
     companion object {
         // Increase this whenever onboarding text is changed.
-        const val version = 2L
+        const val version = 3L
+
+        private const val PRIVACY_HTML = "file:///android_asset/privacy/index.html"
+
     }
 
     private lateinit var binding: OnboardingBinding
@@ -30,30 +33,7 @@ class OnboardingActivity: AppCompatActivity() {
         setContentView(binding.root)
         appViewModel = AppViewModel.getInstance(this, application)
         setSupportActionBar(binding.onboardingToolbar)
-        binding.onboardingTextContainer.children.forEach { child: View ->
-            if (child is TextView) {
-                addBullet(child)
-            }
-        }
-    }
-
-    private fun addBullet(textView: TextView) {
-        val text = textView.text
-        if (text !is String) {
-            throw IllegalArgumentException("${text.javaClass} ${text}")
-        }
-        val spannedText = SpannableString(text)
-        val gapWidth = (0.4 * defaultTextSize()).toInt()
-        val color = textView.currentTextColor
-        val bulletSpan = BulletSpan(gapWidth, color)
-        spannedText.setSpan(bulletSpan, 0, text.length, 0)
-        textView.text = spannedText
-    }
-
-    private fun defaultTextSize(): Float {
-        val typedValue = TypedValue()
-        theme.resolveAttribute(android.R.attr.textSize, typedValue, true)
-        return typedValue.getDimension(resources.displayMetrics)
+        binding.onboardingWebView.loadUrl(PRIVACY_HTML)
     }
 
     // Activity
