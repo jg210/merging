@@ -17,6 +17,7 @@
   - probably required for accurate contour coordinate detection too.
 
 * Use fingerprint of onboarding text not "version" in OnboardingActivity?
+  - will need to change database schema since currently uses long
 
 * Have seen three faces in LiveData message when there should be two.
 
