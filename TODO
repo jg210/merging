@@ -1,6 +1,9 @@
 * Add privacy policy to play store.
   - change github pages to use release branch
   - update policy to include things required: https://support.google.com/googleplay/android-developer/answer/10144311?sjid=13586331843883783495-EU#safetysection
+    - add developer name
+    - add point of contact
+    - mention app name in policy
 
 * Complete data safety form on play store.
   - need to do this after privacy policy.
