@@ -3,13 +3,10 @@ package uk.me.jeremygreen.merging.onboarding
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.BulletSpan
-import android.util.TypedValue
 import android.view.View
-import android.widget.TextView
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import uk.me.jeremygreen.merging.databinding.OnboardingBinding
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.model.AppViewModel
@@ -36,6 +33,11 @@ class OnboardingActivity: AppCompatActivity() {
         setSupportActionBar(binding.onboardingToolbar)
         binding.onboardingWebView.loadUrl(PRIVACY_HTML)
         binding.onboardingWebView.setBackgroundColor(Color.TRANSPARENT)
+        binding.onboardingWebView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                binding.onboardingAcceptCheckbox.visibility = View.VISIBLE
+            }
+        }
     }
 
     // Activity
