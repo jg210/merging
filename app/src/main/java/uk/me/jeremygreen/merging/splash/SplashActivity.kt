@@ -25,7 +25,7 @@ class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
                 // Show splash screen for at least this long.
                 delay(1000)
             }
-            val activity = if (acceptedVersion.await()) {
+            val activity = if (false) {
                 MainActivity::class.java
             } else {
                 OnboardingActivity::class.java

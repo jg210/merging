@@ -1,6 +1,7 @@
 package uk.me.jeremygreen.merging.onboarding
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.BulletSpan
@@ -34,6 +35,7 @@ class OnboardingActivity: AppCompatActivity() {
         appViewModel = AppViewModel.getInstance(this, application)
         setSupportActionBar(binding.onboardingToolbar)
         binding.onboardingWebView.loadUrl(PRIVACY_HTML)
+        binding.onboardingWebView.setBackgroundColor(Color.TRANSPARENT)
     }
 
     // Activity
