@@ -15,7 +15,7 @@ cd "${SOURCE_DIR}"
 rubyVersionExpected="$(cat "${SOURCE_DIR}/.ruby-version")"
 
 circleCiConfig="${SOURCE_DIR}/.circleci/config.yml"
-rubyVersionCircleCi=$(grep -E '^ *- image: circleci/ruby:' "${circleCiConfig}" | cut -d: -f3- | grep -E --only-matching '[^ ].*')
+rubyVersionCircleCi=$(grep -E '^ *- image: cimg/ruby:' "${circleCiConfig}" | cut -d: -f3- | grep -E --only-matching '[^ ].*')
 if [ "${rubyVersionExpected}" != "${rubyVersionCircleCi}" ] ; then
     log "ERROR: circle CI ruby version needs to be updated in ${circleCiConfig}"
     log "expected: ${rubyVersionExpected}"
