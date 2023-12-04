@@ -1,8 +1,12 @@
 * Add privacy policy to play store.
-  - needs to be hosted somewhere...
+  - change github pages to use release branch
+  - https://firebase.google.com/docs/android/play-data-disclosure#crashlytics
+  - https://support.google.com/analytics/answer/11582702
 
 * Complete data safety form on play store.
   - need to do this after privacy policy.
+
+* Upgrade fastlane.
 
 * Use KSP not kapt for room.
   - https://developer.android.com/build/migrate-to-ksp
@@ -17,6 +21,7 @@
   - probably required for accurate contour coordinate detection too.
 
 * Use fingerprint of onboarding text not "version" in OnboardingActivity?
+  - will need to change database schema since currently uses long
 
 * Have seen three faces in LiveData message when there should be two.
 
