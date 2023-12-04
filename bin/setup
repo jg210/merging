@@ -44,7 +44,6 @@ EOF
 fi
 # shellcheck source=../environment
 . "${SOURCE_DIR}/environment"
-gem install bundler --version 2.1.4
 bundler install \
 	--binstubs=.bin
 rubyVersionActual="$(ruby -e 'puts RUBY_VERSION')"
