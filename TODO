@@ -1,3 +1,7 @@
+* Publishing fails with:
+
+  [!] Google Api Error: Invalid request - APK has an invalid version code.
+
 * Add privacy policy to play store.
   - change github pages to use release branch
   - https://firebase.google.com/docs/android/play-data-disclosure#crashlytics
@@ -40,10 +44,12 @@
   - short and long description shouldn't be the same.
 
 * Further automate release process.
+  - dry run of release jobs for all commits
   - add play store changelog
   - use same changelog for github release notes too.
   - git tag for each release
     - locally before pushing or from CI?
+    - ...but something is already adding git tags - what?
 
 * Google Play store console says, "your app is using an old version of the Google Play developer API".
   - https://android-developers.googleblog.com/2019/03/changes-to-google-play-developer-api.html
