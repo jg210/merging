@@ -18,3 +18,7 @@
 .#*
 \#*#
 
+# VSC
+.project
+.settings
+.classpath

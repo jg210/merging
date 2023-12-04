@@ -14,10 +14,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import kotlinx.android.synthetic.main.main.*
 import uk.me.jeremygreen.merging.BuildConfig
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.about.AboutActivity
+import uk.me.jeremygreen.merging.databinding.MainBinding
 import uk.me.jeremygreen.merging.model.AppViewModel
 import java.io.File
 import java.util.*
@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var file: File? = null
+    private lateinit var binding: MainBinding
     private lateinit var pagerAdapter: PagerAdapterImpl
     private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.binding = MainBinding.inflate(layoutInflater)
         if (savedInstanceState != null) {
             val fileString = savedInstanceState.getString(BUNDLE_KEY__FILE)
             if (fileString != null) {
@@ -64,14 +66,14 @@ class MainActivity : AppCompatActivity() {
             val crashlytics = FirebaseCrashlytics.getInstance()
             crashlytics.setCrashlyticsCollectionEnabled(true)
         }
-        setContentView(R.layout.main)
-        setSupportActionBar(this.toolbar)
+        setContentView(this.binding.root)
+        setSupportActionBar(this.binding.toolbar)
         this.pagerAdapter = PagerAdapterImpl(this)
-        this.pager.adapter = this.pagerAdapter
-        this.pager.offscreenPageLimit = 2
+        this.binding.pager.adapter = this.pagerAdapter
+        this.binding.pager.offscreenPageLimit = 2
         this.pageChangeCallback = object: ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                val screenName: String? = this@MainActivity.pagerAdapter.screenName(pager)
+                val screenName: String? = this@MainActivity.pagerAdapter.screenName(binding.pager)
                 screenView(screenName)
             }
         }
@@ -95,14 +97,14 @@ class MainActivity : AppCompatActivity() {
     // Activity
     override fun onResume() {
         super.onResume()
-        this.pager.registerOnPageChangeCallback(this.pageChangeCallback)
-        this.fab.setOnClickListener { handleTakePhoto() }
+        binding.pager.registerOnPageChangeCallback(this.pageChangeCallback)
+        binding.fab.setOnClickListener { handleTakePhoto() }
     }
 
     // Activity
     override fun onPause() {
-        this.fab.setOnClickListener(null)
-        this.pager.unregisterOnPageChangeCallback(this.pageChangeCallback)
+        binding.fab.setOnClickListener(null)
+        binding.pager.unregisterOnPageChangeCallback(this.pageChangeCallback)
         super.onPause()
     }
 

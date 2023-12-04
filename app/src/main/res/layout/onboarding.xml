@@ -27,60 +27,35 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="@dimen/fabMargin"
             android:orientation="vertical">
-            <LinearLayout
-                    android:id="@+id/onboardingTextContainer"
+            <WebView
+                    android:id="@+id/onboardingWebView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text = "@string/onboardingText_01"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text = "@string/onboardingText_02"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text = "@string/onboardingText_03"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text = "@string/onboardingText_04"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text = "@string/onboardingText_05"/>
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text = "@string/onboardingText_06"/>
-            </LinearLayout>
+                    android:layout_height="wrap_content"/>
             <CheckBox
-                android:id="@+id/onboarding_accept_checkbox"
+                android:id="@+id/onboardingAcceptCheckbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/onboarding_accept_checkbox"
+                android:text="@string/onboardingAcceptCheckbox"
                 android:layout_marginTop="@dimen/fabMargin"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
+                android:visibility="invisible"
           />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/onboarding_accept_button"
+        android:id="@+id/onboardingAcceptButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fabMargin"
         app:srcCompat="@drawable/onboarding_accept"
         app:rippleColor="@color/colorPrimaryDark"
-        android:contentDescription="@string/onboarding_accept_content_description"
+        android:contentDescription="@string/onboardingAcceptContentDescription"
     />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,2 @@
+Upgrade most dependencies, targetSdkVersion 34, update onboarding text
+and how it is displayed.

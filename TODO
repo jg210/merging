@@ -1,4 +1,14 @@
-* "The 'kotlin-android-extensions' Gradle plugin is deprecated. Please use this migration guide (https://goo.gle/kotlin-android-extensions-deprecation) to start working with View Binding (https://developer.android.com/topic/libraries/view-binding) and the 'kotlin-parcelize' plugin."
+* Add privacy policy to play store.
+  - change github pages to use release branch
+  - https://firebase.google.com/docs/android/play-data-disclosure#crashlytics
+  - https://support.google.com/analytics/answer/11582702
+
+* Complete data safety form on play store.
+  - need to do this after privacy policy.
+  - get policy reviewed
+
+* Use KSP not kapt for room.
+  - https://developer.android.com/build/migrate-to-ksp
 
 * NDK crash reporting
 
@@ -8,6 +18,9 @@
   - can only detect one face if contour-detection enabled.
   - allowing merging of group of faces from one photo
   - probably required for accurate contour coordinate detection too.
+
+* Use fingerprint of onboarding text not "version" in OnboardingActivity?
+  - will need to change database schema since currently uses long
 
 * Have seen three faces in LiveData message when there should be two.
 
@@ -44,10 +57,6 @@
   - create upload key
   - ???
 
-* Enable crashlytics and analytics in SplashActivity if previously enabled via OnboardingActivity.
-  - currently, enable in MainActivity, which avoids need to persist state, but means
-    early crashes not visible.
-
 * Play store accessibility checks say onboarding accept click area is still not high enough.
   - "This item's height is 38dp. Consider making the height of this touch target 48dp or larger."
 
@@ -74,8 +83,17 @@
 
 * Screenshots in github.
 
+* Android Studio says should replace SplashActivity with SplashScreen.
+  - https://developer.android.com/develop/ui/views/launch/splash-screen is android 12 and above only
+  - https://developer.android.com/reference/kotlin/androidx/core/splashscreen/SplashScreen works for
+    older platforms too
+
 * Don't show splashscreen if start up is fast enough
   - but if do show it, show it for at least 1.5s.
+
+* Enable crashlytics and analytics in SplashActivity if previously enabled via OnboardingActivity.
+  - currently, enable in MainActivity, which avoids need to persist state, but means
+    early crashes not visible.
 
 * Unit tests.
   - write some
