@@ -71,7 +71,7 @@ base64 --wrap=0 google-play-service.json && echo
 base64 --wrap=0 release.keystore && echo
 ```
 
-* Set GITHUB_TOKEN as explained by https://github.com/tcnksm/ghr#github-api-token. 
+* Set fine-grained GITHUB_TOKEN generated from https://github.com/settings/tokens?type=beta. Need RW permission for Contents.
 
 ## Privacy Policy
 
