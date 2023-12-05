@@ -1,3 +1,8 @@
+* Not versioned:
+
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+
 * Add privacy policy to play store.
   - change github pages to use release branch
   - https://firebase.google.com/docs/android/play-data-disclosure#crashlytics
@@ -40,10 +45,12 @@
   - short and long description shouldn't be the same.
 
 * Further automate release process.
+  - dry run of release jobs for all commits
   - add play store changelog
   - use same changelog for github release notes too.
   - git tag for each release
     - locally before pushing or from CI?
+    - ...but something is already adding git tags - what?
 
 * Google Play store console says, "your app is using an old version of the Google Play developer API".
   - https://android-developers.googleblog.com/2019/03/changes-to-google-play-developer-api.html
@@ -98,6 +105,7 @@
 * Unit tests.
   - write some
   - run from test server
+  - coverage report
 
 * Garbage collect files after delete them and UI has finished updating.
   - when ViewPager2 stops using them
@@ -171,10 +179,6 @@
   - tune priorities.
   - make CircleCI fail, if it doesn't already.
 
-* kotlin doesn't use java-style capitalization for CONSTANTS.
-
-* Does idiomatic kotlin use underscores_in_automatic_view_fields?
-
 * Why wasn't it possible to get coroutine scope like this?
   - https://developer.android.com/topic/libraries/architecture/coroutines#lifecyclescope
   - had to implement CoroutineScope in ImageFragment instead, which is OK, but not as clear
@@ -187,21 +191,22 @@
 
 * Move features in this list to github issues.
 
-* Spotbugs.
+* Kotlin static analysis.
 
 * "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
 
 * AndroidManifest says app supports RTL.
   - is that correct?
 
-* Allow app's data to be backed up.
+* Allow app's data to be backed up?
   - set allowBackup="true"
   - android lint says need to exclude "GCM id" since can't be reused
+  - would need to update privacy policy etc.
 
 * Make forks build on Circle CI?
   - dummy google-services.json?
 
-* Try https://developer.android.com/training/camerax when its out of beta.
+* Try https://developer.android.com/training/camerax when it's out of beta.
 
 * ML Kit might need image orientation to be set
   - https://developers.google.com/ml-kit/vision/face-detection/android#using-a-media.image

@@ -19,7 +19,7 @@ static boolean isVersioned() {
 /**
  * The android "version code", from the highest-number changelog file.
  */
-static int getVersionCode() {
+static int findVersionCode() {
     final int versionCode
     if (isVersioned()) {
         def versionNameScript = new File("bin/versionNumber")
@@ -34,11 +34,11 @@ static int getVersionCode() {
 /**
  * The android "version name".
  */
-static String getVersionName() {
+static String findVersionName() {
     if (!isVersioned()) {
         return "0.0.1"
     }
-    return "0.0.${getVersionCode()}"
+    return "0.0.${findVersionCode()}"
 }
 
 def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
@@ -49,8 +49,8 @@ android {
         applicationId "uk.me.jeremygreen.merging"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode getVersionCode()
-        versionName getVersionName()
+        versionCode findVersionCode()
+        versionName findVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
@@ -125,7 +125,7 @@ task writeVersionFile {
     doLast {
         def versionFile = file("${buildDir}/version")
         versionFile.parentFile.mkdirs()
-        versionFile.write(getVersionName(), "UTF-8")
+        versionFile.write(findVersionName(), "UTF-8")
     }
 }
 
