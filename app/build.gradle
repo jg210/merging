@@ -108,8 +108,8 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.facebook.fresco:fresco:1.13.0'
     implementation platform('com.google.firebase:firebase-bom:29.0.4')
-    implementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-crashlytics' // versioned with BOM
+    implementation 'com.google.firebase:firebase-analytics' // versioned with BOM
     implementation 'com.google.android.gms:play-services-mlkit-face-detection:16.1.4'
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
     implementation 'com.google.android.material:material:1.10.0'
