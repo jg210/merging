@@ -1,5 +1,6 @@
 * Replace SoLoader library
   - https://support.google.com/faqs/answer/12576726
+  - ./gradlew :app:dependencies shows it's fresco that's using it
 
 * Add privacy policy to play store.
   - change github pages to use release branch
