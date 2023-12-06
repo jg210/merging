@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'com.google.android.gms.oss-licenses-plugin'
     id 'kotlin-android'
-    id 'org.jetbrains.kotlin.kapt'
+    id 'com.google.devtools.ksp'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
 }
@@ -115,7 +115,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-mlkit-face-detection:16.1.4'
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
     implementation 'com.google.android.material:material:1.10.0'
-    kapt "androidx.room:room-compiler:${room_version}"
+    ksp "androidx.room:room-compiler:${room_version}"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "androidx.room:room-testing:${room_version}"
     testImplementation 'junit:junit:4.12'
