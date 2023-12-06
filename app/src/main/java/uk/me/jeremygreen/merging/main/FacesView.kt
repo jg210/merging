@@ -55,6 +55,9 @@ class FacesView : SimpleDraweeView {
         override fun draw(canvas: Canvas) {
             drawFaces(canvas)
         }
+        @Deprecated("Deprecated in Java",
+            ReplaceWith("PixelFormat.TRANSPARENT", "android.graphics.PixelFormat")
+        )
         override fun getOpacity(): Int {
             return PixelFormat.TRANSPARENT
         }

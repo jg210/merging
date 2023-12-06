@@ -1,15 +1,3 @@
-* Replace SoLoader library
-  - https://support.google.com/faqs/answer/12576726
-
-* Add privacy policy to play store.
-  - change github pages to use release branch
-  - https://firebase.google.com/docs/android/play-data-disclosure#crashlytics
-  - https://support.google.com/analytics/answer/11582702
-
-* Complete data safety form on play store.
-  - need to do this after privacy policy.
-  - get policy reviewed
-
 * Use KSP not kapt for room.
   - https://developer.android.com/build/migrate-to-ksp
 

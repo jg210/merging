@@ -84,7 +84,7 @@ data class Image(
                     callback(bitmapReference)
                 }
 
-                override fun onFailureImpl(dataSource: DataSource<CloseableReference<CloseableImage>>?) {
+                override fun onFailureImpl(dataSource: DataSource<CloseableReference<CloseableImage>>) {
                     throw RuntimeException()
                 }
 
