@@ -1,6 +1,3 @@
-* Use KSP not kapt for room.
-  - https://developer.android.com/build/migrate-to-ksp
-
 * NDK crash reporting
 
 * Splashscreen has very large image on android-21 emulator.
