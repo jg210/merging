@@ -1,3 +1,6 @@
+* Replace SoLoader library
+  - https://support.google.com/faqs/answer/12576726
+
 * Add privacy policy to play store.
   - change github pages to use release branch
   - https://firebase.google.com/docs/android/play-data-disclosure#crashlytics
@@ -124,8 +127,10 @@
 
 * What happens if Camera app isn't given location permission?
 
-* Test app on Firebase.
-  - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
+* End-to-end tests
+  - firebase?
+    - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
+    - https://firebase.google.com/docs/test-lab/usage-quotas-pricing (free is possible)
 
 * Add more Firebase Analytics events.
   - https://firebase.google.com/docs/analytics/android/start
