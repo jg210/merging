@@ -29,7 +29,7 @@ class ImageFragment : ScreenFragment() {
         private const val BITMAP_HEIGHT = 480
 
         fun createFactory(image: Image): ScreenFragmentFactory<ImageFragment> {
-            check(image.id < 0) { "might collide with non-image id: ${image.id}" }
+            require(image.id >= 0) { "might collide with non-image id: ${image.id}" }
             return object:
                 ScreenFragmentFactory<ImageFragment> {
                 override val id: Long = image.id
