@@ -177,6 +177,7 @@
 * Move features in this list to github issues.
 
 * Kotlin static analysis.
+  - https://github.com/detekt/detekt?
 
 * "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
 
