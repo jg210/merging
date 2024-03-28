@@ -94,6 +94,7 @@ android {
 
 detekt {
     buildUponDefaultConfig = true
+    config.setFrom("../detekt.yml")
 }
 
 dependencies {
