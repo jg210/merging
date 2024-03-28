@@ -25,10 +25,11 @@ class ImageFragment : ScreenFragment() {
         private const val TAG = "ImageFragment"
         private const val BUNDLE_KEY__IMAGE_ID = "imageId"
 
+        private const val BITMAP_WIDTH = 360
+        private const val BITMAP_HEIGHT = 480
+
         fun createFactory(image: Image): ScreenFragmentFactory<ImageFragment> {
-            if (image.id < 0) {
-                throw IllegalStateException("might collide with non-image id: ${image.id}")
-            }
+            require(image.id >= 0) { "might collide with non-image id: ${image.id}" }
             return object:
                 ScreenFragmentFactory<ImageFragment> {
                 override val id: Long = image.id
@@ -93,7 +94,7 @@ class ImageFragment : ScreenFragment() {
 
     private fun processFaces(image: Image, imageId: Long) {
         // https//firebase.google.com/docs/ml-kit/android/detect-faces suggests size to use.
-        image.processBitmap(360, 480) { closeableReference ->
+        image.processBitmap(BITMAP_WIDTH, BITMAP_HEIGHT) { closeableReference ->
             Log.i(TAG, "decoded bitmap for image id: ${imageId}")
             // The IO thread has done it's work reading the Bitmap. Don't want to block this thread any more,
             // so clone the reference and hand it to Dispatcher.Default coroutine to do the CPU-intensive

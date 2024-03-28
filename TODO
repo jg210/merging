@@ -176,8 +176,7 @@
 
 * Move features in this list to github issues.
 
-* Kotlin static analysis.
-  - https://github.com/detekt/detekt?
+* https://github.com/detekt/detekt?tab=readme-ov-file#adding-more-rule-sets
 
 * "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
 

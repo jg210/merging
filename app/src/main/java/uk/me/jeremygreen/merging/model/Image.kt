@@ -78,14 +78,12 @@ data class Image(
             object : BaseBitmapReferenceDataSubscriber() {
 
                 override fun onNewResultImpl(bitmapReference: CloseableReference<Bitmap>?) {
-                    if (bitmapReference == null) {
-                        throw NullPointerException()
-                    }
+                    checkNotNull(bitmapReference) { "null bitmapReference" }
                     callback(bitmapReference)
                 }
 
                 override fun onFailureImpl(dataSource: DataSource<CloseableReference<CloseableImage>>) {
-                    throw RuntimeException()
+                    error("DataSource failure")
                 }
 
             }

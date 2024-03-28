@@ -20,6 +20,7 @@ It's using:
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build, test and continuous delivery.
 * [Fastlane](https://fastlane.tools/) to publish the app as a beta (early access) release on the [Google Play store](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging) for every commit on the release branch.
 * [Material Design](https://material.io/design/).
+* [detekt](https://detekt.dev/) for kotlin static analysis.
 
 ## Development Environment
 

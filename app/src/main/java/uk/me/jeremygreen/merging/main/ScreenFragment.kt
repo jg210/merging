@@ -2,7 +2,9 @@ package uk.me.jeremygreen.merging.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import uk.me.jeremygreen.merging.model.AppViewModel
 import java.io.File
 

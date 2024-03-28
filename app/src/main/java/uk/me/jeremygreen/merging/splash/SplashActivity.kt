@@ -3,13 +3,23 @@ package uk.me.jeremygreen.merging.splash
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.databinding.SplashBinding
 import uk.me.jeremygreen.merging.model.AppViewModel
 import uk.me.jeremygreen.merging.onboarding.OnboardingActivity
 
 class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
+
+    companion object {
+        private const val SPLASH_SCREEN_MINIMUM_DURATION_MILLIS: Long = 1000
+    }
 
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +33,7 @@ class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
             }
             val delayJob = launch {
                 // Show splash screen for at least this long.
-                delay(1000)
+                delay(SPLASH_SCREEN_MINIMUM_DURATION_MILLIS)
             }
             val activity = if (acceptedVersion.await()) {
                 MainActivity::class.java

@@ -1,7 +1,11 @@
 package uk.me.jeremygreen.merging.main
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.ColorFilter
+import android.graphics.Paint
+import android.graphics.PixelFormat
+import android.graphics.RectF
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -28,6 +32,7 @@ class FacesView : SimpleDraweeView {
 
     companion object {
         private const val TAG = "FacesView"
+        private const val FACE_DOT_RADIUS = 3
     }
 
     private val paint = Paint().apply {
@@ -69,9 +74,7 @@ class FacesView : SimpleDraweeView {
         image: Image,
         longClickListener: (image: Image) -> Unit
     ) {
-        if (this.imageSet) {
-            throw IllegalStateException("cannot call setImage() twice - ${image.id}")
-        }
+        check(!this.imageSet) {"cannot call setImage() twice - ${image.id}" }
         if (this.imageLoadingComplete) {
             throw AssertionError()
         }
@@ -107,7 +110,6 @@ class FacesView : SimpleDraweeView {
             Log.d(TAG, "not drawing faces since image loading not complete.")
             return
         }
-        val radius = 3
         val bounds = RectF()
         this.hierarchy.getActualImageBounds(bounds)
         Log.d(TAG, "drawFaces() bounds: ${bounds.toShortString()}")
@@ -117,7 +119,12 @@ class FacesView : SimpleDraweeView {
                 val x = bounds.left + coordinate.x * bounds.width()
                 val y = bounds.top + coordinate.y * bounds.height()
                 //Log.d(TAG, "drawing point at (${x}, ${y})")
-                canvas.drawOval(x - radius, y - radius, x + radius, y + radius, paint)
+                canvas.drawOval(
+                    x - FACE_DOT_RADIUS,
+                    y - FACE_DOT_RADIUS,
+                    x + FACE_DOT_RADIUS,
+                    y + FACE_DOT_RADIUS, paint
+                )
             }
         }
     }
