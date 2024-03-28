@@ -2,7 +2,11 @@ package uk.me.jeremygreen.merging.model
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,7 +35,7 @@ class AppViewModel(
             ViewModelProvider(
                 owner,
                 ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-            ).get(AppViewModel::class.java)
+            )[AppViewModel::class.java]
     }
 
     @Suppress("unused")
@@ -85,9 +89,7 @@ class AppViewModel(
                     faceIds.zip(faces).forEach { pair ->
                         val id = pair.first
                         val face = pair.second
-                        if (face.imageId != image.id) {
-                            throw IllegalArgumentException("${face} doesn't belong to ${image}")
-                        }
+                        require(face.imageId == image.id) { "${face} doesn't belong to ${image}" }
                         // Replace Coordinate instances with new instance with correct face ids.
                         val relatedCoordinates = face.coordinates.map { coordinate ->
                             coordinate.copy(faceId = id)
