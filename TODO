@@ -1,3 +1,6 @@
+* Try out JetPack compose.
+  - add detekt plugin.
+
 * NDK crash reporting
 
 * Splashscreen has very large image on android-21 emulator.
@@ -175,8 +178,6 @@
 * Better structure for java packages.
 
 * Move features in this list to github issues.
-
-* https://github.com/detekt/detekt?tab=readme-ov-file#adding-more-rule-sets
 
 * "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
 
