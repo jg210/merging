@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
  * This table stores a set of accepted onboarding-text versions.
  */
 @Entity(tableName = "onboarding")
-data class Onboarding(
+internal data class Onboarding(
 
     @PrimaryKey
     val version: Long

@@ -8,7 +8,7 @@ import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.main.ScreenFragment
 import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
 
-class MergedImageFragment : ScreenFragment() {
+internal class MergedImageFragment : ScreenFragment() {
 
     companion object: ScreenFragmentFactory<MergedImageFragment> {
         override val id: Long = -3

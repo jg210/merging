@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface OnboardingDao {
+internal interface OnboardingDao {
 
     @Query("SELECT * from onboarding`` WHERE version = :version")
     suspend fun findById(version: Long): Onboarding?

@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface CoordinateDao {
+internal interface CoordinateDao {
 
     @Query("SELECT * from coordinates WHERE faceId = :faceId")
     suspend fun findById(faceId: Long): List<Coordinate>

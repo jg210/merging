@@ -22,7 +22,7 @@ import uk.me.jeremygreen.merging.model.Image
 import java.io.File
 import kotlin.properties.Delegates
 
-class FacesView : SimpleDraweeView {
+internal class FacesView : SimpleDraweeView {
 
     constructor(context: Context) : super(context)
 

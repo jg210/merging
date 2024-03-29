@@ -15,7 +15,7 @@ import uk.me.jeremygreen.merging.databinding.SplashBinding
 import uk.me.jeremygreen.merging.model.AppViewModel
 import uk.me.jeremygreen.merging.onboarding.OnboardingActivity
 
-class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
+internal class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope() {
 
     companion object {
         private const val SPLASH_SCREEN_MINIMUM_DURATION_MILLIS: Long = 1000
