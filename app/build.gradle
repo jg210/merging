@@ -129,6 +129,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:1.23.6")
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-ruleauthors:1.23.6")
+    detektPlugins 'io.nlopez.compose.rules:detekt:0.3.12'
 }
 
 task writeVersionFile {
