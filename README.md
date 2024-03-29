@@ -1,10 +1,4 @@
-https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging
-
-[![CircleCI](https://circleci.com/gh/jg210/merging/tree/develop.svg?style=svg)](https://circleci.com/gh/jg210/merging)
-
-Work in progress.
-
-This kotlin android app will merge photos of faces. Currently, it:
+This work-in-progress kotlin android app will merge photos of faces. Currently, it:
 
 * Takes photos.
 * Detects and displays face features.
@@ -17,8 +11,8 @@ It's using:
 * [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics/) for crash reporting.
 * [Firebase Analytics](https://firebase.google.com/docs/analytics).
 * [Fresco](https://developers.google.com/ml-kit/) for android Bitmap management.
-* [Circle CI](https://circleci.com/gh/jg210/merging) for automated build, test and continuous delivery.
-* [Fastlane](https://fastlane.tools/) to publish the app as a beta (early access) release on the [Google Play store](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging) for every commit on the release branch.
+* [Circle CI](https://circleci.com/gh/jg210/merging) for automated build, test and continuous delivery [![CircleCI](https://circleci.com/gh/jg210/merging/tree/develop.svg?style=svg)](https://circleci.com/gh/jg210/merging)
+* [Fastlane](https://fastlane.tools/) to publish the app as a beta (early access) release for every commit on the release branch. [<img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' style='height: 2em'/>](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging)
 * [Material Design](https://material.io/design/).
 * [detekt](https://detekt.dev/) for kotlin static analysis.
 
