@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
     ],
     indices = [Index(value = ["imageId"])]
 )
-data class FaceEntity(
+internal data class FaceEntity(
 
     @PrimaryKey(autoGenerate = true)
     val id: Long,

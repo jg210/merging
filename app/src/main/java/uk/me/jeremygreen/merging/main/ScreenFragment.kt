@@ -9,9 +9,9 @@ import uk.me.jeremygreen.merging.model.AppViewModel
 import java.io.File
 
 /**
- * Base class for the ViewPager2 Fragments in the screen package.
+ * Base internal class for the ViewPager2 Fragments in the screen package.
  */
-abstract class ScreenFragment : Fragment(), CoroutineScope by MainScope() {
+internal abstract class ScreenFragment : Fragment(), CoroutineScope by MainScope() {
 
     protected lateinit var appViewModel: AppViewModel
     private lateinit var imagesDir: File

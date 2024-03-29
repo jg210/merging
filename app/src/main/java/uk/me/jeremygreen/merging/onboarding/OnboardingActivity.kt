@@ -13,7 +13,7 @@ import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.model.AppViewModel
 
 
-class OnboardingActivity: AppCompatActivity() {
+internal class OnboardingActivity: AppCompatActivity() {
 
     companion object {
         // Increase this whenever onboarding text is changed.

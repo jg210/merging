@@ -2,7 +2,7 @@ package uk.me.jeremygreen.merging.model
 
 import androidx.room.Relation
 
-data class Face(
+internal data class Face(
 
     val id: Long,
 

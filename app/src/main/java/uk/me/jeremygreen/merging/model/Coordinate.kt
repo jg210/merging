@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
     ],
     indices = [Index(value = ["faceId"])]
 )
-data class Coordinate(
+internal data class Coordinate(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
 

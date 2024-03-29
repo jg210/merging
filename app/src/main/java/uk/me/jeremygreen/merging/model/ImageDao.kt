@@ -8,7 +8,7 @@ import androidx.room.Query
 import androidx.room.Update
 
 @Dao
-interface ImageDao {
+internal interface ImageDao {
 
     @Query("SELECT * from images ORDER BY id ASC")
     fun getImages(): LiveData<List<Image>>

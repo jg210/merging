@@ -23,7 +23,7 @@ import com.google.mlkit.vision.face.FaceDetectorOptions
 import java.io.File
 
 @Entity(tableName = "images")
-data class Image(
+internal data class Image(
 
     /**
      * This database table stores id -> file mappings. It's not possible to

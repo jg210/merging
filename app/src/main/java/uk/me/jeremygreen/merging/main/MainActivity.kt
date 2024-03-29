@@ -22,7 +22,7 @@ import uk.me.jeremygreen.merging.model.AppViewModel
 import java.io.File
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+internal class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "MainActivity"

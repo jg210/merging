@@ -22,7 +22,7 @@ import androidx.room.RoomDatabase
     version = 2,
     exportSchema = false
 )
-abstract class AppDatabase: RoomDatabase() {
+internal abstract class AppDatabase: RoomDatabase() {
 
     abstract fun coordinateDao(): CoordinateDao
 

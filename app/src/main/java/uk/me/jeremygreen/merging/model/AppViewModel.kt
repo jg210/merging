@@ -11,7 +11,7 @@ import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AppViewModel(
+internal class AppViewModel(
     application: Application,
     private val appDatabase: AppDatabase)
     : AndroidViewModel(application) {

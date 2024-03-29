@@ -12,7 +12,7 @@ import uk.me.jeremygreen.merging.main.screen.AddImageFragment
 import uk.me.jeremygreen.merging.main.screen.ImageFragment
 import uk.me.jeremygreen.merging.main.screen.MergedImageFragment
 
-class PagerAdapterImpl(
+internal class PagerAdapterImpl(
     fragmentActivity: FragmentActivity
 ) : FragmentStateAdapter(fragmentActivity) {
 

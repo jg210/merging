@@ -6,7 +6,7 @@ import uk.me.jeremygreen.merging.BuildConfig
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.databinding.AboutBinding
 
-class AboutActivity: AppCompatActivity() {
+internal class AboutActivity: AppCompatActivity() {
 
     private val versionName by lazy { packageManager.getPackageInfo(packageName, 0).versionName }
 

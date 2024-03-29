@@ -7,7 +7,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 
 @Dao
-interface FaceDao {
+internal interface FaceDao {
 
     @Transaction
     @Query("SELECT * from faces WHERE imageId = :imageId")

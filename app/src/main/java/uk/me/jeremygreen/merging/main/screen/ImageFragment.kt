@@ -18,7 +18,7 @@ import uk.me.jeremygreen.merging.main.ScreenFragmentFactory
 import uk.me.jeremygreen.merging.model.Image
 import uk.me.jeremygreen.merging.model.ProcessingStage
 
-class ImageFragment : ScreenFragment() {
+internal class ImageFragment : ScreenFragment() {
 
     companion object {
 
