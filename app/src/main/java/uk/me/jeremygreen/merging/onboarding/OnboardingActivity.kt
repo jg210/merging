@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -95,11 +98,15 @@ internal class OnboardingActivity: AppCompatActivity() {
                 )
             },
             floatingActionButton = {
-                if (agreed) {
+                AnimatedVisibility(
+                    visible = agreed,
+                    enter = scaleIn(),
+                    exit = scaleOut()
+                ) {
                     FloatingActionButton(
                         onClick = {
                             appViewModel.acceptOnboarding(version)
-                            val intent = Intent(this, MainActivity::class.java)
+                            val intent = Intent(this@OnboardingActivity, MainActivity::class.java)
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
                             startActivity(intent)
