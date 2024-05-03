@@ -1,4 +1,12 @@
-* Try out JetPack compose.
+* Try out Jetpack Compose.
+  - checkbox
+  - webview
+  - webview rendering refinements
+  - is double click protection required?
+  - remove onboarding.xml
+  - styling of onboarding doesn't match rest of app
+    - convert all app to Jetpack Compose?
+    - adjust styling?
 
 * NDK crash reporting
 
