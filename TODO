@@ -1,9 +1,11 @@
 * Try out Jetpack Compose.
-  - checkbox
+  X checkbox
   - webview
-  - webview rendering refinements
-  - is double click protection required?
   - remove onboarding.xml
+  - webview rendering refinements
+  - checkbox animation
+    - AnimatedVisibility?
+  - is double click protection required?
   - styling of onboarding doesn't match rest of app
     - convert all app to Jetpack Compose?
     - adjust styling?
