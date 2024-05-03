@@ -2,6 +2,7 @@ package uk.me.jeremygreen.merging.onboarding
 
 import android.content.Intent
 import android.os.Bundle
+import android.webkit.WebView
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.AnimatedVisibility
@@ -29,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.main.MainActivity
 import uk.me.jeremygreen.merging.model.AppViewModel
@@ -52,40 +54,11 @@ internal class OnboardingActivity: AppCompatActivity() {
         setContent {
             Onboarding()
         }
-        //setSupportActionBar(binding.onboardingToolbar)
-//        binding.onboardingWebView.loadUrl(PRIVACY_HTML)
-//        binding.onboardingWebView.setBackgroundColor(Color.TRANSPARENT)
-//        binding.onboardingWebView.webViewClient = object : WebViewClient() {
-//            override fun onPageFinished(view: WebView?, url: String?) {
-//                binding.onboardingAcceptCheckbox.visibility = View.VISIBLE
-//            }
-//            override fun shouldOverrideUrlLoading(webView: WebView?, url: String): Boolean {
-//                if (url.startsWith("mailto:")) {
-//                    val intent = Intent(Intent.ACTION_VIEW)
-//                    intent.setData(Uri.parse(url))
-//                    startActivity(intent)
-//                    return true
-//                }
-//                return false
-//            }
-//        }
     }
-
-    /**
-     * Update FloatingActionButton properties etc.
-     */
-//    private fun updateFabState() {
-//        if (binding.onboardingAcceptCheckbox.isChecked) {
-//            binding.onboardingAcceptButton.show()
-//        } else {
-//            binding.onboardingAcceptButton.hide()
-//        }
-//    }
-
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun Onboarding() {
+    private fun Onboarding() {
         var agreed by rememberSaveable { mutableStateOf(false) }
         Scaffold(
             topBar = {
@@ -126,7 +99,7 @@ internal class OnboardingActivity: AppCompatActivity() {
                     .padding(innerPadding),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                Text(text = "onboarding text")
+                WebView(url = PRIVACY_HTML)
                 Switch(
                     checked = agreed,
                     onCheckedChange = {
@@ -134,6 +107,20 @@ internal class OnboardingActivity: AppCompatActivity() {
                     })
             }
         }
+    }
+
+    @Composable
+    private fun WebView(
+        @Suppress("SameParameterValue") url: String
+    ) {
+        AndroidView(
+            factory = { context ->
+                return@AndroidView WebView(context)
+            },
+            update = {
+                    it.loadUrl(url)
+            }
+        )
     }
 
 }
