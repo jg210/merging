@@ -1,6 +1,4 @@
 * Try out Jetpack Compose.
-  - fix layout
-  - is double click protection required?
   - styling of onboarding doesn't match rest of app
     - convert all app to Jetpack Compose?
     - adjust styling?

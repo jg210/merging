@@ -103,11 +103,16 @@ internal class OnboardingActivity: AppCompatActivity() {
             ) {
                 WebView(url = PRIVACY_HTML, onLoaded = { webViewLoaded = true })
                 if (webViewLoaded) {
-                    Switch(
-                        checked = agreed,
-                        onCheckedChange = {
-                            agreed = it
-                        })
+                    Column(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                    ) {
+                        Switch(
+                            checked = agreed,
+                            onCheckedChange = {
+                                agreed = it
+                            }
+                        )
+                    }
                 }
             }
         }
