@@ -1,4 +1,5 @@
 * Try out Jetpack Compose.
+  - deduplicate shared layout code.
   - styling of onboarding doesn't match rest of app
     - convert all app to Jetpack Compose?
     - adjust styling?
