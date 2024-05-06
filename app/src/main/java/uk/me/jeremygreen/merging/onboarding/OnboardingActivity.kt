@@ -98,8 +98,7 @@ internal class OnboardingActivity: AppCompatActivity() {
             }
         ) { innerPadding ->
             Column(
-                modifier = Modifier
-                    .padding(innerPadding),
+                modifier = Modifier.padding(innerPadding),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 WebView(url = PRIVACY_HTML, onLoaded = { webViewLoaded = true })
