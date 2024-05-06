@@ -37,7 +37,7 @@ internal class AboutActivity: AppCompatActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun About() {
+    private fun About() {
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -67,19 +67,5 @@ internal class AboutActivity: AppCompatActivity() {
             }
         }
     }
-
-//    // Activity
-//    override fun onResume() {
-//        super.onResume()
-//        binding.aboutToolbar.setNavigationOnClickListener {
-//            finish()
-//        }
-//    }
-//
-//    // Activity
-//    override fun onPause() {
-//        super.onPause()
-//        binding.aboutToolbar.setNavigationOnClickListener(null)
-//    }
 
 }
