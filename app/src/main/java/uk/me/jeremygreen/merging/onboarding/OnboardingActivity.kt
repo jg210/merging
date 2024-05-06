@@ -3,6 +3,7 @@ package uk.me.jeremygreen.merging.onboarding
 import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.AnimatedVisibility
@@ -25,6 +26,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -60,6 +62,7 @@ internal class OnboardingActivity: AppCompatActivity() {
     @Composable
     private fun Onboarding() {
         var agreed by rememberSaveable { mutableStateOf(false) }
+        var webViewLoaded by remember { mutableStateOf(false) }
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -99,23 +102,32 @@ internal class OnboardingActivity: AppCompatActivity() {
                     .padding(innerPadding),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                WebView(url = PRIVACY_HTML)
-                Switch(
-                    checked = agreed,
-                    onCheckedChange = {
-                        agreed = it
-                    })
+                WebView(url = PRIVACY_HTML, onLoaded = { webViewLoaded = true })
+                if (webViewLoaded) {
+                    Switch(
+                        checked = agreed,
+                        onCheckedChange = {
+                            agreed = it
+                        })
+                }
             }
         }
     }
 
     @Composable
     private fun WebView(
-        @Suppress("SameParameterValue") url: String
+        @Suppress("SameParameterValue") url: String,
+        onLoaded: () -> Unit
     ) {
         AndroidView(
             factory = { context ->
-                return@AndroidView WebView(context)
+                return@AndroidView WebView(context).apply {
+                    webViewClient = object : WebViewClient() {
+                        override fun onPageFinished(view: WebView?, url: String?) {
+                            onLoaded()
+                        }
+                    }
+                }
             },
             update = {
                     it.loadUrl(url)
