@@ -46,25 +46,33 @@ internal class AboutActivity: AppCompatActivity() {
                         titleContentColor = MaterialTheme.colorScheme.primary,
                     ),
                     title = { Text(text = stringResource(R.string.actionAbout)) },
-                    navigationIcon = {
-                        IconButton(onClick = { finish() }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
-                                tint = Color.White
-                            )
-                        }
-                    }
+                    navigationIcon = { BackButton() }
                 )
             }
         ) { innerPadding ->
             Column(
                 modifier = Modifier.padding(innerPadding),
             ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(stringResource(R.string.version, BuildConfig.APPLICATION_ID, versionName))
-                }
+                AboutText()
             }
+        }
+    }
+
+    @Composable
+    private fun AboutText() {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(stringResource(R.string.version, BuildConfig.APPLICATION_ID, versionName))
+        }
+    }
+
+    @Composable
+    private fun BackButton() {
+        IconButton(onClick = { finish() }) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Back",
+                tint = Color.White
+            )
         }
     }
 
