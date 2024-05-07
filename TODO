@@ -1,8 +1,12 @@
 * Try out Jetpack Compose.
-  - deduplicate shared layout code.
-  - styling of onboarding doesn't match rest of app
-    - convert all app to Jetpack Compose?
-    - adjust styling?
+  - update to material 3 design
+    x onboarding
+    x about
+    - licences
+      - https://github.com/google/play-services-plugins/issues/248
+      - https://stackoverflow.com/questions/76852715/how-to-use-open-source-notices-library-with-jetpack-compose
+        - https://github.com/jaredsburrows/gradle-license-plugin
+    - main
 
 * NDK crash reporting
 
