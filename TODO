@@ -6,6 +6,10 @@
       - https://github.com/google/play-services-plugins/issues/248
       - https://stackoverflow.com/questions/76852715/how-to-use-open-source-notices-library-with-jetpack-compose
         - https://github.com/jaredsburrows/gradle-license-plugin
+          - tasks generate html, but aren't run automatically when build
+          - ./gradlew tasks breaks with AndroidSourceSet with name 'developDebugAndroidTest' not found.
+            => a pain to add dependencies
+      - 
     - main
 
 * NDK crash reporting
