@@ -22,6 +22,3 @@
 .project
 .settings
 .classpath
-
-# https://github.com/jaredsburrows/gradle-license-plugin
-open_source_licenses.html
