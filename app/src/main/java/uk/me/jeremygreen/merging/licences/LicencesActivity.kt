@@ -20,9 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
-import uk.me.jeremygreen.merging.BuildConfig
 import uk.me.jeremygreen.merging.R
 
 internal class LicencesActivity: AppCompatActivity() {
