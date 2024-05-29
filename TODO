@@ -89,6 +89,8 @@
 * Don't show splashscreen if start up is fast enough
   - but if do show it, show it for at least 1.5s.
 
+* Use ActivityResultContract not deprecated startActivityForResult/onActivityResult.
+
 * Enable crashlytics and analytics in SplashActivity if previously enabled via OnboardingActivity.
   - currently, enable in MainActivity, which avoids need to persist state, but means
     early crashes not visible.
