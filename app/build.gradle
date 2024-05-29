@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.application'
-    id 'com.google.android.gms.oss-licenses-plugin'
+    id 'com.mikepenz.aboutlibraries.plugin'
     id 'kotlin-android'
     id 'com.google.devtools.ksp'
     id 'com.google.gms.google-services'
@@ -135,7 +135,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics' // versioned with BOM
     implementation 'com.google.firebase:firebase-analytics' // versioned with BOM
     implementation 'com.google.android.gms:play-services-mlkit-face-detection:16.1.4'
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
+    implementation "com.mikepenz:aboutlibraries-compose-m3:${aboutLibsVersion}"
     implementation 'com.google.android.material:material:1.10.0'
     ksp "androidx.room:room-compiler:${room_version}"
     testImplementation "androidx.arch.core:core-testing:2.1.0"

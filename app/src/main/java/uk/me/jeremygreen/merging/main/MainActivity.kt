@@ -11,13 +11,13 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import uk.me.jeremygreen.merging.BuildConfig
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.about.AboutActivity
 import uk.me.jeremygreen.merging.databinding.MainBinding
+import uk.me.jeremygreen.merging.licences.LicencesActivity
 import uk.me.jeremygreen.merging.model.AppViewModel
 import java.io.File
 import java.util.*
@@ -80,8 +80,6 @@ internal class MainActivity : AppCompatActivity() {
         this.appViewModel.allImages().observe(this) { images ->
             this.pagerAdapter.setImages(images)
         }
-        val licencesTitle = resources.getString(R.string.actionLicences)
-        OssLicensesMenuActivity.setActivityTitle(licencesTitle)
     }
 
     private fun screenView(screenName: String?) {
@@ -118,7 +116,7 @@ internal class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.actionLicences -> {
-                val intent = Intent(this, OssLicensesMenuActivity::class.java)
+                val intent = Intent(this, LicencesActivity::class.java)
                 startActivity(intent)
                 true
             }
