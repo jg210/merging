@@ -4,7 +4,18 @@
     x about
     X licences
     - main
-  - android:theme="@style/AppTheme.NoActionBar" required in manifest still?
+      X replace view binding with composables
+      x top bar
+      X menu
+      X make action button start camera app
+      - save camera image
+      - show images and faces
+    - splash
+  - Is AppTheme etc. required still?
+    - and AppCompatActivity as parent class
+  - remove old material library.
+  - remove viewBinding = true
+  - replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
 
 * NDK crash reporting
 

@@ -6,18 +6,44 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.core.content.FileProvider
-import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import uk.me.jeremygreen.merging.BuildConfig
 import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.about.AboutActivity
-import uk.me.jeremygreen.merging.databinding.MainBinding
 import uk.me.jeremygreen.merging.licences.LicencesActivity
+import uk.me.jeremygreen.merging.main.screen.AddImage
+import uk.me.jeremygreen.merging.main.screen.InputImage
+import uk.me.jeremygreen.merging.main.screen.MergedImage
 import uk.me.jeremygreen.merging.model.AppViewModel
 import java.io.File
 import java.util.*
@@ -27,17 +53,12 @@ internal class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "MainActivity"
         private const val REQUEST_TAKE_PHOTO = 1
-        private const val BUNDLE_KEY__FILE = "file"
 
         fun imagesDir(activity: Activity): File {
             return File(activity.filesDir, "photos")
         }
     }
 
-    private var file: File? = null
-    private lateinit var binding: MainBinding
-    private lateinit var pagerAdapter: PagerAdapterImpl
-    private lateinit var pageChangeCallback: ViewPager2.OnPageChangeCallback
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val appViewModel by lazy {
@@ -51,13 +72,6 @@ internal class MainActivity : AppCompatActivity() {
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.binding = MainBinding.inflate(layoutInflater)
-        if (savedInstanceState != null) {
-            val fileString = savedInstanceState.getString(BUNDLE_KEY__FILE)
-            if (fileString != null) {
-                this.file = File(fileString)
-            }
-        }
         // Firebase Analytics and Crashlytics are only enabled after have agreed to their
         // use, which is done using OnboardingActivity.
         this.firebaseAnalytics = FirebaseAnalytics.getInstance(this)
@@ -66,22 +80,109 @@ internal class MainActivity : AppCompatActivity() {
             val crashlytics = FirebaseCrashlytics.getInstance()
             crashlytics.setCrashlyticsCollectionEnabled(true)
         }
-        setContentView(this.binding.root)
-        setSupportActionBar(this.binding.toolbar)
-        this.pagerAdapter = PagerAdapterImpl(this)
-        this.binding.pager.adapter = this.pagerAdapter
-        this.binding.pager.offscreenPageLimit = 2
-        this.pageChangeCallback = object: ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                val screenName: String? = this@MainActivity.pagerAdapter.screenName(binding.pager)
-                screenView(screenName)
+        setContent { Main() }
+//        this.appViewModel.allImages().observe(this) { images ->
+//            this.pagerAdapter.setImages(images)
+//        }
+    }
+
+    @OptIn(
+        ExperimentalFoundationApi::class,
+        ExperimentalMaterial3Api::class
+    )
+    @Composable
+    private fun Main() {
+        val context = this
+        val pagerState = rememberPagerState(
+            pageCount = { 2 }
+        )
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        titleContentColor = MaterialTheme.colorScheme.primary,
+                    ),
+                    title = { Text(text = stringResource(R.string.appName)) },
+                    actions = {
+                        OverflowMenu { closeMenu ->
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.actionAbout)) },
+                                onClick = {
+                                    closeMenu()
+                                    val intent = Intent(context, AboutActivity::class.java)
+                                    startActivity(intent)
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.actionLicences)) },
+                                onClick = {
+                                    closeMenu()
+                                    val intent = Intent(context, LicencesActivity::class.java)
+                                    startActivity(intent)
+                                }
+                            )
+                        }
+                    }
+                )
+            },
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = ::handleTakePhoto,
+                ) {
+                    Icon(
+                        Icons.Default.Add,
+                        contentDescription = "Add"
+                    )
+                }
             }
-        }
-        this.appViewModel.allImages().observe(this) { images ->
-            this.pagerAdapter.setImages(images)
+
+        ) { innerPadding ->
+            Column(
+                modifier = Modifier.padding(innerPadding),
+            ) {
+                HorizontalPager(
+                    state = pagerState,
+                    beyondBoundsPageCount = 2
+                ) { page ->
+                    Pages(page, pagerState.pageCount)
+                }
+            }
         }
     }
 
+    @Composable
+    private fun Pages(page: Int, pages: Int) {
+        when (page) {
+            0 -> AddImage() // first
+            pages - 1 -> MergedImage() // last
+            else -> {
+                InputImage(page - 1)
+            }
+        }
+    }
+
+    @Composable
+    fun OverflowMenu(content: @Composable (closeMenu: () -> Unit) -> Unit) {
+        var showMenu by remember { mutableStateOf(false) }
+        val closeMenu = { showMenu = false}
+        IconButton(onClick = {
+            showMenu = !showMenu
+        }) {
+            Icon(
+                imageVector = Icons.Outlined.MoreVert,
+                contentDescription = null
+            )
+        }
+        DropdownMenu(
+            expanded = showMenu,
+            onDismissRequest = closeMenu
+        ) {
+            content(closeMenu)
+        }
+    }
+
+    // TODO analytics
     private fun screenView(screenName: String?) {
         if (screenName == null) {
             return
@@ -92,51 +193,7 @@ internal class MainActivity : AppCompatActivity() {
         this.firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, params)
     }
 
-    // Activity
-    override fun onResume() {
-        super.onResume()
-        binding.pager.registerOnPageChangeCallback(this.pageChangeCallback)
-        binding.fab.setOnClickListener { handleTakePhoto() }
-    }
-
-    // Activity
-    override fun onPause() {
-        binding.fab.setOnClickListener(null)
-        binding.pager.unregisterOnPageChangeCallback(this.pageChangeCallback)
-        super.onPause()
-    }
-
-    // Activity
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        this.menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    // Activity
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.actionLicences -> {
-                val intent = Intent(this, LicencesActivity::class.java)
-                startActivity(intent)
-                true
-            }
-            R.id.actionAbout -> {
-                val intent = Intent(this, AboutActivity::class.java)
-                startActivity(intent)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    // Activity
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val file = this.file
-        if (file != null) {
-            outState.putString(BUNDLE_KEY__FILE, file.path)
-        }
-    }
+    // TODO binding.fab.setOnClickListener { handleTakePhoto() }
 
     private fun handleTakePhoto() {
         val intent = createTakePhotoIntent()
@@ -152,7 +209,6 @@ internal class MainActivity : AppCompatActivity() {
             BuildConfig.APPLICATION_ID + ".fileprovider",
             file
         )
-        this.file = file
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
         return intent
     }
@@ -160,9 +216,8 @@ internal class MainActivity : AppCompatActivity() {
     // Activity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val file = file
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO && file != null) {
-            this.appViewModel.addImage(file.path)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
+            // TODO this.appViewModel.addImage(file.path)
         }
     }
 
