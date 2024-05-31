@@ -10,6 +10,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -29,6 +30,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -45,6 +47,7 @@ import uk.me.jeremygreen.merging.main.screen.AddImage
 import uk.me.jeremygreen.merging.main.screen.InputImage
 import uk.me.jeremygreen.merging.main.screen.MergedImage
 import uk.me.jeremygreen.merging.model.AppViewModel
+import uk.me.jeremygreen.merging.model.Image
 import java.io.File
 import java.util.*
 
@@ -93,8 +96,12 @@ internal class MainActivity : AppCompatActivity() {
     @Composable
     private fun Main() {
         val context = this
+        val images = this.appViewModel.allImages().observeAsState().value
+        //Log.i(TAG, "images: ${images?.size}")
         val pagerState = rememberPagerState(
-            pageCount = { 2 }
+            pageCount = {
+                pagerPageCount(images)
+            }
         )
         Scaffold(
             topBar = {
@@ -143,23 +150,42 @@ internal class MainActivity : AppCompatActivity() {
             ) {
                 HorizontalPager(
                     state = pagerState,
-                    beyondBoundsPageCount = 2
+                    beyondBoundsPageCount = 2,
+                    modifier =  Modifier.fillMaxHeight()
                 ) { page ->
-                    Pages(page, pagerState.pageCount)
+                    Pages(images, page)
                 }
             }
         }
     }
 
-    @Composable
-    private fun Pages(page: Int, pages: Int) {
-        when (page) {
-            0 -> AddImage() // first
-            pages - 1 -> MergedImage() // last
-            else -> {
-                InputImage(page - 1)
-            }
+    private fun isMergedImageShown(images: List<Image>?) = !images.isNullOrEmpty() && images.size > 1
+
+    private fun pagerPageCount(images: List<Image>?): Int {
+        var pageCount = 1 // add image page
+        if (!images.isNullOrEmpty()) {
+            pageCount += images.size
         }
+        if (isMergedImageShown(images)) {
+            pageCount += 1
+        }
+        //Log.i(TAG, "pagerPageCount: ${pageCount}")
+        return pageCount
+    }
+
+    @Composable
+    private fun Pages(images: List<Image>?, page: Int) {
+        if (page == 0) {
+            AddImage()
+            return
+        }
+        val isLastPage = page == pagerPageCount(images) - 1
+        if (isLastPage && isMergedImageShown(images)) {
+            MergedImage()
+            return
+        }
+        val image = images?.get(page - 1)
+        InputImage(image)
     }
 
     @Composable

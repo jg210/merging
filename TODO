@@ -8,9 +8,15 @@
       x top bar
       X menu
       X make action button start camera app
+      - only show FAB if on add image page
       - save camera image
       - show images and faces
     - splash
+  - fresco is quite an old library and doesn't support jetpack compose directly
+    - coil?
+      - https://coil-kt.github.io/coil/migrating/#non-view-targets
+    - glide?
+    - picasso?
   - Is AppTheme etc. required still?
     - and AppCompatActivity as parent class
   - remove old material library.

@@ -5,8 +5,11 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.compose.foundation.Image
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.coroutines.Dispatchers
@@ -30,8 +33,10 @@ private val faceDetectorOptions  =
         .build()
 
 @Composable
-fun InputImage(page: Int) {
-    Text("image: $page")
+internal fun InputImage(image: Image?) {
+    Text(image?.uri.toString())
+    // TODO show FacesView
+}
 
 //    <uk.me.jeremygreen.merging.main.FacesView
 //    android:id="@+id/faces"
@@ -41,9 +46,6 @@ fun InputImage(page: Int) {
 //    fresco:backgroundImage="@color/imagePlaceholder"
 //    fresco:actualImageScaleType="fitCenter"
 //    />
-
-
-}
 
 //        fun createFactory(image: Image): ScreenFragmentFactory<InputImage> {
 //            require(image.id >= 0) { "might collide with non-image id: ${image.id}" }
