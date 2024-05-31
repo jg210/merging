@@ -162,20 +162,19 @@ internal class MainActivity : AppCompatActivity() {
     private fun isMergedImageShown(images: List<Image>?) = !images.isNullOrEmpty() && images.size > 1
 
     private fun pagerPageCount(images: List<Image>?): Int {
-        var pageCount = 1 // add image page
-        if (!images.isNullOrEmpty()) {
-            pageCount += images.size
+        if (images.isNullOrEmpty()) {
+            return 1 // add image page
         }
-        if (isMergedImageShown(images)) {
-            pageCount += 1
+        return if (isMergedImageShown(images)) {
+            images.size + 1
+        } else {
+            images.size
         }
-        //Log.i(TAG, "pagerPageCount: ${pageCount}")
-        return pageCount
     }
 
     @Composable
     private fun Pages(images: List<Image>?, page: Int) {
-        if (page == 0) {
+        if (images.isNullOrEmpty()) {
             AddImage()
             return
         }
@@ -184,7 +183,7 @@ internal class MainActivity : AppCompatActivity() {
             MergedImage()
             return
         }
-        val image = images?.get(page - 1)
+        val image = images?.get(page)
         InputImage(image)
     }
 
