@@ -103,6 +103,16 @@ internal class MainActivity : AppCompatActivity() {
                 pagerPageCount(images)
             }
         )
+        val floatingActionButton = @Composable {
+            FloatingActionButton(
+                onClick = ::handleTakePhoto,
+            ) {
+                Icon(
+                    Icons.Default.Add,
+                    contentDescription = "Add"
+                )
+            }
+        }
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -133,17 +143,7 @@ internal class MainActivity : AppCompatActivity() {
                     }
                 )
             },
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = ::handleTakePhoto,
-                ) {
-                    Icon(
-                        Icons.Default.Add,
-                        contentDescription = "Add"
-                    )
-                }
-            }
-
+            floatingActionButton = floatingActionButton
         ) { innerPadding ->
             Column(
                 modifier = Modifier.padding(innerPadding),
