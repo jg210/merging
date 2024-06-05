@@ -193,6 +193,7 @@ internal class MainActivity : AppCompatActivity() {
 
     @Composable
     private fun Pages(images: List<Image>?, page: Int) {
+        Log.i(TAG, "Pages: page=$page images=${images?.size}")
         if (images.isNullOrEmpty()) {
             AddImage()
             return
@@ -200,6 +201,10 @@ internal class MainActivity : AppCompatActivity() {
         val isLastPage = page == pagerPageCount(images) - 1
         if (isLastPage && isMergedImageShown(images)) {
             MergedImage()
+            return
+        }
+        if (page < 0 || page >= images.size) {
+            // Non-zero beyondBoundsPageCount causes out-of-range page to be provided.
             return
         }
         val image = images[page]
