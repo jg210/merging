@@ -208,7 +208,7 @@ internal class MainActivity : AppCompatActivity() {
             return
         }
         val image = images[page]
-        InputImage(image)
+        InputImage(image, onLongClick = { appViewModel.delete(image) })
     }
 
     @Composable

@@ -5,9 +5,12 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -32,9 +35,17 @@ private val faceDetectorOptions  =
         .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
         .build()
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun InputImage(image: Image?) {
-    Text(image?.uri.toString())
+internal fun InputImage(image: Image?, onLongClick : () -> Unit = {}) {
+    Text(
+        text = image?.uri.toString(),
+        modifier = Modifier.combinedClickable(
+            enabled = true,
+            onLongClick = { onLongClick() },
+            onClick = {}
+        )
+    )
     // TODO show FacesView
 }
 
