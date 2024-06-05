@@ -4,9 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -33,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -55,7 +57,6 @@ internal class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "MainActivity"
-        private const val REQUEST_TAKE_PHOTO = 1
 
         fun imagesDir(activity: Activity): File {
             return File(activity.filesDir, "photos")
@@ -97,15 +98,27 @@ internal class MainActivity : AppCompatActivity() {
     private fun Main() {
         val context = this
         val images = this.appViewModel.allImages().observeAsState().value
-        //Log.i(TAG, "images: ${images?.size}")
         val pagerState = rememberPagerState(
             pageCount = {
                 pagerPageCount(images)
             }
         )
+        var imageUri: Uri? by rememberSaveable { mutableStateOf(null) }
+        val cameraLauncher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.TakePicture(),
+            onResult = { success ->
+                if (success) {
+                    appViewModel.addImage(imageUri.toString())
+                }
+                // TODO else analytics
+            }
+        )
         val floatingActionButton = @Composable {
             FloatingActionButton(
-                onClick = ::handleTakePhoto,
+                onClick = {
+                    imageUri = createTakeImageUri()
+                    cameraLauncher.launch(imageUri)
+                },
             ) {
                 Icon(
                     Icons.Default.Add,
@@ -183,7 +196,7 @@ internal class MainActivity : AppCompatActivity() {
             MergedImage()
             return
         }
-        val image = images?.get(page)
+        val image = images[page]
         InputImage(image)
     }
 
@@ -218,32 +231,15 @@ internal class MainActivity : AppCompatActivity() {
         this.firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, params)
     }
 
-    // TODO binding.fab.setOnClickListener { handleTakePhoto() }
 
-    private fun handleTakePhoto() {
-        val intent = createTakePhotoIntent()
-        startActivityForResult(intent, REQUEST_TAKE_PHOTO)
-    }
-
-    private fun createTakePhotoIntent(): Intent {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val uuid = UUID.randomUUID()
-        val file = File(imagesDir, "${uuid}.jpg")
-        val imageUri: Uri = FileProvider.getUriForFile(
-            baseContext,
-            BuildConfig.APPLICATION_ID + ".fileprovider",
-            file
-        )
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-        return intent
-    }
-
-    // Activity
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
-            // TODO this.appViewModel.addImage(file.path)
-        }
+    private fun createTakeImageUri(): Uri {
+            val uuid = UUID.randomUUID()
+            val file = File(imagesDir, "${uuid}.jpg")
+            return FileProvider.getUriForFile(
+                baseContext,
+                BuildConfig.APPLICATION_ID + ".fileprovider",
+                file
+            )
     }
 
 } // MainActivity
