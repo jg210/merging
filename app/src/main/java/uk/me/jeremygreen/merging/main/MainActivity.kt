@@ -90,6 +90,24 @@ internal class MainActivity : AppCompatActivity() {
 //        }
     }
 
+    @Composable
+    fun takePicture(): () -> Unit {
+        var imageUri: Uri? by rememberSaveable { mutableStateOf(null) }
+        val cameraLauncher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.TakePicture(),
+            onResult = { success ->
+                if (success) {
+                    appViewModel.addImage(imageUri.toString())
+                }
+                // TODO else analytics
+            }
+        )
+        return {
+            imageUri = createTakeImageUri()
+            cameraLauncher.launch(imageUri)
+        }
+    }
+
     @OptIn(
         ExperimentalFoundationApi::class,
         ExperimentalMaterial3Api::class
@@ -103,22 +121,10 @@ internal class MainActivity : AppCompatActivity() {
                 pagerPageCount(images)
             }
         )
-        var imageUri: Uri? by rememberSaveable { mutableStateOf(null) }
-        val cameraLauncher = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.TakePicture(),
-            onResult = { success ->
-                if (success) {
-                    appViewModel.addImage(imageUri.toString())
-                }
-                // TODO else analytics
-            }
-        )
+        val takePicture = takePicture()
         val floatingActionButton = @Composable {
             FloatingActionButton(
-                onClick = {
-                    imageUri = createTakeImageUri()
-                    cameraLauncher.launch(imageUri)
-                },
+                onClick = { takePicture() },
             ) {
                 Icon(
                     Icons.Default.Add,
