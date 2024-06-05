@@ -39,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.FileProvider
+import com.facebook.common.file.FileUtils
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import uk.me.jeremygreen.merging.BuildConfig
@@ -96,6 +97,7 @@ internal class MainActivity : AppCompatActivity() {
         val cameraLauncher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.TakePicture(),
             onResult = { success ->
+                //Log.i(TAG, "takePicture: uri: $imageUri success: $success")
                 if (success) {
                     appViewModel.addImage(imageUri.toString())
                 }
@@ -103,6 +105,7 @@ internal class MainActivity : AppCompatActivity() {
             }
         )
         return {
+            FileUtils.mkdirs(imagesDir)
             imageUri = createTakeImageUri()
             cameraLauncher.launch(imageUri)
         }
