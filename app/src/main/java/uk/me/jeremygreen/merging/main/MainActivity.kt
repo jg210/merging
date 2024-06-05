@@ -86,9 +86,6 @@ internal class MainActivity : AppCompatActivity() {
             crashlytics.setCrashlyticsCollectionEnabled(true)
         }
         setContent { Main() }
-//        this.appViewModel.allImages().observe(this) { images ->
-//            this.pagerAdapter.setImages(images)
-//        }
     }
 
     @Composable
