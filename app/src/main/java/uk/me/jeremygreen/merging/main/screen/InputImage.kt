@@ -1,25 +1,16 @@
 package uk.me.jeremygreen.merging.main.screen
 
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.painter.BitmapPainter
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.google.mlkit.vision.face.FaceDetectorOptions
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import uk.me.jeremygreen.merging.R
 import uk.me.jeremygreen.merging.model.Image
-import uk.me.jeremygreen.merging.model.ProcessingStage
+import java.io.File
 
 private const val TAG = "ImageFragment"
 private const val BUNDLE_KEY__IMAGE_ID = "imageId"
@@ -38,13 +29,21 @@ private val faceDetectorOptions  =
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun InputImage(image: Image?, onLongClick : () -> Unit = {}) {
-    Text(
-        text = image?.uri.toString(),
-        modifier = Modifier.combinedClickable(
-            enabled = true,
-            onLongClick = { onLongClick() },
-            onClick = {}
-        )
+    if (image == null) {
+        return
+    }
+    Text("${image.uri} exists: ${File(image.uri.path).exists()}")
+    AsyncImage(
+//        model = image.uri,
+        model = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Tabby_Kitten_on_Blue_Throw.jpg/1280px-Tabby_Kitten_on_Blue_Throw.jpg",
+        contentDescription = null,
+        modifier = Modifier.
+            fillMaxSize().
+            combinedClickable(
+                enabled = true,
+                onLongClick = { onLongClick() },
+                onClick = {}
+            )
     )
     // TODO show FacesView
 }

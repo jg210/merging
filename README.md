@@ -10,7 +10,7 @@ It's using:
 * [ML Kit](https://developers.google.com/ml-kit/vision/face-detection) for face feature detection.
 * [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics/) for crash reporting.
 * [Firebase Analytics](https://firebase.google.com/docs/analytics).
-* [Fresco](https://developers.google.com/ml-kit/) for android Bitmap management.
+* [Coil](https://coil-kt.github.io/coil/) for android Bitmap management.
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build, test and continuous delivery [![CircleCI](https://circleci.com/gh/jg210/merging/tree/develop.svg?style=svg)](https://circleci.com/gh/jg210/merging)
 * [Fastlane](https://fastlane.tools/) to publish the app as a beta (early access) release for every commit on the release branch. [<img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' style='height: 2em'/>](https://play.google.com/store/apps/details?id=uk.me.jeremygreen.merging)
 * [Material Design](https://material.io/design/).
