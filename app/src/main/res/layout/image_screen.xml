@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <uk.me.jeremygreen.merging.main.FacesView
+    <uk.me.jeremygreen.merging2.main.FacesView
             android:id="@+id/faces"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
