@@ -12,6 +12,8 @@
       X develop
       X product
     - update circle CI config
+       X not worth renaming secrets env. vars. to keep support for old branches
+         X which need config with old app id.
        - google-services.json
          - develop
          - product
