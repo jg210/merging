@@ -20,6 +20,7 @@
        X product
      X google-play-service.json
   - can't use open testing any more, so move to internal testing
+  - build aab not apk
 
 * Try out JetPack compose.
   - add detekt plugin.
