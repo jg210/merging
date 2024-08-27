@@ -1,3 +1,25 @@
+* Release with new app id
+  X build.gradle
+  X rename classes
+  X README.md
+  X AppFile
+  X new google play account
+  X verify google play account
+  - get new google-play-service.json
+  - firebase
+    X add new app id to existing configs
+      X keeping old app id so still get analytics from any users
+    - update local google-services.json
+      X develop
+      X product
+    - update circle CI config
+       X not worth renaming secrets env. vars. to keep support for old branches
+         X which need config with old app id.
+       - google-services.json
+         - develop
+         - product
+       - google-play-service.json
+
 * Try out JetPack compose.
   - add detekt plugin.
 
