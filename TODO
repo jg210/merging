@@ -5,20 +5,21 @@
   X AppFile
   X new google play account
   X verify google play account
-  - get new google-play-service.json
-  - firebase
+  X get new google-play-service.json
+  X firebase
     X add new app id to existing configs
       X keeping old app id so still get analytics from any users
-    - update local google-services.json
+    X update local google-services.json
       X develop
       X product
-    - update circle CI config
-       X not worth renaming secrets env. vars. to keep support for old branches
-         X which need config with old app id.
-       - google-services.json
-         - develop
-         - product
-       - google-play-service.json
+  X update circle CI config
+     X not worth renaming secrets env. vars. to keep support for old branches
+       X which need config with old app id.
+     X google-services.json
+       X develop
+       X product
+     X google-play-service.json
+  - can't use open testing any more, so move to internal testing
 
 * Try out JetPack compose.
   - add detekt plugin.
