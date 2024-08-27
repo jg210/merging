@@ -4,7 +4,7 @@
   X README.md
   X AppFile
   X new google play account
-  - verify google play account
+  X verify google play account
   - get new google-play-service.json
   - firebase
     X add new app id to existing configs
