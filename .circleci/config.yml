@@ -34,8 +34,11 @@ jobs:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - run:
-          name: Run Tests
-          command: ./gradlew lint test assembleProduct --stacktrace
+          name: gradle check
+          command: ./gradlew check
+      - run:
+          name: gradle assembleProduct
+          command: ./gradlew assembleProduct
       - store_artifacts: # https://circleci.com/docs/2.0/artifacts/
           path: app/build/outputs/apk/product/release/app-product-release.apk
           destination: apks/app-product-release.apk
