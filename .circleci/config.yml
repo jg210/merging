@@ -68,9 +68,6 @@ jobs:
       - image: cimg/ruby:3.2.2
     steps:
       - checkout
-      - run:
-          command: |
-            env | sort
       - restore_cache:
           key: rbenv-{{ checksum "Gemfile.lock" }}-{{ checksum "Gemfile" }}-{{ checksum ".ruby-version" }}
       - run:
