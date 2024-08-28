@@ -67,12 +67,12 @@ jobs:
       - image: cibuilds/github:0.13
     steps:
       - attach_workspace:
-          at: ./artifacts
+          at: ./app/build
       - run:
           name: "Publish Release on GitHub"
           command: |
             VERSION=$(cat ./artifacts/version)
-            ghr -t "${GITHUB_TOKEN}"  -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" "v${VERSION}" ./artifacts/outputs/apk/product/release/app-product-release.apk
+            ghr -t "${GITHUB_TOKEN}"  -u "${CIRCLE_PROJECT_USERNAME}" -r "${CIRCLE_PROJECT_REPONAME}" -c "${CIRCLE_SHA1}" "v${VERSION}" ./app/build/outputs/apk/product/release/app-product-release.apk
   publish-play-store:
     docker:
       - image: cimg/ruby:3.2.2
@@ -88,14 +88,13 @@ jobs:
             - ~/.rbenv
           key: rbenv-{{ checksum "Gemfile.lock" }}-{{ checksum "Gemfile" }}-{{ checksum ".ruby-version" }}
       - attach_workspace:
-          at: ./artifacts
+          at: ./app/build
       - run:
           name: Create google-play-service.json
           command: printf "%s" "${GOOGLE_PLAY_SERVICE_JSON}" | base64 --decode > google-play-service.json
       - run:
           name: "Publish to Google Play Store"
           command: |
-            ls -al ./app/build/outputs
             bin/fastlane supply --track internal --aab ./app/build/outputs/bundle/productRelease/app-product-release.aab
 
 workflows:
