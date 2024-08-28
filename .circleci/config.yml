@@ -18,6 +18,8 @@ jobs:
           name: Create google-services.json (product flavour)
           command: |
             mkdir -p app/src/product
+            test -d app/src/product
+            ls -l app/src/product/google-services.json
             printf "%s" "${GOOGLE_SERVICES}" | base64 --decode > app/src/product/google-services.json
       - run:
           name: Create google-services.json (develop flavour)
