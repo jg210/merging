@@ -39,9 +39,15 @@ jobs:
       - run:
           name: gradle assembleProduct
           command: ./gradlew assembleProduct
+      - run:
+          name: gradle bundleProductRelease
+          command: ./gradlew bundleProductRelease
       - store_artifacts: # https://circleci.com/docs/2.0/artifacts/
           path: app/build/outputs/apk/product/release/app-product-release.apk
           destination: apks/app-product-release.apk
+      - store_artifacts:
+          path: app/build/outputs/bundle/productRelease/app-product-release.aab
+          destination: aabs/app-product-release.aab
       - store_artifacts:
           path: app/build/reports
           destination: reports
@@ -83,9 +89,9 @@ jobs:
           name: Create google-play-service.json
           command: printf "%s" "${GOOGLE_PLAY_SERVICE_JSON}" | base64 --decode > google-play-service.json
       - run:
-          name: "Publish Release to Google Play Store"
+          name: "Publish to Google Play Store"
           command: |
-            bin/fastlane supply --track beta --apk ./artifacts/outputs/apk/product/release/app-product-release.apk
+            bin/fastlane supply --track internal --aab ./app/build/outputs/bundle/productRelease/app-product-release.aab
 
 workflows:
   version: 2
