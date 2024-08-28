@@ -68,7 +68,7 @@ android {
     }
     buildTypes {
         release {
-            if (releaseStoreFile.exists() && releaseStoreFile.size() > 0) {
+            if (releaseStoreFile.exists()) {
                 signingConfig signingConfigs.release
             }
             minifyEnabled false
