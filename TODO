@@ -19,8 +19,12 @@
        X develop
        X product
      X google-play-service.json
-  - can't use open testing any more, so move to internal testing
-  - build aab not apk
+  X can't use open testing any more, so move to internal testing
+  X build aab not apk
+  - Google Api Error: Invalid request - Only releases with status draft may be created on draft app.
+  - update README
+    - can make internal testing link public since only works for listed internal testers
+    - ...or just link to apks on github.
 
 * Try out JetPack compose.
   - add detekt plugin.
