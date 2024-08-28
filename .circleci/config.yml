@@ -101,13 +101,13 @@ workflows:
       - publish-github-release:
           requires:
             - build
-          filters:
-            branches:
-              only: release
+#          filters:
+#            branches:
+#              only: release
       - publish-play-store:
           requires:
             - build
-          filters:
-            branches:
-              only: release
+#          filters:
+#            branches:
+#              only: release
 
