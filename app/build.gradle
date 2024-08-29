@@ -49,7 +49,7 @@ def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
 android {
     compileSdk 34
     defaultConfig {
-        applicationId "uk.me.jeremygreen.merging"
+        applicationId "uk.me.jeremygreen.merging2"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode findVersionCode()
@@ -89,13 +89,13 @@ android {
     productFlavors {
         develop {
             dimension "flavour"
-            applicationId "uk.me.jeremygreen.merging.develop"
+            applicationId "uk.me.jeremygreen.merging2.develop"
         }
         product {
             dimension "flavour"
         }
     }
-    namespace 'uk.me.jeremygreen.merging'
+    namespace 'uk.me.jeremygreen.merging2'
 }
 
 detekt {
