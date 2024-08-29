@@ -26,6 +26,28 @@
     - can make internal testing link public since only works for listed internal testers
     - ...or just link to apks on github.
 
+* Data deletion and opt out
+  - is there API for crashlytics?
+    - crashlytics.setCrashlyticsCollectionEnabled(false)
+    - crashlytics.deleteUnsentReports()
+      - call before enabling again
+        - how can this be implemented?
+          - an extra persisted flag?
+          - always call it?
+            - likely breaks all crash reporting?
+    - nothing seems to delete remote data
+  - is there API for analytics?
+    - resetAnalyticsData() is just for local data.
+    - https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics#(com.google.firebase.analytics.FirebaseAnalytics).setConsent(kotlin.Function1)
+    - setAnalyticsCollectionEnabled(true)
+    - "If a user withdraws their previously given consent for Analytics or Ad storage, Google Analytics deletes all user properties"
+  - mention opt out in onboarding text
+  - add toggle button for opt out/in
+  - add extra persisted flag for opt out/in
+    - analytics persists the state, but can't read the state from its API
+  - call data clearing APIs.
+  - go back to SplashActivity if change setting
+
 * Try out JetPack compose.
   - add detekt plugin.
 
