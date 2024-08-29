@@ -95,7 +95,10 @@ jobs:
       - run:
           name: "Publish to Google Play Store"
           command: |
-            bin/fastlane supply --track internal --aab ./app/build/outputs/bundle/productRelease/app-product-release.aab
+            bin/fastlane supply \
+            --track internal \
+            --aab ./app/build/outputs/bundle/productRelease/app-product-release.aab \
+            --release_status draft
 
 workflows:
   version: 2
