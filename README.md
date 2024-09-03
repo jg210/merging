@@ -12,7 +12,7 @@ It's using:
 * [Firebase Analytics](https://firebase.google.com/docs/analytics).
 * [Fresco](https://developers.google.com/ml-kit/) for android Bitmap management.
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build, test and continuous delivery [![CircleCI](https://circleci.com/gh/jg210/merging/tree/develop.svg?style=svg)](https://circleci.com/gh/jg210/merging)
-* [Fastlane](https://fastlane.tools/) to publish the app to google play store as a internal testing for every commit on the release branch.
+* [Fastlane](https://fastlane.tools/) to publish the app to google play store as an internal testing release for every commit on the release branch.
 * [Material Design](https://material.io/design/).
 * [detekt](https://detekt.dev/) for kotlin static analysis.
 
