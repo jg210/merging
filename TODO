@@ -1,3 +1,6 @@
+* Fix libraries with non-16K alignment
+  - before 1st Nov 2025
+
 * Release with new app id
   X build.gradle
   X rename classes
