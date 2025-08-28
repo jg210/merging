@@ -1,5 +1,10 @@
+* Make new release.
+
 * Fix libraries with non-16K alignment
   - before 1st Nov 2025
+  - lib/arm64-v8a/libimagepipeline.so
+  - lib/arm64-v8a/libnative-filters.so
+  - lib/arm64-v8a/libnative-imagetranscoder.so
 
 * Release with new app id
   X build.gradle
