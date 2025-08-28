@@ -7,11 +7,11 @@ package uk.me.jeremygreen.merging2.main
 //import androidx.recyclerview.widget.RecyclerView
 //import androidx.viewpager2.adapter.FragmentStateAdapter
 //import androidx.viewpager2.widget.ViewPager2
-//import uk.me.jeremygreen.merging.model.Image
-//import uk.me.jeremygreen.merging.main.screen.AddImage
-//import uk.me.jeremygreen.merging.main.screen.InputImage
-//import uk.me.jeremygreen.merging.main.screen.MergedImage
-
+//import uk.me.jeremygreen.merging2.model.Image
+//import uk.me.jeremygreen.merging2.main.screen.AddImageFragment
+//import uk.me.jeremygreen.merging2.main.screen.ImageFragment
+//import uk.me.jeremygreen.merging2.main.screen.MergedImageFragment
+//
 //internal class PagerAdapterImpl(
 //    fragmentActivity: FragmentActivity
 //) : FragmentStateAdapter(fragmentActivity) {
@@ -27,13 +27,13 @@ package uk.me.jeremygreen.merging2.main
 //        Log.v(TAG, "setImages(${images.size})")
 //        val newFactories: MutableList<ScreenFragmentFactory<*>> = mutableListOf()
 //        if (images.isEmpty()) {
-//            newFactories.add(AddImage)
+//            newFactories.add(AddImageFragment)
 //        }
 //        images.forEach {image ->
-//            newFactories.add(InputImage.createFactory(image))
+//            newFactories.add(ImageFragment.createFactory(image))
 //        }
 //        if (images.size >= 2) {
-//            newFactories.add(MergedImage)
+//            newFactories.add(MergedImageFragment)
 //        }
 //        val newIds = newFactories.map{ factory -> factory.id }.toSet()
 //        if (newIds.size != newFactories.size) {
