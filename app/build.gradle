@@ -49,7 +49,7 @@ android {
     defaultConfig {
         applicationId "uk.me.jeremygreen.merging2"
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode findVersionCode()
         versionName findVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
