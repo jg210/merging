@@ -14,7 +14,7 @@ import uk.me.jeremygreen.merging2.R
 // screenName(): String = "MergedImage"
 
 @Composable
-fun MergedImage() {
+internal fun MergedImage() {
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
