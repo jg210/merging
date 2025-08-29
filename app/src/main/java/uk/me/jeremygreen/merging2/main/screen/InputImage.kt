@@ -2,6 +2,7 @@ package uk.me.jeremygreen.merging2.main.screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,19 +35,19 @@ internal fun InputImage(image: Image?, onLongClick : () -> Unit = {}) {
     val path = image.uri.path
     val file = if (path != null) File(path) else null
     val exists = file?.exists()
-    Text("${image.uri} exists: ${exists}")
-    AsyncImage(
+    Column {
+        Text("${image.uri} exists: ${exists}")
+        AsyncImage(
 //        model = image.uri,
-        model = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Tabby_Kitten_on_Blue_Throw.jpg/1280px-Tabby_Kitten_on_Blue_Throw.jpg",
-        contentDescription = null,
-        modifier = Modifier.
-            fillMaxSize().
-            combinedClickable(
+            model = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Tabby_Kitten_on_Blue_Throw.jpg/1280px-Tabby_Kitten_on_Blue_Throw.jpg",
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize().combinedClickable(
                 enabled = true,
                 onLongClick = { onLongClick() },
                 onClick = {}
             )
-    )
+        )
+    }
     // TODO show FacesView
 }
 
