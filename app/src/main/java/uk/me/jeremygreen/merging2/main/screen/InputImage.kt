@@ -31,7 +31,10 @@ internal fun InputImage(image: Image?, onLongClick : () -> Unit = {}) {
     if (image == null) {
         return
     }
-    Text("${image.uri} exists: ${File(image.uri.path).exists()}")
+    val path = image.uri.path
+    val file = if (path != null) File(path) else null
+    val exists = file?.exists()
+    Text("${image.uri} exists: ${exists}")
     AsyncImage(
 //        model = image.uri,
         model = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Tabby_Kitten_on_Blue_Throw.jpg/1280px-Tabby_Kitten_on_Blue_Throw.jpg",
