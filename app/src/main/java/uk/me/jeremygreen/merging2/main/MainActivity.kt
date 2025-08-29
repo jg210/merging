@@ -122,35 +122,7 @@ internal class MainActivity : AppCompatActivity() {
             }
         )
         Scaffold(
-            topBar = {
-                TopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        titleContentColor = MaterialTheme.colorScheme.primary,
-                    ),
-                    title = { Text(text = stringResource(R.string.appName)) },
-                    actions = {
-                        OverflowMenu { closeMenu ->
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.actionAbout)) },
-                                onClick = {
-                                    closeMenu()
-                                    val intent = Intent(context, AboutActivity::class.java)
-                                    startActivity(intent)
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.actionLicences)) },
-                                onClick = {
-                                    closeMenu()
-                                    val intent = Intent(context, LicencesActivity::class.java)
-                                    startActivity(intent)
-                                }
-                            )
-                        }
-                    }
-                )
-            },
+            topBar = { TopBar(context) },
             floatingActionButton = { FloatingActionButtonImpl() }
         ) { innerPadding ->
             Column(
@@ -165,6 +137,38 @@ internal class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    @Composable
+    @OptIn(ExperimentalMaterial3Api::class)
+    private fun TopBar(context: MainActivity) {
+        TopAppBar(
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                titleContentColor = MaterialTheme.colorScheme.primary,
+            ),
+            title = { Text(text = stringResource(R.string.appName)) },
+            actions = {
+                OverflowMenu { closeMenu ->
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.actionAbout)) },
+                        onClick = {
+                            closeMenu()
+                            val intent = Intent(context, AboutActivity::class.java)
+                            startActivity(intent)
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.actionLicences)) },
+                        onClick = {
+                            closeMenu()
+                            val intent = Intent(context, LicencesActivity::class.java)
+                            startActivity(intent)
+                        }
+                    )
+                }
+            }
+        )
     }
 
     @Composable
