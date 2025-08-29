@@ -25,7 +25,7 @@ import uk.me.jeremygreen.merging2.R
 
 internal class AboutActivity: AppCompatActivity() {
 
-    private val versionName by lazy { packageManager.getPackageInfo(packageName, 0).versionName }
+    private val versionName by lazy { packageManager.getPackageInfo(packageName, 0).versionName!! }
 
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
