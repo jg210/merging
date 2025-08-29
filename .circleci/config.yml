@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: cimg/android:2023.11.1
+      - image: cimg/android:2025.08.1
     resource_class: large
     environment:
       JVM_OPTS: -Xmx3200m
