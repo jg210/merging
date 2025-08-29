@@ -22,6 +22,64 @@
   - remove viewBinding = true
   - replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
 
+* targetSdkVersion 34 -> 36 has pushed the app's action bars into the phone's status bar
+
+* Fix libraries with non-16K alignment
+  - before 1st Nov 2025
+  - lib/arm64-v8a/libimagepipeline.so
+  - lib/arm64-v8a/libnative-filters.so
+  - lib/arm64-v8a/libnative-imagetranscoder.so
+
+* Release with new app id
+  X build.gradle
+  X rename classes
+  X README.md
+  X AppFile
+  X new google play account
+  X verify google play account
+  X get new google-play-service.json
+  X firebase
+    X add new app id to existing configs
+      X keeping old app id so still get analytics from any users
+    X update local google-services.json
+      X develop
+      X product
+  X update circle CI config
+     X not worth renaming secrets env. vars. to keep support for old branches
+       X which need config with old app id.
+     X google-services.json
+       X develop
+       X product
+     X google-play-service.json
+  X can't use open testing any more, so move to internal testing
+  X build aab not apk
+  - Google Api Error: Invalid request - Only releases with status draft may be created on draft app.
+  - update README
+    - can make internal testing link public since only works for listed internal testers
+    - ...or just link to apks on github.
+
+* Data deletion and opt out
+  - is there API for crashlytics?
+    - crashlytics.setCrashlyticsCollectionEnabled(false)
+    - crashlytics.deleteUnsentReports()
+      - call before enabling again
+        - how can this be implemented?
+          - an extra persisted flag?
+          - always call it?
+            - likely breaks all crash reporting?
+    - nothing seems to delete remote data
+  - is there API for analytics?
+    - resetAnalyticsData() is just for local data.
+    - https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics#(com.google.firebase.analytics.FirebaseAnalytics).setConsent(kotlin.Function1)
+    - setAnalyticsCollectionEnabled(true)
+    - "If a user withdraws their previously given consent for Analytics or Ad storage, Google Analytics deletes all user properties"
+  - mention opt out in onboarding text
+  - add toggle button for opt out/in
+  - add extra persisted flag for opt out/in
+    - analytics persists the state, but can't read the state from its API
+  - call data clearing APIs.
+  - go back to SplashActivity if change setting
+
 * NDK crash reporting
 
 * Splashscreen has very large image on android-21 emulator.

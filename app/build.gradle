@@ -47,11 +47,11 @@ static String findVersionName() {
 def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
 
 android {
-    compileSdk 34
+    compileSdk 36
     defaultConfig {
         applicationId "uk.me.jeremygreen.merging2"
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode findVersionCode()
         versionName findVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -82,8 +82,8 @@ android {
         kotlinCompilerExtensionVersion = project.ext.kotlinCompilerExtensionVersion
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
     flavorDimensions "flavour"
     productFlavors {
@@ -147,8 +147,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation composeBom
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:1.23.6")
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-ruleauthors:1.23.6")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:1.23.8")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-ruleauthors:1.23.8")
     detektPlugins 'io.nlopez.compose.rules:detekt:0.3.12'
 }
 
