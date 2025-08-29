@@ -121,17 +121,6 @@ internal class MainActivity : AppCompatActivity() {
                 pagerPageCount(images)
             }
         )
-        val takePicture = takePicture()
-        val floatingActionButton = @Composable {
-            FloatingActionButton(
-                onClick = { takePicture() },
-            ) {
-                Icon(
-                    Icons.Default.Add,
-                    contentDescription = "Add"
-                )
-            }
-        }
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -162,7 +151,7 @@ internal class MainActivity : AppCompatActivity() {
                     }
                 )
             },
-            floatingActionButton = floatingActionButton
+            floatingActionButton = { FloatingActionButtonImpl() }
         ) { innerPadding ->
             Column(
                 modifier = Modifier.padding(innerPadding),
@@ -175,6 +164,18 @@ internal class MainActivity : AppCompatActivity() {
                     Pages(images, page)
                 }
             }
+        }
+    }
+
+    @Composable
+    private fun FloatingActionButtonImpl() {
+        FloatingActionButton(
+            onClick = takePicture(),
+        ) {
+            Icon(
+                Icons.Default.Add,
+                contentDescription = "Add"
+            )
         }
     }
 
