@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -90,8 +90,8 @@ internal class OnboardingActivity: AppCompatActivity() {
                         },
                     ) {
                         Icon(
-                            Icons.Default.Add,
-                            contentDescription = "Add"
+                            Icons.Default.Check,
+                            contentDescription = "OK"
                         )
                     }
                 }
