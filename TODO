@@ -1,3 +1,8 @@
+* Upgrades
+  - compose and kotlin
+    - https://developer.android.com/jetpack/androidx/releases/compose-kotlin#pre-release_kotlin_compatibility
+    - https://developer.android.com/develop/ui/compose/compiler
+
 * Try out Jetpack Compose.
   - update to material 3 design
     x onboarding
