@@ -221,19 +221,21 @@ internal class MainActivity : AppCompatActivity() {
     fun OverflowMenu(content: @Composable (closeMenu: () -> Unit) -> Unit) {
         var showMenu by remember { mutableStateOf(false) }
         val closeMenu = { showMenu = false}
-        IconButton(onClick = {
-            showMenu = !showMenu
-        }) {
-            Icon(
-                imageVector = Icons.Outlined.MoreVert,
-                contentDescription = null
-            )
-        }
-        DropdownMenu(
-            expanded = showMenu,
-            onDismissRequest = closeMenu
-        ) {
-            content(closeMenu)
+        Column {
+            IconButton(onClick = {
+                showMenu = !showMenu
+            }) {
+                Icon(
+                    imageVector = Icons.Outlined.MoreVert,
+                    contentDescription = null
+                )
+            }
+            DropdownMenu(
+                expanded = showMenu,
+                onDismissRequest = closeMenu
+            ) {
+                content(closeMenu)
+            }
         }
     }
 
