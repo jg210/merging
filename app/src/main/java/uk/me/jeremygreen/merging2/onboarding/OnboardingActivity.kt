@@ -101,7 +101,7 @@ internal class OnboardingActivity: AppCompatActivity() {
                 modifier = Modifier.padding(innerPadding),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                WebView(url = PRIVACY_HTML, onLoaded = { webViewLoaded = true })
+                WebView(url = PRIVACY_HTML, onLoad = { webViewLoaded = true })
                 if (webViewLoaded) {
                     Column(
                         modifier = Modifier.padding(horizontal = 16.dp),
@@ -121,14 +121,14 @@ internal class OnboardingActivity: AppCompatActivity() {
     @Composable
     private fun WebView(
         @Suppress("SameParameterValue") url: String,
-        onLoaded: () -> Unit
+        onLoad: () -> Unit
     ) {
         AndroidView(
             factory = { context ->
                 return@AndroidView WebView(context).apply {
                     webViewClient = object : WebViewClient() {
                         override fun onPageFinished(view: WebView?, url: String?) {
-                            onLoaded()
+                            onLoad()
                         }
                     }
                 }

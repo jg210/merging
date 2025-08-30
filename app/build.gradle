@@ -149,7 +149,7 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:1.23.8")
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-ruleauthors:1.23.8")
-    detektPlugins 'io.nlopez.compose.rules:detekt:0.3.12'
+    detektPlugins 'io.nlopez.compose.rules:detekt:0.4.27'
 }
 
 task writeVersionFile {
