@@ -12,12 +12,13 @@ import com.google.mlkit.vision.face.FaceDetectorOptions
 import uk.me.jeremygreen.merging2.model.Image
 import java.io.File
 
-private const val TAG = "ImageFragment"
-private const val BUNDLE_KEY__IMAGE_ID = "imageId"
+//private const val TAG = "ImageFragment"
+//private const val BUNDLE_KEY__IMAGE_ID = "imageId"
+//
+//private const val BITMAP_WIDTH = 360
+//private const val BITMAP_HEIGHT = 480
 
-private const val BITMAP_WIDTH = 360
-private const val BITMAP_HEIGHT = 480
-
+@Suppress("unused")
 private val faceDetectorOptions  =
     FaceDetectorOptions.Builder()
         .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)

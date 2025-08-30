@@ -240,6 +240,7 @@ internal class MainActivity : AppCompatActivity() {
     }
 
     // TODO analytics
+    @Suppress("unused")
     private fun screenView(screenName: String?) {
         if (screenName == null) {
             return
