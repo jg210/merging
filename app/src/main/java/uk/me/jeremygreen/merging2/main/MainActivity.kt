@@ -42,6 +42,7 @@ import androidx.core.content.FileProvider
 import com.facebook.common.file.FileUtils
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import kotlinx.collections.immutable.ImmutableList
 import uk.me.jeremygreen.merging2.BuildConfig
 import uk.me.jeremygreen.merging2.R
 import uk.me.jeremygreen.merging2.about.AboutActivity
@@ -183,9 +184,9 @@ internal class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun isMergedImageShown(images: List<Image>?) = !images.isNullOrEmpty() && images.size > 1
+    private fun isMergedImageShown(images: ImmutableList<Image>?) = !images.isNullOrEmpty() && images.size > 1
 
-    private fun pagerPageCount(images: List<Image>?): Int {
+    private fun pagerPageCount(images: ImmutableList<Image>?): Int {
         if (images.isNullOrEmpty()) {
             return 1 // add image page
         }
@@ -197,7 +198,7 @@ internal class MainActivity : AppCompatActivity() {
     }
 
     @Composable
-    private fun Pages(images: List<Image>?, page: Int) {
+    private fun Pages(images: ImmutableList<Image>?, page: Int) {
         Log.i(TAG, "Pages: page=$page images=${images?.size}")
         if (images.isNullOrEmpty()) {
             AddImage()
