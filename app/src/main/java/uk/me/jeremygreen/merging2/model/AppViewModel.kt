@@ -6,8 +6,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -41,8 +44,8 @@ internal class AppViewModel(
     @Suppress("unused")
     constructor(application: Application): this(application, createAppDatabase(application))
 
-    fun allImages(): LiveData<List<Image>> {
-        return appDatabase.imageDao().getImages()
+    fun allImages(): LiveData<ImmutableList<Image>> {
+        return appDatabase.imageDao().getImages().map { images -> images.toImmutableList() }
     }
 
     suspend fun getProcessingStage(imageId: Long): Int {
