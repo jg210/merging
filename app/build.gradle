@@ -47,7 +47,7 @@ static String findVersionName() {
 def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
 
 android {
-    compileSdk 36
+    compileSdk=36
     defaultConfig {
         applicationId "uk.me.jeremygreen.merging2"
         minSdkVersion 21
