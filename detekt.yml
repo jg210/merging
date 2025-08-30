@@ -1,3 +1,7 @@
+complexity:
+  TooManyFunctions:
+    active: false
+
 empty-blocks:
   EmptyFunctionBlock:
     ignoreOverridden: true
@@ -5,6 +9,11 @@ naming:
   FunctionNaming:
     ignoreAnnotated:
       - 'Composable'
+style:
+  MaxLineLength:
+    active: false
+  ReturnCount:
+    active: false
 Compose:
   ComposableAnnotationNaming:
     active: true
