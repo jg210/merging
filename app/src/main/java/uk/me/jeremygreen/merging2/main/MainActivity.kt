@@ -131,7 +131,7 @@ internal class MainActivity : AppCompatActivity() {
             ) {
                 HorizontalPager(
                     state = pagerState,
-                    beyondBoundsPageCount = 2,
+                    beyondViewportPageCount = 2,
                     modifier =  Modifier.fillMaxHeight()
                 ) { page ->
                     Pages(images, page)
