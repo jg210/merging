@@ -128,7 +128,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:${lifecycle_version}"
     implementation "androidx.room:room-ktx:${room_version}"
     implementation "androidx.room:room-runtime:${room_version}"
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation("io.coil-kt:coil:2.6.0")
     implementation("io.coil-kt:coil-compose:2.6.0")
     implementation 'com.facebook.fresco:fresco:3.1.3'
