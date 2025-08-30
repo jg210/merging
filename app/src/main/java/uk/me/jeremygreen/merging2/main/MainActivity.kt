@@ -218,7 +218,7 @@ internal class MainActivity : AppCompatActivity() {
     }
 
     @Composable
-    fun OverflowMenu(content: @Composable (closeMenu: () -> Unit) -> Unit) {
+    private fun OverflowMenu(content: @Composable (closeMenu: () -> Unit) -> Unit) {
         var showMenu by remember { mutableStateOf(false) }
         val closeMenu = { showMenu = false}
         Column {
