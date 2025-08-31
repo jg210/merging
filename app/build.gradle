@@ -102,7 +102,7 @@ detekt {
 }
 
 dependencies {
-    def lifecycle_version = "2.6.2"
+    def lifecycle_version = "2.9.3"
     def room_version = "2.7.2"
     def composeBom = platform('androidx.compose:compose-bom:2025.08.01')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
