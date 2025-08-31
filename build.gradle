@@ -9,6 +9,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:8.12.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:$kotlin_version"
         classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:$aboutLibsVersion"
         classpath 'com.google.gms:google-services:4.4.0'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
@@ -19,7 +20,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.google.devtools.ksp' version "${kotlin_version}-1.0.15" apply false
+    id 'com.google.devtools.ksp' version "${kotlin_version}-2.0.2" apply false
 }
 
 allprojects {

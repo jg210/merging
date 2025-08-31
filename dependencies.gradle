@@ -1,6 +1,4 @@
 ext {
-    kotlin_version = '1.9.21'
-    // https://developer.android.com/jetpack/androidx/releases/compose-kotlin#pre-release_kotlin_compatibility
-    kotlinCompilerExtensionVersion = '1.5.7'
+    kotlin_version = '2.2.10'
     aboutLibsVersion = '11.2.0'
 }
