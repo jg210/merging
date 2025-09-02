@@ -1,6 +1,5 @@
 package uk.me.jeremygreen.merging2.main
 
-import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -47,7 +46,7 @@ internal fun Main(
     val allImagesLiveData = appViewModel.allImages()
     val images: ImmutableList<Image> = allImagesLiveData.observeAsState(persistentListOf()).value
     Scaffold(
-        topBar = { TopBar(LocalContext.current) },
+        topBar = { TopBar() },
         floatingActionButton = { FloatingActionButtonImpl(imagesDir, appViewModel::addImage) }
     ) { innerPadding -> Pager(images, appViewModel::delete, innerPadding)
     }
@@ -55,7 +54,8 @@ internal fun Main(
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-private fun TopBar(context: Context) {
+private fun TopBar() {
+    val context = LocalContext.current
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
