@@ -1,8 +1,3 @@
-* Upgrades
-  - compose and kotlin
-    - https://developer.android.com/jetpack/androidx/releases/compose-kotlin#pre-release_kotlin_compatibility
-    - https://developer.android.com/develop/ui/compose/compiler
-
 * Try out Jetpack Compose.
   - update to material 3 design
     x onboarding
@@ -14,6 +9,7 @@
       X menu
       X make action button start camera app
       - save camera image
+      - image deletion doesn't have dialog any more.
       - show images and faces
     - splash
   - fresco is quite an old library and doesn't support jetpack compose directly
