@@ -12,7 +12,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.FileProvider
-import com.facebook.common.file.FileUtils
 import uk.me.jeremygreen.merging2.BuildConfig
 import java.io.File
 import java.util.UUID
@@ -41,7 +40,8 @@ internal fun takePicture(
     // The following callback is called each time want new picture, generating a new file name.
     return {
         imageFile = imageFile(imagesDir)
-        FileUtils.mkdirs(imagesDir)
+        @Suppress("unused", "UnusedVariable") val mkdirsSuccess = imagesDir.mkdirs()
+        // TODO log mkdirsSuccess == false to bug tracker
         val contentProviderUri = contentProviderUri(context, imageFile!!)
         Log.i(TAG, "takePicture: imageFile: $imageFile contentProviderUri: $contentProviderUri")
         cameraLauncher.launch(contentProviderUri)

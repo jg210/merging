@@ -6,22 +6,18 @@ import android.graphics.ColorFilter
 import android.graphics.Paint
 import android.graphics.PixelFormat
 import android.graphics.RectF
-import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.AttributeSet
 import android.util.Log
-import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.drawee.controller.BaseControllerListener
-import com.facebook.drawee.view.SimpleDraweeView
-import com.facebook.imagepipeline.image.ImageInfo
+import android.view.View
 import uk.me.jeremygreen.merging2.R
 import uk.me.jeremygreen.merging2.model.Face
 import uk.me.jeremygreen.merging2.model.Image
 import java.io.File
 import kotlin.properties.Delegates
 
-internal class FacesView : SimpleDraweeView {
+internal class FacesView : View {
 
     constructor(context: Context) : super(context)
 
@@ -75,27 +71,10 @@ internal class FacesView : SimpleDraweeView {
         this.imageSet = true
         val uri = Uri.fromFile(File(image.file))
         Log.d(TAG, "updating image ${id} with: ${uri}")
-        val listener = object : BaseControllerListener<ImageInfo>() {
-            override fun onFinalImageSet(id: String?, imageInfo: ImageInfo?, animatable: Animatable?) {
-                Log.d(TAG, "image loading complete: ${image.id}")
-                this@FacesView.imageLoadingComplete = true
-                this@FacesView.facesDrawable.invalidateSelf()
-            }
-        }
-        this.controller = Fresco.newDraweeControllerBuilder()
-            .setUri(uri)
-            .setOldController(this.controller)
-            .setControllerListener(listener)
-            .build()
         this.setOnLongClickListener {
             longClickListener(image)
             false // not consumed
         }
-    }
-
-    override fun onAttach() {
-        super.onAttach()
-        this.hierarchy.setOverlayImage(this.facesDrawable)
     }
 
     private fun drawFaces(canvas: Canvas) {
@@ -105,7 +84,7 @@ internal class FacesView : SimpleDraweeView {
             return
         }
         val bounds = RectF()
-        this.hierarchy.getActualImageBounds(bounds)
+        // TODO get bounds
         Log.d(TAG, "drawFaces() bounds: ${bounds.toShortString()}")
         this.faces.forEach { face ->
             Log.d(TAG, "drawing face contours for face id: ${face.id}")

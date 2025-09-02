@@ -20,6 +20,7 @@
         - https://coil-kt.github.io/coil/migrating/#non-view-targets
       - glide?
       - picasso?
+  - log mkdirsSuccess == false in takeImage to bug tracker
   - Is AppTheme etc. required still?
     - and AppCompatActivity as parent class
   - remove old material library.
