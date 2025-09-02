@@ -2,13 +2,8 @@ package uk.me.jeremygreen.merging2.main
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.MoreVert
@@ -29,21 +24,16 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import uk.me.jeremygreen.merging2.R
 import uk.me.jeremygreen.merging2.about.AboutActivity
 import uk.me.jeremygreen.merging2.licences.LicencesActivity
-import uk.me.jeremygreen.merging2.main.screen.AddImage
-import uk.me.jeremygreen.merging2.main.screen.InputImage
-import uk.me.jeremygreen.merging2.main.screen.MergedImage
 import uk.me.jeremygreen.merging2.model.AppViewModel
 import uk.me.jeremygreen.merging2.model.Image
 import java.io.File
-
-private const val TAG = "Main"
 
 @OptIn(
     ExperimentalFoundationApi::class,
@@ -54,27 +44,12 @@ internal fun Main(
     imagesDir: File,
     appViewModel: AppViewModel
 ) {
-    val images = appViewModel.allImages().observeAsState().value
-    val pagerState = rememberPagerState(
-        pageCount = {
-            pagerPageCount(images)
-        }
-    )
+    val allImagesLiveData = appViewModel.allImages()
+    val images: ImmutableList<Image> = allImagesLiveData.observeAsState(persistentListOf()).value
     Scaffold(
         topBar = { TopBar(LocalContext.current) },
         floatingActionButton = { FloatingActionButtonImpl(imagesDir, appViewModel::addImage) }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier.padding(innerPadding),
-        ) {
-            HorizontalPager(
-                state = pagerState,
-                beyondViewportPageCount = 2,
-                modifier =  Modifier.fillMaxHeight()
-            ) { page ->
-                Pages(images, page, appViewModel::delete)
-            }
-        }
+    ) { innerPadding -> Pager(images, appViewModel::delete, innerPadding)
     }
 }
 
@@ -120,39 +95,6 @@ private fun FloatingActionButtonImpl(imagesDir: File, addImage: (String) -> Unit
             contentDescription = "Add"
         )
     }
-}
-
-private fun isMergedImageShown(images: ImmutableList<Image>?) = !images.isNullOrEmpty() && images.size > 1
-
-private fun pagerPageCount(images: ImmutableList<Image>?): Int {
-    if (images.isNullOrEmpty()) {
-        return 1 // add image page
-    }
-    return if (isMergedImageShown(images)) {
-        images.size + 1
-    } else {
-        images.size
-    }
-}
-
-@Composable
-private fun Pages(images: ImmutableList<Image>?, page: Int, deleteImage: (Image) -> Unit) {
-    Log.i(TAG, "Pages: page=$page images=${images?.size}")
-    if (images.isNullOrEmpty()) {
-        AddImage()
-        return
-    }
-    val isLastPage = page == pagerPageCount(images) - 1
-    if (isLastPage && isMergedImageShown(images)) {
-        MergedImage()
-        return
-    }
-    if (page < 0 || page >= images.size) {
-        // Non-zero beyondBoundsPageCount causes out-of-range page to be provided.
-        return
-    }
-    val image = images[page]
-    InputImage(image, onLongClick = { deleteImage(image) })
 }
 
 @Composable
