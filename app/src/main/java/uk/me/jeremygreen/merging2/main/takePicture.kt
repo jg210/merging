@@ -17,7 +17,7 @@ import java.io.File
 import java.util.UUID
 
 @Composable
-fun takePicture(
+internal fun takePicture(
     imagesDir: File,
     addImage : (String) -> Unit
 ): () -> Unit {
