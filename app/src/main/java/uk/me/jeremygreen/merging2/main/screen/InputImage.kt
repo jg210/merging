@@ -2,15 +2,12 @@ package uk.me.jeremygreen.merging2.main.screen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import coil.compose.AsyncImage
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import uk.me.jeremygreen.merging2.model.Image
-import java.io.File
 
 //private const val TAG = "ImageFragment"
 //private const val BUNDLE_KEY__IMAGE_ID = "imageId"
@@ -33,14 +30,8 @@ internal fun InputImage(image: Image?, onLongClick : () -> Unit = {}) {
     if (image == null) {
         return
     }
-    val path = image.uri.path
-    val file = if (path != null) File(path) else null
-    val exists = file?.exists()
-    Column {
-        Text("${image.uri} exists: ${exists}")
-        AsyncImage(
-//        model = image.uri,
-            model = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Tabby_Kitten_on_Blue_Throw.jpg/1280px-Tabby_Kitten_on_Blue_Throw.jpg",
+    return AsyncImage(
+            model = image.uri,
             contentDescription = null,
             modifier = Modifier.fillMaxSize().combinedClickable(
                 enabled = true,
@@ -48,7 +39,6 @@ internal fun InputImage(image: Image?, onLongClick : () -> Unit = {}) {
                 onClick = {}
             )
         )
-    }
     // TODO show FacesView
 }
 
