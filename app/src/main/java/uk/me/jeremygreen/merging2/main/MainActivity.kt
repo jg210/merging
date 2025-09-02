@@ -2,12 +2,9 @@ package uk.me.jeremygreen.merging2.main
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -34,12 +31,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.core.content.FileProvider
-import com.facebook.common.file.FileUtils
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.collections.immutable.ImmutableList
@@ -53,7 +47,6 @@ import uk.me.jeremygreen.merging2.main.screen.MergedImage
 import uk.me.jeremygreen.merging2.model.AppViewModel
 import uk.me.jeremygreen.merging2.model.Image
 import java.io.File
-import java.util.*
 
 internal class MainActivity : AppCompatActivity() {
 
@@ -87,26 +80,6 @@ internal class MainActivity : AppCompatActivity() {
             crashlytics.setCrashlyticsCollectionEnabled(true)
         }
         setContent { Main() }
-    }
-
-    @Composable
-    fun takePicture(): () -> Unit {
-        var imageUri: Uri? by rememberSaveable { mutableStateOf(null) }
-        val cameraLauncher = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.TakePicture(),
-            onResult = { success ->
-                //Log.i(TAG, "takePicture: uri: $imageUri success: $success")
-                if (success) {
-                    appViewModel.addImage(imageUri.toString())
-                }
-                // TODO else analytics
-            }
-        )
-        return {
-            FileUtils.mkdirs(imagesDir)
-            imageUri = createTakeImageUri()
-            cameraLauncher.launch(imageUri)
-        }
     }
 
     @OptIn(
@@ -175,7 +148,7 @@ internal class MainActivity : AppCompatActivity() {
     @Composable
     private fun FloatingActionButtonImpl() {
         FloatingActionButton(
-            onClick = takePicture(),
+            onClick = takePicture(imagesDir, appViewModel::addImage),
         ) {
             Icon(
                 Icons.Default.Add,
@@ -249,17 +222,6 @@ internal class MainActivity : AppCompatActivity() {
         val params = Bundle()
         params.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
         this.firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, params)
-    }
-
-
-    private fun createTakeImageUri(): Uri {
-            val uuid = UUID.randomUUID()
-            val file = File(imagesDir, "${uuid}.jpg")
-            return FileProvider.getUriForFile(
-                baseContext,
-                BuildConfig.APPLICATION_ID + ".fileprovider",
-                file
-            )
     }
 
 } // MainActivity
