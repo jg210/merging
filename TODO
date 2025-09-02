@@ -13,10 +13,13 @@
       - show images and faces
     - splash
   - fresco is quite an old library and doesn't support jetpack compose directly
-    - coil?
-      - https://coil-kt.github.io/coil/migrating/#non-view-targets
-    - glide?
-    - picasso?
+    - it also has deprecated SimpleDraweeView etc for "vito", but not updated its docs
+      - https://github.com/facebook/fresco/issues/2822
+    - alternatives
+      - coil?
+        - https://coil-kt.github.io/coil/migrating/#non-view-targets
+      - glide?
+      - picasso?
   - Is AppTheme etc. required still?
     - and AppCompatActivity as parent class
   - remove old material library.
