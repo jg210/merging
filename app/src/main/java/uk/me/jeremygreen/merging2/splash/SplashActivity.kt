@@ -29,7 +29,7 @@ internal class SplashActivity: AppCompatActivity(), CoroutineScope by MainScope(
         val appViewModel = AppViewModel.getInstance(this, application)
         launch(Dispatchers.IO) {
             val acceptedVersion = async {
-                appViewModel.onboardingAccepted(OnboardingActivity.version)
+                appViewModel.onboardingAccepted(OnboardingActivity.VERSION)
             }
             val delayJob = launch {
                 // Show splash screen for at least this long.

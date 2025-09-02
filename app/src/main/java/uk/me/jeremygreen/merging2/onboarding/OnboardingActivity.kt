@@ -41,7 +41,7 @@ internal class OnboardingActivity: AppCompatActivity() {
 
     companion object {
         // Increase this whenever onboarding text is changed.
-        const val version = 3L
+        const val VERSION = 3L
 
         private const val PRIVACY_HTML = "file:///android_asset/privacy/index.html"
 
@@ -81,7 +81,7 @@ internal class OnboardingActivity: AppCompatActivity() {
                 ) {
                     FloatingActionButton(
                         onClick = {
-                            appViewModel.acceptOnboarding(version)
+                            appViewModel.acceptOnboarding(VERSION)
                             val intent = Intent(this@OnboardingActivity, MainActivity::class.java)
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
