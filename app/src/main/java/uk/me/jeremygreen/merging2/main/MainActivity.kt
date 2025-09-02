@@ -40,7 +40,7 @@ internal class MainActivity : AppCompatActivity() {
         this.firebaseAnalytics.setAnalyticsCollectionEnabled(true)
         if (!BuildConfig.DEBUG) {
             val crashlytics = FirebaseCrashlytics.getInstance()
-            crashlytics.setCrashlyticsCollectionEnabled(true)
+            crashlytics.isCrashlyticsCollectionEnabled = true
         }
         setContent { Main(imagesDir, appViewModel) }
     }
