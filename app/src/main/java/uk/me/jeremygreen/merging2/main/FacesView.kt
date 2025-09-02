@@ -9,7 +9,6 @@ import android.graphics.RectF
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import com.facebook.drawee.backends.pipeline.Fresco
@@ -37,12 +36,7 @@ internal class FacesView : SimpleDraweeView {
 
     private val paint = Paint().apply {
         isAntiAlias = true
-        color = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            resources.getColor(R.color.imageOverlay, context.theme)
-        } else {
-            @Suppress("DEPRECATION") // No other API if target API 21.
-            resources.getColor(R.color.imageOverlay)
-        }
+        color = resources.getColor(R.color.imageOverlay, context.theme)
         style = Paint.Style.FILL
     }
 
