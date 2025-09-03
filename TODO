@@ -13,11 +13,9 @@
       - show images and faces
     - splash
       - convert or remove this?
-
   - log mkdirsSuccess == false in takeImage to bug tracker
   - Is AppTheme etc. required still?
     - and AppCompatActivity as parent class
-  - remove old material library.
   - remove viewBinding = true
   - replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
 
