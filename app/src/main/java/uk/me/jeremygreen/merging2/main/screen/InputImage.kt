@@ -3,21 +3,28 @@ package uk.me.jeremygreen.merging2.main.screen
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.google.mlkit.vision.face.FaceDetectorOptions
+import uk.me.jeremygreen.merging2.model.Face
 import uk.me.jeremygreen.merging2.model.Image
 
 //private const val TAG = "ImageFragment"
 //private const val BUNDLE_KEY__IMAGE_ID = "imageId"
 //
+
+private const val TAG = "InputImage"
 
 
 // Size of Bitmap used by face detection algorithm.
@@ -42,6 +49,22 @@ internal fun InputImage(
     if (image == null) {
         return
     }
+    val context = LocalContext.current
+    LaunchedEffect (image.uri) {
+        // TODO Move all this code somewhere more appropriate
+        val bitmap = loadBitmap(context, image.uri)
+        bitmap?.let { bitmap ->
+            val onError: (Exception) -> Unit = { e: Exception ->
+                Log.e(TAG, "id: ${image.id} findFaces() error", e)
+            }
+            val onSuccess: (List<Face>) -> Unit = { faces: List<Face> ->
+                Log.d(TAG, "id: ${image.id} findFaces() found ${faces.size} faces")
+                // TODO persist the faces
+            }
+            image.findFaces(bitmap, faceDetectorOptions, onError, onSuccess)
+        }
+    }
+
     return AsyncImage(
             model = image.uri,
             contentDescription = null,
@@ -55,10 +78,10 @@ internal fun InputImage(
 }
 
 @Suppress("unused")
-private suspend fun loadBitmap(context: Context, imageUrl: String): Bitmap? {
+private suspend fun loadBitmap(context: Context, uri: Uri): Bitmap? {
     val loader = ImageLoader(context)
     val request = ImageRequest.Builder(context)
-        .data(imageUrl)
+        .data(uri)
         .allowHardware(false) // Needed to get software Bitmap
         .size(BITMAP_WIDTH, BITMAP_HEIGHT)
         .build()
