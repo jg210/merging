@@ -52,13 +52,14 @@ internal fun InputImage(
     val context = LocalContext.current
     LaunchedEffect (image.uri) {
         // TODO Move all this code somewhere more appropriate
+        Log.i(TAG, "id: ${image.id} loading ${image.uri}")
         val bitmap = loadBitmap(context, image.uri)
         bitmap?.let { bitmap ->
             val onError: (Exception) -> Unit = { e: Exception ->
                 Log.e(TAG, "id: ${image.id} findFaces() error", e)
             }
             val onSuccess: (List<Face>) -> Unit = { faces: List<Face> ->
-                Log.d(TAG, "id: ${image.id} findFaces() found ${faces.size} faces")
+                Log.i(TAG, "id: ${image.id} findFaces() found ${faces.size} faces")
                 // TODO persist the faces
             }
             image.findFaces(bitmap, faceDetectorOptions, onError, onSuccess)
