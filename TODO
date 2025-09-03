@@ -11,9 +11,10 @@
     - add Composable diagram to README
     - run face-detection code
       - add repository layer between viewmodel and DAOs
-      - use Flow not LiveData?
+      - use StateFlow not LiveData in ViewModel?
+        - https://developer.android.com/kotlin/flow/stateflow-and-sharedflow
+      - use Flow not LiveData in DAO and repository?
         - https://developer.android.com/training/data-storage/room/async-queries
-        - Flow is not implicitly android lifecycle aware...
       - Room updates observable queries when db not data changes
         - distinctUntilChanged() would reduce spurious UI updates.
       - store algorithm version in database so can invalidate cache if update algorithm
