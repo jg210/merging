@@ -11,7 +11,11 @@
     - add Composable diagram to README
     - run face-detection code
       - add repository layer between viewmodel and DAOs
-      - would StateFlow be better than LiveData?
+      - use Flow not LiveData?
+        - https://developer.android.com/training/data-storage/room/async-queries
+        - Flow is not implicitly android lifecycle aware...
+      - Room updates observable queries when db not data changes
+        - distinctUntilChanged() would reduce spurious UI updates.
       - store algorithm version in database so can invalidate cache if update algorithm
       - any garbage collection required?
       - do calculation and caching in repository
