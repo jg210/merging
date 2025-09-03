@@ -40,7 +40,7 @@ internal data class Image(
 
 
     /**
-     * Find faces, decrement Bitmap reference count, invoke appropriate callback.
+     * Find faces in the bitmap, then invoke appropriate callback.
      */
     inline fun findFaces(
         bitmap: Bitmap,
