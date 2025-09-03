@@ -1,23 +1,30 @@
-* Try out Jetpack Compose.
-  - update to material 3 design
+* Migrate to Jetpack Compose.
     x onboarding
     x about
     X licences
-    - main
-      X replace view binding with composables
-      x top bar
-      X menu
-      X make action button start camera app
-      X save camera image
-      - image deletion doesn't have dialog any more.
-      - show images and faces
+    X replace view binding with composables
+    x top bar
+    X menu
+    X make action button start camera app
+    X save camera image
+    - add entity diagram to README
+    - add Composable diagram to README
+    - run face-detection code
+      - add repository layer between viewmodel and DAOs
+      - would StateFlow be better than LiveData?
+      - store algorithm version in database so can invalidate cache if update algorithm
+      - any garbage collection required?
+      - do calculation and caching in repository
+    - show faces on images
+      - https://developer.android.com/develop/ui/compose/graphics/draw/overview
+    - image deletion doesn't have dialog any more.
     - splash
       - convert or remove this?
-  - log mkdirsSuccess == false in takeImage to bug tracker
-  - Is AppTheme etc. required still?
+    - log mkdirsSuccess == false in takeImage to bug tracker
+    - Is AppTheme etc. required still?
     - and AppCompatActivity as parent class
-  - remove viewBinding = true
-  - replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
+    - remove viewBinding = true
+    - replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
 
 * Release with new app id
   X build.gradle
