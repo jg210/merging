@@ -39,35 +39,32 @@ internal fun InputImage(image: Image?, onLongClick : () -> Unit = {}) {
                 onClick = {}
             )
         )
-    // TODO show FacesView
+    // TODO show faces
 }
 
-//    <uk.me.jeremygreen.merging.main.FacesView
-//    android:id="@+id/faces"
-//    android:layout_width="match_parent"
-//    android:layout_height="match_parent"
-//    fresco:placeholderImage="@color/imagePlaceholder"
-//    fresco:backgroundImage="@color/imagePlaceholder"
-//    fresco:actualImageScaleType="fitCenter"
-//    />
 
-//        fun createFactory(image: Image): ScreenFragmentFactory<InputImage> {
-//            require(image.id >= 0) { "might collide with non-image id: ${image.id}" }
-//            return object:
-//                ScreenFragmentFactory<InputImage> {
-//                override val id: Long = image.id
-//                override fun createInstance(): InputImage {
-//                    return InputImage().apply {
-//                        arguments = Bundle().apply {
-//                            putLong(BUNDLE_KEY__IMAGE_ID, image.id)
-//                        }
-//                    }
-//                }
-//                override fun screenName(): String = "Image"
-//            }
-//        }
+//private fun drawFaces(canvas: Canvas) {
 //
+//    val bounds = RectF()
+//    // TODO get bounds
+//    Log.d(TAG, "drawFaces() bounds: ${bounds.toShortString()}")
+//    this.faces.forEach { face ->
+//        Log.d(TAG, "drawing face contours for face id: ${face.id}")
+//        face.coordinates.forEach { coordinate ->
+//            val x = bounds.left + coordinate.x * bounds.width()
+//            val y = bounds.top + coordinate.y * bounds.height()
+//            //Log.d(TAG, "drawing point at (${x}, ${y})")
+//            canvas.drawOval(
+//                x - FACE_DOT_RADIUS,
+//                y - FACE_DOT_RADIUS,
+//                x + FACE_DOT_RADIUS,
+//                y + FACE_DOT_RADIUS, paint
+//            )
+//        }
 //    }
+//}
+
+
 
 // private fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        val bundle = arguments
