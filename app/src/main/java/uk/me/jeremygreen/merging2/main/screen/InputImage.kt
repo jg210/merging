@@ -1,19 +1,28 @@
 package uk.me.jeremygreen.merging2.main.screen
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import coil.ImageLoader
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import uk.me.jeremygreen.merging2.model.Image
 
 //private const val TAG = "ImageFragment"
 //private const val BUNDLE_KEY__IMAGE_ID = "imageId"
 //
-//private const val BITMAP_WIDTH = 360
-//private const val BITMAP_HEIGHT = 480
+
+
+// Size of Bitmap used by face detection algorithm.
+private const val BITMAP_WIDTH = 360
+private const val BITMAP_HEIGHT = 480
 
 @Suppress("unused")
 private val faceDetectorOptions  =
@@ -26,7 +35,10 @@ private val faceDetectorOptions  =
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun InputImage(image: Image?, onLongClick : () -> Unit = {}) {
+internal fun InputImage(
+    image: Image?,
+    onLongClick : () -> Unit = {}
+) {
     if (image == null) {
         return
     }
@@ -42,6 +54,23 @@ internal fun InputImage(image: Image?, onLongClick : () -> Unit = {}) {
     // TODO show faces
 }
 
+@Suppress("unused")
+private suspend fun loadBitmap(context: Context, imageUrl: String): Bitmap? {
+    val loader = ImageLoader(context)
+    val request = ImageRequest.Builder(context)
+        .data(imageUrl)
+        .allowHardware(false) // Needed to get software Bitmap
+        .size(BITMAP_WIDTH, BITMAP_HEIGHT)
+        .build()
+
+    val result = loader.execute(request)
+    return if (result is SuccessResult) {
+        (result.drawable as? BitmapDrawable)?.bitmap
+    } else {
+        // TODO analytics for failure
+        null
+    }
+}
 
 //private fun drawFaces(canvas: Canvas) {
 //
