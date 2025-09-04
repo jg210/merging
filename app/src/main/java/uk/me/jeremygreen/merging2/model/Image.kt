@@ -26,12 +26,7 @@ internal data class Image(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
 
-    val file: String,
-
-    /**
-     * [ProcessingStage]
-     */
-    val processingStage: Int
+    val file: String
 
 ) {
 

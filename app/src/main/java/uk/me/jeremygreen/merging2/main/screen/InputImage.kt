@@ -71,7 +71,10 @@ internal fun InputImage(
             contentDescription = null,
             modifier = Modifier.fillMaxSize().combinedClickable(
                 enabled = true,
-                onLongClick = { onLongClick() },
+                onLongClick = {
+                    // TODO Alert dialogue with Delete/Cancel - R.string.confirmDeleteImage
+                    onLongClick()
+                },
                 onClick = {}
             )
         )
@@ -92,6 +95,7 @@ private suspend fun loadBitmap(context: Context, uri: Uri): Bitmap? {
         (result.drawable as? BitmapDrawable)?.bitmap
     } else {
         // TODO analytics for failure
+        // FirebaseCrashlytics.getInstance().recordException
         null
     }
 }
@@ -116,61 +120,4 @@ private suspend fun loadBitmap(context: Context, uri: Uri): Bitmap? {
 //        }
 //    }
 //}
-
-
-
-// private fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        val bundle = arguments
-//        val imageId: Long = bundle!!.getLong(BUNDLE_KEY__IMAGE_ID)
-//        val facesView = binding.faces
-//        appViewModel.faces(imageId).observe(viewLifecycleOwner) { faces ->
-//            facesView.faces = faces
-//        }
-//        launch(Dispatchers.IO) {
-//            val image = appViewModel.findById(imageId)
-//            launch(Dispatchers.Main) {
-//                facesView.setImage(image, ::handleLongClick)
-//            }
-//            val processingStage = appViewModel.getProcessingStage(imageId)
-//            if (processingStage == ProcessingStage.unprocessed) {
-//                processFaces(image, imageId)
-//            }
-//        }
-//    }
-//
-//    private fun processFaces(image: Image, imageId: Long) {
-//        // https//firebase.google.com/docs/ml-kit/android/detect-faces suggests size to use.
-//        image.processBitmap(BITMAP_WIDTH, BITMAP_HEIGHT) { closeableReference ->
-//            Log.i(TAG, "decoded bitmap for image id: ${imageId}")
-//            // The IO thread has done it's work reading the Bitmap. Don't want to block this thread any more,
-//            // so clone the reference and hand it to Dispatcher.Default coroutine to do the CPU-intensive
-//            // face-detection work.
-//            val clonedReference = closeableReference.clone()
-//            launch(Dispatchers.Default) {
-//                Log.i(TAG, "detecting faces for image id: ${imageId}")
-//                image.findFaces(clonedReference, faceDetectorOptions, ::handleFaceDetectionError) { faces ->
-//                    Log.i(TAG, "detected ${faces.size} faces for image id: ${imageId}")
-//                    val processedImage = image.copy(processingStage = ProcessingStage.facesDetected)
-//                    appViewModel.addAll(processedImage, faces)
-//                }
-//            }
-//        }
-//    }
-//
-//    private fun handleFaceDetectionError(e: Exception) {
-//        Log.e(TAG, "face detection failed", e)
-//        FirebaseCrashlytics.getInstance().recordException(e)
-//    }
-//
-//    private fun handleLongClick(image: Image) {
-//        AlertDialog.Builder(requireContext()).apply {
-//            setMessage(R.string.confirmDeleteImage)
-//            setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
-//                binding.faces.setOnLongClickListener { false }
-//                appViewModel.delete(image)
-//            }
-//            setNegativeButton(R.string.cancel) { _: DialogInterface, _: Int -> }
-//            show()
-//        }
-//    }
 

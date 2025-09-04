@@ -16,9 +16,6 @@ internal interface ImageDao {
     @Query("SELECT * from images WHERE id = :imageId")
     suspend fun findById(imageId: Long): Image
 
-    @Query("SELECT processingStage from images WHERE id = :imageId")
-    suspend fun getProcessingStage(imageId: Long): Int
-
     @Delete
     suspend fun delete(image: Image)
 

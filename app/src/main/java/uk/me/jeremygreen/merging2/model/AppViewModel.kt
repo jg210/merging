@@ -48,10 +48,6 @@ internal class AppViewModel(
         return appDatabase.imageDao().getImages().map { images -> images.toImmutableList() }
     }
 
-    suspend fun getProcessingStage(imageId: Long): Int {
-        return appDatabase.imageDao().getProcessingStage(imageId)
-    }
-
     suspend fun findById(imageId: Long): Image {
         return appDatabase.imageDao().findById(imageId)
     }
@@ -64,7 +60,7 @@ internal class AppViewModel(
 
     fun addImage(file: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            appDatabase.imageDao().add(Image(0, file, ProcessingStage.unprocessed))
+            appDatabase.imageDao().add(Image(0, file))
         }
     }
 
@@ -79,8 +75,7 @@ internal class AppViewModel(
     }
 
     /**
-     * Add all the faces to the database, updating the image (in particular, the [ProcessingStage].
-     * The faces must all belong to the image.
+     * Add all the faces to the database, updating the image. The faces must all belong to the image.
      */
     fun addAll(image: Image, faces: List<Face>) {
         viewModelScope.launch(Dispatchers.IO) {
