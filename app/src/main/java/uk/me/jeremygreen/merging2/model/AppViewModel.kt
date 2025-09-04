@@ -125,5 +125,8 @@ internal class AppViewModel(
         }
     }
 
+    fun findFacesByImageId(imageId: Long): LiveData<List<FaceWithCoordinates>> =
+        appDatabase.faceDao().findById(imageId)
+
 }
 

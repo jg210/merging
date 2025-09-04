@@ -6,6 +6,7 @@ import kotlinx.collections.immutable.ImmutableList
 import uk.me.jeremygreen.merging2.main.screen.AddImage
 import uk.me.jeremygreen.merging2.main.screen.InputImage
 import uk.me.jeremygreen.merging2.main.screen.MergedImage
+import uk.me.jeremygreen.merging2.model.AppViewModel
 import uk.me.jeremygreen.merging2.model.entity.Image
 
 private const val TAG = "Pages"
@@ -14,7 +15,7 @@ private const val TAG = "Pages"
 internal fun Pages(
     images: ImmutableList<Image>?,
     page: Int,
-    deleteImage: (Image) -> Unit
+    appViewModel: AppViewModel
 ) {
     Log.i(TAG, "Pages: page=$page images=${images?.size}")
     if (images.isNullOrEmpty()) {
@@ -31,5 +32,5 @@ internal fun Pages(
         return
     }
     val image = images[page]
-    InputImage(image, onLongClick = { deleteImage(image) })
+    InputImage(image, onLongClick = { appViewModel.delete(image) }, appViewModel)
 }

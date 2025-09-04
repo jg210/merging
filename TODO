@@ -8,12 +8,16 @@
     X make action button start camera app
     X save camera image
     X run face detection code from AppViewModel
-    - store algorithm version in database so can invalidate cache if update algorithm
+    X store algorithm version in database so can invalidate cache if update algorithm
+    - replace faces if update algorithm version
+      - make sure don't leave old faces and coordinates in database too.
     - can the two findFaces functions be merged into one?
     - add entity diagram to README
     - add Composable diagram to README
-    - show faces on images
-      - https://developer.android.com/develop/ui/compose/graphics/draw/overview
+    X show faces on images
+      X https://developer.android.com/develop/ui/compose/graphics/draw/overview
+    - the faces aren't drawn in quite the right place
+      - draw scope size is for InputImage, but the image is generally smaller since aspect ratio not same as screen.
     - image deletion doesn't have dialog any more.
     - any ordering issues from use of coroutine dispatchers in AppViewModel?
     - splash

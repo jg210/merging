@@ -48,7 +48,7 @@ internal fun Main(
     Scaffold(
         topBar = { TopBar() },
         floatingActionButton = { FloatingActionButtonImpl(imagesDir, appViewModel::addImage) }
-    ) { innerPadding -> Pager(images, appViewModel::delete, innerPadding)
+    ) { innerPadding -> Pager(images, appViewModel, innerPadding)
     }
 }
 
