@@ -24,9 +24,9 @@ private const val FACE_DOT_RADIUS: Float = 3f
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun InputImage(
+    appViewModel: AppViewModel,
     image: Image?,
-    onLongClick : () -> Unit = {},
-    appViewModel: AppViewModel
+    onLongClick : () -> Unit = {}
 ) {
     if (image == null) {
         return

@@ -32,5 +32,5 @@ internal fun Pages(
         return
     }
     val image = images[page]
-    InputImage(image, onLongClick = { appViewModel.delete(image) }, appViewModel)
+    InputImage(appViewModel, image, onLongClick = { appViewModel.delete(image) })
 }
