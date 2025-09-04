@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging2.model
+package uk.me.jeremygreen.merging2.model.entity
 
 import android.graphics.Bitmap
 import android.net.Uri
@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
+import uk.me.jeremygreen.merging2.model.entity.Coordinate
+import uk.me.jeremygreen.merging2.model.FaceWithCoordinates
 import java.io.File
 
 @Entity(tableName = "images")
@@ -18,7 +20,7 @@ internal data class Image(
      * just use the set of stored files since the UI can still get updates
      * after deciding to delete the image, but before it has been removed
      * from the screen.
-     * 
+     *
      * Use autoGenerate=true since rely on ordering by primary key
      * to time order the photos. Could use UTC timestamp instead,
      * but can't rely on it being correct.

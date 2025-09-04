@@ -13,6 +13,9 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import uk.me.jeremygreen.merging2.model.entity.Face
+import uk.me.jeremygreen.merging2.model.entity.Image
+import uk.me.jeremygreen.merging2.model.entity.Onboarding
 
 internal class AppViewModel(
     application: Application,
@@ -81,7 +84,12 @@ internal class AppViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             appDatabase.runInTransaction {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val faceEntities = facesWithCoordinates.map { face -> Face(face.id, face.imageId) }
+                    val faceEntities = facesWithCoordinates.map { face ->
+                        Face(
+                            face.id,
+                            face.imageId
+                        )
+                    }
                     val faceIds = appDatabase.faceDao().addAll(faceEntities)
                     Log.d(TAG, "addAll() face ids: ${faceIds.joinToString(", ")}")
                     faceIds.zip(facesWithCoordinates).forEach { pair ->

@@ -2,6 +2,10 @@ package uk.me.jeremygreen.merging2.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import uk.me.jeremygreen.merging2.model.entity.Coordinate
+import uk.me.jeremygreen.merging2.model.entity.Face
+import uk.me.jeremygreen.merging2.model.entity.Image
+import uk.me.jeremygreen.merging2.model.entity.Onboarding
 
 /**
  * Version 1

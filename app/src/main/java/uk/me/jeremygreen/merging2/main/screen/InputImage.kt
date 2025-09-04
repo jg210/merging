@@ -18,7 +18,7 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import uk.me.jeremygreen.merging2.model.FaceWithCoordinates
-import uk.me.jeremygreen.merging2.model.Image
+import uk.me.jeremygreen.merging2.model.entity.Image
 
 //private const val TAG = "ImageFragment"
 //private const val BUNDLE_KEY__IMAGE_ID = "imageId"

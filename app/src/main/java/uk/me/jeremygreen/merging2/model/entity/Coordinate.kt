@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging2.model
+package uk.me.jeremygreen.merging2.model.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -9,10 +9,10 @@ import androidx.room.PrimaryKey
     tableName = "coordinates",
     foreignKeys = [
         ForeignKey(
-            entity=Face::class,
+            entity = Face::class,
             parentColumns = ["id"],
             childColumns = ["faceId"],
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.Companion.CASCADE
         )
     ],
     indices = [Index(value = ["faceId"])]

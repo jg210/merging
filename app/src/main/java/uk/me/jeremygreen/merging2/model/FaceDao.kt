@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import uk.me.jeremygreen.merging2.model.entity.Face
 
 @Dao
 internal interface FaceDao {

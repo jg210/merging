@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging2.model
+package uk.me.jeremygreen.merging2.model.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
             entity = Image::class,
             parentColumns = ["id"],
             childColumns = ["imageId"],
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.Companion.CASCADE
         )
     ],
     indices = [Index(value = ["imageId"])]

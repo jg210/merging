@@ -6,7 +6,7 @@ import kotlinx.collections.immutable.ImmutableList
 import uk.me.jeremygreen.merging2.main.screen.AddImage
 import uk.me.jeremygreen.merging2.main.screen.InputImage
 import uk.me.jeremygreen.merging2.main.screen.MergedImage
-import uk.me.jeremygreen.merging2.model.Image
+import uk.me.jeremygreen.merging2.model.entity.Image
 
 private const val TAG = "Pages"
 

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import uk.me.jeremygreen.merging2.model.entity.Onboarding
 
 @Dao
 internal interface OnboardingDao {

@@ -31,7 +31,7 @@ import uk.me.jeremygreen.merging2.R
 import uk.me.jeremygreen.merging2.about.AboutActivity
 import uk.me.jeremygreen.merging2.licences.LicencesActivity
 import uk.me.jeremygreen.merging2.model.AppViewModel
-import uk.me.jeremygreen.merging2.model.Image
+import uk.me.jeremygreen.merging2.model.entity.Image
 import java.io.File
 
 @OptIn(

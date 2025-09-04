@@ -9,7 +9,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
-import uk.me.jeremygreen.merging2.model.Image
+import uk.me.jeremygreen.merging2.model.entity.Image
 
 @Composable
 internal fun Pager(

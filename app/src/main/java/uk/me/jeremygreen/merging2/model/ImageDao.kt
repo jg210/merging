@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import uk.me.jeremygreen.merging2.model.entity.Image
 
 @Dao
 internal interface ImageDao {
