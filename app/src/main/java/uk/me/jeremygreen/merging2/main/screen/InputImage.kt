@@ -17,7 +17,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.google.mlkit.vision.face.FaceDetectorOptions
-import uk.me.jeremygreen.merging2.model.Face
+import uk.me.jeremygreen.merging2.model.FaceWithCoordinates
 import uk.me.jeremygreen.merging2.model.Image
 
 //private const val TAG = "ImageFragment"
@@ -58,8 +58,8 @@ internal fun InputImage(
             val onError: (Exception) -> Unit = { e: Exception ->
                 Log.e(TAG, "id: ${image.id} findFaces() error", e)
             }
-            val onSuccess: (List<Face>) -> Unit = { faces: List<Face> ->
-                Log.i(TAG, "id: ${image.id} findFaces() found ${faces.size} faces")
+            val onSuccess: (List<FaceWithCoordinates>) -> Unit = { facesWithCoordinates: List<FaceWithCoordinates> ->
+                Log.i(TAG, "id: ${image.id} findFaces() found ${facesWithCoordinates.size} faces")
                 // TODO persist the faces
             }
             image.findFaces(bitmap, faceDetectorOptions, onError, onSuccess)

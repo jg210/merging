@@ -11,7 +11,7 @@ internal interface FaceDao {
 
     @Transaction
     @Query("SELECT * from faces WHERE imageId = :imageId")
-    fun findById(imageId: Long): LiveData<List<Face>>
+    fun findById(imageId: Long): LiveData<List<FaceWithCoordinates>>
 
     @Insert
     suspend fun addAll(faces: List<FaceEntity>): List<Long>

@@ -77,14 +77,14 @@ internal class AppViewModel(
     /**
      * Add all the faces to the database, updating the image. The faces must all belong to the image.
      */
-    fun addAll(image: Image, faces: List<Face>) {
+    fun addAll(image: Image, facesWithCoordinates: List<FaceWithCoordinates>) {
         viewModelScope.launch(Dispatchers.IO) {
             appDatabase.runInTransaction {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val faceEntities = faces.map { face -> FaceEntity(face.id, face.imageId) }
+                    val faceEntities = facesWithCoordinates.map { face -> FaceEntity(face.id, face.imageId) }
                     val faceIds = appDatabase.faceDao().addAll(faceEntities)
                     Log.d(TAG, "addAll() face ids: ${faceIds.joinToString(", ")}")
-                    faceIds.zip(faces).forEach { pair ->
+                    faceIds.zip(facesWithCoordinates).forEach { pair ->
                         val id = pair.first
                         val face = pair.second
                         require(face.imageId == image.id) { "${face} doesn't belong to ${image}" }
@@ -100,7 +100,7 @@ internal class AppViewModel(
         }
     }
 
-    fun faces(imageId: Long): LiveData<List<Face>> {
+    fun faces(imageId: Long): LiveData<List<FaceWithCoordinates>> {
         return appDatabase.faceDao().findById(imageId)
     }
 

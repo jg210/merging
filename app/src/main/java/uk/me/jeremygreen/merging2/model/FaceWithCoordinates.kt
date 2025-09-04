@@ -2,7 +2,7 @@ package uk.me.jeremygreen.merging2.model
 
 import androidx.room.Relation
 
-internal data class Face(
+internal data class FaceWithCoordinates(
 
     val id: Long,
 

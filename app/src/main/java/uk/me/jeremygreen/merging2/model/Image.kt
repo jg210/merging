@@ -41,7 +41,7 @@ internal data class Image(
         bitmap: Bitmap,
         faceDetectorOptions: FaceDetectorOptions,
         crossinline onError: (Exception) -> Unit,
-        crossinline onSuccess: (List<Face>) -> Unit
+        crossinline onSuccess: (List<FaceWithCoordinates>) -> Unit
     ) {
         val rotationDegrees = 0
         val inputImage = InputImage.fromBitmap(bitmap, rotationDegrees)
@@ -52,16 +52,16 @@ internal data class Image(
         }
         task.addOnSuccessListener { mlKitFaces ->
             onProcessingComplete()
-            val faces = mlKitFaces.map { mlKitFace ->
+            val facesWithCoordinates = mlKitFaces.map { mlKitFace ->
                 val allContours = mlKitFace.allContours
                 val coordinates: List<Coordinate> = allContours.flatMap { contour ->
                     contour.points.map { point ->
                         Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
                     }
                 }
-                Face(0, this.id, coordinates)
+                FaceWithCoordinates(0, this.id, coordinates)
             }
-            onSuccess(faces)
+            onSuccess(facesWithCoordinates)
         }
         task.addOnFailureListener { e ->
             onProcessingComplete()
