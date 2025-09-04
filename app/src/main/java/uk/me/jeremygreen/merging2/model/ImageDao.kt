@@ -14,6 +14,9 @@ internal interface ImageDao {
     @Query("SELECT * from images ORDER BY id ASC")
     fun getImages(): LiveData<List<Image>>
 
+    @Query("SELECT * from images WHERE faceDetectionAlgorithmVersion IS NULL")
+    suspend fun getUnprocessedImages(): List<Image>
+
     @Query("SELECT * from images WHERE id = :imageId")
     suspend fun findById(imageId: Long): Image
 

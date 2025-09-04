@@ -15,6 +15,10 @@ import uk.me.jeremygreen.merging2.model.entity.Onboarding
  * Version 2
  *
  * Changed type of coordinate table's x and y columns from INTEGER to REAL.
+ *
+ * Version 3
+ *
+ * Removed processing stage, replacing with faceDetectionAlgorithmVersion
  */
 @Database(
     entities = [
@@ -23,7 +27,7 @@ import uk.me.jeremygreen.merging2.model.entity.Onboarding
         Image::class,
         Onboarding::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 internal abstract class AppDatabase: RoomDatabase() {

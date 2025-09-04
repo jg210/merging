@@ -1,0 +1,111 @@
+package uk.me.jeremygreen.merging2.algo
+
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
+import coil.ImageLoader
+import coil.request.ErrorResult
+import coil.request.ImageRequest
+import coil.request.SuccessResult
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.face.FaceDetectorOptions
+import kotlinx.coroutines.suspendCancellableCoroutine
+import uk.me.jeremygreen.merging2.model.FaceWithCoordinates
+import uk.me.jeremygreen.merging2.model.entity.Coordinate
+import uk.me.jeremygreen.merging2.model.entity.Image
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+
+object FaceDetect {
+
+    /**
+     * Stored in [Image] table to indicate (1) that faces found and (2) which algorithm used to do this.
+     * Change the value to force face detection to run again.
+     */
+    const val VERSION = 1L
+
+    /** Width of [Bitmap] used by face-detection algorithm. */
+    private const val BITMAP_WIDTH = 360
+
+    /** Height of [Bitmap] used by face-detection algorithm. */
+    private const val BITMAP_HEIGHT = 480
+
+    private val FACE_DETECTOR_OPTIONS =
+        FaceDetectorOptions.Builder()
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
+            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
+            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
+            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
+            .build()
+
+    private suspend fun loadBitmap(context: Context, uri: Uri): Bitmap {
+        val loader = ImageLoader(context)
+        val request = ImageRequest.Builder(context)
+            .data(uri)
+            .allowHardware(false) // Needed to get software Bitmap
+            .size(BITMAP_WIDTH, BITMAP_HEIGHT)
+            .build()
+
+        val result = loader.execute(request)
+        when (result) {
+            is SuccessResult -> return (result.drawable as BitmapDrawable).bitmap
+            is ErrorResult -> throw result.throwable
+        }
+    }
+
+    internal suspend fun findFaces(
+        image: Image,
+        context: Context
+    ): List<FaceWithCoordinates> {
+        val bitmap = loadBitmap(context, image.uri)
+        // Convert callback API into suspend function.
+        return suspendCancellableCoroutine { continuation ->
+            val onSuccess: (List<FaceWithCoordinates>) -> Unit =
+                { facesWithCoordinates: List<FaceWithCoordinates> ->
+                    continuation.resume(facesWithCoordinates)
+                }
+            val onError: (Exception) -> Unit = { e: Exception ->
+                continuation.resumeWithException(e)
+            }
+            findFaces(image, bitmap, onError, onSuccess)
+        }
+    }
+
+    /**
+     * Find faces in the bitmap, then invoke appropriate callback.
+     */
+    private inline fun findFaces(
+        image: Image,
+        bitmap: Bitmap,
+        crossinline onError: (Exception) -> Unit,
+        crossinline onSuccess: (List<FaceWithCoordinates>) -> Unit
+    ) {
+        val rotationDegrees = 0
+        val inputImage = InputImage.fromBitmap(bitmap, rotationDegrees)
+        val detector = FaceDetection.getClient(FACE_DETECTOR_OPTIONS)
+        val task = detector.process(inputImage)
+        val onProcessingComplete = {
+            detector.close()
+        }
+        task.addOnSuccessListener { mlKitFaces ->
+            onProcessingComplete()
+            val facesWithCoordinates = mlKitFaces.map { mlKitFace ->
+                val allContours = mlKitFace.allContours
+                val coordinates: List<Coordinate> = allContours.flatMap { contour ->
+                    contour.points.map { point ->
+                        Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
+                    }
+                }
+                FaceWithCoordinates(0, image.id, coordinates)
+            }
+            onSuccess(facesWithCoordinates)
+        }
+        task.addOnFailureListener { e ->
+            onProcessingComplete()
+            onError(e)
+        }
+    }
+
+}
