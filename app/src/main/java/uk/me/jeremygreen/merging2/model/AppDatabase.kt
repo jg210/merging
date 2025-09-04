@@ -15,7 +15,7 @@ import androidx.room.RoomDatabase
 @Database(
     entities = [
         Coordinate::class,
-        FaceEntity::class,
+        Face::class,
         Image::class,
         Onboarding::class
     ],

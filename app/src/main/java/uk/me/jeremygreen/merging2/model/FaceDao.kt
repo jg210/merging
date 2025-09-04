@@ -14,7 +14,7 @@ internal interface FaceDao {
     fun findById(imageId: Long): LiveData<List<FaceWithCoordinates>>
 
     @Insert
-    suspend fun addAll(faces: List<FaceEntity>): List<Long>
+    suspend fun addAll(faces: List<Face>): List<Long>
 
 }
 

@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
     tableName = "coordinates",
     foreignKeys = [
         ForeignKey(
-            entity=FaceEntity::class,
+            entity=Face::class,
             parentColumns = ["id"],
             childColumns = ["faceId"],
             onDelete = ForeignKey.CASCADE

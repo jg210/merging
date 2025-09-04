@@ -81,7 +81,7 @@ internal class AppViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             appDatabase.runInTransaction {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val faceEntities = facesWithCoordinates.map { face -> FaceEntity(face.id, face.imageId) }
+                    val faceEntities = facesWithCoordinates.map { face -> Face(face.id, face.imageId) }
                     val faceIds = appDatabase.faceDao().addAll(faceEntities)
                     Log.d(TAG, "addAll() face ids: ${faceIds.joinToString(", ")}")
                     faceIds.zip(facesWithCoordinates).forEach { pair ->
