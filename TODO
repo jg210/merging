@@ -18,8 +18,7 @@
       X https://developer.android.com/develop/ui/compose/graphics/draw/overview
     - image deletion doesn't have dialog any more.
     - any ordering issues from use of coroutine dispatchers in AppViewModel?
-    - splash
-      - convert or remove this?
+    X splash screen
     - log mkdirsSuccess == false in takeImage to bug tracker
     - Is AppTheme etc. required still?
     - and AppCompatActivity as parent class
