@@ -16,8 +16,6 @@
     - add Composable diagram to README
     X show faces on images
       X https://developer.android.com/develop/ui/compose/graphics/draw/overview
-    - the faces aren't drawn in quite the right place
-      - draw scope size is for InputImage, but the image is generally smaller since aspect ratio not same as screen.
     - image deletion doesn't have dialog any more.
     - any ordering issues from use of coroutine dispatchers in AppViewModel?
     - splash

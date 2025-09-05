@@ -3,7 +3,6 @@ package uk.me.jeremygreen.merging2.main.screen
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -12,7 +11,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 import uk.me.jeremygreen.merging2.model.AppViewModel
 import uk.me.jeremygreen.merging2.model.FaceWithCoordinates
 import uk.me.jeremygreen.merging2.model.entity.Image
@@ -33,10 +32,10 @@ internal fun InputImage(
     }
     val facesLiveData = appViewModel.findFacesByImageId(image.id)
     val faces = facesLiveData.observeAsState(listOf()).value
-    return AsyncImage(
+    AsyncImage(
             model = image.uri,
             contentDescription = null,
-            modifier = Modifier.fillMaxSize().combinedClickable(
+            modifier = Modifier.combinedClickable(
                 enabled = true,
                 onLongClick = {
                     // TODO Alert dialogue with Delete/Cancel - R.string.confirmDeleteImage
@@ -47,8 +46,7 @@ internal fun InputImage(
                 drawContent()
                 drawFaces(this, faces)
             }
-
-        )
+    )
 }
 
 private fun drawFaces(

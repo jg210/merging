@@ -2,12 +2,13 @@ package uk.me.jeremygreen.merging2.algo
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import coil.ImageLoader
-import coil.request.ErrorResult
-import coil.request.ImageRequest
-import coil.request.SuccessResult
+import coil3.ImageLoader
+import coil3.request.ErrorResult
+import coil3.request.ImageRequest
+import coil3.request.SuccessResult
+import coil3.request.allowHardware
+import coil3.toBitmap
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
@@ -50,7 +51,7 @@ object FaceDetect {
 
         val result = loader.execute(request)
         when (result) {
-            is SuccessResult -> return (result.drawable as BitmapDrawable).bitmap
+            is SuccessResult -> return result.image.toBitmap()
             is ErrorResult -> throw result.throwable
         }
     }
