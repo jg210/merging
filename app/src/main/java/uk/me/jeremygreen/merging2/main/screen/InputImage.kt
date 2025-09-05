@@ -58,6 +58,10 @@ private fun drawFaces(
     faces.forEach { face ->
         Log.d(TAG, "drawing face contours for face id: ${face.id}")
         face.coordinates.forEach { coordinate ->
+            if (coordinate.x < 0 || coordinate.x > 1 || coordinate.y < 0 || coordinate.y > 1) {
+                // This stops dots being drawn on top of neighbouring images in the pager.
+                return@forEach
+            }
             val x = bounds.left + coordinate.x * bounds.width
             val y = bounds.top + coordinate.y * bounds.height
             //Log.d(TAG, "drawing point at (${x}, ${y})")
