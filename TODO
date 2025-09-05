@@ -22,7 +22,7 @@
     - log mkdirsSuccess == false in takeImage to bug tracker
     - Is AppTheme etc. required still?
     - and AppCompatActivity as parent class
-    - remove viewBinding = true
+    X remove viewBinding = true
     - replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
     - remove any remaining unused code
       - code
