@@ -45,11 +45,11 @@ internal fun Main(
 ) {
     val allImagesLiveData = appViewModel.allImages()
     val images: ImmutableList<Image> = allImagesLiveData.observeAsState(persistentListOf()).value
+    val deleteImage = { image: Image ->  appViewModel.delete(image) }
     Scaffold(
         topBar = { TopBar() },
         floatingActionButton = { FloatingActionButtonImpl(imagesDir, appViewModel::addImage) }
-    ) { innerPadding -> Pager(images, appViewModel, innerPadding)
-    }
+    ) { innerPadding -> Pager(images, deleteImage, innerPadding) }
 }
 
 @Composable

@@ -15,7 +15,7 @@ private const val TAG = "Pages"
 internal fun Pages(
     images: ImmutableList<Image>?,
     page: Int,
-    appViewModel: AppViewModel
+    deleteImage: (Image) -> Unit,
 ) {
     Log.i(TAG, "Pages: page=$page images=${images?.size}")
     if (images.isNullOrEmpty()) {
@@ -32,5 +32,5 @@ internal fun Pages(
         return
     }
     val image = images[page]
-    InputImage(appViewModel, image, onLongClick = { appViewModel.delete(image) })
+    InputImage(image, onLongClick = { deleteImage(image) } )
 }

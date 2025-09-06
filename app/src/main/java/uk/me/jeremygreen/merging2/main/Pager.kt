@@ -9,13 +9,12 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
-import uk.me.jeremygreen.merging2.model.AppViewModel
 import uk.me.jeremygreen.merging2.model.entity.Image
 
 @Composable
 internal fun Pager(
     images: ImmutableList<Image>,
-    appViewModel: AppViewModel,
+    deleteImage: (Image) -> Unit,
     innerPadding: PaddingValues
 ) {
     val pagerState = rememberPagerState (
@@ -31,7 +30,7 @@ internal fun Pager(
             beyondViewportPageCount = 2,
             modifier =  Modifier.fillMaxHeight()
         ) { page ->
-            Pages(images, page, appViewModel)
+            Pages(images, page, deleteImage)
         }
     }
 

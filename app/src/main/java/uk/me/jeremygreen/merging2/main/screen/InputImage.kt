@@ -11,6 +11,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import uk.me.jeremygreen.merging2.model.AppViewModel
 import uk.me.jeremygreen.merging2.model.FaceWithCoordinates
@@ -23,9 +24,9 @@ private const val FACE_DOT_RADIUS: Float = 3f
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun InputImage(
-    appViewModel: AppViewModel,
     image: Image?,
-    onLongClick : () -> Unit = {}
+    onLongClick : () -> Unit = {},
+    appViewModel: AppViewModel = viewModel()
 ) {
     if (image == null) {
         return

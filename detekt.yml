@@ -1,4 +1,6 @@
 complexity:
+  ComplexCondition:
+    active: false
   TooManyFunctions:
     active: false
 
