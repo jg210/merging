@@ -36,7 +36,7 @@ internal fun Pager(
             beyondViewportPageCount = 2,
             modifier =  Modifier.fillMaxHeight()
         ) { page ->
-            scrollToAnyNewImage(images, pagerState)
+            ScrollToAnyNewImage(images, pagerState)
             Pages(images, page, deleteImage)
         }
     }
@@ -44,7 +44,7 @@ internal fun Pager(
 }
 
 @Composable
-private fun scrollToAnyNewImage(
+private fun ScrollToAnyNewImage(
     images: ImmutableList<Image>,
     pagerState: PagerState
 ) {
