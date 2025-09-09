@@ -67,11 +67,7 @@ object FaceDetect {
             val inputImage = fromBitmap(bitmap, rotationDegrees)
             val detector = getClient(FACE_DETECTOR_OPTIONS)
             val task = detector.process(inputImage)
-            val onProcessingComplete = {
-                detector.close()
-            }
             task.addOnSuccessListener { mlKitFaces ->
-                onProcessingComplete()
                 val facesWithCoordinates = mlKitFaces.map { mlKitFace ->
                     val allContours = mlKitFace.allContours
                     val coordinates: List<Coordinate> = allContours.flatMap { contour ->
@@ -84,9 +80,9 @@ object FaceDetect {
                 continuation.resume(facesWithCoordinates)
             }
             task.addOnFailureListener { e ->
-                onProcessingComplete()
                 continuation.resumeWithException(e)
             }
+            task.addOnCompleteListener { detector.close() }
         }
     }
 
