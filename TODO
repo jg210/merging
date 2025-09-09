@@ -14,18 +14,24 @@
     X show faces on images
       X https://developer.android.com/develop/ui/compose/graphics/draw/overview
     X can the two findFaces functions be merged into one?
-    - add entity diagram to README
-    - add Composable diagram to README
     - image deletion doesn't have dialog any more.
     - any ordering issues from use of coroutine dispatchers in AppViewModel?
-    - log mkdirsSuccess == false in takeImage to bug tracker
     - Is AppTheme etc. required still?
     - ...and AppCompatActivity as parent class
-    - replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
     - remove any remaining unused code
       - code
       - suppressions
       - imports
+
+* Log mkdirsSuccess == false in takeImage to bug tracker
+
+* Add entity diagram to README
+  - auto generated?
+    - e.g. https://plugins.gradle.org/plugin/jp.ntsk.room-schema-docs
+
+* Add Composable diagram to README
+
+* Replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
 
 * Add repository layer between ViewModel and DAOs
 
