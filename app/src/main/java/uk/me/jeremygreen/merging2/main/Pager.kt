@@ -1,8 +1,10 @@
 package uk.me.jeremygreen.merging2.main
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
@@ -13,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
 import uk.me.jeremygreen.merging2.model.entity.Image
@@ -37,7 +40,11 @@ internal fun Pager(
             modifier =  Modifier.fillMaxHeight()
         ) { page ->
             ScrollToAnyNewImage(images, pagerState)
-            Pages(images, page, deleteImage)
+            Box(modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Pages(images, page, deleteImage)
+            }
         }
     }
 
