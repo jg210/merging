@@ -14,8 +14,6 @@
     X show faces on images
       X https://developer.android.com/develop/ui/compose/graphics/draw/overview
     X can the two findFaces functions be merged into one?
-    - replace faces if update algorithm version
-      - make sure don't leave old faces and coordinates in database too.
     - add entity diagram to README
     - add Composable diagram to README
     - image deletion doesn't have dialog any more.
@@ -30,6 +28,12 @@
       - imports
 
 * Add repository layer between ViewModel and DAOs
+
+* Replace faces if update algorithm version
+  - make sure don't leave old faces and coordinates in database too.
+    - hopefully via chained deletes
+  - clear version in Image too, to make sure the faces are detected with new version of algorithm
+    => might not be able to just use @Query("DELETE...") in the DAO?
 
 * Use Flow not LiveData in DAO and repository?
     - https://developer.android.com/training/data-storage/room/async-queries

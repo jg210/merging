@@ -56,6 +56,10 @@ internal class AppViewModel(
     }
 
     private suspend fun ensureImagesProcessed() {
+        // TODO remove old versions of faces
+        findUnprocessedFaces()
+    }
+    private suspend fun findUnprocessedFaces() {
         val unprocessedImages = appDatabase.imageDao().getUnprocessedImages()
         unprocessedImages.forEach { image ->
             val facesWithCoordinates = FaceDetect.findFaces(image, application)
