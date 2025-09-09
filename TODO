@@ -14,6 +14,8 @@
     X show faces on images
       X https://developer.android.com/develop/ui/compose/graphics/draw/overview
     X can the two findFaces functions be merged into one?
+    - poor UI layout if phone in landscape
+      - pager images not centred
     - image deletion doesn't have dialog any more.
     - any ordering issues from use of coroutine dispatchers in AppViewModel?
     - Is AppTheme etc. required still?
@@ -78,29 +80,18 @@
 
 * NDK crash reporting
 
-* Splashscreen has very large image on android-21 emulator.
-
-* detect all faces, crop image and redetect each face's contours
+* Multiple faces
   - can only detect one face if contour-detection enabled.
-  - allowing merging of group of faces from one photo
-  - probably required for accurate contour coordinate detection too.
+  - options
+    - default: detect a "random" face
+    - detect all faces, crop image and redetect each face's contours?
+    - allow selection of which faces to merge from each image
+      - allowing merging of group of faces from one photo
 
 * Use fingerprint of onboarding text not "version" in OnboardingActivity?
   - will need to change database schema since currently uses long
 
-* Have seen three faces in LiveData message when there should be two.
-
-* Is FacesView leaking anything?
-  - https://proandroiddev.com/5-common-mistakes-when-using-architecture-components-403e9899f4cb
-
 * App link gives "Item not found" error in play store app if android platform is too old.
-
-* Image database has become corrupted:
-
-2019-08-04 20:44:12.917 5264-5264/uk.me.jeremygreen.merging D/ImageFragment: updating image 0 with: file:///data/user/0/uk.me.jeremygreen.merging/files/photos/3b2ed863-133c-4ec5-8a10-c0ebe0e1cbce.jpg
-2019-08-04 20:44:12.923 5264-5264/uk.me.jeremygreen.merging D/ImageFragment: updating image 0 with: file:///data/user/0/uk.me.jeremygreen.merging/files/photos/4db3e981-8725-454a-b8af-734f2f3746eb.jpg
-
-2019-08-08 23:41:30.698 9106-9106/? D/FacesView: updating image 2131230833 with: file:///data/user/0/uk.me.jeremygreen.merging/files/photos/2a203507-73b4-498e-b010-c325ecedd673.jpg
 
 * Better play store text etc.
   - short and long description shouldn't be the same.
@@ -120,21 +111,8 @@
 
 * Can google-services.json(s) be taken from merging-secrets repo?
 
-* Use android app bundle.
-  - upload signing key
-  - create upload key
-  - ???
-
 * Play store accessibility checks say onboarding accept click area is still not high enough.
   - "This item's height is 38dp. Consider making the height of this touch target 48dp or larger."
-
-* Refactor and refine face-detection implementation.
-  - too much code in ImageFragment
-
-* If wipe AVD data, camera app doesn't send photo back to app first time use it.
-
-* ACTION_IMAGE_CAPTURE Intent might not work well on all platforms
-  - https://commonsware.com/blog/2015/06/08/action-image-capture-fallacy.html
 
 * Room sends two LiveData events when add faces rows
   - once without coordinates
@@ -150,16 +128,6 @@
   - keep hold of restored state and use it for first images update?
 
 * Screenshots in github.
-
-* Android Studio says should replace SplashActivity with SplashScreen.
-  - https://developer.android.com/develop/ui/views/launch/splash-screen is android 12 and above only
-  - https://developer.android.com/reference/kotlin/androidx/core/splashscreen/SplashScreen works for
-    older platforms too
-
-* Don't show splashscreen if start up is fast enough
-  - but if do show it, show it for at least 1.5s.
-
-* Use ActivityResultContract not deprecated startActivityForResult/onActivityResult.
 
 * Enable crashlytics and analytics in SplashActivity if previously enabled via OnboardingActivity.
   - currently, enable in MainActivity, which avoids need to persist state, but means
@@ -188,14 +156,11 @@
 
 * Toggleable overlay showing debug info.
 
-* If possible, stop camera app asking for location permission.
-
-* What happens if Camera app isn't given location permission?
-
 * End-to-end tests
-  - firebase?
-    - https://circleci.com/docs/2.0/language-android/#testing-with-firebase-test-lab
-    - https://firebase.google.com/docs/test-lab/usage-quotas-pricing (free is possible)
+  - espresso?
+  - UI automator 2?
+    - for interaction with camera?
+  - allowing sharing of images to app would make testing easier.
 
 * Add more Firebase Analytics events.
   - https://firebase.google.com/docs/analytics/android/start
@@ -224,9 +189,6 @@
   - artifacts tab not always shown
     - https://discuss.circleci.com/t/stored-artifacts-not-showing-up-on-a-build/20761/3
 
-* Replace Room with something better?
-  - Realm?
-
 * Is it necessary to wait for MLKit model to download when necessary
     - https://firebase.google.com/docs/ml-kit/android/detect-faces#before-you-begin
     - how?
@@ -254,8 +216,6 @@
 
 * Better structure for java packages.
 
-* Move features in this list to github issues.
-
 * "API 'variant.getMergeResources()' is obsolete" gradle sync warning.
 
 * AndroidManifest says app supports RTL.
@@ -268,8 +228,6 @@
 
 * Make forks build on Circle CI?
   - dummy google-services.json?
-
-* Try https://developer.android.com/training/camerax when it's out of beta.
 
 * ML Kit might need image orientation to be set
   - https://developers.google.com/ml-kit/vision/face-detection/android#using-a-media.image
