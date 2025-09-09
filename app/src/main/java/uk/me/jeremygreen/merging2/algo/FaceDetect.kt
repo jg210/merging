@@ -10,6 +10,7 @@ import coil3.request.SuccessResult
 import coil3.request.allowHardware
 import coil3.toBitmap
 import com.google.mlkit.vision.common.InputImage.fromBitmap
+import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection.getClient
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -68,22 +69,29 @@ object FaceDetect {
             val detector = getClient(FACE_DETECTOR_OPTIONS)
             val task = detector.process(inputImage)
             task.addOnSuccessListener { mlKitFaces ->
-                val facesWithCoordinates = mlKitFaces.map { mlKitFace ->
-                    val allContours = mlKitFace.allContours
-                    val coordinates: List<Coordinate> = allContours.flatMap { contour ->
-                        contour.points.map { point ->
-                            Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
-                        }
-                    }
-                    FaceWithCoordinates(0, image.id, coordinates)
-                }
-                continuation.resume(facesWithCoordinates)
+                continuation.resume(
+                    facesWithCoordinates(mlKitFaces, bitmap, image)
+                )
             }
             task.addOnFailureListener { e ->
                 continuation.resumeWithException(e)
             }
             task.addOnCompleteListener { detector.close() }
         }
+    }
+
+    private fun facesWithCoordinates(
+        mlKitFaces: List<Face>,
+        bitmap: Bitmap,
+        image: Image
+    ): List<FaceWithCoordinates> = mlKitFaces.map { mlKitFace ->
+        val allContours = mlKitFace.allContours
+        val coordinates: List<Coordinate> = allContours.flatMap { contour ->
+            contour.points.map { point ->
+                Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
+            }
+        }
+        FaceWithCoordinates(0, image.id, coordinates)
     }
 
 }
