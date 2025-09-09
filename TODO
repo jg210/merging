@@ -9,20 +9,20 @@
     X save camera image
     X run face detection code from AppViewModel
     X store algorithm version in database so can invalidate cache if update algorithm
-    - replace faces if update algorithm version
-      - make sure don't leave old faces and coordinates in database too.
-    X can the two findFaces functions be merged into one?
-    - add entity diagram to README
-    - add Composable diagram to README
+    X splash screen
+    X remove viewBinding = true
     X show faces on images
       X https://developer.android.com/develop/ui/compose/graphics/draw/overview
+    X can the two findFaces functions be merged into one?
+    - replace faces if update algorithm version
+      - make sure don't leave old faces and coordinates in database too.
+    - add entity diagram to README
+    - add Composable diagram to README
     - image deletion doesn't have dialog any more.
     - any ordering issues from use of coroutine dispatchers in AppViewModel?
-    X splash screen
     - log mkdirsSuccess == false in takeImage to bug tracker
     - Is AppTheme etc. required still?
-    - and AppCompatActivity as parent class
-    X remove viewBinding = true
+    - ...and AppCompatActivity as parent class
     - replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
     - remove any remaining unused code
       - code
