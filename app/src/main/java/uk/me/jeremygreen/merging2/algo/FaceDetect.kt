@@ -73,9 +73,7 @@ object FaceDetect {
                     facesWithCoordinates(mlKitFaces, bitmap, image)
                 )
             }
-            task.addOnFailureListener { e ->
-                continuation.resumeWithException(e)
-            }
+            task.addOnFailureListener { e -> continuation.resumeWithException(e) }
             task.addOnCompleteListener { detector.close() }
         }
     }
