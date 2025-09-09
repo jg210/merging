@@ -9,8 +9,8 @@ import coil3.request.ImageRequest
 import coil3.request.SuccessResult
 import coil3.request.allowHardware
 import coil3.toBitmap
-import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.common.InputImage.fromBitmap
+import com.google.mlkit.vision.face.FaceDetection.getClient
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.coroutines.suspendCancellableCoroutine
 import uk.me.jeremygreen.merging2.model.FaceWithCoordinates
@@ -63,49 +63,30 @@ object FaceDetect {
         val bitmap = loadBitmap(context, image.uri)
         // Convert callback API into suspend function.
         return suspendCancellableCoroutine { continuation ->
-            val onSuccess: (List<FaceWithCoordinates>) -> Unit =
-                { facesWithCoordinates: List<FaceWithCoordinates> ->
-                    continuation.resume(facesWithCoordinates)
+            val rotationDegrees = 0
+            val inputImage = fromBitmap(bitmap, rotationDegrees)
+            val detector = getClient(FACE_DETECTOR_OPTIONS)
+            val task = detector.process(inputImage)
+            val onProcessingComplete = {
+                detector.close()
+            }
+            task.addOnSuccessListener { mlKitFaces ->
+                onProcessingComplete()
+                val facesWithCoordinates = mlKitFaces.map { mlKitFace ->
+                    val allContours = mlKitFace.allContours
+                    val coordinates: List<Coordinate> = allContours.flatMap { contour ->
+                        contour.points.map { point ->
+                            Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
+                        }
+                    }
+                    FaceWithCoordinates(0, image.id, coordinates)
                 }
-            val onError: (Exception) -> Unit = { e: Exception ->
+                continuation.resume(facesWithCoordinates)
+            }
+            task.addOnFailureListener { e ->
+                onProcessingComplete()
                 continuation.resumeWithException(e)
             }
-            findFaces(image, bitmap, onError, onSuccess)
-        }
-    }
-
-    /**
-     * Find faces in the bitmap, then invoke appropriate callback.
-     */
-    private inline fun findFaces(
-        image: Image,
-        bitmap: Bitmap,
-        crossinline onError: (Exception) -> Unit,
-        crossinline onSuccess: (List<FaceWithCoordinates>) -> Unit
-    ) {
-        val rotationDegrees = 0
-        val inputImage = InputImage.fromBitmap(bitmap, rotationDegrees)
-        val detector = FaceDetection.getClient(FACE_DETECTOR_OPTIONS)
-        val task = detector.process(inputImage)
-        val onProcessingComplete = {
-            detector.close()
-        }
-        task.addOnSuccessListener { mlKitFaces ->
-            onProcessingComplete()
-            val facesWithCoordinates = mlKitFaces.map { mlKitFace ->
-                val allContours = mlKitFace.allContours
-                val coordinates: List<Coordinate> = allContours.flatMap { contour ->
-                    contour.points.map { point ->
-                        Coordinate(0, 0, point.x / bitmap.width, point.y / bitmap.height)
-                    }
-                }
-                FaceWithCoordinates(0, image.id, coordinates)
-            }
-            onSuccess(facesWithCoordinates)
-        }
-        task.addOnFailureListener { e ->
-            onProcessingComplete()
-            onError(e)
         }
     }
 
