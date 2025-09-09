@@ -37,9 +37,6 @@
 * Use StateFlow not LiveData in ViewModel?
     - https://developer.android.com/kotlin/flow/stateflow-and-sharedflow
 
-* Scroll Pager to just-added Image
-  - LaunchedEffect in Pager compares old and new image ids
-
 * Room updates observable queries when db not data changes
   - distinctUntilChanged() would reduce spurious UI updates.
 

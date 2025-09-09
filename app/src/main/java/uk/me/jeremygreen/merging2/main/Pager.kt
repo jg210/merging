@@ -5,8 +5,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
 import uk.me.jeremygreen.merging2.model.entity.Image
@@ -30,10 +36,28 @@ internal fun Pager(
             beyondViewportPageCount = 2,
             modifier =  Modifier.fillMaxHeight()
         ) { page ->
+            scrollToAnyNewImage(images, pagerState)
             Pages(images, page, deleteImage)
         }
     }
 
+}
+
+@Composable
+private fun scrollToAnyNewImage(
+    images: ImmutableList<Image>,
+    pagerState: PagerState
+) {
+    var previousImageCount by rememberSaveable { mutableIntStateOf(0) }
+    val imageCount = images.size
+    val thereIsNewImage = imageCount > previousImageCount
+    LaunchedEffect (thereIsNewImage, imageCount) {
+        if (thereIsNewImage) {
+            // Assign ids in order and return images in id order, so newest image is last.
+            pagerState.animateScrollToPage(imageCount - 1)
+        }
+        previousImageCount = imageCount
+    }
 }
 
 internal fun pagerPageCount(images: ImmutableList<Image>?): Int {
