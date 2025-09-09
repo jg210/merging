@@ -51,7 +51,7 @@ internal class AppViewModel(
 
     private fun ensureImagesProcessedInBackground() {
         viewModelScope.launch(Dispatchers.IO) {
-            ensureImagesProcessedInBackground()
+            ensureImagesProcessed()
         }
     }
 
