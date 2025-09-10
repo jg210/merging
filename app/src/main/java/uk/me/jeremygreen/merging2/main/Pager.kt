@@ -23,7 +23,6 @@ import uk.me.jeremygreen.merging2.model.entity.Image
 @Composable
 internal fun Pager(
     images: ImmutableList<Image>,
-    deleteImage: (Image) -> Unit,
     innerPadding: PaddingValues
 ) {
     val pagerState = rememberPagerState (
@@ -43,7 +42,7 @@ internal fun Pager(
             Box(modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Pages(images, page, deleteImage)
+                Pages(images, page)
             }
         }
     }
