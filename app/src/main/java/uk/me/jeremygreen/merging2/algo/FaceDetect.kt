@@ -1,5 +1,6 @@
 package uk.me.jeremygreen.merging2.algo
 
+import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
@@ -46,9 +47,9 @@ object FaceDetect {
 
     internal suspend fun findFaces(
         image: Image,
-        context: Context
+        application: Application
     ): List<FaceWithCoordinates> {
-        val bitmap = loadBitmap(context, image.uri)
+        val bitmap = loadBitmap(application, image.uri)
         val rotationDegrees = 0
         val inputImage = fromBitmap(bitmap, rotationDegrees)
         getClient(FACE_DETECTOR_OPTIONS).use { detector ->
@@ -57,7 +58,9 @@ object FaceDetect {
         }
     }
 
-    private suspend fun loadBitmap(context: Context, uri: Uri): Bitmap {
+    private suspend fun loadBitmap(context: Application, uri: Uri): Bitmap {
+        // Forcing context to be an Application reduces chance of leaking an
+        // Activity Context.
         val imageLoader = SingletonImageLoader.get(context)
         val request = ImageRequest.Builder(context)
             .data(uri)
