@@ -42,21 +42,6 @@ object FaceDetect {
             .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
             .build()
 
-    private suspend fun loadBitmap(context: Context, uri: Uri): Bitmap {
-        val loader = ImageLoader(context)
-        val request = ImageRequest.Builder(context)
-            .data(uri)
-            .allowHardware(false) // Needed to get software Bitmap
-            .size(BITMAP_WIDTH, BITMAP_HEIGHT)
-            .build()
-
-        val result = loader.execute(request)
-        when (result) {
-            is SuccessResult -> return result.image.toBitmap()
-            is ErrorResult -> throw result.throwable
-        }
-    }
-
     internal suspend fun findFaces(
         image: Image,
         context: Context
@@ -75,6 +60,21 @@ object FaceDetect {
             }
             task.addOnFailureListener { e -> continuation.resumeWithException(e) }
             task.addOnCompleteListener { detector.close() }
+        }
+    }
+
+    private suspend fun loadBitmap(context: Context, uri: Uri): Bitmap {
+        val loader = ImageLoader(context)
+        val request = ImageRequest.Builder(context)
+            .data(uri)
+            .allowHardware(false) // Needed to get software Bitmap
+            .size(BITMAP_WIDTH, BITMAP_HEIGHT)
+            .build()
+
+        val result = loader.execute(request)
+        when (result) {
+            is SuccessResult -> return result.image.toBitmap()
+            is ErrorResult -> throw result.throwable
         }
     }
 
