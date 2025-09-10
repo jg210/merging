@@ -14,6 +14,7 @@ import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection.getClient
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.tasks.await
 import uk.me.jeremygreen.merging2.model.FaceWithCoordinates
 import uk.me.jeremygreen.merging2.model.entity.Coordinate
 import uk.me.jeremygreen.merging2.model.entity.Image
@@ -47,19 +48,11 @@ object FaceDetect {
         context: Context
     ): List<FaceWithCoordinates> {
         val bitmap = loadBitmap(context, image.uri)
-        // Convert callback API into suspend function.
-        return suspendCancellableCoroutine { continuation ->
-            val rotationDegrees = 0
-            val inputImage = fromBitmap(bitmap, rotationDegrees)
-            val detector = getClient(FACE_DETECTOR_OPTIONS)
-            val task = detector.process(inputImage)
-            task.addOnSuccessListener { mlKitFaces ->
-                continuation.resume(
-                    facesWithCoordinates(mlKitFaces, bitmap, image)
-                )
-            }
-            task.addOnFailureListener { e -> continuation.resumeWithException(e) }
-            task.addOnCompleteListener { detector.close() }
+        val rotationDegrees = 0
+        val inputImage = fromBitmap(bitmap, rotationDegrees)
+        getClient(FACE_DETECTOR_OPTIONS).use { detector ->
+            val mlKitFaces = detector.process(inputImage).await()
+            return facesWithCoordinates(mlKitFaces, bitmap, image)
         }
     }
 
