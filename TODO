@@ -1,7 +1,5 @@
 * Any ordering issues from use of coroutine dispatchers in AppViewModel?
 
-* Log mkdirsSuccess == false in takeImage to bug tracker
-
 * Add entity diagram to README
   - auto generated?
     - e.g. https://plugins.gradle.org/plugin/jp.ntsk.room-schema-docs
@@ -54,6 +52,8 @@
   - go back to SplashActivity if change setting
 
 * NDK crash reporting
+
+* An ErrorReporter that crashes debug/staging builds, but sends errors to firebase in production.
 
 * Multiple faces
   - can only detect one face if contour-detection enabled.
