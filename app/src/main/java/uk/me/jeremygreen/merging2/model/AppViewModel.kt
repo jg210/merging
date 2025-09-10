@@ -32,7 +32,7 @@ internal class AppViewModel(
                 AppDatabase::class.java,
                 "app"
             )
-            builder.fallbackToDestructiveMigrationFrom(1, 2)
+            builder.fallbackToDestructiveMigrationFrom(false, 1, 2)
             return builder.build()
         }
 
