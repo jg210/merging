@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import coil3.ImageLoader
+import coil3.SingletonImageLoader
 import coil3.request.ErrorResult
 import coil3.request.ImageRequest
 import coil3.request.SuccessResult
@@ -57,14 +58,14 @@ object FaceDetect {
     }
 
     private suspend fun loadBitmap(context: Context, uri: Uri): Bitmap {
-        val loader = ImageLoader(context)
+        val imageLoader = SingletonImageLoader.get(context)
         val request = ImageRequest.Builder(context)
             .data(uri)
             .allowHardware(false) // Needed to get software Bitmap
             .size(BITMAP_WIDTH, BITMAP_HEIGHT)
             .build()
 
-        val result = loader.execute(request)
+        val result = imageLoader.execute(request)
         when (result) {
             is SuccessResult -> return result.image.toBitmap()
             is ErrorResult -> throw result.throwable
