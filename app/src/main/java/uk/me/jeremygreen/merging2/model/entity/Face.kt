@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
             entity = Image::class,
             parentColumns = ["id"],
             childColumns = ["imageId"],
-            onDelete = ForeignKey.Companion.CASCADE
+            onDelete = ForeignKey.CASCADE
         )
     ],
     indices = [Index(value = ["imageId"])]
