@@ -17,8 +17,6 @@
     X UI layout if phone in landscape
     X image deletion doesn't have dialog any more.
     - any ordering issues from use of coroutine dispatchers in AppViewModel?
-    - Is AppTheme etc. required still?
-    - ...and AppCompatActivity as parent class
     - remove any remaining unused code
       - code
       - suppressions
