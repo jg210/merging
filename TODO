@@ -1,9 +1,9 @@
 * Migrate to Jetpack Compose.
-    x onboarding
-    x about
+    X onboarding
+    X about
     X licences
     X replace view binding with composables
-    x top bar
+    X top bar
     X menu
     X make action button start camera app
     X save camera image
