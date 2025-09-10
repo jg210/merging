@@ -17,7 +17,8 @@
     X UI layout if phone in landscape
     X image deletion doesn't have dialog any more.
     X remove any remaining unused code
-    - any ordering issues from use of coroutine dispatchers in AppViewModel?
+
+* Any ordering issues from use of coroutine dispatchers in AppViewModel?
 
 * Log mkdirsSuccess == false in takeImage to bug tracker
 
