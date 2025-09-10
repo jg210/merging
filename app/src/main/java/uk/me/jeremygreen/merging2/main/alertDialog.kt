@@ -11,28 +11,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import uk.me.jeremygreen.merging2.R
 
+/**
+ * Show an [AlertDialog] by calling the returned function.
+ */
 @Composable
 internal fun alertDialog(
     title: @Composable () -> Unit,
     onConfirm: () -> Unit
 ): () -> Unit {
     var visible by rememberSaveable { mutableStateOf(false) }
+    @Composable fun DialogButton(
+        resourceId: Int,
+        onClick: () -> Unit = {}
+    ) {
+        Button(onClick = { visible = false ; onClick()}) {
+            Text(stringResource(resourceId))
+        }
+    }
     if (visible) {
-        val confirmButtonClick = {
-            onConfirm()
-            visible = false
-        }
-        val cancelButtonClick = { visible = false }
-        val confirmButton = @Composable {
-            Button(onClick = confirmButtonClick ) {
-                Text(stringResource(R.string.ok))
-            }
-        }
-        val dismissButton = @Composable {
-            Button(onClick = cancelButtonClick) {
-                Text(stringResource(R.string.cancel))
-            }
-        }
+        val confirmButton = @Composable { DialogButton(R.string.ok) { onConfirm() } }
+        val dismissButton = @Composable { DialogButton(R.string.cancel) }
         AlertDialog(
             title = title,
             onDismissRequest = { visible = false },
