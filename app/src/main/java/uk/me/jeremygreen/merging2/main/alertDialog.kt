@@ -20,16 +20,16 @@ internal fun alertDialog(
     onConfirm: () -> Unit
 ): () -> Unit {
     var visible by rememberSaveable { mutableStateOf(false) }
-    val hideDialog = { visible = false }
-    @Composable fun DialogButton(
-        resourceId: Int,
-        onClick: () -> Unit = {}
-    ) {
-        Button(onClick = { hideDialog() ; onClick()}) {
-            Text(stringResource(resourceId))
-        }
-    }
     if (visible) {
+        val hideDialog = { visible = false }
+        @Composable fun DialogButton(
+            resourceId: Int,
+            onClick: () -> Unit = {}
+        ) {
+            Button(onClick = { hideDialog() ; onClick()}) {
+                Text(stringResource(resourceId))
+            }
+        }
         val confirmButton = @Composable { DialogButton(R.string.ok) { onConfirm() } }
         val dismissButton = @Composable { DialogButton(R.string.cancel) }
         AlertDialog(
