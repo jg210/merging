@@ -33,9 +33,9 @@ internal fun alertDialog(
         val dismissButton = @Composable { DialogButton(R.string.cancel) }
         AlertDialog(
             title = title,
-            onDismissRequest = { visible = false },
             confirmButton = confirmButton,
             dismissButton = dismissButton,
+            onDismissRequest = { visible = false }
         )
     }
     return {
