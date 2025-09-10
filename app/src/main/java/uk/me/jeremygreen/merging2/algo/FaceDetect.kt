@@ -67,7 +67,6 @@ object FaceDetect {
             .allowHardware(false) // Needed to get software Bitmap
             .size(BITMAP_WIDTH, BITMAP_HEIGHT)
             .build()
-
         val result = imageLoader.execute(request)
         when (result) {
             is SuccessResult -> return result.image.toBitmap()
