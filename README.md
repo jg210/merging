@@ -8,6 +8,7 @@ This work-in-progress kotlin android app will merge photos of faces. Currently, 
 It's using:
 
 * [ML Kit](https://developers.google.com/ml-kit/vision/face-detection) for face feature detection.
+* [JetPack Compose](https://developer.android.com/compose) (migrated from an earlier View-based implementation).
 * [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics/) for crash reporting.
 * [Firebase Analytics](https://firebase.google.com/docs/analytics).
 * [Coil](https://coil-kt.github.io/coil/) for android Bitmap management.
