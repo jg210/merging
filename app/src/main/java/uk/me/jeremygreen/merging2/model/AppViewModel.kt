@@ -6,10 +6,18 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.application
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import uk.me.jeremygreen.merging2.algo.FaceDetect
+import uk.me.jeremygreen.merging2.model.entity.Face
+import uk.me.jeremygreen.merging2.model.entity.Image
+import uk.me.jeremygreen.merging2.model.entity.Onboarding
 
 internal class AppViewModel(
     application: Application,
@@ -24,7 +32,7 @@ internal class AppViewModel(
                 AppDatabase::class.java,
                 "app"
             )
-            builder.fallbackToDestructiveMigrationFrom(1)
+            builder.fallbackToDestructiveMigrationFrom(false, 1, 2)
             return builder.build()
         }
 
@@ -41,16 +49,30 @@ internal class AppViewModel(
     @Suppress("unused")
     constructor(application: Application): this(application, createAppDatabase(application))
 
-    fun allImages(): LiveData<List<Image>> {
-        return appDatabase.imageDao().getImages()
+    private fun ensureImagesProcessedInBackground() {
+        viewModelScope.launch(Dispatchers.IO) {
+            ensureImagesProcessed()
+        }
     }
 
-    suspend fun getProcessingStage(imageId: Long): Int {
-        return appDatabase.imageDao().getProcessingStage(imageId)
+    private suspend fun ensureImagesProcessed() {
+        // TODO remove old versions of faces
+        findUnprocessedFaces()
+    }
+    private suspend fun findUnprocessedFaces() {
+        val unprocessedImages = appDatabase.imageDao().getUnprocessedImages()
+        unprocessedImages.forEach { image ->
+            val facesWithCoordinates = FaceDetect.findFaces(image, application)
+            val imageWithAlgorithmVersion = image.copy(
+                faceDetectionAlgorithmVersion = FaceDetect.VERSION
+            )
+            addAll(imageWithAlgorithmVersion, facesWithCoordinates)
+        }
     }
 
-    suspend fun findById(imageId: Long): Image {
-        return appDatabase.imageDao().findById(imageId)
+    fun allImages(): LiveData<ImmutableList<Image>> {
+        ensureImagesProcessedInBackground()
+        return appDatabase.imageDao().getImages().map { images -> images.toImmutableList() }
     }
 
     fun delete(image: Image) {
@@ -61,7 +83,8 @@ internal class AppViewModel(
 
     fun addImage(file: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            appDatabase.imageDao().add(Image(0, file, ProcessingStage.unprocessed))
+            appDatabase.imageDao().add(Image(0, file))
+            ensureImagesProcessed()
         }
     }
 
@@ -76,17 +99,21 @@ internal class AppViewModel(
     }
 
     /**
-     * Add all the faces to the database, updating the image (in particular, the [ProcessingStage].
-     * The faces must all belong to the image.
+     * Add all the faces to the database, updating the image. The faces must all belong to the image.
      */
-    fun addAll(image: Image, faces: List<Face>) {
+    private fun addAll(image: Image, facesWithCoordinates: List<FaceWithCoordinates>) {
         viewModelScope.launch(Dispatchers.IO) {
             appDatabase.runInTransaction {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val faceEntities = faces.map { face -> FaceEntity(face.id, face.imageId) }
+                    val faceEntities = facesWithCoordinates.map { face ->
+                        Face(
+                            face.id,
+                            face.imageId
+                        )
+                    }
                     val faceIds = appDatabase.faceDao().addAll(faceEntities)
                     Log.d(TAG, "addAll() face ids: ${faceIds.joinToString(", ")}")
-                    faceIds.zip(faces).forEach { pair ->
+                    faceIds.zip(facesWithCoordinates).forEach { pair ->
                         val id = pair.first
                         val face = pair.second
                         require(face.imageId == image.id) { "${face} doesn't belong to ${image}" }
@@ -102,9 +129,8 @@ internal class AppViewModel(
         }
     }
 
-    fun faces(imageId: Long): LiveData<List<Face>> {
-        return appDatabase.faceDao().findById(imageId)
-    }
+    fun findFacesByImageId(imageId: Long): LiveData<List<FaceWithCoordinates>> =
+        appDatabase.faceDao().findById(imageId)
 
 }
 

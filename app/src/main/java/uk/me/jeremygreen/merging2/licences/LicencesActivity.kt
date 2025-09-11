@@ -1,9 +1,10 @@
-package uk.me.jeremygreen.merging2.about
+package uk.me.jeremygreen.merging2.licences
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -19,23 +20,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import uk.me.jeremygreen.merging2.BuildConfig
+import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import uk.me.jeremygreen.merging2.R
 
-internal class AboutActivity: AppCompatActivity() {
-
-    private val versionName by lazy { packageManager.getPackageInfo(packageName, 0).versionName!! }
+internal class LicencesActivity: AppCompatActivity() {
 
     // Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { About() }
+        setContent { Licences() }
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    private fun About() {
+    private fun Licences() {
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -43,7 +41,7 @@ internal class AboutActivity: AppCompatActivity() {
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
                         titleContentColor = MaterialTheme.colorScheme.primary,
                     ),
-                    title = { Text(text = stringResource(R.string.actionAbout)) },
+                    title = { Text(text = stringResource(R.string.actionLicences)) },
                     navigationIcon = { BackButton() }
                 )
             }
@@ -51,15 +49,10 @@ internal class AboutActivity: AppCompatActivity() {
             Column(
                 modifier = Modifier.padding(innerPadding),
             ) {
-                AboutText()
+                LibrariesContainer(
+                    Modifier.fillMaxSize()
+                )
             }
-        }
-    }
-
-    @Composable
-    private fun AboutText() {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(stringResource(R.string.version, BuildConfig.APPLICATION_ID, versionName))
         }
     }
 

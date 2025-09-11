@@ -2,6 +2,10 @@ package uk.me.jeremygreen.merging2.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import uk.me.jeremygreen.merging2.model.entity.Coordinate
+import uk.me.jeremygreen.merging2.model.entity.Face
+import uk.me.jeremygreen.merging2.model.entity.Image
+import uk.me.jeremygreen.merging2.model.entity.Onboarding
 
 /**
  * Version 1
@@ -11,15 +15,19 @@ import androidx.room.RoomDatabase
  * Version 2
  *
  * Changed type of coordinate table's x and y columns from INTEGER to REAL.
+ *
+ * Version 3
+ *
+ * Removed processing stage, replacing with faceDetectionAlgorithmVersion
  */
 @Database(
     entities = [
         Coordinate::class,
-        FaceEntity::class,
+        Face::class,
         Image::class,
         Onboarding::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 internal abstract class AppDatabase: RoomDatabase() {

@@ -1,0 +1,4 @@
+ext {
+    kotlin_version = '2.2.10'
+    aboutLibsVersion = '11.2.0'
+}

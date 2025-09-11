@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onboardingAcceptCheckbox">I agree</string>
-    <string name="onboardingAcceptContentDescription">OK</string>
     <string name="actionLicences">Licences</string>
     <string name="actionAbout">About</string>
     <string name="appName">Merging</string>
     <string name="cancel">Cancel</string>
-    <string name="confirmDeleteImage">Delete the photo?</string>
-    <string name="fab_content_description">Add photo</string>
+    <string name="confirmDeleteImage">Delete photo?</string>
     <string name="ok">OK</string>
     <string name="version">%1$s\nversion: %2$s</string>
     <string name="merged_image">merged image</string>
