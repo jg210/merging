@@ -1,3 +1,10 @@
+* End-to-end tests
+  - https://circleci.com/docs/guides/execution-managed/android-machine-image/
+  - espresso?
+  - UI automator 2?
+    - for interaction with camera?
+  - allowing sharing of images to app would make testing easier.
+
 * Any ordering issues from use of coroutine dispatchers in AppViewModel?
 
 * Add entity diagram to README
@@ -130,12 +137,6 @@
   - use androidx DialogFragment?
 
 * Toggleable overlay showing debug info.
-
-* End-to-end tests
-  - espresso?
-  - UI automator 2?
-    - for interaction with camera?
-  - allowing sharing of images to app would make testing easier.
 
 * Add more Firebase Analytics events.
   - https://firebase.google.com/docs/analytics/android/start
