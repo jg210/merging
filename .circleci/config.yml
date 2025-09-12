@@ -1,7 +1,7 @@
 version: 2.1
 
 executors:
-  android_executor: &android_executor
+  android_executor:
     docker:
       - image: cimg/android:2025.08.1
     resource_class: large
@@ -31,7 +31,7 @@ commands:
 jobs:
   build:
     working_directory: ~/code
-    <<: *android_executor
+    executor: android_executor
     environment:
       ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
       ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
