@@ -1,4 +1,13 @@
 version: 2
+
+executors:
+  android_executor: &android_executor
+    docker:
+      - image: cimg/android:2025.08.1
+    resource_class: large
+    environment:
+      JVM_OPTS: -Xmx3200m
+
 commands:
   cache_gradle_dependencies:
     steps:
@@ -22,11 +31,8 @@ commands:
 jobs:
   build:
     working_directory: ~/code
-    docker:
-      - image: cimg/android:2025.08.1
-    resource_class: large
+    <<: *android_executor
     environment:
-      JVM_OPTS: -Xmx3200m
       ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
       ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
       ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
