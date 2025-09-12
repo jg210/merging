@@ -80,6 +80,14 @@
 
 * An ErrorReporter that crashes debug/staging builds, but sends errors to firebase in production.
 
+* Circle CI CLI
+  - README
+    - mention installation instructions
+    - useful for validating config locally
+  - configure shell completion in environment script
+    - eval "$(circleci completion bash)"
+    - conditional on circleci being installed
+
 * Multiple faces
   - can only detect one face if contour-detection enabled.
   - options
