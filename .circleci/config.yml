@@ -1,4 +1,24 @@
 version: 2
+commands:
+  cache_gradle_dependencies:
+    steps:
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
+  create_google_services_develop:
+    steps:
+      - run:
+          name: Create google-services.json (develop flavour)
+          command: |
+            rm app/src/develop/google-services.json # symlink, for local builds
+            printf "%s" "${GOOGLE_SERVICES_DEVELOP}" | base64 --decode > app/src/develop/google-services.json      
+
 jobs:
   build:
     working_directory: ~/code
@@ -12,31 +32,19 @@ jobs:
       ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
     steps:
       - checkout
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
+      - cache_gradle_dependencies
+      - create_google_services_develop
       - run:
           name: Create google-services.json (product flavour)
           command: |
             rm app/src/product/google-services.json # symlink, for local builds
             printf "%s" "${GOOGLE_SERVICES}" | base64 --decode > app/src/product/google-services.json
       - run:
-          name: Create google-services.json (develop flavour)
-          command: |
-            rm app/src/develop/google-services.json # symlink, for local builds
-            printf "%s" "${GOOGLE_SERVICES_DEVELOP}" | base64 --decode > app/src/develop/google-services.json
-      - run:
           name: Create release.password
           command: printf "%s\n" "${RELEASE_KEY_PASSWORD:-}" > "${ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE}"
       - run:
           name: Create release.keystore
           command: printf "%s" "${RELEASE_KEYSTORE:-}" | base64 --decode > "${ORG_GRADLE_PROJECT_RELEASE_STORE_FILE}"
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
       - run:
           name: gradle check
           command: ./gradlew check
