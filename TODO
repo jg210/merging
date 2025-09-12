@@ -1,20 +1,19 @@
 * End-to-end tests
-  - https://circleci.com/docs/guides/execution-managed/android-machine-image/
-  - espresso?
-    - only for Views
-  - AndroidComposeTestRule?
-    - https://developer.android.com/jetpack/compose/testing
-    - https://developer.android.com/develop/ui/compose/testing
-    - can it do end-to-end testing of app?
-    - docs have tests an arbitrary Composable (and arbitrary Activity)
-    - might be able to test a single-Activity app too?
-    - multiple Activity app harder
-      - ActivityScenario?
-      - use espresso too?
-      - likely easier to migrate to single Activity app?
-  - UI automator 2?
-    - for interaction with camera?
-    - might be able to combine with compose test API / espresso?
+  X add minimal test
+  - run the test on Circle CI
+    - https://circleci.com/docs/guides/execution-managed/android-machine-image/
+
+* Single Activity app
+  - merge the various activities
+  - use JetPack Compose navigation instead
+
+* More end-to-end testing
+  - test login flow
+  - test licence screen
+  - test app version screen
+  - test interaction with camera app
+    - does that need UI Automator?
+    - can that be interleaved with other testing APIs?
   - allowing sharing of images to app would make testing easier.
 
 * Unit tests.
