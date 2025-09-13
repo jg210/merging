@@ -100,7 +100,11 @@ jobs:
       - run:
           name: Wait for emulator to start
           command: |
-            circle-android wait-for-boot
+              adb wait-for-device
+              # Wait for the boot animation to finish and system to be ready
+              while [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" != "1" ]] ; do
+                sleep 1
+              done
       - run:
           name: Disable emulator animations
           command: |
