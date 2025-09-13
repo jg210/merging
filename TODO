@@ -3,6 +3,9 @@
   - run the test on Circle CI
     - https://circleci.com/docs/guides/execution-managed/android-machine-image/
 
+* git status checks
+  - will need to adjust scripts that delete checked-in google-services.json symlinks
+
 * Single Activity app
   - merge the various activities
   - use JetPack Compose navigation instead
