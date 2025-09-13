@@ -84,6 +84,9 @@
 
 * An ErrorReporter that crashes debug/staging builds, but sends errors to firebase in production.
 
+* bin/setup checks .ruby-version and .circleci/config.yml agree on ruby version
+  - it'd be better to check in a CI job
+
 * Circle CI CLI
   - README
     - mention installation instructions
