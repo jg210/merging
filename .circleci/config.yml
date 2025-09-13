@@ -7,6 +7,9 @@ executors:
     resource_class: large
     environment:
       JVM_OPTS: -Xmx3200m
+      ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
+      ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
+      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
 
 commands:
   cache_gradle_dependencies:
@@ -32,10 +35,6 @@ jobs:
   build:
     working_directory: ~/code
     executor: android_executor
-    environment:
-      ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
-      ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
-      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
     steps:
       - checkout
       - cache_gradle_dependencies
@@ -79,6 +78,39 @@ jobs:
           paths:
             - version
             - outputs
+  androidTest:
+    working_directory: ~/code
+    executor: android_executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./app/build
+      - cache_gradle_dependencies
+      - run:
+        name: Create avd
+        command: |
+          SYSTEM_IMAGE="system-images;android-36;google_apis;x86_64"
+          sdkmanager "${SYSTEM_IMAGE}"
+          echo "no" | avdmanager --verbose create avd -n test -k "${SYSTEM_IMAGES}"
+      - run:
+          name: Launch emulator
+          command: |
+            emulator -avd test -delay-adb -verbose -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          background: true
+      - run:
+          name: Wait for emulator to start
+          command: |
+            circle-android wait-for-boot
+      - run:
+          name: Disable emulator animations
+          command: |
+            adb shell settings put global window_animation_scale 0.0
+            adb shell settings put global transition_animation_scale 0.0
+            adb shell settings put global animator_duration_scale 0.0
+      - run:
+          name: androidTest
+          command: ./gradlew connectedDebugAndroidTest
+
   publish-github-release:
     docker:
       - image: cibuilds/github:0.13
@@ -122,6 +154,9 @@ workflows:
   all:
     jobs:
       - build
+      - androidTest:
+          requires:
+            - build
       - publish-github-release:
           requires:
             - build

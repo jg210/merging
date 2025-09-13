@@ -1,7 +1,8 @@
 * End-to-end tests
   X add minimal test
-  - run the test on Circle CI
-    - https://circleci.com/docs/guides/execution-managed/android-machine-image/
+  X run the test on Circle CI
+    X https://circleci.com/docs/guides/execution-managed/android-machine-image/
+  - cache android SDK files / AVDs
 
 * git status checks
   - will need to adjust scripts that delete checked-in google-services.json symlinks
