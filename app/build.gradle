@@ -47,6 +47,14 @@ static String findVersionName() {
 
 def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
 
+// On CI, the files are only created for jobs that really need them, but still need to be
+// able to run unrelated gradle tasks.
+def fileContentIfExists(path) {
+    return file(path).exists() ?
+         file(path).getText('UTF-8').trim() :
+         null
+}
+
 android {
     compileSdk=36
     defaultConfig {
@@ -64,8 +72,8 @@ android {
     signingConfigs {
         release {
             storeFile releaseStoreFile
-            storePassword file(RELEASE_STORE_PASSWORD_FILE).getText('UTF-8').trim()
-            keyPassword file(RELEASE_KEY_PASSWORD_FILE).getText('UTF-8').trim()
+            storePassword fileContentIfExists(RELEASE_STORE_PASSWORD_FILE)
+            keyPassword fileContentIfExists(RELEASE_KEY_PASSWORD_FILE)
             keyAlias RELEASE_KEY_ALIAS
         }
     }
