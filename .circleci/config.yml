@@ -87,11 +87,11 @@ jobs:
           at: ./app/build
       - cache_gradle_dependencies
       - run:
-        name: Create avd
-        command: |
-          SYSTEM_IMAGE="system-images;android-36;google_apis;x86_64"
-          sdkmanager "${SYSTEM_IMAGE}"
-          echo "no" | avdmanager --verbose create avd -n test -k "${SYSTEM_IMAGES}"
+          name: Create avd
+          command: |
+            SYSTEM_IMAGE="system-images;android-36;google_apis;x86_64"
+            sdkmanager "${SYSTEM_IMAGE}"
+            echo "no" | avdmanager --verbose create avd -n test -k "${SYSTEM_IMAGES}"
       - run:
           name: Launch emulator
           command: |
@@ -110,7 +110,6 @@ jobs:
       - run:
           name: androidTest
           command: ./gradlew connectedDebugAndroidTest
-
   publish-github-release:
     docker:
       - image: cibuilds/github:0.13
