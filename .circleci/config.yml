@@ -60,6 +60,9 @@ jobs:
       - run:
           name: gradle bundleProductRelease
           command: ./gradlew bundleProductRelease
+      - run:
+          name: gradle assembleProductDebugAndroidTest
+          command: ./gradlew assembleProductDebugAndroidTest
       - store_artifacts: # https://circleci.com/docs/2.0/artifacts/
           path: app/build/outputs/apk/product/release/app-product-release.apk
           destination: apks/app-product-release.apk
