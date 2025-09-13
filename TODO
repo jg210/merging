@@ -80,6 +80,11 @@
   - call data clearing APIs.
   - go back to SplashActivity if change setting
 
+* Circle CI tests all commits
+  - i.e. if check in faster than can run builds and tests, get multiple builds running concurrently
+  - does this exhaust any quota?
+  - change to only run on workflow at once?
+
 * NDK crash reporting
 
 * An ErrorReporter that crashes debug/staging builds, but sends errors to firebase in production.
