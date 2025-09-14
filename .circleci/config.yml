@@ -120,7 +120,7 @@ jobs:
             adb shell settings put global animator_duration_scale 0.0
       - run:
           name: androidTest
-          command: ./gradlew connectedDebugAndroidTest
+          command: ./gradlew connectedProductDebugAndroidTest
   publish-github-release:
     docker:
       - image: cibuilds/github:0.13
