@@ -2,8 +2,10 @@
   X add minimal test
   X run the test on Circle CI
     X https://circleci.com/docs/guides/execution-managed/android-machine-image/
-  - use specific android machine image on CI
+  X use specific android machine image on CI
   - sort out duplicated executor config
+  - add store_test_results steps
+  - save androidTest /home/circleci/code/build/reports/problems/problems-report.html
   - cache android SDK files / AVDs
   - record logcat
 
