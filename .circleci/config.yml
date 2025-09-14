@@ -80,7 +80,14 @@ jobs:
             - outputs
   androidTest:
     working_directory: ~/code
-    executor: android_executor
+    machine:
+      image: android
+    resource_class: large
+    environment:
+      JVM_OPTS: -Xmx3200m
+      ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
+      ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
+      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
     steps:
       - checkout
       - attach_workspace:
