@@ -74,10 +74,9 @@ jobs:
       - store_test_results: # https://circleci.com/docs/2.0/collect-test-data/
           path: app/build/test-results
       - persist_to_workspace:
-          root: app/build
+          root: app
           paths:
-            - version
-            - outputs
+            - build
   androidTest:
     working_directory: ~/code
     machine:
@@ -91,7 +90,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ./app/build
+          at: ./app
       - cache_gradle_dependencies
       - create_google_services
       - run:
@@ -127,7 +126,7 @@ jobs:
       - image: cibuilds/github:0.13
     steps:
       - attach_workspace:
-          at: ./app/build
+          at: ./app
       - run:
           name: "Publish Release on GitHub"
           command: |
@@ -148,7 +147,7 @@ jobs:
             - ~/.rbenv
           key: rbenv-{{ checksum "Gemfile.lock" }}-{{ checksum "Gemfile" }}-{{ checksum ".ruby-version" }}
       - attach_workspace:
-          at: ./app/build
+          at: ./app
       - run:
           name: Create google-play-service.json
           command: printf "%s" "${GOOGLE_PLAY_SERVICE_JSON}" | base64 --decode > google-play-service.json
