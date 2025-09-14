@@ -81,7 +81,8 @@ jobs:
   androidTest:
     working_directory: ~/code
     machine:
-      image: android
+      image: android:default
+    resource_class: large
     environment:
       JVM_OPTS: -Xmx3200m
       ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
