@@ -99,8 +99,8 @@ jobs:
       - run:
           name: Create avd
           command: |
-            sdkmanager << parameters.system_image >>
-            echo "no" | avdmanager --verbose create avd -n test -k << parameters.system_image >>
+            sdkmanager system-images;<< parameters.system_image >>
+            echo "no" | avdmanager --verbose create avd -n test -k system-images;<< parameters.system_image >>
       - run:
           name: Launch emulator
           command: |
@@ -172,8 +172,8 @@ workflows:
           matrix:
             parameters:
               system_image:
-                - system-images;android-36;google_apis;x86_64
-                - system-images;android-23;google_apis;x86_64
+                - android-36;google_apis;x86_64
+                - android-23;google_apis;x86_64
       - publish-github-release:
           requires:
             - build
