@@ -5,7 +5,7 @@
   X use specific android machine image on CI
   - sort out duplicated executor config
   - add store_test_results steps
-  X test on minSdkVersion and latest android version
+  - test on minSdkVersion and latest android version
   - save androidTest /home/circleci/code/build/reports/problems/problems-report.html
   - cache android SDK files / AVDs
   - record logcat
