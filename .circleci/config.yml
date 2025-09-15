@@ -170,9 +170,10 @@ workflows:
           requires:
             - build
           matrix:
-            system_image:
-              - system-images;android-36;google_apis;x86_64
-              - system-images;android-23;google_apis;x86_64
+            parameters:
+              system_image:
+                - system-images;android-36;google_apis;x86_64
+                - system-images;android-23;google_apis;x86_64
       - publish-github-release:
           requires:
             - build
