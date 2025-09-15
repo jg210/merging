@@ -78,6 +78,9 @@ jobs:
           paths:
             - build
   androidTest:
+    parameters:
+      system_image:
+        type: string
     working_directory: ~/code
     machine:
       image: android:default
@@ -96,9 +99,8 @@ jobs:
       - run:
           name: Create avd
           command: |
-            SYSTEM_IMAGE="system-images;android-36;google_apis;x86_64"
-            sdkmanager "${SYSTEM_IMAGE}"
-            echo "no" | avdmanager --verbose create avd -n test -k "${SYSTEM_IMAGE}"
+            sdkmanager << parameters.system_image >>
+            echo "no" | avdmanager --verbose create avd -n test -k << parameters.system_image >>
       - run:
           name: Launch emulator
           command: |
@@ -167,6 +169,10 @@ workflows:
       - androidTest:
           requires:
             - build
+          matrix:
+            system_image:
+              - system-images;android-36;google_apis;x86_64
+              - system-images;android-23;google_apis;x86_64
       - publish-github-release:
           requires:
             - build
