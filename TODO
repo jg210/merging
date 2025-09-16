@@ -9,6 +9,8 @@
   - save androidTest /home/circleci/code/build/reports/problems/problems-report.html
   - cache android SDK files / AVDs
   - record logcat
+  - ping emulator at end of job (even if job fails
+  - rerun job if ping fails
 
 * git status checks
   - will need to adjust scripts that delete checked-in google-services.json symlinks
