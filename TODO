@@ -3,14 +3,20 @@
   X run the test on Circle CI
     X https://circleci.com/docs/guides/execution-managed/android-machine-image/
   X use specific android machine image on CI
-  - sort out duplicated executor config
-  - add store_test_results steps
   X test on minSdkVersion and latest android version
+  - sort out duplicated executor config
   - save androidTest /home/circleci/code/build/reports/problems/problems-report.html
   - cache android SDK files / AVDs
-  - record logcat
-  - ping emulator at end of job (even if job fails
-  - rerun job if ping fails
+
+* Add store_test_results steps
+  - unit tests
+  - end-to-end tests
+
+* Record logcat when running tests
+
+* Ping emulator at end of job (even if job fails)
+  - circle ci doesn't offer suitable job retries yet
+    - https://circleci.canny.io/cloud-feature-requests/p/job-triggered-retries
 
 * git status checks
   - will need to adjust scripts that delete checked-in google-services.json symlinks
