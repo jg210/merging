@@ -49,12 +49,6 @@ while true ; do
 done
 printf "\n"
 
-log "waiting for init.svs.bootanim to change to stopped"
-while [ "$(getprop init.svc.bootanim)" != "stopped" ] ; do
-  waitLoop
-done
-printf "\n"
-
 log "waiting for package manager"
 while ! adb shell pm path android > /dev/null 2>&1 ; do
   waitLoop
