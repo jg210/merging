@@ -59,7 +59,7 @@ android {
     compileSdk=36
     defaultConfig {
         applicationId "uk.me.jeremygreen.merging2"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 36
         versionCode findVersionCode()
         versionName findVersionName()
