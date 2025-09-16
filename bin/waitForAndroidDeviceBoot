@@ -36,7 +36,7 @@ function getprop() {
 }
 
 log "adb wait-for-device"
-adb wait-for-device
+timeout 300s adb wait-for-device
 
 log "waiting for boot complete prop"
 while true ; do
