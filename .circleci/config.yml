@@ -169,6 +169,9 @@ workflows:
             parameters:
               system_image:
                 - android-36;google_apis;x86_64
+                - android-26;google_apis;x86_64
+                - android-25;google_apis;x86_64
+                - android-24;google_apis;x86_64
                 - android-23;google_apis;x86_64
       - publish-github-release:
           requires:
