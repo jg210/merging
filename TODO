@@ -119,6 +119,8 @@
 
 * App link gives "Item not found" error in play store app if android platform is too old.
 
+* Run shellcheck on CI.
+
 * Better play store text etc.
   - short and long description shouldn't be the same.
 
