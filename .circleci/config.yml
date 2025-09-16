@@ -99,8 +99,8 @@ jobs:
       - run:
           name: Create avd
           command: |
-            sdkmanager system-images;<< parameters.system_image >>
-            echo "no" | avdmanager --verbose create avd -n test -k system-images;<< parameters.system_image >>
+            sdkmanager "system-images;"<< parameters.system_image >>
+            echo "no" | avdmanager --verbose create avd -n test -k "system-images;"<< parameters.system_image >>
       - run:
           name: Launch emulator
           command: |
