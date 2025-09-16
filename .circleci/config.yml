@@ -90,6 +90,7 @@ jobs:
       ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
       ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
       ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
+      SYSTEM_IMAGE: system-images;<< parameters.system_image >>
     steps:
       - checkout
       - attach_workspace:
@@ -99,8 +100,8 @@ jobs:
       - run:
           name: Create avd
           command: |
-            sdkmanager "system-images;"<< parameters.system_image >>
-            echo "no" | avdmanager --verbose create avd -n test -k "system-images;"<< parameters.system_image >>
+            sdkmanager "${SYSTEM_IMAGE}"
+            echo "no" | avdmanager --verbose create avd -n test -k "${SYSTEM_IMAGE}"
       - run:
           name: Launch emulator
           command: |
