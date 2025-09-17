@@ -46,6 +46,7 @@ static String findVersionName() {
 }
 
 def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
+def isCI = System.getenv().containsKey("CI")
 
 // On CI, the files are only created for jobs that really need them, but still need to be
 // able to run unrelated gradle tasks.
@@ -101,6 +102,14 @@ android {
         }
     }
     namespace = 'uk.me.jeremygreen.merging2'
+}
+
+gradleEnterprise {
+    buildScan {
+        uploadInBackground = !isCI
+        termsOfServiceUrl = "https://gradle.com/help/legal-terms-of-use"
+        termsOfServiceAgree = "yes"
+    }
 }
 
 detekt {

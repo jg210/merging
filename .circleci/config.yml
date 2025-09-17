@@ -130,7 +130,7 @@ jobs:
             adb shell settings put global animator_duration_scale 0.0
       - run:
           name: androidTest
-          command: ./gradlew connectedProductDebugAndroidTest
+          command: ./gradlew connectedProductDebugAndroidTest --scan
       - store_artifacts:
           path: app/build/reports
           destination: reports/app
