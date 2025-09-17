@@ -5,7 +5,13 @@
   X use specific android machine image on CI
   X test on minSdkVersion and latest android version
   X save androidTest /home/circleci/code/build/reports/problems/problems-report.html
-  - androidTest jobs seem to be rebuilding app?
+  - androidTest jobs are rebuilding app
+    - try passing google-services.json in workspace
+      - to ensure timestamp same
+    - different machine images?
+      - build with android VM not docker?
+    - different SDKs?
+      - caching likely helps, though seems a little fragile
   - sort out duplicated executor config
   - cache android SDK files / AVDs
 
