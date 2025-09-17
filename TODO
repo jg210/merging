@@ -4,7 +4,7 @@
     X https://circleci.com/docs/guides/execution-managed/android-machine-image/
   X use specific android machine image on CI
   X test on minSdkVersion and latest android version
-  - save androidTest /home/circleci/code/build/reports/problems/problems-report.html
+  X save androidTest /home/circleci/code/build/reports/problems/problems-report.html
   - androidTest jobs seem to be rebuilding app?
   - sort out duplicated executor config
   - cache android SDK files / AVDs
