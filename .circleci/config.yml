@@ -23,8 +23,14 @@ commands:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
-  create_google_services:
+
+jobs:
+  build:
+    working_directory: ~/code
+    executor: android_executor
     steps:
+      - checkout
+      - cache_gradle_dependencies
       - run:
           name: Create google-services.json (develop flavour)
           command: |
@@ -35,15 +41,6 @@ commands:
           command: |
             rm app/src/product/google-services.json # symlink, for local builds
             printf "%s" "${GOOGLE_SERVICES}" | base64 --decode > app/src/product/google-services.json
-
-jobs:
-  build:
-    working_directory: ~/code
-    executor: android_executor
-    steps:
-      - checkout
-      - cache_gradle_dependencies
-      - create_google_services
       - run:
           name: Create release.password
           command: printf "%s\n" "${RELEASE_KEY_PASSWORD:-}" > "${ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE}"
@@ -79,6 +76,8 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
+            - app/src/develop/google-services.json
+            - app/src/product/google-services.json
             - build
             - app/build
   androidTest:
@@ -100,7 +99,6 @@ jobs:
       - attach_workspace:
           at: .
       - cache_gradle_dependencies
-      - create_google_services
       - run:
           name: remove old reports
           command: rm -fR build/reports app/build/reports
