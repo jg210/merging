@@ -109,7 +109,7 @@ jobs:
           at: .
       - cache_gradle_dependencies
       - run:
-          name: remove old reports
+          name: Remove old reports
           command: rm -fR build/reports app/build/reports
       - run:
           name: Create avd
