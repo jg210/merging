@@ -154,7 +154,7 @@ dependencies {
     detektPlugins 'io.nlopez.compose.rules:detekt:0.4.27'
 }
 
-task writeVersionFile {
+tasks.register('writeVersionFile') {
     doLast {
         def versionFile = file("${buildDir}/version")
         versionFile.parentFile.mkdirs()
