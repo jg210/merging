@@ -70,10 +70,10 @@ jobs:
           destination: aabs/app-product-release.aab
       - store_artifacts:
           path: app/build/reports
-          destination: reports/build/app
+          destination: reports/app
       - store_artifacts:
           path: build/reports
-          destination: reports/build/project
+          destination: reports/project
       - store_test_results: # https://circleci.com/docs/2.0/collect-test-data/
           path: app/build/test-results
       - persist_to_workspace:
@@ -127,10 +127,10 @@ jobs:
           command: ./gradlew connectedProductDebugAndroidTest
       - store_artifacts:
           path: app/build/reports
-          destination: reports/androidTest/<< parameters.system_image >>/app
+          destination: reports/app
       - store_artifacts:
           path: build/reports
-          destination: reports/androidTest/<< parameters.system_image >>/project
+          destination: reports/project
       - store_test_results: # https://circleci.com/docs/2.0/collect-test-data/
           path: app/build/outputs/androidTest-results/connected/debug/flavors/product/
 
