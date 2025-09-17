@@ -112,7 +112,7 @@ jobs:
           name: Remove old reports
           command: rm -fR build/reports app/build/reports
       - run:
-          name: Create avd
+          name: Create AVD
           command: |
             sdkmanager "${SYSTEM_IMAGE}"
             echo "no" | avdmanager --verbose create avd -n test -k "${SYSTEM_IMAGE}"
