@@ -1,15 +1,25 @@
 version: 2.1
 
+shared_env_vars: &shared_env_vars
+  JVM_OPTS: -Xmx3200m
+  ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
+  ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
+  ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
+
 executors:
   android_executor:
+    machine:
+      image: android:default
+    resource_class: large
+    environment:
+      <<: *shared_env_vars
+
+  build_executor:
     docker:
       - image: cimg/android:2025.08.1
     resource_class: large
     environment:
-      JVM_OPTS: -Xmx3200m
-      ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
-      ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
-      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
+      <<: *shared_env_vars
 
 commands:
   cache_gradle_dependencies:
@@ -27,7 +37,7 @@ commands:
 jobs:
   build:
     working_directory: ~/code
-    executor: android_executor
+    executor: build_executor
     steps:
       - checkout
       - cache_gradle_dependencies
@@ -85,14 +95,8 @@ jobs:
       system_image:
         type: string
     working_directory: ~/code
-    machine:
-      image: android:default
-    resource_class: large
+    executor: android_executor
     environment:
-      JVM_OPTS: -Xmx3200m
-      ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
-      ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
-      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
       SYSTEM_IMAGE: system-images;<< parameters.system_image >>
     steps:
       - checkout
