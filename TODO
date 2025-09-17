@@ -4,8 +4,9 @@
     X https://circleci.com/docs/guides/execution-managed/android-machine-image/
   X use specific android machine image on CI
   X test on minSdkVersion and latest android version
-  - sort out duplicated executor config
   - save androidTest /home/circleci/code/build/reports/problems/problems-report.html
+  - androidTest jobs seem to be rebuilding app?
+  - sort out duplicated executor config
   - cache android SDK files / AVDs
 
 * Add store_test_results steps
@@ -139,6 +140,10 @@
   - git tag for each release
     - locally before pushing or from CI?
     - ...but something is already adding git tags - what?
+
+* androidTest job is using debug build not release
+  - testBuildType can be set to release
+  - might be issues from obfuscation?
 
 * Google Play store console says, "your app is using an old version of the Google Play developer API".
   - https://android-developers.googleblog.com/2019/03/changes-to-google-play-developer-api.html
