@@ -93,6 +93,8 @@ jobs:
             - app/src/product/google-services.json
             - build
             - app/build
+            - .gradle
+            - app/.gradle
   androidTest:
     parameters:
       system_image:
