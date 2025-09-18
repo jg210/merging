@@ -41,12 +41,14 @@ jobs:
     executor: build_executor
     steps:
       - checkout
-      - restore_cache: # For ~/.gradle directory (Gradle dependencies)
+      - restore_cache:
+          name: Restoring cache - ~/.gradle
           keys:
             - *build_gradle_deps_full
             - *build_gradle_deps_short
             - *build_gradle_deps_base
-      - restore_cache: # For Android SDK components
+      - restore_cache:
+          name: Restoring cache - Android SDK
           keys:
             - *build_android_sdk_full
             - *build_android_sdk_base
@@ -102,10 +104,12 @@ jobs:
             - .gradle
             - app/.gradle
       - save_cache:
+          name: Saving cache - ~/.gradle
           paths:
             - ~/.gradle
           key: *build_gradle_deps_full
       - save_cache:
+          name: Saving cache - Android SDK
           paths:
             - ~/android-sdk
           key: *build_android_sdk_full
@@ -127,6 +131,7 @@ jobs:
       # and cache them for next run. That's not possible if sharing a cache between jobs, since
       # cache entries for each key can only be created, they can't be updated.
       - restore_cache: # For ~/.gradle directory (Gradle dependencies) - try own cache first, then build job's cache
+          name: Restoring cache - ~/.gradle
           keys:
             - *androidTest_gradle_deps_full
             - *androidTest_gradle_deps_short
@@ -134,7 +139,8 @@ jobs:
             - *build_gradle_deps_full
             - *build_gradle_deps_short
             - *build_gradle_deps_base
-      - restore_cache: # For Android SDK components - try own cache first, then build job's cache
+      - restore_cache:
+          name: Restoring cache - Android SDK
           keys:
             - *androidTest_android_sdk_full
             - *androidTest_android_sdk_base
@@ -174,10 +180,12 @@ jobs:
       - store_test_results: # https://circleci.com/docs/2.0/collect-test-data/
           path: app/build/outputs/androidTest-results/connected/debug/flavors/product/
       - save_cache:
+          name: Saving cache - ~/.gradle
           paths:
             - ~/.gradle
           key: androidTest-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
       - save_cache:
+          name: Saving cache - Android SDK
           paths:
             - ~/android-sdk
           key: androidTest-android-sdk-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
