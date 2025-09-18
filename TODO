@@ -6,14 +6,12 @@
   X test on minSdkVersion and latest android version
   X save androidTest /home/circleci/code/build/reports/problems/problems-report.html
   X sort out duplicated env. var. config
-  - androidTest jobs are rebuilding app
-    - try passing google-services.json in workspace
-      - to ensure timestamp same
-    - different machine images?
-      - build with android VM not docker?
-    - different SDKs?
-      - caching likely helps, though seems a little fragile
+  X androidTest jobs are rebuilding app
   - cache android SDK files / AVDs
+    - still downloading SDK components.
+    - need separate cache per SYSTEM_IMAGE
+      - does that mean need to inline the YAML anchors for this cache?
+    - restoration is maybe not much faster than fresh download?
 
 * Add store_test_results steps
   - unit tests
