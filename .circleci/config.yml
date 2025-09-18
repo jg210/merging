@@ -1,5 +1,11 @@
 version: 2.1
 
+# YAML anchors for cache-key checksum strings
+_cache_key_templates:
+  gradle_deps_checksum_full: &gradle_deps_checksum_full "{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}-{{ checksum \"gradle/wrapper/gradle-wrapper.properties\" }}-{{ checksum \"settings.gradle\" }}-{{ checksum \"dependencies.gradle\" }}"
+  gradle_deps_checksum_short: &gradle_deps_checksum_short "{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
+  android_sdk_checksum: &android_sdk_checksum "{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
+
 # Circle CI doesn't offer a git-only way to share env. vars between jobs that use
 # different executors. Instead, add a non-standard shared_env_vars config and
 # use a YAML anchor.
@@ -32,12 +38,12 @@ jobs:
       - checkout
       - restore_cache: # For ~/.gradle directory (Gradle dependencies)
           keys:
-            - build-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
-            - build-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
+            - build-gradle-deps-v1-*gradle_deps_checksum_full
+            - build-gradle-deps-v1-*gradle_deps_checksum_short
             - build-gradle-deps-v1-
       - restore_cache: # For Android SDK components
           keys:
-            - build-android-sdk-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
+            - build-android-sdk-v1-*android_sdk_checksum
             - build-android-sdk-v1-
       - run:
           name: Create google-services.json (develop flavour)
@@ -93,11 +99,11 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
-          key: build-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
+          key: build-gradle-deps-v1-*gradle_deps_checksum_full
       - save_cache:
           paths:
             - ~/android-sdk
-          key: build-android-sdk-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
+          key: build-android-sdk-v1-*android_sdk_checksum
 
   androidTest:
     parameters:
@@ -115,19 +121,19 @@ jobs:
       # a cache from the build job if necessary. That's so this job can download extra dependencies
       # and cache them for next run. That's not possible if sharing a cache between jobs, since
       # cache entries for each key can only be created, they can't be updated.
-      - restore_cache: # For ~/.gradle directory (Gradle dependencies) - try own cache first, then build job's cache
+      - restore_cache: # For ~/.gradle directory (Gradle dependencies)
           keys:
-            - androidTest-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
-            - androidTest-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
+            - androidTest-gradle-deps-v1-*gradle_deps_checksum_full
+            - androidTest-gradle-deps-v1-*gradle_deps_checksum_short
             - androidTest-gradle-deps-v1-
-            - build-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
-            - build-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
+            - build-gradle-deps-v1-*gradle_deps_checksum_full
+            - build-gradle-deps-v1-*gradle_deps_checksum_short
             - build-gradle-deps-v1-
-      - restore_cache: # For Android SDK components - try own cache first, then build job's cache
+      - restore_cache: # For Android SDK components
           keys:
-            - androidTest-android-sdk-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
+            - androidTest-android-sdk-v1-*android_sdk_checksum
             - androidTest-android-sdk-v1-
-            - build-android-sdk-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
+            - build-android-sdk-v1-*android_sdk_checksum
             - build-android-sdk-v1-
       - run:
           name: Remove old reports
@@ -165,11 +171,11 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
-          key: androidTest-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
+          key: androidTest-gradle-deps-v1-*gradle_deps_checksum_full
       - save_cache:
           paths:
             - ~/android-sdk
-          key: androidTest-android-sdk-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
+          key: androidTest-android-sdk-v1-*android_sdk_checksum
 
   publish-github-release:
     docker:
