@@ -8,6 +8,18 @@ _shared_env_vars: &shared_env_vars
   ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
   ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
 
+_cache_keys:
+  build_gradle_deps_full:  &build_gradle_deps_full  "build-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}-{{ checksum \"gradle/wrapper/gradle-wrapper.properties\" }}-{{ checksum \"settings.gradle\" }}-{{ checksum \"dependencies.gradle\" }}"
+  build_gradle_deps_short: &build_gradle_deps_short "build-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
+  build_gradle_deps_base:  &build_gradle_deps_base  "build-gradle-deps-v1-"
+  build_android_sdk_full:  &build_android_sdk_full  "build-android-sdk-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
+  build_android_sdk_base:  &build_android_sdk_base  "build-android-sdk-v1-"
+  androidTest_gradle_deps_full:  &androidTest_gradle_deps_full  "androidTest-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}-{{ checksum \"gradle/wrapper/gradle-wrapper.properties\" }}-{{ checksum \"settings.gradle\" }}-{{ checksum \"dependencies.gradle\" }}"
+  androidTest_gradle_deps_short: &androidTest_gradle_deps_short "androidTest-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
+  androidTest_gradle_deps_base:  &androidTest_gradle_deps_base  "androidTest-gradle-deps-v1-"
+  androidTest_android_sdk_full:  &androidTest_android_sdk_full  "androidTest-android-sdk-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
+  androidTest_android_sdk_base:  &androidTest_android_sdk_base  "androidTest-android-sdk-v1-"
+
 executors:
   android_executor:
     machine:
@@ -31,13 +43,13 @@ jobs:
       - checkout
       - restore_cache: # For ~/.gradle directory (Gradle dependencies)
           keys:
-            - build-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
-            - build-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
-            - build-gradle-deps-v1-
+            - *build_gradle_deps_full
+            - *build_gradle_deps_short
+            - *build_gradle_deps_base
       - restore_cache: # For Android SDK components
           keys:
-            - build-android-sdk-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
-            - build-android-sdk-v1-
+            - *build_android_sdk_full
+            - *build_android_sdk_base
       - run:
           name: Create google-services.json (develop flavour)
           command: |
@@ -92,11 +104,11 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
-          key: build-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
+          key: *build_gradle_deps_full
       - save_cache:
           paths:
             - ~/android-sdk
-          key: build-android-sdk-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
+          key: *build_android_sdk_full
 
   androidTest:
     parameters:
@@ -116,18 +128,18 @@ jobs:
       # cache entries for each key can only be created, they can't be updated.
       - restore_cache: # For ~/.gradle directory (Gradle dependencies) - try own cache first, then build job's cache
           keys:
-            - androidTest-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
-            - androidTest-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
-            - androidTest-gradle-deps-v1-
-            - build-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
-            - build-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
-            - build-gradle-deps-v1-
+            - *androidTest_gradle_deps_full
+            - *androidTest_gradle_deps_short
+            - *androidTest_gradle_deps_base
+            - *build_gradle_deps_full
+            - *build_gradle_deps_short
+            - *build_gradle_deps_base
       - restore_cache: # For Android SDK components - try own cache first, then build job's cache
           keys:
-            - androidTest-android-sdk-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
-            - androidTest-android-sdk-v1-
-            - build-android-sdk-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
-            - build-android-sdk-v1-
+            - *androidTest_android_sdk_full
+            - *androidTest_android_sdk_base
+            - *build_android_sdk_full
+            - *build_android_sdk_base
       - run:
           name: Remove old reports
           command: rm -fR build/reports app/build/reports
