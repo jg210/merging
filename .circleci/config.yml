@@ -7,9 +7,8 @@ _cache_key_templates:
   android_sdk_checksum: &android_sdk_checksum "{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
 
 # Circle CI doesn't offer a git-only way to share env. vars between jobs that use
-# different executors. Instead, add a non-standard shared_env_vars config and
-# use a YAML anchor.
-shared_env_vars: &shared_env_vars
+# different executors. Instead, use a YAML anchor.
+_shared_env_vars: &shared_env_vars
   JVM_OPTS: -Xmx3200m
   ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
   ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
