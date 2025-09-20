@@ -163,7 +163,7 @@ jobs:
           name: Saving cache - ~/.gradle
           paths:
             - ~/.gradle
-          key: androidTest-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
+          key: *androidTest_gradle_deps_full
 
   publish-github-release:
     docker:
