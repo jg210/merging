@@ -12,13 +12,9 @@ _cache_keys:
   build_gradle_deps_full:  &build_gradle_deps_full  "build-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}-{{ checksum \"gradle/wrapper/gradle-wrapper.properties\" }}-{{ checksum \"settings.gradle\" }}-{{ checksum \"dependencies.gradle\" }}"
   build_gradle_deps_short: &build_gradle_deps_short "build-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
   build_gradle_deps_base:  &build_gradle_deps_base  "build-gradle-deps-v1-"
-  build_android_sdk_full:  &build_android_sdk_full  "build-android-sdk-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
-  build_android_sdk_base:  &build_android_sdk_base  "build-android-sdk-v1-"
   androidTest_gradle_deps_full:  &androidTest_gradle_deps_full  "androidTest-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}-{{ checksum \"gradle/wrapper/gradle-wrapper.properties\" }}-{{ checksum \"settings.gradle\" }}-{{ checksum \"dependencies.gradle\" }}"
   androidTest_gradle_deps_short: &androidTest_gradle_deps_short "androidTest-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
   androidTest_gradle_deps_base:  &androidTest_gradle_deps_base  "androidTest-gradle-deps-v1-"
-  androidTest_android_sdk_full:  &androidTest_android_sdk_full  "androidTest-android-sdk-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
-  androidTest_android_sdk_base:  &androidTest_android_sdk_base  "androidTest-android-sdk-v1-"
 
 executors:
   android_executor:
@@ -47,11 +43,6 @@ jobs:
             - *build_gradle_deps_full
             - *build_gradle_deps_short
             - *build_gradle_deps_base
-      - restore_cache:
-          name: Restoring cache - Android SDK
-          keys:
-            - *build_android_sdk_full
-            - *build_android_sdk_base
       - run:
           name: Create google-services.json (develop flavour)
           command: |
@@ -108,11 +99,6 @@ jobs:
           paths:
             - ~/.gradle
           key: *build_gradle_deps_full
-      - save_cache:
-          name: Saving cache - Android SDK
-          paths:
-            - ~/android-sdk
-          key: *build_android_sdk_full
 
   androidTest:
     parameters:
@@ -139,13 +125,6 @@ jobs:
             - *build_gradle_deps_full
             - *build_gradle_deps_short
             - *build_gradle_deps_base
-      - restore_cache:
-          name: Restoring cache - Android SDK
-          keys:
-            - *androidTest_android_sdk_full
-            - *androidTest_android_sdk_base
-            - *build_android_sdk_full
-            - *build_android_sdk_base
       - run:
           name: Remove old reports
           command: rm -fR build/reports app/build/reports
@@ -184,11 +163,6 @@ jobs:
           paths:
             - ~/.gradle
           key: androidTest-gradle-deps-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "dependencies.gradle" }}
-      - save_cache:
-          name: Saving cache - Android SDK
-          paths:
-            - ~/android-sdk
-          key: androidTest-android-sdk-v1-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}
 
   publish-github-release:
     docker:
