@@ -88,6 +88,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
+            # Need to make sure downstream jobs have all the files they need to avoid gradle rebuilding the app.
             - app/src/develop/google-services.json
             - app/src/product/google-services.json
             - build
@@ -116,7 +117,7 @@ jobs:
       # a cache from the build job if necessary. That's so this job can download extra dependencies
       # and cache them for next run. That's not possible if sharing a cache between jobs, since
       # cache entries for each key can only be created, they can't be updated.
-      - restore_cache: # For ~/.gradle directory (Gradle dependencies) - try own cache first, then build job's cache
+      - restore_cache:
           name: Restoring cache - ~/.gradle
           keys:
             - *androidTest_gradle_deps_full
