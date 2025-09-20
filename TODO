@@ -1,22 +1,3 @@
-* End-to-end tests
-  X add minimal test
-  X run the test on Circle CI
-    X https://circleci.com/docs/guides/execution-managed/android-machine-image/
-  X use specific android machine image on CI
-  X test on minSdkVersion and latest android version
-  X save androidTest /home/circleci/code/build/reports/problems/problems-report.html
-  X sort out duplicated env. var. config
-  X androidTest jobs are rebuilding app
-  - cache android SDK files / AVDs
-    - still downloading SDK components.
-    - need separate cache per SYSTEM_IMAGE
-      - does that mean need to inline the YAML anchors for this cache?
-    - restoration is maybe not much faster than fresh download?
-
-* Add store_test_results steps
-  - unit tests
-  - end-to-end tests
-
 * Record logcat when running tests
 
 * Ping emulator at end of job (even if job fails)
