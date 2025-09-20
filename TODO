@@ -1,3 +1,6 @@
+* Pass all files in Circle CI workspace?
+  - less fragile way of avoiding gradle rebuilds in androidTest jobs.
+
 * Record logcat when running tests
 
 * Ping emulator at end of job (even if job fails)
