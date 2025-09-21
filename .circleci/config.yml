@@ -17,16 +17,15 @@ _cache_keys:
   androidTest_gradle_deps_base:  &androidTest_gradle_deps_base  "androidTest-gradle-deps-v1-"
 
 executors:
-  android_executor:
-    machine:
-      image: android:2024.11.1
-    resource_class: large
-    environment:
-      <<: *shared_env_vars
-
   build_executor:
     docker:
       - image: cimg/android:2025.08.1
+    resource_class: large
+    environment:
+      <<: *shared_env_vars
+  android_executor:
+    machine:
+      image: android:2024.11.1
     resource_class: large
     environment:
       <<: *shared_env_vars
