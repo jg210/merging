@@ -19,7 +19,7 @@ _cache_keys:
 executors:
   android_executor:
     machine:
-      image: android:default
+      image: android:2024.11.1
     resource_class: large
     environment:
       <<: *shared_env_vars
