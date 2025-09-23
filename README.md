@@ -16,6 +16,7 @@ It's using:
 * [Fastlane](https://fastlane.tools/) to publish the app to google play store as an internal testing release for every commit on the release branch.
 * [Material Design](https://material.io/design/).
 * [detekt](https://detekt.dev/) for kotlin static analysis.
+* [ShellCheck](https://www.shellcheck.net/) for shell-script static analysis.
 * AndroidComposeTestRule for UI testing.
 
 ## Development Environment

@@ -30,6 +30,9 @@ executors:
     environment:
       <<: *shared_env_vars
 
+orbs:
+  shellcheck: circleci/shellcheck@3.4.0
+
 jobs:
   build:
     working_directory: ~/code
@@ -61,6 +64,11 @@ jobs:
       - run:
           name: gradle check
           command: ./gradlew check
+      - shellcheck/install:
+          version: 0.11.0
+      - run:
+          name: shellcheck
+          command: shellcheck -ax environment bin/.common.sh bin/
       - run:
           name: gradle assembleProduct
           command: ./gradlew assembleProduct
