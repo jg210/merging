@@ -8,7 +8,7 @@ set -o pipefail
 set -o errtrace
 
 # shellcheck source=bin/.common.sh
-source "$(dirname "$0")/.common.sh"
+source "$(dirname "$0")/../.common.sh"
 # shellcheck source=environment
-source "$(dirname "$0")/../environment"
+source "$(dirname "$0")/../../environment"
 exec bundler exec "$(basename "$0")" "$@"
