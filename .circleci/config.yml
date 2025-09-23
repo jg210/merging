@@ -51,7 +51,7 @@ jobs:
           name: Shellcheck
           command: |
             shellcheck -V
-            shellcheck -ax environment bin/.common.sh bin/*
+            find bin -type f -print0 | xargs -0x shellcheck -ax environment
       - run:
           name: Create google-services.json (develop flavour)
           command: |
