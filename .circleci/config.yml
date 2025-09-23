@@ -49,7 +49,9 @@ jobs:
           version: 0.11.0
       - run:
           name: Shellcheck
-          command: shellcheck -ax environment bin/.common.sh bin/*
+          command: |
+            shellcheck -V
+            shellcheck -ax environment bin/.common.sh bin/*
       - run:
           name: Create google-services.json (develop flavour)
           command: |
