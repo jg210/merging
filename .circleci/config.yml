@@ -65,10 +65,11 @@ jobs:
           name: gradle check
           command: ./gradlew check
       - shellcheck/install:
+          name: ShellCheck install
           version: 0.11.0
       - run:
-          name: shellcheck
-          command: shellcheck -ax environment bin/.common.sh bin/
+          name: ShellCheck
+          command: shellcheck -ax environment bin/.common.sh bin/*
       - run:
           name: gradle assembleProduct
           command: ./gradlew assembleProduct
