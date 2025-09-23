@@ -47,11 +47,19 @@ static String findVersionName() {
 
 def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
 
+// On CI, the files are only created for jobs that really need them, but still need to be
+// able to run unrelated gradle tasks.
+def fileContentIfExists(path) {
+    return file(path).exists() ?
+         file(path).getText('UTF-8').trim() :
+         null
+}
+
 android {
     compileSdk=36
     defaultConfig {
         applicationId "uk.me.jeremygreen.merging2"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 36
         versionCode findVersionCode()
         versionName findVersionName()
@@ -64,15 +72,15 @@ android {
     signingConfigs {
         release {
             storeFile releaseStoreFile
-            storePassword file(RELEASE_STORE_PASSWORD_FILE).getText('UTF-8').trim()
-            keyPassword file(RELEASE_KEY_PASSWORD_FILE).getText('UTF-8').trim()
+            storePassword fileContentIfExists(RELEASE_STORE_PASSWORD_FILE)
+            keyPassword fileContentIfExists(RELEASE_KEY_PASSWORD_FILE)
             keyAlias RELEASE_KEY_ALIAS
         }
     }
     buildTypes {
         release {
             if (releaseStoreFile.exists()) {
-                signingConfig signingConfigs.release
+                signingConfig = signingConfigs.release
             }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -92,7 +100,7 @@ android {
             dimension "flavour"
         }
     }
-    namespace 'uk.me.jeremygreen.merging2'
+    namespace = 'uk.me.jeremygreen.merging2'
 }
 
 detekt {
@@ -146,7 +154,7 @@ dependencies {
     detektPlugins 'io.nlopez.compose.rules:detekt:0.4.27'
 }
 
-task writeVersionFile {
+tasks.register('writeVersionFile') {
     doLast {
         def versionFile = file("${buildDir}/version")
         versionFile.parentFile.mkdirs()
