@@ -45,6 +45,11 @@ jobs:
             - *build_gradle_deps_full
             - *build_gradle_deps_short
             - *build_gradle_deps_base
+      - shellcheck/install:
+          version: 0.11.0
+      - run:
+          name: Shellcheck
+          command: shellcheck -ax environment bin/.common.sh bin/*
       - run:
           name: Create google-services.json (develop flavour)
           command: |
@@ -64,11 +69,6 @@ jobs:
       - run:
           name: gradle check
           command: ./gradlew check
-      - shellcheck/install:
-          version: 0.11.0
-      - run:
-          name: Shellcheck
-          command: shellcheck -ax environment bin/.common.sh bin/*
       - run:
           name: gradle assembleProduct
           command: ./gradlew assembleProduct
