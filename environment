@@ -1,6 +1,7 @@
 # -*- mode: shell-script -*-
+# shellcheck shell=bash
 #
-# Copyright (c) 2019-2023 Jeremy Green.
+# Copyright (c) 2019-2025 Jeremy Green.
 
 SOURCE_DIR="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
 
@@ -21,13 +22,14 @@ PATH="${SOURCE_DIR}/bin:${PATH}"
 # https://docs.fastlane.tools/getting-started/ios/setup/#set-up-environment-variables
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
+# shellcheck source=/dev/null
 . "${SOURCE_DIR}/fastlane/completions/completion.bash"
 
 # Android SDK.
 localProperties="${SOURCE_DIR}/local.properties"
 if [ -e "${localProperties}" ] ; then
-    sdkDir=$(egrep '^sdk[.]dir=' "${localProperties}" | cut -d= -f2-)
-    if [ -d ${sdkDir} ] ; then
+    sdkDir=$(grep -E '^sdk[.]dir=' "${localProperties}" | cut -d= -f2-)
+    if [ -d "${sdkDir}" ] ; then
         export ANDROID_SDK_ROOT="${sdkDir}"
         export ANDROID_HOME="${sdkDir}"
         export PATH="${sdkDir}/tools:${sdkDir}/platform-tools:${PATH}"

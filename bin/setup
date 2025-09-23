@@ -7,7 +7,7 @@ set -o nounset
 set -o pipefail
 set -o errtrace
 
-# shellcheck source=./common.sh
+# shellcheck source=bin/.common.sh
 source "$(dirname "$0")/.common.sh"
 SOURCE_DIR="$(dirname "$0")/.."
 cd "${SOURCE_DIR}"
@@ -42,7 +42,7 @@ EOF
 	exit 1
     fi
 fi
-# shellcheck source=../environment
+# shellcheck source=environment
 . "${SOURCE_DIR}/environment"
 bundler install \
 	--binstubs=.bin

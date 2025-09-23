@@ -30,6 +30,9 @@ executors:
     environment:
       <<: *shared_env_vars
 
+orbs:
+  shellcheck: circleci/shellcheck@3.4.0
+
 jobs:
   build:
     working_directory: ~/code
@@ -42,6 +45,13 @@ jobs:
             - *build_gradle_deps_full
             - *build_gradle_deps_short
             - *build_gradle_deps_base
+      - shellcheck/install:
+          version: 0.11.0
+      - run:
+          name: Shellcheck
+          command: |
+            shellcheck -V
+            find bin -type f -print0 | xargs -0x shellcheck -ax environment
       - run:
           name: Create google-services.json (develop flavour)
           command: |
