@@ -220,6 +220,9 @@
 * Can release scripts be run in a dry run mode for all pushes on all branches?
   - to reduce chance of them rotting.
   - https://github.com/tcnksm/ghr doesn't have dry run option
+  - fastlane supply has --validate_only, but...
+    - does it work if re-use version numbers?
+    - could google play object to all the attempts?
 
 * Configure android lint
   - tune priorities.
@@ -239,6 +242,8 @@
 
 * AndroidManifest says app supports RTL.
   - is that correct?
+
+* Fallback CI cache keys for publish-play-store job.
 
 * Allow app's data to be backed up?
   - set allowBackup="true"
