@@ -1,5 +1,4 @@
-* Pass all files in Circle CI workspace?
-  - less fragile way of avoiding gradle rebuilds in androidTest jobs.
+* CI isn't using environment script.
 
 * Record logcat when running tests
 
@@ -218,9 +217,12 @@
 * Use androidx.palette to ensure image overlay visible?
   - dev/image_overlay_palette
 
+* Can release scripts be run in a dry run mode for all pushes on all branches?
+  - to reduce chance of them rotting.
+
 * Configure android lint
   - tune priorities.
-  - make CircleCI fail, if it doesn't already.
+  - make CircleCI fail
 
 * Why wasn't it possible to get coroutine scope like this?
   - https://developer.android.com/topic/libraries/architecture/coroutines#lifecyclescope
@@ -251,3 +253,7 @@
 * Add "Developer page" for app on google play console.
 
 * Move src/main/java to src/main/kotlin?
+
+* Pass all files in Circle CI workspace?
+  - less fragile way of avoiding gradle rebuilds in androidTest jobs.
+  - doesn't look that easy to do this though...
