@@ -56,7 +56,8 @@ jobs:
           name: current release version
           run: |
             . environment
-            versionNumber
+            # Test version is a number.
+            versionNumber | grep -E '^[0-9]+$'
       - run:
           name: fastlane version
           run: |
