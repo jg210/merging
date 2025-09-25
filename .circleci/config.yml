@@ -53,6 +53,16 @@ jobs:
             shellcheck -V
             find bin -type f -print0 | xargs -0x shellcheck -ax environment
       - run:
+          name: current release version
+          run: |
+            . environment
+            versionNumber
+      - run:
+          name: fastlane version
+          run: |
+            . environment
+            fastlane --version
+      - run:
           name: Create google-services.json (develop flavour)
           command: |
             rm app/src/develop/google-services.json # symlink, for local builds
