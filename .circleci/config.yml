@@ -53,13 +53,13 @@ jobs:
             shellcheck -V
             find bin -type f -print0 | xargs -0x shellcheck -ax environment
       - run:
-          name: current release version
+          name: Current release version
           command: |
             . environment
             # Test version is a number.
             versionNumber | grep -E '^[0-9]+$'
       - run:
-          name: fastlane version
+          name: Fastlane version
           command: |
             . environment
             fastlane --version
