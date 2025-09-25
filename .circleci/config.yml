@@ -53,6 +53,12 @@ jobs:
             shellcheck -V
             find bin -type f -print0 | xargs -0x shellcheck -ax environment
       - run:
+          name: Current release version
+          command: |
+            . environment
+            # Test version is a number.
+            versionNumber | grep -E '^[0-9]+$'
+      - run:
           name: Create google-services.json (develop flavour)
           command: |
             rm app/src/develop/google-services.json # symlink, for local builds

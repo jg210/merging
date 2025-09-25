@@ -16,7 +16,6 @@ changelogsDir="$(dirname "$0")/../fastlane/metadata/android/en-GB/changelogs"
 
 find "${changelogsDir}" \
      -name '*.txt' \
-     -name '*.txt' \
      -exec basename '{}' ';' | \
     sed 's/[.]txt$//' | \
     sort -n | \

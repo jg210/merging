@@ -7,8 +7,9 @@ set -o nounset
 set -o pipefail
 set -o errtrace
 
+wrapperDir=$(dirname "$(readlink -e "$0")")
 # shellcheck source=bin/.common.sh
-source "$(dirname "$0")/../.common.sh"
+source "${wrapperDir}/../.common.sh"
 # shellcheck source=environment
-source "$(dirname "$0")/../../environment"
+source "${wrapperDir}/../../environment"
 exec bundler exec "$(basename "$0")" "$@"
