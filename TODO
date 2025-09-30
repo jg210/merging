@@ -12,6 +12,9 @@
 * Single Activity app
   - merge the various activities
   - use JetPack Compose navigation instead
+  - pass functions not navigator into children
+  - use main page as entry point, not onboarding
+  - sub-graph for onboarding
 
 * More end-to-end testing
   - test login flow
