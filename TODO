@@ -11,6 +11,8 @@
 
 * Single Activity app
   - merge the various activities
+  - merge the repeated UI for Scaffold, TopBar etc.
+    - replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
   - use JetPack Compose navigation instead
   - pass functions not navigator into children
   - use main page as entry point, not onboarding
@@ -27,7 +29,6 @@
 
 * Unit tests.
   - write some
-  - run from test server
   - coverage report
 
 * https://developer.android.com/studio/preview/compose-screenshot-testing
@@ -39,8 +40,6 @@
     - e.g. https://plugins.gradle.org/plugin/jp.ntsk.room-schema-docs
 
 * Add Composable diagram to README
-
-* Replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
 
 * Add repository layer between ViewModel and DAOs
 
