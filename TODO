@@ -10,6 +10,8 @@
   - will need to adjust scripts that delete checked-in google-services.json symlinks
 
 * Single Activity app
+  - navigation 3?
+    - in alpha
   - merge the various activities
   - merge the repeated UI for Scaffold, TopBar etc.
     - replace closeMenu function with Item Composable that also deduplicates DropdownMenuItem boilerplate
