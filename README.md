@@ -8,13 +8,16 @@ This work-in-progress kotlin android app will merge photos of faces. Currently, 
 It's using:
 
 * [ML Kit](https://developers.google.com/ml-kit/vision/face-detection) for face feature detection.
+* [JetPack Compose](https://developer.android.com/compose) (migrated from an earlier View-based implementation).
 * [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics/) for crash reporting.
 * [Firebase Analytics](https://firebase.google.com/docs/analytics).
-* [Fresco](https://developers.google.com/ml-kit/) for android Bitmap management.
+* [Coil](https://coil-kt.github.io/coil/) for android Bitmap management.
 * [Circle CI](https://circleci.com/gh/jg210/merging) for automated build, test and continuous delivery [![CircleCI](https://circleci.com/gh/jg210/merging/tree/develop.svg?style=svg)](https://circleci.com/gh/jg210/merging)
 * [Fastlane](https://fastlane.tools/) to publish the app to google play store as an internal testing release for every commit on the release branch.
 * [Material Design](https://material.io/design/).
 * [detekt](https://detekt.dev/) for kotlin static analysis.
+* [ShellCheck](https://www.shellcheck.net/) for shell-script static analysis.
+* AndroidComposeTestRule for UI testing.
 
 ## Development Environment
 

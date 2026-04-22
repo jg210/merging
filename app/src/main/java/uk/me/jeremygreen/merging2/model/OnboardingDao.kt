@@ -4,11 +4,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import uk.me.jeremygreen.merging2.model.entity.Onboarding
 
 @Dao
 internal interface OnboardingDao {
 
-    @Query("SELECT * from onboarding`` WHERE version = :version")
+    @Query("SELECT * from onboarding WHERE version = :version")
     suspend fun findById(version: Long): Onboarding?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

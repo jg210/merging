@@ -1,42 +1,79 @@
-version: 2
-jobs:
-  build:
-    working_directory: ~/code
+version: 2.1
+
+# Circle CI doesn't offer a git-only way to share env. vars between jobs that use
+# different executors. Instead, use a YAML anchor.
+_shared_env_vars: &shared_env_vars
+  JVM_OPTS: -Xmx3200m
+  ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
+  ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
+  ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
+
+_cache_keys:
+  build_gradle_deps_full:  &build_gradle_deps_full  "build-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}-{{ checksum \"gradle/wrapper/gradle-wrapper.properties\" }}-{{ checksum \"settings.gradle\" }}-{{ checksum \"dependencies.gradle\" }}"
+  build_gradle_deps_short: &build_gradle_deps_short "build-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
+  build_gradle_deps_base:  &build_gradle_deps_base  "build-gradle-deps-v1-"
+  androidTest_gradle_deps_full:  &androidTest_gradle_deps_full  "androidTest-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}-{{ checksum \"gradle/wrapper/gradle-wrapper.properties\" }}-{{ checksum \"settings.gradle\" }}-{{ checksum \"dependencies.gradle\" }}"
+  androidTest_gradle_deps_short: &androidTest_gradle_deps_short "androidTest-gradle-deps-v1-{{ checksum \"build.gradle\" }}-{{ checksum \"app/build.gradle\" }}-{{ checksum \"gradle.properties\" }}"
+  androidTest_gradle_deps_base:  &androidTest_gradle_deps_base  "androidTest-gradle-deps-v1-"
+
+executors:
+  build_executor:
     docker:
       - image: cimg/android:2025.08.1
     resource_class: large
     environment:
-      JVM_OPTS: -Xmx3200m
-      ORG_GRADLE_PROJECT_RELEASE_STORE_FILE: /home/circleci/code/release.keystore
-      ORG_GRADLE_PROJECT_RELEASE_STORE_PASSWORD_FILE: /home/circleci/code/release.password
-      ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE: /home/circleci/code/release.password
+      <<: *shared_env_vars
+  android_executor:
+    machine:
+      image: android:2024.11.1
+    resource_class: large
+    environment:
+      <<: *shared_env_vars
+
+orbs:
+  shellcheck: circleci/shellcheck@3.4.0
+
+jobs:
+  build:
+    working_directory: ~/code
+    executor: build_executor
     steps:
       - checkout
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          name: Restoring cache - ~/.gradle
+          keys:
+            - *build_gradle_deps_full
+            - *build_gradle_deps_short
+            - *build_gradle_deps_base
+      - shellcheck/install:
+          version: 0.11.0
       - run:
-          name: Create google-services.json (product flavour)
+          name: Shellcheck
           command: |
-            rm app/src/product/google-services.json # symlink, for local builds
-            printf "%s" "${GOOGLE_SERVICES}" | base64 --decode > app/src/product/google-services.json
+            shellcheck -V
+            find bin -type f -print0 | xargs -0x shellcheck -ax environment
+      - run:
+          name: Current release version
+          command: |
+            . environment
+            # Test version is a number.
+            versionNumber | grep -E '^[0-9]+$'
       - run:
           name: Create google-services.json (develop flavour)
           command: |
             rm app/src/develop/google-services.json # symlink, for local builds
             printf "%s" "${GOOGLE_SERVICES_DEVELOP}" | base64 --decode > app/src/develop/google-services.json
       - run:
+          name: Create google-services.json (product flavour)
+          command: |
+            rm app/src/product/google-services.json # symlink, for local builds
+            printf "%s" "${GOOGLE_SERVICES}" | base64 --decode > app/src/product/google-services.json
+      - run:
           name: Create release.password
           command: printf "%s\n" "${RELEASE_KEY_PASSWORD:-}" > "${ORG_GRADLE_PROJECT_RELEASE_KEY_PASSWORD_FILE}"
       - run:
           name: Create release.keystore
           command: printf "%s" "${RELEASE_KEYSTORE:-}" | base64 --decode > "${ORG_GRADLE_PROJECT_RELEASE_STORE_FILE}"
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - run:
           name: gradle check
           command: ./gradlew check
@@ -46,6 +83,9 @@ jobs:
       - run:
           name: gradle bundleProductRelease
           command: ./gradlew bundleProductRelease
+      - run:
+          name: gradle assembleProductDebugAndroidTest
+          command: ./gradlew assembleProductDebugAndroidTest
       - store_artifacts: # https://circleci.com/docs/2.0/artifacts/
           path: app/build/outputs/apk/product/release/app-product-release.apk
           destination: apks/app-product-release.apk
@@ -54,20 +94,98 @@ jobs:
           destination: aabs/app-product-release.aab
       - store_artifacts:
           path: app/build/reports
-          destination: reports
+          destination: reports/app
+      - store_artifacts:
+          path: build/reports
+          destination: reports/project
       - store_test_results: # https://circleci.com/docs/2.0/collect-test-data/
           path: app/build/test-results
       - persist_to_workspace:
-          root: app/build
+          root: .
           paths:
-            - version
-            - outputs
+            # Need to make sure downstream jobs have all the files they need to avoid gradle rebuilding the app.
+            - app/src/develop/google-services.json
+            - app/src/product/google-services.json
+            - build
+            - app/build
+            - .gradle
+            - app/.gradle
+      - save_cache:
+          name: Saving cache - ~/.gradle
+          paths:
+            - ~/.gradle
+          key: *build_gradle_deps_full
+
+  androidTest:
+    parameters:
+      system_image:
+        type: string
+    working_directory: ~/code
+    executor: android_executor
+    environment:
+      SYSTEM_IMAGE: system-images;<< parameters.system_image >>
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      # Cache restoration uses androidTest-specific cache if possible, falling back to
+      # a cache from the build job if necessary. That's so this job can download extra dependencies
+      # and cache them for next run. That's not possible if sharing a cache between jobs, since
+      # cache entries for each key can only be created, they can't be updated.
+      - restore_cache:
+          name: Restoring cache - ~/.gradle
+          keys:
+            - *androidTest_gradle_deps_full
+            - *androidTest_gradle_deps_short
+            - *androidTest_gradle_deps_base
+            - *build_gradle_deps_full
+            - *build_gradle_deps_short
+            - *build_gradle_deps_base
+      - run:
+          name: Remove old reports
+          command: rm -fR build/reports app/build/reports
+      - run:
+          name: Create AVD
+          command: |
+            sdkmanager "${SYSTEM_IMAGE}"
+            echo "no" | avdmanager --verbose create avd -n test -k "${SYSTEM_IMAGE}"
+      - run:
+          name: Launch emulator
+          command: |
+            emulator -avd test -delay-adb -verbose -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          background: true
+      - run:
+          name: Wait for emulator to start
+          command: bin/waitForAndroidDeviceBoot
+      - run:
+          name: Disable emulator animations
+          command: |
+            adb shell settings put global window_animation_scale 0.0
+            adb shell settings put global transition_animation_scale 0.0
+            adb shell settings put global animator_duration_scale 0.0
+      - run:
+          name: androidTest
+          command: ./gradlew connectedProductDebugAndroidTest
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports/app
+      - store_artifacts:
+          path: build/reports
+          destination: reports/project
+      - store_test_results: # https://circleci.com/docs/2.0/collect-test-data/
+          path: app/build/outputs/androidTest-results/connected/debug/flavors/product/
+      - save_cache:
+          name: Saving cache - ~/.gradle
+          paths:
+            - ~/.gradle
+          key: *androidTest_gradle_deps_full
+
   publish-github-release:
     docker:
       - image: cibuilds/github:0.13
     steps:
       - attach_workspace:
-          at: ./app/build
+          at: .
       - run:
           name: "Publish Release on GitHub"
           command: |
@@ -88,7 +206,7 @@ jobs:
             - ~/.rbenv
           key: rbenv-{{ checksum "Gemfile.lock" }}-{{ checksum "Gemfile" }}-{{ checksum ".ruby-version" }}
       - attach_workspace:
-          at: ./app/build
+          at: .
       - run:
           name: Create google-play-service.json
           command: printf "%s" "${GOOGLE_PLAY_SERVICE_JSON}" | base64 --decode > google-play-service.json
@@ -105,6 +223,14 @@ workflows:
   all:
     jobs:
       - build
+      - androidTest:
+          requires:
+            - build
+          matrix:
+            parameters:
+              system_image:
+                - android-36;google_apis;x86_64
+                - android-26;google_apis;x86_64
       - publish-github-release:
           requires:
             - build
@@ -117,4 +243,3 @@ workflows:
           filters:
             branches:
               only: release
-

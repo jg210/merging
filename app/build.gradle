@@ -1,12 +1,15 @@
 plugins {
     id 'com.android.application'
-    id 'com.google.android.gms.oss-licenses-plugin'
+    id 'org.jetbrains.kotlin.plugin.compose'
+    id 'com.mikepenz.aboutlibraries.plugin'
     id 'kotlin-android'
     id 'com.google.devtools.ksp'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'io.gitlab.arturbosch.detekt'
 }
+
+apply from: '../dependencies.gradle'
 
 static String getBranchName() {
     final branchCommand = ["git", "symbolic-ref", "HEAD", "--short"]
@@ -44,32 +47,40 @@ static String findVersionName() {
 
 def releaseStoreFile = file(RELEASE_STORE_FILE, PathValidation.NONE)
 
+// On CI, the files are only created for jobs that really need them, but still need to be
+// able to run unrelated gradle tasks.
+def fileContentIfExists(path) {
+    return file(path).exists() ?
+         file(path).getText('UTF-8').trim() :
+         null
+}
+
 android {
-    compileSdk 36
+    compileSdk=36
     defaultConfig {
         applicationId "uk.me.jeremygreen.merging2"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 36
         versionCode findVersionCode()
         versionName findVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
-        viewBinding = true
         buildConfig = true
+        compose = true
     }
     signingConfigs {
         release {
             storeFile releaseStoreFile
-            storePassword file(RELEASE_STORE_PASSWORD_FILE).getText('UTF-8').trim()
-            keyPassword file(RELEASE_KEY_PASSWORD_FILE).getText('UTF-8').trim()
+            storePassword fileContentIfExists(RELEASE_STORE_PASSWORD_FILE)
+            keyPassword fileContentIfExists(RELEASE_KEY_PASSWORD_FILE)
             keyAlias RELEASE_KEY_ALIAS
         }
     }
     buildTypes {
         release {
             if (releaseStoreFile.exists()) {
-                signingConfig signingConfigs.release
+                signingConfig = signingConfigs.release
             }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -89,7 +100,7 @@ android {
             dimension "flavour"
         }
     }
-    namespace 'uk.me.jeremygreen.merging2'
+    namespace = 'uk.me.jeremygreen.merging2'
 }
 
 detekt {
@@ -98,40 +109,52 @@ detekt {
 }
 
 dependencies {
-    def lifecycle_version = "2.6.2"
-    def room_version = "2.6.1"
+    def lifecycle_version = "2.9.3"
+    def room_version = "2.7.2"
+    def composeBom = platform('androidx.compose:compose-bom:2025.08.01')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
-    implementation 'androidx.annotation:annotation:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // JetPack Compose
+    implementation composeBom
+    implementation 'androidx.compose.material3:material3'
+    implementation("androidx.compose.runtime:runtime-livedata:1.9.0")
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.activity:activity-compose'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
+    implementation 'androidx.annotation:annotation:1.9.1'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.core:core-ktx:1.17.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:${lifecycle_version}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle_version}"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:${lifecycle_version}"
     implementation "androidx.room:room-ktx:${room_version}"
     implementation "androidx.room:room-runtime:${room_version}"
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'com.facebook.fresco:fresco:3.1.3'
-    // https://github.com/facebook/fresco/issues/2598#issuecomment-1110860661
-    compileOnly 'com.facebook.infer.annotation:infer-annotation:0.18.0'
-    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+    implementation("io.coil-kt.coil3:coil:3.3.0")
+    implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+    implementation platform('com.google.firebase:firebase-bom:34.2.0')
     implementation 'com.google.firebase:firebase-crashlytics' // versioned with BOM
     implementation 'com.google.firebase:firebase-analytics' // versioned with BOM
-    implementation 'com.google.android.gms:play-services-mlkit-face-detection:16.1.4'
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
-    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.android.gms:play-services-mlkit-face-detection:17.1.0'
+    implementation "com.mikepenz:aboutlibraries-compose-m3:${aboutLibsVersion}"
     ksp "androidx.room:room-compiler:${room_version}"
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
     testImplementation "androidx.room:room-testing:${room_version}"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.7.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
+    androidTestImplementation composeBom
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-libraries:1.23.8")
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-rules-ruleauthors:1.23.8")
+    detektPlugins 'io.nlopez.compose.rules:detekt:0.4.27'
 }
 
-task writeVersionFile {
+tasks.register('writeVersionFile') {
     doLast {
         def versionFile = file("${buildDir}/version")
         versionFile.parentFile.mkdirs()

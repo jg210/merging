@@ -1,8 +1,9 @@
 package uk.me.jeremygreen.merging2.model
 
 import androidx.room.Relation
+import uk.me.jeremygreen.merging2.model.entity.Coordinate
 
-internal data class Face(
+internal data class FaceWithCoordinates(
 
     val id: Long,
 

@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging2.model
+package uk.me.jeremygreen.merging2.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

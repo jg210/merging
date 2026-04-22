@@ -1,4 +1,4 @@
-package uk.me.jeremygreen.merging2.model
+package uk.me.jeremygreen.merging2.model.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
     ],
     indices = [Index(value = ["imageId"])]
 )
-internal data class FaceEntity(
+internal data class Face(
 
     @PrimaryKey(autoGenerate = true)
     val id: Long,

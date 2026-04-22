@@ -5,16 +5,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import uk.me.jeremygreen.merging2.model.entity.Face
 
 @Dao
 internal interface FaceDao {
 
     @Transaction
     @Query("SELECT * from faces WHERE imageId = :imageId")
-    fun findById(imageId: Long): LiveData<List<Face>>
+    fun findById(imageId: Long): LiveData<List<FaceWithCoordinates>>
 
     @Insert
-    suspend fun addAll(faces: List<FaceEntity>): List<Long>
+    suspend fun addAll(faces: List<Face>): List<Long>
 
 }
 
