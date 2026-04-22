@@ -10,6 +10,10 @@
   - will need to adjust scripts that delete checked-in google-services.json symlinks
 
 * Single Activity app
+  - currently, have an Activity per screen
+    - hasn't been the recommended way to write an app for a long time
+    - doesn't work well with testing with AndroidComposeTestRule
+      - doesn't work well with multiple Activities.
   - navigation 3?
     - in alpha
   - merge the various activities
